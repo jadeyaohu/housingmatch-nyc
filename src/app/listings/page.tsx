@@ -3,6 +3,8 @@ import { boroughLabel, dict, unitLabel } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
 import { getListings, todayNY } from "@/lib/data/listings";
 import { lifecycle } from "@/lib/import/normalize";
+import { PageViewTracker } from "@/components/analytics/PageViewTracker";
+import { TrackedLink } from "@/components/analytics/TrackedLink";
 
 type SP = Promise<Record<string, string | undefined>>;
 
@@ -30,6 +32,7 @@ export default async function ListingsPage({ searchParams }: { searchParams: SP 
 
   return (
     <>
+      <PageViewTracker lang={lang} />
       <h1 className="text-3xl font-bold tracking-tight">{t.navListings}</h1>
       <form className="mt-6 flex flex-wrap items-end gap-3" aria-label={t.filters}>
         <select name="borough" defaultValue={sp.borough ?? ""} className={select} aria-label={t.boroughs}>
@@ -71,9 +74,9 @@ export default async function ListingsPage({ searchParams }: { searchParams: SP 
                 <dt className="text-stone-500">{t.source}</dt><dd>{l.sourceName ?? "—"}{l.lastVerifiedAt ? ` · ${t.checked} ${l.lastVerifiedAt}` : ""}</dd>
               </dl>
               {l.applicationUrl && (
-                <a href={l.applicationUrl} target="_blank" rel="noopener noreferrer" className="mt-auto pt-4 text-sm font-semibold text-teal-800 underline underline-offset-4">
+                <TrackedLink href={l.applicationUrl} listingId={l.id} from="listings" lang={lang} className="mt-auto pt-4 text-sm font-semibold text-teal-800 underline underline-offset-4">
                   {t.apply} ↗
-                </a>
+                </TrackedLink>
               )}
             </li>
           );

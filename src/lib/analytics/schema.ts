@@ -6,11 +6,8 @@ import { z } from "zod";
  * here (e.g. income, household size, voucher, disability, email) rejects the request.
  */
 
-export const MAX_BODY_BYTES = 8 * 1024; // whole request
-export const MAX_EVENTS_PER_REQUEST = 20;
-
-export const SOURCES = ["direct", "xiaohongshu", "instagram", "wechat", "linkedin", "google", "other"] as const;
-export const COUNT_BUCKETS = ["0", "1-5", "6-20", "20+"] as const;
+import { COUNT_BUCKETS, MAX_BODY_BYTES, MAX_EVENTS_PER_REQUEST, SOURCES } from "./schema-constants";
+export { COUNT_BUCKETS, MAX_BODY_BYTES, MAX_EVENTS_PER_REQUEST, SOURCES };
 
 const base = {
   event_id: z.uuid(),

@@ -1,8 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { BOROUGHS, UNIT_TYPES, type Borough, type Listing, type MatchResult, type UnitType } from "@/lib/types";
 import { boroughLabel, dict, unitLabel, type Lang } from "@/lib/i18n";
 import { StatusBadge } from "./StatusBadge";
+import { TrackedLink } from "./analytics/TrackedLink";
+import { bucket, firstInSession, track } from "@/lib/analytics/client";
 
 type Row = { listing: Listing; result: MatchResult };
 
@@ -35,6 +37,15 @@ export function Matcher({ lang }: { lang: Lang }) {
   const [error, setError] = useState(false);
   const [showUnlikely, setShowUnlikely] = useState(false);
 
+  // Analytics (HN-001 PR1b): anonymous; matcher inputs are never part of any event.
+  const startedRef = useRef(false);
+  const openedRef = useRef(new Set<string>());
+  const markStarted = () => {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    if (firstInSession("matcher_started")) track("matcher_started", {}, lang);
+  };
+
   const toggle = <T,>(arr: T[], v: T, set: (x: T[]) => void) => set(arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
 
   async function submit(e: React.FormEvent) {
@@ -57,7 +68,20 @@ export function Matcher({ lang }: { lang: Lang }) {
         }),
       });
       if (!res.ok) throw new Error();
-      setRows((await res.json()).results);
+      const results: Row[] = (await res.json()).results;
+      setRows(results);
+      openedRef.current = new Set();
+      if (Array.isArray(results)) {
+        track(
+          "matcher_completed",
+          {
+            likely_count: bucket(results.filter((r) => r.result.status === "LIKELY_MATCH").length),
+            review_count: bucket(results.filter((r) => r.result.status === "NEEDS_REVIEW").length),
+            has_borough_pref: boroughs.length > 0,
+          },
+          lang,
+        );
+      }
     } catch {
       setError(true);
     } finally {
@@ -70,7 +94,7 @@ export function Matcher({ lang }: { lang: Lang }) {
 
   return (
     <div className="grid gap-10 lg:grid-cols-[400px_1fr]">
-      <form onSubmit={submit} className="h-fit space-y-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
+      <form onSubmit={submit} onChangeCapture={markStarted} onClickCapture={markStarted} className="h-fit space-y-6 rounded-2xl border border-stone-200 bg-white p-6 shadow-sm">
         <label className="block">
           <span className="text-sm font-medium text-stone-800">{t.householdSize}</span>
           <div className="mt-2 flex items-center gap-3">
@@ -168,7 +192,15 @@ export function Matcher({ lang }: { lang: Lang }) {
                     {listing.unitTypes.length > 0 && " · " + listing.unitTypes.map((u) => unitLabel[lang][u]).join(", ")}
                     {listing.applicationDeadline && ` · ${t.deadline}: ${listing.applicationDeadline}`}
                   </p>
-                  <details className="mt-3 text-sm">
+                  <details
+                    className="mt-3 text-sm"
+                    onToggle={(e) => {
+                      if (e.currentTarget.open && !openedRef.current.has(listing.id)) {
+                        openedRef.current.add(listing.id);
+                        track("listing_details_opened", { listing_id: listing.id }, lang);
+                      }
+                    }}
+                  >
                     <summary className="cursor-pointer font-medium text-teal-800">{t.why}</summary>
                     <ul className="mt-2 space-y-1.5">
                       {result.outcomes.map((o) => (
@@ -188,9 +220,9 @@ export function Matcher({ lang }: { lang: Lang }) {
                     </p>
                   )}
                   {listing.applicationUrl && (
-                    <a href={listing.applicationUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-teal-800 underline underline-offset-4">
+                    <TrackedLink href={listing.applicationUrl} listingId={listing.id} from="results" lang={lang} className="mt-3 inline-block text-sm font-semibold text-teal-800 underline underline-offset-4">
                       {t.apply} ↗
-                    </a>
+                    </TrackedLink>
                   )}
                 </li>
               ))}
