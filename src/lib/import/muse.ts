@@ -23,7 +23,7 @@ export const AMI_CONSISTENCY = 0.01;
 /** Listing table ÷ HPD 2026 table must fall in this range (older years ≈ 0.91–0.96). */
 export const AMI_RATIO_MIN = 0.85;
 export const AMI_RATIO_MAX = 1.02;
-export const STALE_DAYS = 10;
+export const STALE_DAYS = 15;
 export const REMOVE_AFTER_MISSES = 2;
 const MAX_SIZES = 8;
 
