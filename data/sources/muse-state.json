@@ -1,5 +1,444 @@
 {
-  "published": {},
+  "published": {
+    "muse-housing-connect-1333-broadway-apartments-1333-broadway-brookl": {
+      "listing": {
+        "id": "muse-housing-connect-1333-broadway-apartments-1333-broadway-brookl",
+        "listingType": "lottery",
+        "dataSource": "muse",
+        "sourceName": "Housing Connect",
+        "collectedAt": "2026-11-06T02:00:00.000Z",
+        "externalId": null,
+        "projectName": "1333 Broadway Apartments",
+        "borough": "Brooklyn",
+        "address": "1333 Broadway, Brooklyn, NY 11221",
+        "housingProgram": null,
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 104949,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410
+            },
+            "monthlyRent": 2950,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 115749,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410,
+              "3": 198510
+            },
+            "monthlyRent": 3250,
+            "unitCount": 9
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 136012,
+            "maxIncomeByHouseholdSize": {
+              "2": 176410,
+              "3": 198510,
+              "4": 220480,
+              "5": 238160
+            },
+            "monthlyRent": 3800,
+            "unitCount": 10
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 7,
+            "minIncome": 151166,
+            "maxIncomeByHouseholdSize": {
+              "3": 198510,
+              "4": 220480,
+              "5": 238160,
+              "6": 255840,
+              "7": 273520
+            },
+            "monthlyRent": 4200,
+            "unitCount": 6
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-11-27",
+        "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7667",
+        "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7667",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-06",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],130,1,3,115749,{\"1\":154440,\"2\":176410,\"3\":198510},3250]|[[\"2br\"],130,2,5,136012,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},3800]|[[\"3br\"],130,3,7,151166,{\"3\":198510,\"4\":220480,\"5\":238160,\"6\":255840,\"7\":273520},4200]|[[\"studio\"],130,1,2,104949,{\"1\":154440,\"2\":176410},2950]"
+    },
+    "muse-housing-connect-2-10-beach-28th-street-apartments-2-10-b-28-st-far-roc": {
+      "listing": {
+        "id": "muse-housing-connect-2-10-beach-28th-street-apartments-2-10-b-28-st-far-roc",
+        "listingType": "lottery",
+        "dataSource": "muse",
+        "sourceName": "Housing Connect",
+        "collectedAt": "2026-11-06T02:00:00.000Z",
+        "externalId": null,
+        "projectName": "2-10 Beach 28th Street Apartments",
+        "borough": "Queens",
+        "address": "2-10 B 28 St, Far Rockaway, NY 11691",
+        "housingProgram": null,
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 67886,
+            "maxIncomeByHouseholdSize": {
+              "1": 95040,
+              "2": 108560
+            },
+            "monthlyRent": 1812,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 74042,
+            "maxIncomeByHouseholdSize": {
+              "1": 95040,
+              "2": 108560,
+              "3": 122160
+            },
+            "monthlyRent": 1866,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 85214,
+            "maxIncomeByHouseholdSize": {
+              "2": 108560,
+              "3": 122160,
+              "4": 135680,
+              "5": 146560
+            },
+            "monthlyRent": 2052,
+            "unitCount": 5
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-11-27",
+        "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7688",
+        "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7688",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-06",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],80,1,3,74042,{\"1\":95040,\"2\":108560,\"3\":122160},1866]|[[\"2br\"],80,2,5,85214,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2052]|[[\"studio\"],80,1,2,67886,{\"1\":95040,\"2\":108560},1812]"
+    },
+    "muse-housing-connect-1303-hoe-avenue-1303-hoe-ave-bronx-n": {
+      "listing": {
+        "id": "muse-housing-connect-1303-hoe-avenue-1303-hoe-ave-bronx-n",
+        "listingType": "lottery",
+        "dataSource": "muse",
+        "sourceName": "Housing Connect",
+        "collectedAt": "2026-11-06T02:01:00.000Z",
+        "externalId": null,
+        "projectName": "1303 Hoe Avenue",
+        "borough": "Bronx",
+        "address": "1303 Hoe Ave, Bronx, NY 10459",
+        "housingProgram": null,
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 70,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 59280,
+            "maxIncomeByHouseholdSize": {
+              "1": 83160,
+              "2": 94990
+            },
+            "monthlyRent": 1494,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 70,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 63498,
+            "maxIncomeByHouseholdSize": {
+              "1": 83160,
+              "2": 94990,
+              "3": 106890
+            },
+            "monthlyRent": 1548,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 70,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 76149,
+            "maxIncomeByHouseholdSize": {
+              "2": 94990,
+              "3": 106890,
+              "4": 118720,
+              "5": 128240
+            },
+            "monthlyRent": 1764,
+            "unitCount": 4
+          },
+          {
+            "amiPercent": 100,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 84892,
+            "maxIncomeByHouseholdSize": {
+              "1": 118800,
+              "2": 135700
+            },
+            "monthlyRent": 2264,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-11-27",
+        "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7730",
+        "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7730",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-06",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],70,1,3,63498,{\"1\":83160,\"2\":94990,\"3\":106890},1548]|[[\"2br\"],70,2,5,76149,{\"2\":94990,\"3\":106890,\"4\":118720,\"5\":128240},1764]|[[\"studio\"],100,1,2,84892,{\"1\":118800,\"2\":135700},2264]|[[\"studio\"],70,1,2,59280,{\"1\":83160,\"2\":94990},1494]"
+    },
+    "muse-housing-connect-1-gouverneur-lane-1-gouverneur-ln-new-": {
+      "listing": {
+        "id": "muse-housing-connect-1-gouverneur-lane-1-gouverneur-ln-new-",
+        "listingType": "lottery",
+        "dataSource": "muse",
+        "sourceName": "Housing Connect",
+        "collectedAt": "2026-11-06T02:01:00.000Z",
+        "externalId": null,
+        "projectName": "1 Gouverneur Lane",
+        "borough": "Manhattan",
+        "address": "1 Gouverneur Ln, New York, NY 10005",
+        "housingProgram": null,
+        "unitTypes": [
+          "1br",
+          "2br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 40526,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54280,
+              "3": 61080
+            },
+            "monthlyRent": 1056,
+            "unitCount": 33
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 80915,
+            "maxIncomeByHouseholdSize": {
+              "1": 95040,
+              "2": 108560,
+              "3": 122160
+            },
+            "monthlyRent": 2234,
+            "unitCount": 20
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 97063,
+            "maxIncomeByHouseholdSize": {
+              "2": 108560,
+              "3": 122160,
+              "4": 135680,
+              "5": 146560
+            },
+            "monthlyRent": 2664,
+            "unitCount": 20
+          },
+          {
+            "amiPercent": 100,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 94423,
+            "maxIncomeByHouseholdSize": {
+              "1": 118800,
+              "2": 135700
+            },
+            "monthlyRent": 2643,
+            "unitCount": 83
+          },
+          {
+            "amiPercent": 100,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 101109,
+            "maxIncomeByHouseholdSize": {
+              "1": 118800,
+              "2": 135700,
+              "3": 152700
+            },
+            "monthlyRent": 2823,
+            "unitCount": 6
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-11-17",
+        "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7662",
+        "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7662",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-06",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],100,1,3,101109,{\"1\":118800,\"2\":135700,\"3\":152700},2823]|[[\"1br\"],40,1,3,40526,{\"1\":47520,\"2\":54280,\"3\":61080},1056]|[[\"1br\"],80,1,3,80915,{\"1\":95040,\"2\":108560,\"3\":122160},2234]|[[\"2br\"],80,2,5,97063,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2664]|[[\"studio\"],100,1,2,94423,{\"1\":118800,\"2\":135700},2643]"
+    },
+    "muse-housing-connect-36-45-31st-street-apartments-36-45-31-street-asto": {
+      "listing": {
+        "id": "muse-housing-connect-36-45-31st-street-apartments-36-45-31-street-asto",
+        "listingType": "lottery",
+        "dataSource": "muse",
+        "sourceName": "Housing Connect",
+        "collectedAt": "2026-11-06T02:02:00.000Z",
+        "externalId": null,
+        "projectName": "36-45 31st Street Apartments",
+        "borough": "Queens",
+        "address": "36-45 31 Street, Astoria, NY 11106",
+        "housingProgram": null,
+        "unitTypes": [
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 113520,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410,
+              "3": 198510
+            },
+            "monthlyRent": 3059,
+            "unitCount": 12
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-11-26",
+        "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7714",
+        "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7714",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-06",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],130,1,3,113520,{\"1\":154440,\"2\":176410,\"3\":198510},3059]"
+    }
+  },
   "pending": {},
-  "sources": {}
+  "sources": {
+    "Housing Connect": {
+      "lastSuccess": "2026-11-06T02:04:33.094Z",
+      "lastRowCount": 17,
+      "lastRunSkipped": null
+    }
+  }
 }

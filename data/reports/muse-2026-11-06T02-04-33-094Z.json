@@ -1,0 +1,27 @@
+[
+  {
+    "file": "muse-2026-11-05-2103-A.csv",
+    "ranAt": "2026-11-06T02:04:33.094Z",
+    "sources": [
+      {
+        "source": "Housing Connect",
+        "rows": 17,
+        "listings": 5,
+        "accepted": 5,
+        "quarantined": 0,
+        "added": [
+          "muse-housing-connect-1333-broadway-apartments-1333-broadway-brookl",
+          "muse-housing-connect-2-10-beach-28th-street-apartments-2-10-b-28-st-far-roc",
+          "muse-housing-connect-1303-hoe-avenue-1303-hoe-ave-bronx-n",
+          "muse-housing-connect-1-gouverneur-lane-1-gouverneur-ln-new-",
+          "muse-housing-connect-36-45-31st-street-apartments-36-45-31-street-asto"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      }
+    ],
+    "rejections": []
+  }
+]
