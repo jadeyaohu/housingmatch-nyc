@@ -18,6 +18,7 @@ export const OPEN_DATA = {
   buildingsCsv: "https://data.cityofnewyork.us/api/views/nibs-na6y/rows.csv?accessType=DOWNLOAD",
   lotteriesPage: "https://data.cityofnewyork.us/d/vy5i-a666",
   housingConnect: "https://housingconnect.nyc.gov/PublicWeb/",
+  lotteryDetails: (id: string) => `https://housingconnect.nyc.gov/PublicWeb/details/${encodeURIComponent(id)}`,
 };
 
 // HPD income categories as AMI ranges (upper bound inclusive).
@@ -129,7 +130,7 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
       isRerental: false,
       applicationOpenDate: start,
       applicationDeadline: end,
-      applicationUrl: OPEN_DATA.housingConnect,
+      applicationUrl: OPEN_DATA.lotteryDetails(lotteryId),
       sourceUrl: OPEN_DATA.lotteriesPage,
       status: statusFromDates(start, end, today),
       lastVerifiedAt: null,
