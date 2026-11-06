@@ -1,0 +1,46 @@
+RUN A — Housing Connect lotteries
+Schedule: every Wednesday, after 7:00 AM New York time.
+
+You are collecting public NYC affordable housing lottery listings for HousingMatch NYC. Use the attached muse-template.csv as the exact format.
+
+WHAT TO COLLECT
+Go to https://housingconnect.nyc.gov/PublicWeb/search-lotteries (Open Lotteries).
+Open EVERY open lottery's public detail page (the address ends in /details/ and a number) and copy its "Available Units & Requirements" table.
+- record_type: lottery
+- source_name: Housing Connect
+- lottery_id: the number at the end of the detail page address, e.g. 7667 for https://housingconnect.nyc.gov/PublicWeb/details/7667. Always fill this in.
+- name and address: as shown at the top of the page.
+- application_end_date: the date in "Lottery ends ... - <date>". Required for every lottery.
+- application_start_date: only if the page shows it; otherwise blank.
+- If the page says the minimum income may not apply to Section 8 or other rental subsidies, put "voucher holders exempt from minimum income" in notes on the first row.
+
+RULES
+- Only open public pages. Never log in to a housing site, never submit a form or application, never solve a CAPTCHA. If a site asks you to log in or blocks you, skip it.
+- Browse at a normal human pace: one page at a time, a few seconds between pages.
+- Copy only what the page shows. If a value isn't on the page, leave the cell blank. Never estimate, calculate, or fill in from other listings.
+- Copy numbers exactly. You may drop "$" and commas, but never change digits.
+
+OUTPUT
+One CSV with exactly the header row of muse-template.csv, in the same column order:
+record_type,source_name,source_url,collected_at,lottery_id,name,borough,address,application_start_date,application_end_date,apply_url,restrictions,unit_type,ami_percent,household_size_min,household_size_max,min_income,max_income_1,max_income_2,max_income_3,max_income_4,max_income_5,max_income_6,max_income_7,max_income_8,monthly_rent,units_available,notes
+- One row per line of the listing's income table (one per unit size x AMI level). Repeat the listing's details on every row.
+- source_url: the full link of the page you read. collected_at: the date and time you read it, e.g. 2026-11-11T14:30:00-05:00
+- borough: Manhattan, Brooklyn, Queens, Bronx, or Staten Island.
+- Dates: YYYY-MM-DD.
+- restrictions: e.g. "senior 62+", "disability", "veteran", or blank.
+- unit_type: Studio, 1BR, 2BR, 3BR, or 4BR+.
+- ami_percent: the AMI % for that row, e.g. 60. household_size_min / household_size_max: the household-size range for that row.
+- max_income_1 ... max_income_8: maximum income for 1-person ... 8-person households, exactly as printed. Leave blank any size not shown.
+- min_income, monthly_rent, units_available: as printed for that row.
+- notes: short only, e.g. "voucher holders exempt from minimum income", "$75 application fee". Otherwise blank.
+- apply_url: leave blank unless the page links to a separate application page.
+
+UPLOAD
+Name the file muse-YYYY-MM-DD-HHMM-A.csv (date and time you finished).
+Go to https://github.com/jadeyaohu/housingmatch-nyc/upload/main/data/inbox, upload the file, and commit it directly to main with the message "muse run A". Do not change any other file.
+The upload starts the "Update listings" workflow automatically. Open the Actions tab and wait for that run to finish.
+
+REPORT (one short message)
+1. How many listings you read per source, and any source you skipped and why.
+2. Anything you were unsure how to copy.
+3. Whether the "Update listings" run succeeded. If it failed, copy the exact error text.

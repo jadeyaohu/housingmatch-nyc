@@ -12,9 +12,9 @@ Muse ──CSV──► GitHub data/inbox/ ──push──► Action: npm run i
 
 | Run | When | Sources |
 |---|---|---|
-| A — Housing Connect lotteries | daily | every open lottery on Housing Connect's public open-lotteries page |
+| A — Housing Connect lotteries | Wednesdays | every open lottery on Housing Connect's public open-lotteries page |
 | B — Re-rentals | Mon / Wed / Fri | the re-rental sites listed below |
-| C — Waiting lists | Mondays | Mitchell-Lama (city + state) open waiting lists |
+| C — Waiting lists | Wednesdays | Mitchell-Lama (city + state) open waiting lists |
 
 If Muse can't run on a schedule by itself, Claude can run it on a schedule through your desktop app's built-in browser. Your computer needs to be on at the scheduled time.
 
@@ -27,10 +27,14 @@ If Muse can't run on a schedule by itself, Claude can run it on a schedule throu
 | An already-published income table changes | The old table stays up until a second run reads the same new values |
 | A listing disappears from its source | Removed after 2 runs in a row without it |
 | A run looks broken (nothing read, or most rows fail) | That source's run is ignored and the last good data stays up |
-| A source hasn't had a good run in 10 days | Its listings come off the site |
+| A source hasn't had a good run in 15 days | Its listings come off the site |
 | The pipeline itself crashes | GitHub emails you (the only time you hear about it) |
 
-## The prompt (paste into Muse; set `[RUN]` to A, B or C)
+## The prompts
+
+The current, ready-to-paste prompts are in `docs/muse-prompts/` (RUN-A, RUN-B, RUN-C). The combined version below is kept for reference.
+
+## Combined prompt (reference; set `[RUN]` to A, B or C)
 
 > You are collecting public NYC affordable housing listings for HousingMatch NYC. Today's run: **[RUN]**.
 >
