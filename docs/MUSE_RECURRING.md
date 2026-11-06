@@ -12,7 +12,7 @@ Muse ──CSV──► GitHub data/inbox/ ──push──► Action: npm run i
 
 | Run | When | Sources |
 |---|---|---|
-| A — Housing Connect lotteries | Wednesdays | every open lottery on Housing Connect's public open-lotteries page |
+| A — Housing Connect lotteries | Mondays and Thursdays | every open lottery on Housing Connect's public open-lotteries page |
 | B — Re-rentals | Mon / Wed / Fri | the re-rental sites listed below |
 | C — Waiting lists | Wednesdays | Mitchell-Lama (city + state) open waiting lists |
 

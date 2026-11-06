@@ -1,5 +1,5 @@
 RUN A — Housing Connect lotteries
-Schedule: every Wednesday, after 7:00 AM New York time.
+Schedule: every Monday and Thursday, after 7:00 AM New York time.
 
 You are collecting public NYC affordable housing lottery listings for HousingMatch NYC. Use the attached muse-template.csv as the exact format.
 

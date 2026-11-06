@@ -6,7 +6,7 @@
 name: Update listings
 on:
   schedule:
-    - cron: "17 11 * * 3" # Wednesdays ~6am New York
+    - cron: "17 11 * * 1,4" # Mondays and Thursdays ~6am New York
   push:
     branches: [main]
     paths: ["data/inbox/**.csv"]
