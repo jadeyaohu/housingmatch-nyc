@@ -22,9 +22,16 @@ Untouched: `0001_init.sql`, `/api/match`, matching engine, `data/`, importers, `
 1. **Gate**: `ANALYTICS_INGEST_ENABLED` must be exactly `true`. On Vercel production, `ANALYTICS_PRODUCTION_APPROVED=true` is also required. Otherwise the route returns **204** and constructs no DB client or limiter.
 2. **Fail closed**: if the gate is open but the Upstash URL/token, the HMAC secret or the Supabase service config is missing, the route returns **503**. A limiter error also returns 503.
 3. **Noise filters** (these are not security controls): a cross-origin `Origin` gets 403; a bot user agent gets 204.
-4. **Rate limit**: Upstash sliding window of 60 requests/60 s per client, keyed by `HMAC-SHA256(ip, RATE_LIMIT_HMAC_SECRET)`. Over the limit returns **429** with `Retry-After`. Raw IPs are never stored.
-5. **Size and shape**: `application/json` only (415); 8 KB body cap (413); at most 20 events per request; strict schema (400).
-6. **Insert**: upsert with `on conflict (event_id) do nothing`, so retries are idempotent. Returns **202** `{accepted}`.
+4. **Rate limit**: Upstash sliding window of 60 requests/60 s per client, keyed by `HMAC-SHA256(identity, RATE_LIMIT_HMAC_SECRET)`. Over the limit returns **429** with `Retry-After`. Raw IPs are never stored. See *Client identity* below.
+5. **Size and shape**: `application/json` only (415). Content-Length over 8 KB is rejected (413). The body is then read as a **stream with a hard 8 KB cumulative cap**; on overflow the stream is cancelled and the request gets 413, so a missing or falsified Content-Length can't make the server buffer more. At most 20 events per request. Strict schema (400).
+6. **Insert**: upsert with `on conflict (event_id) do nothing`, so retries are idempotent. Returns **202** `{accepted: N}`, where N is the number of validated events **received**. Duplicates are silently ignored by the database, so N is not the number of new rows.
+
+## Client identity for rate limiting
+
+- **On Vercel only** (`VERCEL=1`, set by the platform at runtime): the edge overwrites `X-Forwarded-For` with the connecting client's IP and does not forward caller-supplied values (Trusted Proxy is an Enterprise feature we don't use). `x-vercel-forwarded-for` is the identical copy. We read `x-vercel-forwarded-for`, then `x-forwarded-for`, and accept the value **only if it is exactly one valid IP**. A comma list, garbage or a missing value all fall back to the **shared bucket**.
+- **Anywhere else** (local, self-hosted, CI), no header is trusted and every caller shares one bucket.
+- `x-real-ip` is never used.
+- **Verify on the protected preview before enabling ingestion:** send a request with a fake `x-forwarded-for` and `x-vercel-forwarded-for`, then confirm in the Vercel function log (temporarily log `limiterKey` prefix only, never the IP) that the key doesn't change when only the fake headers change. If Vercel ever passes a caller value through, switch to the shared bucket (one-line change) or keep ingestion off.
 
 ## Configuring secrets (names only, never values)
 
@@ -68,8 +75,12 @@ Protected previews require Vercel authentication, so `curl` needs a protection-b
 
 ## Local tests
 
+CI: `.github/workflows/ci.yml` runs lint, typecheck, tests, build and a client-bundle secret-name scan on every PR to `main`. It is read-only, uses no secrets and doesn't touch `update-listings.yml`.
+
 `npm test` runs everything with no network and no credentials:
 - `schema.test.ts`: allow-list; forbidden matcher/PII keys rejected; buckets, paths, sources, batch cap.
 - `handler.test.ts`: flag-off returns 204 with nothing constructed; production gate; fail-closed 503s; 429 with a controlled limiter; HMAC key never contains the IP; 413/415/400; bot and origin filters.
+  - **Streaming cap:** an undeclared-length ~1 MB chunked body is rejected after reading at most cap + read-ahead; a falsified small Content-Length is rejected too.
+  - **Spoofing:** off Vercel all headers are ignored; `x-real-ip` is never used; rotating a fake leftmost XFF hop can't create new buckets; one client rotating fake headers still gets a 429.
 - `migration.test.ts`: runs 0002 in PGlite with Supabase-like default grants. Covers deny-all for anon/authenticated (tables and purge function), RLS forced with zero policies, constraints, `event_id` dedupe, retention purge with consent cascade, no orphan consents, and a rollback that drops only 0002 objects.
 - `boundaries.test.ts`: no client component touches the server secrets or the store; no `NEXT_PUBLIC_` secrets; the store is `server-only`; `/api/match` doesn't import analytics.

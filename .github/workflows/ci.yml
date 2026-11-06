@@ -1,0 +1,36 @@
+# PR checks: lint, typecheck, unit tests (incl. PGlite migration tests), build.
+# Read-only: no secrets, no deploy, no data commits. Independent of update-listings.yml.
+name: CI
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npx tsc --noEmit
+      - name: Test
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: No server secret names in client bundle
+        run: |
+          if grep -rlE "SUPABASE_SERVICE_ROLE_KEY|RATE_LIMIT_HMAC_SECRET|UPSTASH_REDIS_REST_TOKEN|@upstash" .next/static; then
+            echo "::error::server-only identifiers found in client bundle"; exit 1
+          fi
