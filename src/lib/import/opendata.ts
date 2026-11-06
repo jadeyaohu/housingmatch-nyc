@@ -18,6 +18,7 @@ export const OPEN_DATA = {
   buildingsCsv: "https://data.cityofnewyork.us/api/views/nibs-na6y/rows.csv?accessType=DOWNLOAD",
   lotteriesPage: "https://data.cityofnewyork.us/d/vy5i-a666",
   housingConnect: "https://housingconnect.nyc.gov/PublicWeb/",
+  /** Public lottery detail page; pattern confirmed on housingconnect.nyc.gov (e.g. /details/7729). */
   lotteryDetails: (id: string) => `https://housingconnect.nyc.gov/PublicWeb/details/${encodeURIComponent(id)}`,
 };
 
@@ -113,6 +114,11 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
       .filter(Boolean);
     const address = addresses.length === 0 ? null : addresses.length === 1 ? addresses[0] : `${addresses[0]} + ${addresses.length - 1} more`;
 
+    // Lottery rows sometimes leave Borough blank or say "Multiple"; fall back to the
+    // buildings' borough when they all agree. Otherwise leave it null.
+    const bldBoros = [...new Set(buildings.map((b) => BORO[b["Borough"]]).filter(Boolean))];
+    const borough = BORO[r["Borough"]] ?? (bldBoros.length === 1 ? bldBoros[0] : null);
+
     const start = parseDate(r["Lottery Start Date"]);
     const end = parseDate(r["Lottery End Date"]);
     const total = int(r["Unit Count"]);
@@ -121,7 +127,7 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
       id: `hc-${lotteryId}`,
       externalId: lotteryId,
       projectName: r["Lottery Name"].replace(/\s+/g, " "),
-      borough: BORO[r["Borough"]] ?? null,
+      borough,
       address,
       housingProgram: r["Development Type"] === "Owner" ? "Homeownership" : r["Development Type"] || null,
       unitTypes,

@@ -40,6 +40,7 @@ describe("fromOpenData", () => {
       ["Low Income", 51, 80, 41],
     ]);
     expect(l.eligibilityNotes).toContain("Community board residents 50%");
+    expect(l.applicationUrl).toBe("https://housingconnect.nyc.gov/PublicWeb/details/3249");
   });
 
   it("uses dates, not the lagging status field", () => {
@@ -64,6 +65,13 @@ describe("fromOpenData", () => {
     expect(r.outcomes.find((o) => o.rule === "income")?.reason.en).toMatch(/minimum income/);
   });
 
+  it("falls back to the buildings' borough when the lottery row has none", () => {
+    const [x] = fromOpenData([{ ...row, Borough: "" }], [{ ...building, Borough: "BX" }], today);
+    expect(x.borough).toBe("Bronx");
+    const [y] = fromOpenData([{ ...row, Borough: "Multiple" }], [{ ...building, Borough: "BX" }, { ...building, Borough: "QN" }], today);
+    expect(y.borough).toBeNull();
+  });
+
   it("100% senior set-aside becomes a 62+ restriction", () => {
     const [s] = fromOpenData([{ ...row, "Lottery Senior Percentage": "100" }], [], today);
     expect(s.restrictions).toEqual(["senior_62plus"]);
@@ -72,7 +80,7 @@ describe("fromOpenData", () => {
 
 const lot = "data/opendata/lotteries.csv";
 describe.runIf(existsSync(lot))("real Open Data snapshot", () => {
-  it("imports all 1,754 lotteries", () => {
+  it("imports every lottery in the snapshot", () => {
     const parse = (p: string) => Papa.parse<Record<string, string>>(readFileSync(p, "utf8"), { header: true, skipEmptyLines: true }).data;
     const listings = fromOpenData(parse(lot), parse("data/opendata/buildings.csv"), today);
     expect(listings.length).toBeGreaterThanOrEqual(1754);

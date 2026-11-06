@@ -196,6 +196,12 @@ export function parseMuseRows(rows: RawRow[], now: string): { listings: Listing[
     if (!r.name && !r.source_url) continue;
     const source = r.source_name || "unknown";
     bySource[source] = (bySource[source] ?? 0) + 1;
+    // Housing Connect detail links carry the lottery ID (/PublicWeb/details/7667);
+    // use it when the collector left lottery_id blank so the record merges with Open Data.
+    if (!r.lottery_id) {
+      const m = r.source_url.match(/housingconnect\.nyc\.gov\/PublicWeb\/details\/(\d+)/i);
+      if (m) r.lottery_id = m[1];
+    }
     const key = r.lottery_id ? `hc-${r.lottery_id}` : `muse-${slug(source)}-${slug(r.name || r.source_url)}${r.address ? "-" + slug(r.address).slice(0, 20) : ""}`;
     groups.set(key, [...(groups.get(key) ?? []), r]);
   }
@@ -295,6 +301,15 @@ export function applyRun(state: MuseState, rows: RawRow[], now: string): { state
     for (const l of cand) {
       seen.add(l.id);
       const h = bandsHash(l.incomeBands);
+      // Same page published earlier under a different id (e.g. before its lottery ID
+      // was known): replace it instead of showing the listing twice.
+      for (const [oldId, p] of Object.entries(next.published)) {
+        if (oldId !== l.id && p.listing.sourceUrl === l.sourceUrl) {
+          delete next.published[oldId];
+          delete next.pending[oldId];
+          entry.removed.push(oldId);
+        }
+      }
       const cur = next.published[l.id];
       if (!cur) {
         next.published[l.id] = { listing: l, misses: 0, bandsHash: h };
@@ -369,6 +384,7 @@ export function mergeSources(openData: Listing[], muse: Listing[]): Listing[] {
       dataSource: "muse",
       sourceName: m.sourceName,
       collectedAt: m.collectedAt,
+      borough: m.borough ?? base.borough,
       address: m.address ?? base.address,
       unitTypes: m.unitTypes.length ? m.unitTypes : base.unitTypes,
       incomeBands: m.incomeBands.length ? m.incomeBands : base.incomeBands,

@@ -133,6 +133,26 @@ describe("applyRun auto-publishing", () => {
   });
 });
 
+describe("Housing Connect lottery IDs", () => {
+  const hc = (o: Record<string, string> = {}) =>
+    row({ record_type: "lottery", source_name: "Housing Connect", source_url: "https://housingconnect.nyc.gov/PublicWeb/details/7667", name: "1333 Broadway Apartments", application_end_date: "2026-11-27", ...o });
+
+  it("takes the lottery ID from the detail link when lottery_id is blank", () => {
+    const { listings } = parseMuseRows([hc()], now);
+    expect(listings[0]).toMatchObject({ id: "hc-7667", externalId: "7667" });
+  });
+
+  it("replaces an entry published earlier under a different id for the same page", () => {
+    let s = applyRun(emptyState(), [hc({ source_url: "https://housingconnect.nyc.gov/PublicWeb/details/7667", lottery_id: "" })], now).state;
+    // simulate an old entry keyed by name (how the first test run was stored)
+    const [only] = Object.values(s.published);
+    s = { ...s, published: { "muse-housing-connect-1333-broadway": { ...only, listing: { ...only.listing, id: "muse-housing-connect-1333-broadway" } } } };
+    const r = applyRun(s, [hc()], later(1));
+    expect(Object.keys(r.state.published)).toEqual(["hc-7667"]);
+    expect(r.report.sources[0].removed).toEqual(["muse-housing-connect-1333-broadway"]);
+  });
+});
+
 describe("mergeSources + matching", () => {
   it("a Muse read of a Housing Connect lottery upgrades an Open Data listing to LIKELY_MATCH", () => {
     const [od] = fromOpenData(
