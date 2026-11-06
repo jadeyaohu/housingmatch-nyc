@@ -29,9 +29,54 @@ Each event has: random `event_id`, random `session_id` (UUID in `sessionStorage`
 
 The `track()` API only accepts the typed props above, so callers can't pass anything else. The server re-validates with a strict schema anyway. Listing IDs are pattern-checked client-side, and an event with a bad ID is dropped rather than sent.
 
-## Delivery
+## Delivery (Referer-safe)
 
-`navigator.sendBeacon` (`application/json` Blob) with a `fetch(..., {keepalive: true})` fallback. Fire-and-forget: every failure is swallowed, nothing awaits, and matching never depends on analytics.
+Events are sent with `fetch("/api/events", { method: "POST", keepalive: true, referrerPolicy: "no-referrer", credentials: "omit", cache: "no-store" })`. Delivery is fire-and-forget: every failure is swallowed, and matching never depends on analytics.
+
+- **Why not `sendBeacon`?** A beacon (or a default `fetch`) carries a same-origin `Referer` with the page's **full URL, including the query string**. On `/?...` or `/listings?...` that could leak whatever is in the URL. Codex reproduced this in Chromium (PR #4, P2).
+- The fix is scoped to the analytics request only. The site-wide referrer policy is unchanged.
+- The e2e test includes a control request from the same page and asserts that the control **does** carry the query in its Referer. That proves the analytics assertion is meaningful.
+
+## Per-tab session
+
+`sessionStorage` is copied into tabs opened from a tab, and into "Duplicate tab". Codex reproduced copied `hn_sid` values (PR #4, P2). The handling:
+
+1. On first use, a document reads `hn_sid` and **probes** other live same-origin tabs over a `BroadcastChannel("hn_session")`. It waits up to 150 ms; events fired meanwhile are delayed, never dropped.
+2. A tab that already owns that ID answers `claimed`. The new document then knows it is a copy and **rotates** to a fresh UUID.
+3. A same-tab reload or navigation has no live owner, because the old document is gone or frozen, so it **keeps** its ID.
+4. Once-markers are keyed by session ID (`hn_once:<sid>:matcher_started`). Rotation therefore resets them automatically. Stale `hn_once:*` keys are pruned **by prefix only**, and there is no `sessionStorage.clear()`, so other app keys are untouched.
+
+**Verified in Chromium** (`e2e/tracking.spec.ts`, desktop and 375 px mobile):
+
+| Scenario | Result |
+|---|---|
+| `window.open(url)` | Inherits the storage copy (asserted) and rotates |
+| `window.open(url, "_blank", "noopener")` | Doesn't inherit in current Chromium, and gets its own ID |
+| Tab started with a copy of a live tab's storage (Duplicate tab semantics) | Rotates |
+| Reload | Keeps the ID and doesn't re-send `matcher_started` |
+| Same-tab navigation | Keeps the ID |
+
+**Documented limits:**
+- Playwright can't trigger the browser's native "Duplicate tab" command, so it is simulated by seeding an identical storage copy while the original tab is alive.
+- If the original tab was closed before the copy loads, or the browser lacks `BroadcastChannel`, the copy keeps the inherited ID. That is an over-merge of two sessions, never a leak of data.
+
+## Metric definitions
+
+`matcher_completed` counts are over **all rows returned by `/api/match`**, which is the full eligibility evaluation. They don't depend on borough or bedroom preferences, or on which rows the UI shows. Rows with `matchesPreferences === false` are included.
+
+- `likely_count`: rows with `result.status === "LIKELY_MATCH"`, bucketed.
+- `review_count`: rows with `result.status === "NEEDS_REVIEW"`, bucketed.
+- `has_borough_pref`: at least one borough selected.
+
+A unit test pins this definition using hidden `matchesPreferences: false` rows.
+
+## Attribution precedence
+
+`utm_source` wins over the referrer host. A same-host referrer counts as `direct`, an unknown host maps to `other`, and no signal at all is `direct`. The value is remembered per tab, and a copied tab keeps the opener's channel. Unit tests cover each case.
+
+## Matcher response validation
+
+A `200` whose body lacks a `results` array is treated as an error, before any state update. The UI shows the error message, no results render, and no `matcher_completed` is sent. The request and normal results are unchanged.
 
 ## Tests
 
@@ -45,10 +90,15 @@ The `track()` API only accepts the typed props above, so callers can't pass anyt
 - details and link semantics (hover, right-click, middle-click)
 - the invalid listing ID drop
 - session ID storage and the blocked-storage fallback
-- a sendBeacon throw leaving results and the `/api/match` request unchanged
+- a failed `/api/events` request leaving results and the `/api/match` request unchanged
+- malformed `200` bodies
+- fetch init (`no-referrer`, `omit`, `keepalive`, no beacon)
+- UTM precedence
+- the metric definition
+- session rotation, reload and probe answering
 - **integration:** every browser payload is accepted (202) by the real `handleEvents()`
 
-Browser verification (ad hoc, not committed): Playwright against a local `next start` build, desktop 1280×800 and mobile 375×812 (touch), EN and 中文.
+Earlier ad-hoc browser verification (before the fixes above): Playwright against a local `next start` build, desktop 1280×800 and mobile 375×812 (touch), EN and 中文.
 
 - **Flag on:** the event sequence was exactly `page_view → matcher_started → matcher_completed → listing_details_opened → application_link_clicked → page_view → application_link_clicked`, with one session, the correct language tag, and no PII strings.
 - **Flag off:** no `/api/events` requests at all.

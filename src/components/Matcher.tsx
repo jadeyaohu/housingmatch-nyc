@@ -4,7 +4,7 @@ import { BOROUGHS, UNIT_TYPES, type Borough, type Listing, type MatchResult, typ
 import { boroughLabel, dict, unitLabel, type Lang } from "@/lib/i18n";
 import { StatusBadge } from "./StatusBadge";
 import { TrackedLink } from "./analytics/TrackedLink";
-import { bucket, firstInSession, track } from "@/lib/analytics/client";
+import { bucket, track, trackOncePerSession } from "@/lib/analytics/client";
 
 type Row = { listing: Listing; result: MatchResult };
 
@@ -43,7 +43,7 @@ export function Matcher({ lang }: { lang: Lang }) {
   const markStarted = () => {
     if (startedRef.current) return;
     startedRef.current = true;
-    if (firstInSession("matcher_started")) track("matcher_started", {}, lang);
+    trackOncePerSession("matcher_started", {}, lang);
   };
 
   const toggle = <T,>(arr: T[], v: T, set: (x: T[]) => void) => set(arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
@@ -68,20 +68,23 @@ export function Matcher({ lang }: { lang: Lang }) {
         }),
       });
       if (!res.ok) throw new Error();
-      const results: Row[] = (await res.json()).results;
-      setRows(results);
+      const results: unknown = (await res.json())?.results;
+      // Validate before touching UI state: a malformed 200 must not reach render.
+      if (!Array.isArray(results)) throw new Error("malformed_match_response");
+      const typed = results as Row[];
+      setRows(typed);
       openedRef.current = new Set();
-      if (Array.isArray(results)) {
-        track(
-          "matcher_completed",
-          {
-            likely_count: bucket(results.filter((r) => r.result.status === "LIKELY_MATCH").length),
-            review_count: bucket(results.filter((r) => r.result.status === "NEEDS_REVIEW").length),
-            has_borough_pref: boroughs.length > 0,
-          },
-          lang,
-        );
-      }
+      // Counts cover ALL returned rows (incl. matchesPreferences === false), not only visible ones.
+      // Definition: EventProps["matcher_completed"] in src/lib/analytics/client.ts.
+      track(
+        "matcher_completed",
+        {
+          likely_count: bucket(typed.filter((r) => r.result?.status === "LIKELY_MATCH").length),
+          review_count: bucket(typed.filter((r) => r.result?.status === "NEEDS_REVIEW").length),
+          has_borough_pref: boroughs.length > 0,
+        },
+        lang,
+      );
     } catch {
       setError(true);
     } finally {

@@ -5,13 +5,14 @@ import { COUNT_BUCKETS, MAX_BODY_BYTES, SOURCES } from "./schema-constants";
  * Browser-side anonymous event tracking (HN-001 PR 1b).
  *
  * - Off unless NEXT_PUBLIC_ANALYTICS_ENABLED === "true" (inlined at build). When off, nothing is
- *   sent and sessionStorage is never touched.
+ *   sent and sessionStorage / BroadcastChannel are never touched.
  * - Never throws and never blocks the UI: every failure is swallowed.
- * - Only the allow-listed fields below are ever sent. There is no way to pass free text,
- *   matcher inputs, emails or IPs through this API — callers can only choose an event name and
- *   its typed, enumerated props.
- * - The server (/api/events) is controlled independently by ANALYTICS_INGEST_ENABLED and
- *   re-validates everything.
+ * - Only the allow-listed fields below are ever sent; callers choose an event name and its
+ *   typed, enumerated props — no free text, matcher inputs, emails or IPs can pass through.
+ * - Delivery is `fetch` with `referrerPolicy: "no-referrer"` and `credentials: "omit"`, so the
+ *   request carries no Referer (which would otherwise contain the page's full URL incl. query
+ *   string) and no cookies. `sendBeacon` is deliberately NOT used: it can't control Referer.
+ * - The server (/api/events) is controlled independently by ANALYTICS_INGEST_ENABLED.
  */
 
 type Bucket = (typeof COUNT_BUCKETS)[number];
@@ -19,6 +20,13 @@ type Source = (typeof SOURCES)[number];
 export type EventProps = {
   page_view: Record<string, never>;
   matcher_started: Record<string, never>;
+  /**
+   * Counts are over ALL rows returned by /api/match (the full eligibility evaluation),
+   * independent of the user's borough/bedroom preferences and of what the UI shows:
+   *   likely_count = rows with result.status === "LIKELY_MATCH"
+   *   review_count = rows with result.status === "NEEDS_REVIEW"
+   * (rows with matchesPreferences === false are included). Both are bucketed.
+   */
   matcher_completed: { likely_count: Bucket; review_count: Bucket; has_borough_pref: boolean };
   listing_details_opened: { listing_id: string };
   application_link_clicked: { listing_id: string; from: "results" | "listings" };
@@ -28,8 +36,13 @@ export type EventName = keyof EventProps;
 const SESSION_KEY = "hn_sid";
 const SOURCE_KEY = "hn_src";
 const ONCE_PREFIX = "hn_once:";
+const CHANNEL = "hn_session";
 const PATH_RE = /^\/[A-Za-z0-9/_-]{0,199}$/;
 const LISTING_ID_RE = /^[A-Za-z0-9_-]{1,64}$/;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/** How long a new document waits for another live tab to claim the copied session id. */
+export const SESSION_PROBE_MS = 150;
 
 export function analyticsEnabled(): boolean {
   return process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true";
@@ -42,9 +55,6 @@ export function bucket(n: number): Bucket {
   return "20+";
 }
 
-let memorySession: string | null = null; // fallback when sessionStorage is blocked
-const memoryOnce = new Set<string>();
-
 function storage(): Storage | null {
   try {
     const s = window.sessionStorage;
@@ -55,24 +65,125 @@ function storage(): Storage | null {
   }
 }
 
-/** Random per-tab-session id. Not a cookie, not persistent, not linked to anything else. */
-export function sessionId(): string {
-  const s = storage();
-  let id = s?.getItem(SESSION_KEY) ?? memorySession;
-  if (!id || !/^[0-9a-f-]{36}$/i.test(id)) {
-    id = crypto.randomUUID();
-    try {
-      s?.setItem(SESSION_KEY, id);
-    } catch {}
-    memorySession = id;
+/* ------------------------------------------------------------------------------------------
+ * Per-tab session
+ *
+ * sessionStorage alone is not per-tab: browsers copy it into tabs opened from this one
+ * (window.open / target=_blank links, with or without noopener in Chromium) and into tabs made
+ * with "Duplicate tab". To keep one session per tab:
+ *   1. A new document reads hn_sid and asks other live same-origin tabs over a
+ *      BroadcastChannel whether they own it ("probe").
+ *   2. A tab that has already resolved that id answers "claimed". If anyone claims it, this
+ *      tab is a copy → it rotates to a fresh id.
+ *   3. A same-tab reload or navigation has no live owner (the old document is gone or frozen),
+ *      so it keeps its id.
+ * "Once" markers are keyed by session id (hn_once:<sid>:<name>), so rotating the id resets them
+ * without clearing anything else; stale markers from a copied session are pruned by prefix.
+ * Limits: without BroadcastChannel, or if the original tab was closed before the copy loads,
+ * the copy keeps the inherited id (documented in docs/HN-001_PR1b.md).
+ * ---------------------------------------------------------------------------------------- */
+
+let sessionPromise: Promise<string> | null = null;
+let ownedSid: string | null = null;
+let channel: BroadcastChannel | null = null;
+let memorySid: string | null = null; // fallback when sessionStorage is blocked
+const memoryOnce = new Set<string>();
+
+function openChannel(): BroadcastChannel | null {
+  if (channel) return channel;
+  try {
+    if (typeof BroadcastChannel !== "function") return null;
+    channel = new BroadcastChannel(CHANNEL);
+    channel.addEventListener("message", (e: MessageEvent) => {
+      const d = e.data as { type?: string; sid?: string } | null;
+      if (d?.type === "probe" && ownedSid && d.sid === ownedSid) {
+        try {
+          channel?.postMessage({ type: "claimed", sid: ownedSid });
+        } catch {}
+      }
+    });
+    return channel;
+  } catch {
+    return null;
   }
+}
+
+function isClaimedElsewhere(sid: string): Promise<boolean> {
+  const ch = openChannel();
+  if (!ch) return Promise.resolve(false);
+  return new Promise((resolve) => {
+    let done = false;
+    const finish = (v: boolean) => {
+      if (done) return;
+      done = true;
+      ch.removeEventListener("message", onMsg);
+      resolve(v);
+    };
+    const onMsg = (e: MessageEvent) => {
+      const d = e.data as { type?: string; sid?: string } | null;
+      if (d?.type === "claimed" && d.sid === sid) finish(true);
+    };
+    ch.addEventListener("message", onMsg);
+    try {
+      ch.postMessage({ type: "probe", sid });
+    } catch {
+      finish(false);
+    }
+    setTimeout(() => finish(false), SESSION_PROBE_MS);
+  });
+}
+
+function pruneOnceMarkers(s: Storage | null, sid: string) {
+  if (!s) return;
+  try {
+    const keep = `${ONCE_PREFIX}${sid}:`;
+    const stale: string[] = [];
+    for (let i = 0; i < s.length; i++) {
+      const k = s.key(i);
+      if (k && k.startsWith(ONCE_PREFIX) && !k.startsWith(keep)) stale.push(k);
+    }
+    stale.forEach((k) => s.removeItem(k));
+  } catch {}
+}
+
+function freshSid(s: Storage | null): string {
+  const id = crypto.randomUUID();
+  try {
+    s?.setItem(SESSION_KEY, id);
+  } catch {}
+  memorySid = id;
   return id;
 }
 
-/** True the first time `key` is seen in this tab session, false afterwards. */
-export function firstInSession(key: string): boolean {
-  if (!analyticsEnabled()) return false; // tracking off → never touch storage
-  const k = ONCE_PREFIX + key;
+/** Resolves this tab's session id (rotating it if this tab is a copy). Memoized per document. */
+export function resolveSession(): Promise<string> {
+  if (sessionPromise) return sessionPromise;
+  sessionPromise = (async () => {
+    const s = storage();
+    let stored: string | null = null;
+    try {
+      stored = s?.getItem(SESSION_KEY) ?? memorySid;
+    } catch {
+      stored = memorySid;
+    }
+    let sid: string;
+    if (stored && UUID_RE.test(stored)) {
+      sid = (await isClaimedElsewhere(stored)) ? freshSid(s) : stored;
+    } else {
+      sid = freshSid(s);
+    }
+    memorySid = sid;
+    pruneOnceMarkers(s, sid);
+    ownedSid = sid;
+    openChannel(); // keep listening so later copies of this tab get rotated
+    return sid;
+  })();
+  return sessionPromise;
+}
+
+/** True the first time `name` is marked in this tab session. */
+function markOnce(sid: string, name: string): boolean {
+  const k = `${ONCE_PREFIX}${sid}:${name}`;
   const s = storage();
   if (s) {
     try {
@@ -86,11 +197,17 @@ export function firstInSession(key: string): boolean {
   return true;
 }
 
-/** Maps utm_source / referrer host to an allow-listed channel. Remembered for the tab session. */
+/**
+ * Attribution channel, remembered for the tab session.
+ * Precedence: utm_source (on our own links) wins over the referrer host; neither → "direct".
+ * Same-host referrers are ignored. Values outside the allow-list map to "other".
+ */
 export function detectSource(): Source {
   const s = storage();
-  const saved = s?.getItem(SOURCE_KEY);
-  if (saved && (SOURCES as readonly string[]).includes(saved)) return saved as Source;
+  try {
+    const saved = s?.getItem(SOURCE_KEY);
+    if (saved && (SOURCES as readonly string[]).includes(saved)) return saved as Source;
+  } catch {}
   let src: Source = "direct";
   try {
     const utm = new URLSearchParams(window.location.search).get("utm_source")?.toLowerCase() ?? "";
@@ -132,41 +249,59 @@ function propsValid<N extends EventName>(name: N, props: EventProps[N]): boolean
 function send(body: string) {
   if (new TextEncoder().encode(body).length > MAX_BODY_BYTES) return;
   try {
-    if (typeof navigator !== "undefined" && typeof navigator.sendBeacon === "function") {
-      if (navigator.sendBeacon("/api/events", new Blob([body], { type: "application/json" }))) return;
-    }
-  } catch {}
-  try {
     void fetch("/api/events", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body,
-      keepalive: true,
-      credentials: "same-origin",
+      keepalive: true, // survives navigation, like a beacon
+      referrerPolicy: "no-referrer", // never send the page URL (or its query string)
+      credentials: "omit", // no cookies needed
+      cache: "no-store",
     }).catch(() => {});
   } catch {}
 }
 
-/** Fire-and-forget. Safe to call from any event handler. */
-export function track<N extends EventName>(name: N, props: EventProps[N], lang: Lang): void {
-  if (!analyticsEnabled()) return;
+async function emit<N extends EventName>(name: N, props: EventProps[N], lang: Lang, once: boolean) {
   try {
     if (typeof window === "undefined" || !propsValid(name, props)) return;
+    // Capture page context synchronously, before the async session check.
+    const path = currentPath();
+    const source = detectSource();
+    const sid = await resolveSession();
+    if (once && !markOnce(sid, name)) return;
     const event = {
       event_id: crypto.randomUUID(),
-      session_id: sessionId(),
+      session_id: sid,
       event_name: name,
-      path: currentPath(),
+      path,
       lang: lang === "zh" ? "zh" : "en",
-      source: detectSource(),
+      source,
       props,
     };
     send(JSON.stringify({ events: [event] }));
   } catch {}
 }
 
-/** Test helper: resets in-memory fallbacks. */
+/** Fire-and-forget. Safe to call from any event handler. */
+export function track<N extends EventName>(name: N, props: EventProps[N], lang: Lang): void {
+  if (!analyticsEnabled()) return;
+  void emit(name, props, lang, false);
+}
+
+/** Like track(), but sends at most once per tab session for this event name. */
+export function trackOncePerSession<N extends EventName>(name: N, props: EventProps[N], lang: Lang): void {
+  if (!analyticsEnabled()) return;
+  void emit(name, props, lang, true);
+}
+
+/** Test helper: resets per-document state. */
 export function __resetAnalyticsMemory() {
-  memorySession = null;
+  sessionPromise = null;
+  ownedSid = null;
+  memorySid = null;
   memoryOnce.clear();
+  try {
+    channel?.close();
+  } catch {}
+  channel = null;
 }

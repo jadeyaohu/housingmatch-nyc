@@ -6,5 +6,5 @@ import { defineConfig } from "vitest/config";
 export default defineConfig({
   resolve: { alias: { "@": path.resolve(__dirname, "src") } },
   esbuild: { jsx: "automatic" },
-  test: { exclude: ["node_modules/**", ".next/**"] },
+  test: { exclude: ["node_modules/**", ".next/**", "e2e/**"] },
 });

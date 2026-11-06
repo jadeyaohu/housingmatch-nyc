@@ -11,16 +11,20 @@ import type { EventRow } from "@/lib/analytics/schema";
 
 /**
  * Component + integration tests for HN-001 PR 1b (frontend anonymous tracking).
- * navigator.sendBeacon is captured; /api/match is mocked via fetch.
+ * fetch("/api/events") calls are captured; fetch("/api/match") is answered by `fetchMock`.
  */
 
 type Sent = { event_name: string; props: Record<string, unknown>; lang: string; path: string; session_id: string; source: string; event_id: string };
-let beacons: Blob[] = [];
+type Posted = { body: string; init: RequestInit };
+let beacons: Posted[] = []; // every POST /api/events made by the client
+let eventsFetchImpl: (() => Promise<Response>) | null = null;
 let fetchMock: ReturnType<typeof vi.fn>;
 
+const flush = () => new Promise((r) => setTimeout(r, 10)); // emit() awaits the session check
 async function sent(): Promise<Sent[]> {
+  await flush();
   const out: Sent[] = [];
-  for (const b of beacons) out.push(...(JSON.parse(await b.text()).events as Sent[]));
+  for (const b of beacons) out.push(...(JSON.parse(b.body).events as Sent[]));
   return out;
 }
 const names = async () => (await sent()).map((e) => e.event_name);
@@ -55,12 +59,15 @@ beforeEach(() => {
   sessionStorage.clear();
   __resetAnalyticsMemory();
   beacons = [];
-  Object.defineProperty(navigator, "sendBeacon", {
-    configurable: true,
-    value: vi.fn((_url: string, data: Blob) => (beacons.push(data), true)),
-  });
+  eventsFetchImpl = null;
   fetchMock = vi.fn();
-  vi.stubGlobal("fetch", fetchMock);
+  vi.stubGlobal("fetch", (url: string, init: RequestInit = {}) => {
+    if (url === "/api/events") {
+      beacons.push({ body: String(init.body), init });
+      return eventsFetchImpl ? eventsFetchImpl() : Promise.resolve(new Response(null, { status: 204 }));
+    }
+    return fetchMock(url, init);
+  });
   window.history.replaceState({}, "", "/");
 });
 afterEach(() => {
@@ -80,14 +87,17 @@ describe("feature flag", () => {
   it.each([undefined, "false", "1", "TRUE"])("sends nothing and never touches sessionStorage when NEXT_PUBLIC_ANALYTICS_ENABLED=%s", async (v) => {
     if (v === undefined) delete process.env.NEXT_PUBLIC_ANALYTICS_ENABLED;
     else process.env.NEXT_PUBLIC_ANALYTICS_ENABLED = v;
+    const RealBC = globalThis.BroadcastChannel;
+    const bcSpy = vi.fn();
+    vi.stubGlobal("BroadcastChannel", class extends RealBC { constructor(n: string) { super(n); bcSpy(n); } });
     matchOk();
     render(<><PageViewTracker lang="en" /><Matcher lang="en" /></>);
     fireEvent.change(incomeInput(), { target: { value: "85000" } });
     await submitForm(/see my matches|find my matches|check/i);
     await screen.findByText("Project hc-1");
-    expect(beacons).toHaveLength(0);
-    expect(fetchMock.mock.calls.filter(([u]) => u === "/api/events")).toHaveLength(0);
+    expect(await names()).toEqual([]);
     expect(sessionStorage.length).toBe(0);
+    expect(bcSpy).not.toHaveBeenCalled();
   });
 });
 
@@ -131,7 +141,7 @@ describe("page_view", () => {
 describe("matcher_started", () => {
   it("fires on first interaction only, once per tab session (even across remounts)", async () => {
     render(<Matcher lang="en" />);
-    expect(beacons).toHaveLength(0);
+    expect(await names()).toEqual([]);
     fireEvent.change(incomeInput(), { target: { value: "5" } });
     fireEvent.change(incomeInput(), { target: { value: "50000" } });
     fireEvent.click(screen.getByRole("button", { name: "+" }));
@@ -169,7 +179,7 @@ describe("matcher_completed", () => {
     const done = (await sent()).filter((e) => e.event_name === "matcher_completed");
     expect(done).toHaveLength(1);
     expect(done[0].props).toEqual({ likely_count: "1-5", review_count: "1-5", has_borough_pref: false });
-    const raw = (await Promise.all(beacons.map((b) => b.text()))).join("");
+    const raw = beacons.map((b) => b.body).join("");
     expect(raw).not.toMatch(/85000|annualIncome|income|size|voucher|disability|hasMember/i);
   });
 
@@ -196,6 +206,34 @@ describe("matcher_completed", () => {
     }
   });
 
+  it.each([
+    ["results: null", { results: null }],
+    ["results: {}", { results: {} }],
+    ["results missing", {}],
+    ["body null", null],
+  ])("malformed 200 (%s): shows the error state, renders no results, sends no matcher_completed", async (_l, body) => {
+    fetchMock.mockImplementation(async () => new Response(JSON.stringify(body), { status: 200, headers: { "content-type": "application/json" } }));
+    render(<Matcher lang="en" />);
+    fireEvent.change(incomeInput(), { target: { value: "85000" } });
+    await submitForm(/see my matches|find my matches|check/i);
+    await waitFor(() => expect(fetchMock).toHaveBeenCalled());
+    expect(await screen.findByText(/something went wrong|error|try again/i)).toBeTruthy();
+    expect(screen.queryByRole("list")).toBeNull();
+    expect((await names()).includes("matcher_completed")).toBe(false);
+  });
+
+  it("recovers after a malformed response: the next good response renders and is tracked", async () => {
+    fetchMock.mockImplementationOnce(async () => new Response(JSON.stringify({ results: {} }), { status: 200 }));
+    render(<Matcher lang="en" />);
+    fireEvent.change(incomeInput(), { target: { value: "85000" } });
+    await submitForm(/see my matches|find my matches|check/i);
+    await waitFor(() => expect(fetchMock).toHaveBeenCalledTimes(1));
+    matchOk();
+    await submitForm(/see my matches|find my matches|check/i);
+    expect(await screen.findByText("Project hc-1")).toBeTruthy();
+    expect((await names()).filter((n) => n === "matcher_completed")).toHaveLength(1);
+  });
+
   it("reports has_borough_pref when a borough chip is selected", async () => {
     matchOk([]);
     render(<Matcher lang="en" />);
@@ -207,8 +245,8 @@ describe("matcher_completed", () => {
     expect(done.props).toEqual({ likely_count: "0", review_count: "0", has_borough_pref: true });
   });
 
-  it("tracking never interferes with matching: results render even if sendBeacon throws", async () => {
-    Object.defineProperty(navigator, "sendBeacon", { configurable: true, value: () => { throw new Error("blocked"); } });
+  it("tracking never interferes with matching: results render even if the events request fails", async () => {
+    eventsFetchImpl = () => Promise.reject(new TypeError("blocked by extension"));
     matchOk();
     render(<Matcher lang="en" />);
     fireEvent.change(incomeInput(), { target: { value: "85000" } });
@@ -240,6 +278,7 @@ describe("listing_details_opened and application_link_clicked", () => {
     fireEvent.change(incomeInput(), { target: { value: "85000" } });
     await submitForm(/see my matches|find my matches|check/i);
     await screen.findByText("Project hc-1");
+    await flush();
     beacons = [];
   }
   const openDetails = (i: number, open = true) => {
@@ -250,7 +289,7 @@ describe("listing_details_opened and application_link_clicked", () => {
 
   it("results render sends nothing; expanding details sends one event per listing", async () => {
     await withResults();
-    expect(beacons).toHaveLength(0);
+    expect(await names()).toEqual([]);
     openDetails(0);
     openDetails(0, false); // collapsing sends nothing
     openDetails(0); // re-opening the same listing is not a new event
@@ -266,7 +305,7 @@ describe("listing_details_opened and application_link_clicked", () => {
     await withResults();
     const link = screen.getAllByRole("link")[0];
     fireEvent.mouseOver(link);
-    expect(beacons).toHaveLength(0);
+    expect(await names()).toEqual([]);
     fireEvent.click(link);
     fireEvent(link, new MouseEvent("auxclick", { bubbles: true, button: 1 }));
     fireEvent(link, new MouseEvent("auxclick", { bubbles: true, button: 2 })); // right click: no
@@ -281,7 +320,7 @@ describe("listing_details_opened and application_link_clicked", () => {
 
   it("TrackedLink on the listings page tags from=listings and renders without sending", async () => {
     render(<TrackedLink href="https://example.org/a" listingId="hc-9" from="listings" lang="zh">申请 ↗</TrackedLink>);
-    expect(beacons).toHaveLength(0);
+    expect(await names()).toEqual([]);
     fireEvent.click(screen.getByRole("link", { name: "申请 ↗" }));
     expect((await sent()).map((e) => [e.event_name, e.props, e.lang])).toEqual([["application_link_clicked", { listing_id: "hc-9", from: "listings" }, "zh"]]);
   });
@@ -289,7 +328,7 @@ describe("listing_details_opened and application_link_clicked", () => {
   it("drops an event whose listing id doesn't match the allow-list pattern", async () => {
     render(<TrackedLink href="https://example.org/a" listingId="bad id with spaces" from="listings" lang="en">Apply</TrackedLink>);
     fireEvent.click(screen.getByRole("link", { name: "Apply" }));
-    expect(beacons).toHaveLength(0);
+    expect(await names()).toEqual([]);
   });
 });
 
@@ -337,13 +376,15 @@ describe("session id and payload contract", () => {
       getLimiter: async () => ({ limit: async () => ({ success: true, reset: 0 }) }),
       getStore: () => ({ insert: async (r) => void rows.push(...r) }),
     };
+    await flush();
     expect(beacons.length).toBe(5);
+    await flush();
     for (const b of beacons) {
       const res = await handleEvents(
         new Request("https://housingmatch.test/api/events", {
           method: "POST",
-          headers: { "content-type": b.type, host: "housingmatch.test" },
-          body: await b.text(),
+          headers: { "content-type": (b.init.headers as Record<string, string>)["Content-Type"], host: "housingmatch.test" },
+          body: b.body,
         }),
         deps,
       );
@@ -358,5 +399,120 @@ describe("session id and payload contract", () => {
 describe("bucket()", () => {
   it.each([[0, "0"], [-1, "0"], [NaN, "0"], [1, "1-5"], [5, "1-5"], [6, "6-20"], [20, "6-20"], [21, "20+"], [999, "20+"]])("%s → %s", (n, b) => {
     expect(bucket(n as number)).toBe(b);
+  });
+});
+
+describe("delivery privacy (unit; real-browser proof lives in e2e/)", () => {
+  it("sends with fetch keepalive, no Referer, no credentials, no beacon", async () => {
+    const beacon = vi.fn(() => true);
+    Object.defineProperty(navigator, "sendBeacon", { configurable: true, value: beacon });
+    window.history.replaceState({}, "", "/listings?income=85000&name=Jane");
+    render(<PageViewTracker lang="en" />);
+    await flush();
+    expect(beacon).not.toHaveBeenCalled();
+    expect(beacons).toHaveLength(1);
+    expect(beacons[0].init).toMatchObject({ method: "POST", keepalive: true, referrerPolicy: "no-referrer", credentials: "omit" });
+    expect(beacons[0].body).not.toMatch(/income|85000|Jane|\?/);
+  });
+});
+
+describe("attribution precedence", () => {
+  const setReferrer = (v: string) => Object.defineProperty(document, "referrer", { configurable: true, value: v });
+  afterEach(() => setReferrer(""));
+
+  it("utm_source wins over the referrer", async () => {
+    setReferrer("https://www.instagram.com/p/abc");
+    window.history.replaceState({}, "", "/?utm_source=xiaohongshu");
+    render(<PageViewTracker lang="en" />);
+    expect((await sent())[0].source).toBe("xiaohongshu");
+  });
+
+  it("falls back to the referrer host, ignores same-host referrers, maps unknown hosts to other", async () => {
+    const cases: [string, string][] = [
+      ["https://www.instagram.com/p/abc", "instagram"],
+      [`${window.location.origin}/listings`, "direct"],
+      ["https://news.example.com/x", "other"],
+      ["", "direct"],
+    ];
+    for (const [ref, want] of cases) {
+      cleanup();
+      sessionStorage.clear();
+      __resetAnalyticsMemory();
+      beacons = [];
+      setReferrer(ref);
+      render(<PageViewTracker lang="en" />);
+      expect((await sent())[0].source, ref).toBe(want);
+    }
+  });
+});
+
+describe("match-count metric definition", () => {
+  it("counts ALL returned rows by status, including matchesPreferences=false rows hidden in the UI", async () => {
+    const hidden = (id: string, status: "LIKELY_MATCH" | "NEEDS_REVIEW") => {
+      const r = listing(id, status);
+      r.result.matchesPreferences = false;
+      return r;
+    };
+    matchOk([listing("hc-1", "LIKELY_MATCH"), hidden("hc-2", "LIKELY_MATCH"), hidden("hc-3", "NEEDS_REVIEW"), listing("hc-4", "UNLIKELY_MATCH")]);
+    render(<Matcher lang="en" />);
+    fireEvent.change(incomeInput(), { target: { value: "85000" } });
+    await submitForm(/see my matches|find my matches|check/i);
+    await screen.findByText("Project hc-1");
+    expect(screen.queryByText("Project hc-2")).toBeNull(); // hidden by preferences
+    const done = (await sent()).find((e) => e.event_name === "matcher_completed")!;
+    expect(done.props).toEqual({ likely_count: "1-5", review_count: "1-5", has_borough_pref: false });
+  });
+});
+
+describe("per-tab session (unit; real-browser proof lives in e2e/)", () => {
+  const COPIED = "11111111-2222-4333-8444-555555555555";
+  function otherTabOwning(sid: string) {
+    const ch = new BroadcastChannel("hn_session");
+    ch.onmessage = (e) => {
+      if (e.data?.type === "probe" && e.data.sid === sid) ch.postMessage({ type: "claimed", sid });
+    };
+    return ch;
+  }
+  const seedCopiedStorage = () => {
+    sessionStorage.setItem("hn_sid", COPIED);
+    sessionStorage.setItem(`hn_once:${COPIED}:matcher_started`, "1");
+    sessionStorage.setItem("unrelated_app_state", "keep-me");
+  };
+
+  it("a copied tab (another live tab owns the id) rotates its id and resets the once marker, without clearing other keys", async () => {
+    seedCopiedStorage();
+    const owner = otherTabOwning(COPIED);
+    try {
+      render(<Matcher lang="en" />);
+      fireEvent.click(screen.getByRole("button", { name: "+" }));
+      await waitFor(async () => expect(await names()).toEqual(["matcher_started"]), { timeout: 2000 });
+      const [e] = await sent();
+      expect(e.session_id).not.toBe(COPIED);
+      expect(sessionStorage.getItem("hn_sid")).toBe(e.session_id);
+      expect(sessionStorage.getItem(`hn_once:${COPIED}:matcher_started`)).toBeNull(); // stale marker pruned
+      expect(sessionStorage.getItem(`hn_once:${e.session_id}:matcher_started`)).toBe("1");
+      expect(sessionStorage.getItem("unrelated_app_state")).toBe("keep-me");
+    } finally {
+      owner.close();
+    }
+  });
+
+  it("a same-tab reload (no live owner) keeps the id and still honours the once marker", async () => {
+    seedCopiedStorage();
+    render(<><PageViewTracker lang="en" /><Matcher lang="en" /></>);
+    fireEvent.click(screen.getByRole("button", { name: "+" }));
+    await waitFor(async () => expect(await names()).toEqual(["page_view"]), { timeout: 2000 });
+    expect((await sent())[0].session_id).toBe(COPIED);
+    expect(sessionStorage.getItem("unrelated_app_state")).toBe("keep-me");
+  });
+
+  it("answers probes for its own id so later copies of this tab rotate", async () => {
+    render(<PageViewTracker lang="en" />);
+    const sid = (await sent())[0].session_id;
+    const probe = new BroadcastChannel("hn_session");
+    const reply = new Promise((r) => (probe.onmessage = (e) => r(e.data)));
+    probe.postMessage({ type: "probe", sid });
+    await expect(reply).resolves.toEqual({ type: "claimed", sid });
+    probe.close();
   });
 });
