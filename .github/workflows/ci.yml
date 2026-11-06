@@ -2,8 +2,8 @@
 # Read-only: no secrets, no deploy, no data commits. Independent of update-listings.yml.
 name: CI
 on:
+  # All PRs, including stacked PRs whose base is another feature branch (e.g. PR 1b → PR 1a).
   pull_request:
-    branches: [main]
   workflow_dispatch: {}
 permissions:
   contents: read
