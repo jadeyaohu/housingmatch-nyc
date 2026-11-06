@@ -49,6 +49,37 @@ export function rateLimitConfigured(env: Env): boolean {
   return Boolean(env.UPSTASH_REDIS_REST_URL && env.UPSTASH_REDIS_REST_TOKEN && env.RATE_LIMIT_HMAC_SECRET);
 }
 
+/** Upstash call budget. On timeout the SDK *allows* the request; we convert that to an error below. */
+export const UPSTASH_TIMEOUT_MS = 2000;
+
+export class LimiterUnavailableError extends Error {
+  constructor(reason: string) {
+    super(`rate_limiter_unavailable:${reason}`);
+    this.name = "LimiterUnavailableError";
+  }
+}
+
+type UpstashResult = { success: boolean; reset: number; reason?: string };
+
+/**
+ * Maps an Upstash Ratelimit response to our fail-closed contract.
+ *
+ * The SDK resolves `{ success: true, reason: "timeout" }` when Redis doesn't answer within
+ * `timeout` ms (it fails OPEN by design). We treat that, and any other success-with-a-reason
+ * soft path we don't explicitly recognise, as "limiter unavailable" → the handler returns 503
+ * and never writes. A real denial (`success: false`, incl. reason "cacheBlock"/"denyList")
+ * stays a denial → 429. Only `success: true` with no reason (Redis actually counted) admits.
+ */
+export function interpretUpstashResult(r: UpstashResult): { success: boolean; reset: number } {
+  if (r.reason === "timeout") throw new LimiterUnavailableError("timeout");
+  if (r.success === true) {
+    if (r.reason !== undefined) throw new LimiterUnavailableError(`unexpected_reason:${r.reason}`);
+    return { success: true, reset: r.reset };
+  }
+  if (r.success === false) return { success: false, reset: r.reset };
+  throw new LimiterUnavailableError("malformed_response");
+}
+
 /** Builds the real Upstash limiter. Only called when ingestion is enabled and configured. */
 export async function createUpstashLimiter(env: Env): Promise<Limiter> {
   const [{ Ratelimit }, { Redis }] = await Promise.all([import("@upstash/ratelimit"), import("@upstash/redis")]);
@@ -57,9 +88,7 @@ export async function createUpstashLimiter(env: Env): Promise<Limiter> {
     limiter: Ratelimit.slidingWindow(EVENTS_LIMIT.requests, EVENTS_LIMIT.window),
     prefix: "hn001",
     analytics: false,
+    timeout: UPSTASH_TIMEOUT_MS,
   });
-  return { limit: async (key) => {
-    const r = await rl.limit(key);
-    return { success: r.success, reset: r.reset };
-  } };
+  return { limit: async (key) => interpretUpstashResult(await rl.limit(key)) };
 }

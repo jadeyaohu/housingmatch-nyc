@@ -26,6 +26,22 @@ Untouched: `0001_init.sql`, `/api/match`, matching engine, `data/`, importers, `
 5. **Size and shape**: `application/json` only (415). Content-Length over 8 KB is rejected (413). The body is then read as a **stream with a hard 8 KB cumulative cap**; on overflow the stream is cancelled and the request gets 413, so a missing or falsified Content-Length can't make the server buffer more. At most 20 events per request. Strict schema (400).
 6. **Insert**: upsert with `on conflict (event_id) do nothing`, so retries are idempotent. Returns **202** `{accepted: N}`, where N is the number of validated events **received**. Duplicates are silently ignored by the database, so N is not the number of new rows.
 
+## Upstash SDK timeout (fails open by default) and how we close it
+
+By default, `@upstash/ratelimit` **allows** a request when Redis doesn't answer in time. It resolves `{ success: true, reason: "timeout" }` after its `timeout` (default 5000 ms). Codex flagged this as P1 on PR #3, because the adapter originally forwarded only `success`.
+
+The fix lives in `interpretUpstashResult()` (`src/lib/analytics/ratelimit.ts`):
+
+| SDK response | Our result | HTTP |
+|---|---|---|
+| `success: true`, no `reason` (Redis counted) | allow | 202 |
+| `success: true`, `reason: "timeout"` | **limiter unavailable** (throws) | **503**, no write |
+| `success: true` with any other `reason` (unrecognised soft path) | limiter unavailable | 503, no write |
+| `success: false` (any reason, incl. `cacheBlock`, `denyList`) | deny | 429 |
+| Malformed response | limiter unavailable | 503 |
+
+The SDK `timeout` is set explicitly to **2000 ms**, which bounds latency. Regression tests in `ratelimit.upstash.test.ts` mock the SDK modules and run the **real adapter**, both directly and through `handleEvents()`.
+
 ## Client identity for rate limiting
 
 - **On Vercel only** (`VERCEL=1`, set by the platform at runtime): the edge overwrites `X-Forwarded-For` with the connecting client's IP and does not forward caller-supplied values (Trusted Proxy is an Enterprise feature we don't use). `x-vercel-forwarded-for` is the identical copy. We read `x-vercel-forwarded-for`, then `x-forwarded-for`, and accept the value **only if it is exactly one valid IP**. A comma list, garbage or a missing value all fall back to the **shared bucket**.
@@ -81,6 +97,7 @@ CI: `.github/workflows/ci.yml` runs lint, typecheck, tests, build and a client-b
 - `schema.test.ts`: allow-list; forbidden matcher/PII keys rejected; buckets, paths, sources, batch cap.
 - `handler.test.ts`: flag-off returns 204 with nothing constructed; production gate; fail-closed 503s; 429 with a controlled limiter; HMAC key never contains the IP; 413/415/400; bot and origin filters.
   - **Streaming cap:** an undeclared-length ~1 MB chunked body is rejected after reading at most cap + read-ahead; a falsified small Content-Length is rejected too.
+- `ratelimit.upstash.test.ts`: covers the SDK timeout fail-open. With mocked `@upstash/ratelimit`, `{ success: true, reason: "timeout" }` makes the adapter throw, `handleEvents` returns 503, and the store is never called. Unknown soft reasons and malformed responses also return 503. A normal success returns 202. Real denials (no reason / `cacheBlock` / `denyList`) return 429.
   - **Spoofing:** off Vercel all headers are ignored; `x-real-ip` is never used; rotating a fake leftmost XFF hop can't create new buckets; one client rotating fake headers still gets a 429.
 - `migration.test.ts`: runs 0002 in PGlite with Supabase-like default grants. Covers deny-all for anon/authenticated (tables and purge function), RLS forced with zero policies, constraints, `event_id` dedupe, retention purge with consent cascade, no orphan consents, and a rollback that drops only 0002 objects.
 - `boundaries.test.ts`: no client component touches the server secrets or the store; no `NEXT_PUBLIC_` secrets; the store is `server-only`; `/api/match` doesn't import analytics.
