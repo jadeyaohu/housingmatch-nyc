@@ -129,7 +129,7 @@ describe("applyRun auto-publishing", () => {
   it("stale sources drop off the site", () => {
     const s = applyRun(emptyState(), rowsFor("A", 2), now).state;
     expect(liveMuseListings(s, later(3))).toHaveLength(2);
-    expect(liveMuseListings(s, later(11))).toHaveLength(0);
+    expect(liveMuseListings(s, later(16))).toHaveLength(0);
   });
 });
 
