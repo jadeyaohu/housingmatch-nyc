@@ -205,3 +205,87 @@ describe.runIf(existsSync(snapshot))("current snapshot (read-only)", () => {
     }
   });
 });
+
+describe("restriction copy (PO-approved neutral wording; copy-only)", () => {
+  const COPY = {
+    veteran: {
+      en: "This lottery may have veteran-related preferences or eligibility rules; check the official listing.",
+      zh: "该项目涉及退伍军人相关优先权或资格规定，请查看官方要求。",
+    },
+    student: {
+      en: "This lottery may have student-related eligibility rules; check the official listing.",
+      zh: "该项目涉及学生身份相关规定，请查看官方要求。",
+    },
+    other: {
+      en: "This lottery may have other special eligibility rules; check the official listing.",
+      zh: "该项目可能存在其他特殊申请规定，请查看官方要求。",
+    },
+  };
+  const withR = (restrictions: string[], h: Partial<Household> = {}) =>
+    rule(m({ ...F3, restrictions: restrictions as Listing["restrictions"] }, { ...HH_3_85K, ...h }).outcomes, "restrictions");
+
+  it.each([
+    [["veteran"], COPY.veteran],
+    [["student"], COPY.student],
+    [["some_future_code"], COPY.other],
+  ] as const)("%j → exact neutral sentence in EN and 中文, still unknown", (codes, want) => {
+    const o = withR([...codes]);
+    expect(o.result).toBe("unknown");
+    expect(o.reason).toEqual(want);
+  });
+
+  it("never exposes a raw restriction code, in any combination", () => {
+    const codes = ["veteran", "student", "some_future_code", "senior_62plus", "senior_55plus", "disability"];
+    for (let mask = 1; mask < 1 << codes.length; mask++) {
+      const set = codes.filter((_, i) => mask & (1 << i));
+      for (const h of [{}, { hasMember62Plus: true, hasMember55Plus: true, hasDisability: true }, { hasMember62Plus: false, hasDisability: false }]) {
+        const o = withR(set, h);
+        for (const t of [o.reason.en, o.reason.zh]) {
+          expect(t, set.join("+")).not.toMatch(/veteran(?!-related)|\bstudent\b(?!-related)|some_future_code|senior_62plus|senior_55plus|_/);
+          expect(t.trim()).not.toBe("");
+        }
+      }
+    }
+  });
+
+  it("status logic is unchanged: unlabelled codes are always unknown; labelled codes keep pass/fail/unknown", () => {
+    // reference: the pre-change rule's result computation
+    const ref = (set: string[], h: Partial<Household>) => {
+      const hh = { ...HH_3_85K, ...h };
+      const ok = set.map((x) =>
+        x === "senior_62plus" ? hh.hasMember62Plus : x === "senior_55plus" ? (hh.hasMember55Plus ?? hh.hasMember62Plus) : x === "disability" ? hh.hasDisability : null,
+      );
+      return ok.some((v) => v === false) ? "fail" : ok.some((v) => v === null) ? "unknown" : "pass";
+    };
+    const codes = ["veteran", "student", "x_code", "senior_62plus", "senior_55plus", "disability"];
+    const households: Partial<Household>[] = [
+      {},
+      { hasMember62Plus: true, hasMember55Plus: true, hasDisability: true },
+      { hasMember62Plus: false, hasMember55Plus: false, hasDisability: false },
+      { hasMember62Plus: true, hasMember55Plus: null, hasDisability: false },
+    ];
+    for (let mask = 1; mask < 1 << codes.length; mask++) {
+      const set = codes.filter((_, i) => mask & (1 << i));
+      for (const h of households) expect(withR(set, h).result, `${set}|${JSON.stringify(h)}`).toBe(ref(set, h));
+    }
+  });
+
+  it("mixed: a labelled requirement keeps its sentence; unlabelled codes append their own (deduplicated)", () => {
+    const o = withR(["senior_62plus", "veteran", "x1", "x2"]);
+    expect(o.result).toBe("unknown");
+    expect(o.reason.en).toBe(`This is senior housing (62+) — confirm you qualify. ${COPY.veteran.en} ${COPY.other.en}`);
+    expect(o.reason.zh).toBe(`该项目为老人住房（62 岁以上），请确认是否符合。${COPY.veteran.zh}${COPY.other.zh}`);
+    // labelled one already satisfied → only the unknown codes' sentences remain
+    expect(withR(["senior_62plus", "student"], { hasMember62Plus: true }).reason.en).toBe(COPY.student.en);
+    // labelled failure still fails, with the neutral sentence appended
+    const f = withR(["senior_62plus", "veteran"], { hasMember62Plus: false });
+    expect(f.result).toBe("fail");
+    expect(f.reason.en).toBe(`This is senior housing (62+). ${COPY.veteran.en}`);
+  });
+
+  it("existing labelled copy is unchanged", () => {
+    expect(withR(["senior_62plus"]).reason).toEqual({ en: "This is senior housing (62+) — confirm you qualify.", zh: "该项目为老人住房（62 岁以上），请确认是否符合。" });
+    expect(withR(["senior_62plus"], { hasMember62Plus: true }).reason).toEqual({ en: "You meet the senior housing (62+) requirement.", zh: "您符合老人住房（62 岁以上）的要求。" });
+    expect(withR([]).reason).toEqual({ en: "No special household restrictions.", zh: "无特殊家庭限制。" });
+  });
+});

@@ -162,14 +162,15 @@ describe("Matcher integration", () => {
 
 describe("F7 — complete income data, unknown restriction (Codex P2 regression)", () => {
   it.each([
-    ["en", "Confirm on Housing Connect before applying.", /confirm you qualify/],
-    ["zh", "申请前请在 Housing Connect 上核实。", /请确认是否符合/],
+    ["en", "Confirm on Housing Connect before applying.", "This lottery may have veteran-related preferences or eligibility rules; check the official listing."],
+    ["zh", "申请前请在 Housing Connect 上核实。", "该项目涉及退伍军人相关优先权或资格规定，请查看官方要求。"],
   ] as const)("%s: card shows the restriction reason and a confirmation even with zero quality warnings", (lang, confirm, reason) => {
     render(<MatchResults rows={rowsFor([F7])} lang={lang} />);
     const c = within(screen.getByTestId("section-NEEDS_REVIEW")).getByTestId("result-hc-90007");
     expect(within(c).getByTestId("review-confirm").textContent).toBe(confirm);
     const reasons = within(c).getByTestId("unknown-reasons");
-    expect(reasons.textContent).toMatch(reason);
+    expect(reasons.textContent).toBe(`?${reason}`);
+    expect(c.textContent).not.toMatch(/\bveteran\b(?!-related)/); // raw code never shown
     expect(c.querySelectorAll("[data-warning]")).toHaveLength(0);
     expect(within(c).queryByTestId("fits")).toBeNull();
     expect(within(c).getByTestId("provenance").textContent).toBe(

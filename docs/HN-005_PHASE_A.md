@@ -35,6 +35,26 @@ Every `NEEDS_REVIEW` card renders the confirmation box, **independent of `qualit
 
 The "Why" section and rule statuses are unchanged. Fixture **F7** covers the case: F3's published bands, verified, `restrictions: ["veteran"]` → `NEEDS_REVIEW` with `quality.warnings: []`.
 
+## Restriction copy (PO-approved neutral wording)
+
+Codes we can't evaluate from the household form get their own neutral sentence instead of a raw code. They still evaluate to `unknown`, exactly as before.
+
+| Code | EN | 中文 |
+|---|---|---|
+| `veteran` | This lottery may have veteran-related preferences or eligibility rules; check the official listing. | 该项目涉及退伍军人相关优先权或资格规定，请查看官方要求。 |
+| `student` | This lottery may have student-related eligibility rules; check the official listing. | 该项目涉及学生身份相关规定，请查看官方要求。 |
+| any other unrecognised code | This lottery may have other special eligibility rules; check the official listing. | 该项目可能存在其他特殊申请规定，请查看官方要求。 |
+
+**Unchanged:** the labelled codes (`senior_62plus`, `senior_55plus`, `disability`) keep their existing template and pass/fail/unknown logic.
+
+**Combining sentences:**
+- **Mixed lists:** the labelled sentence comes first, then the neutral sentences, de-duplicated.
+- **Labelled requirement already met:** only the neutral sentences for the still-unknown codes are shown.
+
+**Verification:**
+- Against the previous commit, all **48,411** snapshot pairs are identical, including reason text, because live data only uses `senior_62plus`.
+- **1,701** synthetic restriction combinations have 0 status or outcome differences.
+
 ## Closing soon
 
 The deadline is within **0–3 NYC calendar days** of `todayNY()`. ISO dates are compared as calendar dates, not UTC instants. The chip never shows for a closed listing, an expired deadline, or a listing without a deadline.

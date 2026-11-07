@@ -240,6 +240,26 @@ const incomeRule: Rule = {
   },
 };
 
+/**
+ * Neutral, PO-approved sentences for restriction codes we can't evaluate from the household form
+ * (Issue #5 / PR #6). They never assert exclusive housing and never expose the raw code.
+ * Copy-only: these codes always evaluate to `ok: null` (unknown), exactly as before.
+ */
+const OTHER_RESTRICTION_COPY: Record<string, { en: string; zh: string }> = {
+  veteran: {
+    en: "This lottery may have veteran-related preferences or eligibility rules; check the official listing.",
+    zh: "该项目涉及退伍军人相关优先权或资格规定，请查看官方要求。",
+  },
+  student: {
+    en: "This lottery may have student-related eligibility rules; check the official listing.",
+    zh: "该项目涉及学生身份相关规定，请查看官方要求。",
+  },
+};
+const UNKNOWN_RESTRICTION_COPY = {
+  en: "This lottery may have other special eligibility rules; check the official listing.",
+  zh: "该项目可能存在其他特殊申请规定，请查看官方要求。",
+};
+
 const restrictionRule: Rule = {
   name: "restrictions",
   evaluate: ({ household, listing }) => {
@@ -247,24 +267,39 @@ const restrictionRule: Rule = {
     if (r.length === 0) {
       return { rule: "restrictions", result: "pass", reason: { en: "No special household restrictions.", zh: "无特殊家庭限制。" } };
     }
-    const checks: Array<{ ok: boolean | null; en: string; zh: string }> = r.map((x) => {
+    // `label` = codes we can describe inside the existing sentence template; `other` = codes that
+    // get their own neutral sentence. `ok` is computed exactly as before (other codes → null).
+    const checks: Array<{ ok: boolean | null; label: { en: string; zh: string } | null; other: { en: string; zh: string } | null }> = r.map((x) => {
       switch (x) {
         case "senior_62plus":
-          return { ok: household.hasMember62Plus, en: "senior housing (62+)", zh: "老人住房（62 岁以上）" };
+          return { ok: household.hasMember62Plus, label: { en: "senior housing (62+)", zh: "老人住房（62 岁以上）" }, other: null };
         case "senior_55plus":
-          return { ok: household.hasMember55Plus ?? household.hasMember62Plus, en: "55+ housing", zh: "55 岁以上住房" };
+          return { ok: household.hasMember55Plus ?? household.hasMember62Plus, label: { en: "55+ housing", zh: "55 岁以上住房" }, other: null };
         case "disability":
-          return { ok: household.hasDisability, en: "housing for people with disabilities", zh: "残障人士住房" };
+          return { ok: household.hasDisability, label: { en: "housing for people with disabilities", zh: "残障人士住房" }, other: null };
         default:
-          return { ok: null, en: x, zh: x };
+          return { ok: null, label: null, other: OTHER_RESTRICTION_COPY[x] ?? UNKNOWN_RESTRICTION_COPY };
       }
     });
-    const label = { en: checks.map((c) => c.en).join(", "), zh: checks.map((c) => c.zh).join("、") };
+    const labelled = checks.filter((c) => c.label);
+    const label = { en: labelled.map((c) => c.label!.en).join(", "), zh: labelled.map((c) => c.label!.zh).join("、") };
+    // De-duplicate sentences (e.g. two different unrecognised codes share the generic sentence).
+    const others = [...new Map(checks.filter((c) => c.other).map((c) => [c.other!.en, c.other!])).values()];
+    const join = (lead: { en: string; zh: string } | null) => ({
+      en: [lead?.en, ...others.map((o) => o.en)].filter(Boolean).join(" "),
+      zh: [lead?.zh, ...others.map((o) => o.zh)].filter(Boolean).join(""),
+    });
+
     if (checks.some((c) => c.ok === false)) {
-      return { rule: "restrictions", result: "fail", reason: { en: `This is ${label.en}.`, zh: `该项目为${label.zh}。` } };
+      return { rule: "restrictions", result: "fail", reason: join(labelled.length ? { en: `This is ${label.en}.`, zh: `该项目为${label.zh}。` } : null) };
     }
     if (checks.some((c) => c.ok === null)) {
-      return { rule: "restrictions", result: "unknown", reason: { en: `This is ${label.en} — confirm you qualify.`, zh: `该项目为${label.zh}，请确认是否符合。` } };
+      const unknownLabelled = labelled.some((c) => c.ok === null);
+      return {
+        rule: "restrictions",
+        result: "unknown",
+        reason: join(unknownLabelled ? { en: `This is ${label.en} — confirm you qualify.`, zh: `该项目为${label.zh}，请确认是否符合。` } : null),
+      };
     }
     return { rule: "restrictions", result: "pass", reason: { en: `You meet the ${label.en} requirement.`, zh: `您符合${label.zh}的要求。` } };
   },
