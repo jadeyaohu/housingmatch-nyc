@@ -5,7 +5,9 @@ import { expect, test } from "@playwright/test";
  * Tracking must be completely inert: no /api/events requests, no storage writes, no
  * BroadcastChannel, no tracking cookies — while matching behaves exactly as before.
  */
-test("@flag-off: full flow sends no analytics requests and mutates no storage", async ({ context, page }) => {
+test("@flag-off: full flow sends no analytics requests and mutates no storage", async ({ context, page, baseURL }) => {
+  // Keep the test hermetic: external application sites opened by the apply link are stubbed.
+  await context.route(/^https?:\/\/(?!localhost)/, (r) => r.fulfill({ status: 204, body: "" }));
   await page.addInitScript(() => {
     const w = window as unknown as { __bc: number; __writes: string[] };
     w.__bc = 0;
@@ -49,5 +51,5 @@ test("@flag-off: full flow sends no analytics requests and mutates no storage", 
     return { bc: w.__bc, writes: w.__writes, ss: sessionStorage.length, ls: localStorage.length };
   });
   expect(state).toEqual({ bc: 0, writes: [], ss: 0, ls: 0 });
-  expect((await context.cookies()).map((c) => c.name)).toEqual([]);
+  expect((await context.cookies(baseURL!)).map((c) => c.name)).toEqual([]); // no cookies on our origin
 });
