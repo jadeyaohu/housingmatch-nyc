@@ -403,7 +403,7 @@ describe("bucket()", () => {
 });
 
 describe("delivery privacy (unit; real-browser proof lives in e2e/)", () => {
-  it("sends with fetch keepalive, no Referer, no credentials, no beacon", async () => {
+  it("sends with fetch keepalive, no Referer, same-origin credentials, no beacon", async () => {
     const beacon = vi.fn(() => true);
     Object.defineProperty(navigator, "sendBeacon", { configurable: true, value: beacon });
     window.history.replaceState({}, "", "/listings?income=85000&name=Jane");
@@ -411,7 +411,7 @@ describe("delivery privacy (unit; real-browser proof lives in e2e/)", () => {
     await flush();
     expect(beacon).not.toHaveBeenCalled();
     expect(beacons).toHaveLength(1);
-    expect(beacons[0].init).toMatchObject({ method: "POST", keepalive: true, referrerPolicy: "no-referrer", credentials: "omit" });
+    expect(beacons[0].init).toMatchObject({ method: "POST", keepalive: true, referrerPolicy: "no-referrer", credentials: "same-origin" });
     expect(beacons[0].body).not.toMatch(/income|85000|Jane|\?/);
   });
 });
@@ -466,10 +466,15 @@ describe("match-count metric definition", () => {
 
 describe("per-tab session (unit; real-browser proof lives in e2e/)", () => {
   const COPIED = "11111111-2222-4333-8444-555555555555";
-  function otherTabOwning(sid: string) {
+  function otherTabOwning(sid: string, delayMs = 0) {
     const ch = new BroadcastChannel("hn_session");
     ch.onmessage = (e) => {
-      if (e.data?.type === "probe" && e.data.sid === sid) ch.postMessage({ type: "claimed", sid });
+      const d = e.data;
+      if ((d?.type === "probe" || d?.type === "hello") && d.sid === sid) {
+        const reply = () => ch.postMessage({ type: "claimed", sid, to: d.nonce });
+        if (delayMs) setTimeout(reply, delayMs);
+        else reply();
+      }
     };
     return ch;
   }
@@ -510,9 +515,86 @@ describe("per-tab session (unit; real-browser proof lives in e2e/)", () => {
     render(<PageViewTracker lang="en" />);
     const sid = (await sent())[0].session_id;
     const probe = new BroadcastChannel("hn_session");
-    const reply = new Promise((r) => (probe.onmessage = (e) => r(e.data)));
-    probe.postMessage({ type: "probe", sid });
-    await expect(reply).resolves.toEqual({ type: "claimed", sid });
+    const reply = new Promise((r) => (probe.onmessage = (e) => e.data?.type === "claimed" && r(e.data)));
+    probe.postMessage({ type: "probe", sid, nonce: "peer-nonce" });
+    await expect(reply).resolves.toEqual({ type: "claimed", sid, to: "peer-nonce" });
     probe.close();
+  });
+});
+
+describe("late-claim arbitration (busy owner, concurrent copies)", () => {
+  const COPIED = "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee";
+  const seed = () => {
+    sessionStorage.setItem("hn_sid", COPIED);
+    sessionStorage.setItem(`hn_once:${COPIED}:matcher_started`, "1");
+    sessionStorage.setItem("unrelated_app_state", "keep-me");
+  };
+  /** A peer that answers only after `delayMs` (a busy main thread processing its queue late). */
+  function busyOwner(sid: string, delayMs: number) {
+    const ch = new BroadcastChannel("hn_session");
+    ch.onmessage = (e) => {
+      const d = e.data;
+      if ((d?.type === "probe" || d?.type === "hello") && d.sid === sid) setTimeout(() => ch.postMessage({ type: "claimed", sid, to: d.nonce }), delayMs);
+    };
+    return ch;
+  }
+
+  it("owner answers after the 150 ms window: the copy rotates late and re-sends page_view + matcher_started under its own id", async () => {
+    seed();
+    const owner = busyOwner(COPIED, 600);
+    try {
+      render(<><PageViewTracker lang="en" /><Matcher lang="en" /></>);
+      fireEvent.click(screen.getByRole("button", { name: "+" })); // suppressed: inherited marker
+      await waitFor(async () => expect((await sent()).length).toBeGreaterThanOrEqual(3), { timeout: 3000 });
+      const ev = await sent();
+      expect(ev[0]).toMatchObject({ event_name: "page_view", session_id: COPIED }); // sent during the busy window
+      const fresh = ev.filter((e) => e.session_id !== COPIED);
+      expect(fresh.map((e) => e.event_name).sort()).toEqual(["matcher_started", "page_view"]);
+      expect(new Set(fresh.map((e) => e.session_id)).size).toBe(1);
+      const newSid = fresh[0].session_id;
+      expect(sessionStorage.getItem("hn_sid")).toBe(newSid);
+      expect(sessionStorage.getItem(`hn_once:${newSid}:matcher_started`)).toBe("1");
+      expect(sessionStorage.getItem("unrelated_app_state")).toBe("keep-me");
+      // later events use the new id; no further duplicates
+      fireEvent.click(screen.getByRole("button", { name: "+" }));
+      await new Promise((r) => setTimeout(r, 50));
+      expect((await sent()).filter((e) => e.event_name === "matcher_started")).toHaveLength(1);
+    } finally {
+      owner.close();
+    }
+  });
+
+  it("tie-break: a peer that is OLDER and holds our id makes us rotate; a NEWER peer is told to rotate and we keep ours", async () => {
+    render(<PageViewTracker lang="en" />);
+    const sid = (await sent())[0].session_id;
+    const peer = new BroadcastChannel("hn_session");
+    const replies: unknown[] = [];
+    peer.onmessage = (e) => replies.push(e.data);
+    // newer peer (origin far in the future) → we answer claimed and keep our id
+    peer.postMessage({ type: "hello", sid, nonce: "newer", origin: performance.timeOrigin + 1e9 });
+    await waitFor(() => expect(replies).toContainEqual({ type: "claimed", sid, to: "newer" }));
+    expect(sessionStorage.getItem("hn_sid")).toBe(sid);
+    // older peer → we rotate and re-send our page_view under a fresh id
+    peer.postMessage({ type: "hello", sid, nonce: "older", origin: 0 });
+    await waitFor(async () => expect((await sent()).length).toBe(2));
+    const [, again] = await sent();
+    expect(again.event_name).toBe("page_view");
+    expect(again.session_id).not.toBe(sid);
+    expect(sessionStorage.getItem("hn_sid")).toBe(again.session_id);
+    peer.close();
+  });
+
+  it("a hidden document (pagehide, e.g. entering bfcache) never claims its id", async () => {
+    render(<PageViewTracker lang="en" />);
+    const sid = (await sent())[0].session_id;
+    window.dispatchEvent(new Event("pagehide"));
+    const peer = new BroadcastChannel("hn_session");
+    const replies: unknown[] = [];
+    peer.onmessage = (e) => replies.push(e.data);
+    peer.postMessage({ type: "probe", sid, nonce: "successor" });
+    peer.postMessage({ type: "hello", sid, nonce: "successor", origin: performance.timeOrigin + 1 });
+    await new Promise((r) => setTimeout(r, 200));
+    expect(replies).toEqual([]);
+    peer.close();
   });
 });

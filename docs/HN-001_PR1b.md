@@ -29,36 +29,56 @@ Each event has: random `event_id`, random `session_id` (UUID in `sessionStorage`
 
 The `track()` API only accepts the typed props above, so callers can't pass anything else. The server re-validates with a strict schema anyway. Listing IDs are pattern-checked client-side, and an event with a bad ID is dropped rather than sent.
 
-## Delivery (Referer-safe)
+## Delivery (Referer-safe, cookie-compatible)
 
-Events are sent with `fetch("/api/events", { method: "POST", keepalive: true, referrerPolicy: "no-referrer", credentials: "omit", cache: "no-store" })`. Delivery is fire-and-forget: every failure is swallowed, and matching never depends on analytics.
+Events are sent with `fetch("/api/events", { method: "POST", keepalive: true, referrerPolicy: "no-referrer", credentials: "same-origin", cache: "no-store" })`. Delivery is fire-and-forget: every failure is swallowed, and matching never depends on analytics.
 
-- **Why not `sendBeacon`?** A beacon (or a default `fetch`) carries a same-origin `Referer` with the page's **full URL, including the query string**. On `/?...` or `/listings?...` that could leak whatever is in the URL. Codex reproduced this in Chromium (PR #4, P2).
-- The fix is scoped to the analytics request only. The site-wide referrer policy is unchanged.
-- The e2e test includes a control request from the same page and asserts that the control **does** carry the query in its Referer. That proves the analytics assertion is meaningful.
+- **No Referer.** A beacon, or a default `fetch`, would send the page's full URL including the query string. Codex reproduced this (PR #4, P2; closed). The e2e test includes a control request that *does* carry the query, which proves the assertion is meaningful.
+- **Same-origin cookies.** Cookie-protected deployments (Vercel Authentication on Previews) reject requests without the session cookie. `same-origin` sends cookies to our own origin only.
+  - Auth cookies may therefore reach `/api/events` and edge logs. The route never reads cookies.
+  - No tokens appear in payloads or client source. Vercel Authentication and the Origin check are unchanged.
+  - A local e2e test runs behind a cookie-gated proxy (`e2e/auth-proxy.mjs`). With the cookie, the request passes (204). Without it, the request is rejected (401). Neither carries a Referer or any query text.
+  - **This local test doesn't prove anything about Vercel itself.** A protected Preview smoke test with an authorized signed-in session is still required after code approval.
 
 ## Per-tab session
 
-`sessionStorage` is copied into tabs opened from a tab, and into "Duplicate tab". Codex reproduced copied `hn_sid` values (PR #4, P2). The handling:
+`sessionStorage` is copied into tabs opened from a tab (`window.open`/`target=_blank`) and into "Duplicate tab". Messages go over `BroadcastChannel("hn_session")`, and each carries the sender's random nonce:
 
-1. On first use, a document reads `hn_sid` and **probes** other live same-origin tabs over a `BroadcastChannel("hn_session")`. It waits up to 150 ms; events fired meanwhile are delayed, never dropped.
-2. A tab that already owns that ID answers `claimed`. The new document then knows it is a copy and **rotates** to a fresh UUID.
-3. A same-tab reload or navigation has no live owner, because the old document is gone or frozen, so it **keeps** its ID.
-4. Once-markers are keyed by session ID (`hn_once:<sid>:matcher_started`). Rotation therefore resets them automatically. Stale `hn_once:*` keys are pruned **by prefix only**, and there is no `sessionStorage.clear()`, so other app keys are untouched.
+| Message | Meaning |
+|---|---|
+| `probe {sid, nonce}` | Fast path on first use: "does a live tab own this sid?" Waits 150 ms. |
+| `claimed {sid, to}` | "I own this sid; you (`to`) are the copy." |
+| `hello {sid, nonce, origin}` | Sent once after a document resolves its ID. `origin` is `performance.timeOrigin`. |
 
-**Verified in Chromium** (`e2e/tracking.spec.ts`, desktop and 375 px mobile):
+**Arbitration.** When two live documents hold the same ID, the **older** document keeps it (smaller `timeOrigin`, then smaller nonce) and the **newer** one rotates to a fresh UUID.
+
+- A **busy owner** that misses the probe window still processes the queued probe or hello once it frees up, and claims then. That **late claim** makes the copy rotate.
+- On rotation, the copy **re-sends its funnel-entry events** (`page_view`, and `matcher_started` even if it was suppressed by the inherited marker) under its new ID.
+- **Concurrent copies** with no live owner settle the same way through `hello`.
+- Each rotation draws a fresh random UUID, so arbitration terminates.
+
+**What doesn't change:**
+- A same-tab reload or navigation has no live owner, so it keeps its ID.
+- A document gives up ownership on `pagehide`, so a frozen (bfcache) page can't claim against its successor in the same tab.
+- Once-markers are keyed by ID (`hn_once:<sid>:<name>`) and stale ones are pruned by prefix. There is no `sessionStorage.clear()`, so other app keys are untouched.
+
+**Verified in real Chromium** (desktop and 375 px mobile):
 
 | Scenario | Result |
 |---|---|
-| `window.open(url)` | Inherits the storage copy (asserted) and rotates |
-| `window.open(url, "_blank", "noopener")` | Doesn't inherit in current Chromium, and gets its own ID |
-| Tab started with a copy of a live tab's storage (Duplicate tab semantics) | Rotates |
-| Reload | Keeps the ID and doesn't re-send `matcher_started` |
-| Same-tab navigation | Keeps the ID |
+| `window.open` child | Inherits the copy (asserted), then rotates |
+| `noopener` child | Doesn't inherit in current Chromium; gets its own ID |
+| Seeded duplicate | Rotates |
+| **2.5 s busy owner** | The copy first uses the inherited ID, then late-rotates and re-sends `page_view` and `matcher_started`. The owner keeps its ID and its single `matcher_started` |
+| **Two concurrent copies, no owner** | Exactly one keeps the inherited ID; the other rotates |
+| Reload, same-tab navigation | Keep the ID |
 
-**Documented limits:**
-- Playwright can't trigger the browser's native "Duplicate tab" command, so it is simulated by seeding an identical storage copy while the original tab is alive.
-- If the original tab was closed before the copy loads, or the browser lacks `BroadcastChannel`, the copy keeps the inherited ID. That is an over-merge of two sessions, never a leak of data.
+The timing-sensitive tests passed 30 times out of 30 with `--repeat-each 5`.
+
+**Residual semantics (best effort, documented):**
+- Events a copy sends *before* a late claim stay under the shared ID. Raw totals can therefore include one extra `page_view` per late-detected copy. Distinct-session funnel counts are still correct, because the shared session already had that step and the copy's new session gets its own.
+- Without `BroadcastChannel`, a copy keeps the inherited ID.
+- Native "Duplicate tab" can't be automated in Playwright, so it is simulated with an identical storage copy.
 
 ## Metric definitions
 

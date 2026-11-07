@@ -9,9 +9,10 @@ import { COUNT_BUCKETS, MAX_BODY_BYTES, SOURCES } from "./schema-constants";
  * - Never throws and never blocks the UI: every failure is swallowed.
  * - Only the allow-listed fields below are ever sent; callers choose an event name and its
  *   typed, enumerated props — no free text, matcher inputs, emails or IPs can pass through.
- * - Delivery is `fetch` with `referrerPolicy: "no-referrer"` and `credentials: "omit"`, so the
- *   request carries no Referer (which would otherwise contain the page's full URL incl. query
- *   string) and no cookies. `sendBeacon` is deliberately NOT used: it can't control Referer.
+ * - Delivery is `fetch` with `referrerPolicy: "no-referrer"`, so the request carries no Referer
+ *   (which would otherwise contain the page's full URL incl. query string), and
+ *   `credentials: "same-origin"` so cookie-protected deployments (Vercel Authentication on
+ *   Previews) accept it. `sendBeacon` is deliberately NOT used: it can't control Referer.
  * - The server (/api/events) is controlled independently by ANALYTICS_INGEST_ENABLED.
  */
 
@@ -69,38 +70,89 @@ function storage(): Storage | null {
  * Per-tab session
  *
  * sessionStorage alone is not per-tab: browsers copy it into tabs opened from this one
- * (window.open / target=_blank links, with or without noopener in Chromium) and into tabs made
- * with "Duplicate tab". To keep one session per tab:
- *   1. A new document reads hn_sid and asks other live same-origin tabs over a
- *      BroadcastChannel whether they own it ("probe").
- *   2. A tab that has already resolved that id answers "claimed". If anyone claims it, this
- *      tab is a copy → it rotates to a fresh id.
- *   3. A same-tab reload or navigation has no live owner (the old document is gone or frozen),
- *      so it keeps its id.
- * "Once" markers are keyed by session id (hn_once:<sid>:<name>), so rotating the id resets them
- * without clearing anything else; stale markers from a copied session are pruned by prefix.
- * Limits: without BroadcastChannel, or if the original tab was closed before the copy loads,
- * the copy keeps the inherited id (documented in docs/HN-001_PR1b.md).
+ * (window.open / target=_blank) and into "Duplicate tab" copies. Protocol over a
+ * BroadcastChannel (all messages carry the sender's nonce):
+ *
+ *   probe   {sid, nonce}                 fast path: "does a live tab own sid?" (150 ms window)
+ *   claimed {sid, to}                    "I own sid; you (nonce `to`) are the copy"
+ *   hello   {sid, nonce, origin}         sent once after this document resolves its id
+ *
+ * Arbitration: when two live documents hold the same sid, the OLDER document
+ * (smaller performance.timeOrigin, then smaller nonce) keeps it and the NEWER one rotates.
+ * A busy owner that misses the probe window still processes the queued probe/hello later and
+ * answers then → "late claim": the copy rotates and re-sends its funnel-entry events
+ * (page_view, matcher_started) under the new id. Concurrent copies resolve the same way.
+ * Each rotation draws a fresh random UUID, so arbitration terminates.
+ *
+ * A same-tab reload/navigation has no live owner; and a document gives up ownership on
+ * `pagehide`, so a frozen (bfcache) page in the same tab never claims against its successor.
+ * "Once" markers are keyed by session id (hn_once:<sid>:<name>), so rotation resets them;
+ * stale markers are pruned by prefix — unrelated sessionStorage keys are never touched.
+ * Limits (documented): no BroadcastChannel → inherited id kept; events sent by a copy before a
+ * late claim stay attributed to the shared id (raw counts may include them once).
  * ---------------------------------------------------------------------------------------- */
 
+type Msg =
+  | { type: "probe"; sid: string; nonce: string }
+  | { type: "claimed"; sid: string; to: string }
+  | { type: "hello"; sid: string; nonce: string; origin: number };
+
 let sessionPromise: Promise<string> | null = null;
-let ownedSid: string | null = null;
+let ownedSid: string | null = null; // the sid this document currently owns (null while hidden)
+let liveSid: string | null = null; // the sid this document is using
 let channel: BroadcastChannel | null = null;
 let memorySid: string | null = null; // fallback when sessionStorage is blocked
 const memoryOnce = new Set<string>();
+let docNonce: string | null = null;
+const replayable: { name: "page_view" | "matcher_started"; props: Record<string, never>; lang: Lang; path: string; source: Source }[] = [];
+
+function nonce(): string {
+  return (docNonce ??= crypto.randomUUID());
+}
+function origin(): number {
+  try {
+    return performance.timeOrigin || 0;
+  } catch {
+    return 0;
+  }
+}
+/** True if the peer (origin, nonce) is older than this document. */
+function peerIsOlder(peerOrigin: number, peerNonce: string): boolean {
+  const mine = origin();
+  if (peerOrigin !== mine) return peerOrigin < mine;
+  return peerNonce < nonce();
+}
+
+function post(m: Msg) {
+  try {
+    channel?.postMessage(m);
+  } catch {}
+}
+
+function onMessage(e: MessageEvent) {
+  const d = e.data as Msg | null;
+  if (!d || typeof d !== "object" || !ownedSid || d.sid !== ownedSid) return;
+  if (d.type === "probe" && d.nonce !== nonce()) {
+    post({ type: "claimed", sid: ownedSid, to: d.nonce });
+  } else if (d.type === "hello" && d.nonce !== nonce()) {
+    if (peerIsOlder(d.origin, d.nonce)) rotateLate();
+    else post({ type: "claimed", sid: ownedSid, to: d.nonce });
+  } else if (d.type === "claimed" && d.to === nonce()) {
+    rotateLate();
+  }
+}
 
 function openChannel(): BroadcastChannel | null {
   if (channel) return channel;
   try {
     if (typeof BroadcastChannel !== "function") return null;
     channel = new BroadcastChannel(CHANNEL);
-    channel.addEventListener("message", (e: MessageEvent) => {
-      const d = e.data as { type?: string; sid?: string } | null;
-      if (d?.type === "probe" && ownedSid && d.sid === ownedSid) {
-        try {
-          channel?.postMessage({ type: "claimed", sid: ownedSid });
-        } catch {}
-      }
+    channel.addEventListener("message", onMessage);
+    window.addEventListener("pagehide", () => {
+      ownedSid = null; // a hidden/frozen document never claims against its successor
+    });
+    window.addEventListener("pageshow", (ev) => {
+      if ((ev as PageTransitionEvent).persisted && liveSid) ownedSid = liveSid; // restored from bfcache
     });
     return channel;
   } catch {
@@ -116,19 +168,15 @@ function isClaimedElsewhere(sid: string): Promise<boolean> {
     const finish = (v: boolean) => {
       if (done) return;
       done = true;
-      ch.removeEventListener("message", onMsg);
+      ch.removeEventListener("message", onProbeReply);
       resolve(v);
     };
-    const onMsg = (e: MessageEvent) => {
-      const d = e.data as { type?: string; sid?: string } | null;
-      if (d?.type === "claimed" && d.sid === sid) finish(true);
+    const onProbeReply = (e: MessageEvent) => {
+      const d = e.data as Msg | null;
+      if (d?.type === "claimed" && d.sid === sid && d.to === nonce()) finish(true);
     };
-    ch.addEventListener("message", onMsg);
-    try {
-      ch.postMessage({ type: "probe", sid });
-    } catch {
-      finish(false);
-    }
+    ch.addEventListener("message", onProbeReply);
+    post({ type: "probe", sid, nonce: nonce() });
     setTimeout(() => finish(false), SESSION_PROBE_MS);
   });
 }
@@ -155,6 +203,30 @@ function freshSid(s: Storage | null): string {
   return id;
 }
 
+function adopt(sid: string) {
+  const s = storage();
+  memorySid = sid;
+  pruneOnceMarkers(s, sid);
+  liveSid = sid;
+  ownedSid = sid;
+  sessionPromise = Promise.resolve(sid);
+  post({ type: "hello", sid, nonce: nonce(), origin: origin() });
+}
+
+/** Late claim: another live, older document owns our id → take a fresh one and re-send entry events. */
+function rotateLate() {
+  const old = liveSid;
+  const sid = freshSid(storage());
+  adopt(sid);
+  if (!old) return;
+  const entries = replayable.splice(0);
+  for (const r of entries) {
+    if (r.name === "matcher_started" && !markOnce(sid, r.name)) continue;
+    sendEvent(sid, r.name, r.props, r.lang, r.path, r.source);
+    replayable.push(r);
+  }
+}
+
 /** Resolves this tab's session id (rotating it if this tab is a copy). Memoized per document. */
 export function resolveSession(): Promise<string> {
   if (sessionPromise) return sessionPromise;
@@ -166,16 +238,9 @@ export function resolveSession(): Promise<string> {
     } catch {
       stored = memorySid;
     }
-    let sid: string;
-    if (stored && UUID_RE.test(stored)) {
-      sid = (await isClaimedElsewhere(stored)) ? freshSid(s) : stored;
-    } else {
-      sid = freshSid(s);
-    }
-    memorySid = sid;
-    pruneOnceMarkers(s, sid);
-    ownedSid = sid;
-    openChannel(); // keep listening so later copies of this tab get rotated
+    openChannel(); // listen from the start so late claims are never missed
+    const sid = stored && UUID_RE.test(stored) && !(await isClaimedElsewhere(stored)) ? stored : freshSid(s);
+    adopt(sid);
     return sid;
   })();
   return sessionPromise;
@@ -255,10 +320,26 @@ function send(body: string) {
       body,
       keepalive: true, // survives navigation, like a beacon
       referrerPolicy: "no-referrer", // never send the page URL (or its query string)
-      credentials: "omit", // no cookies needed
+      // Same-origin cookies are required on cookie-protected deployments (e.g. Vercel
+      // Authentication on Previews). The route never reads cookies, and the payload never
+      // contains tokens or identifiers beyond the random session id.
+      credentials: "same-origin",
       cache: "no-store",
     }).catch(() => {});
   } catch {}
+}
+
+function sendEvent(sid: string, name: EventName, props: unknown, lang: Lang, path: string, source: Source) {
+  const event = {
+    event_id: crypto.randomUUID(),
+    session_id: sid,
+    event_name: name,
+    path,
+    lang: lang === "zh" ? "zh" : "en",
+    source,
+    props,
+  };
+  send(JSON.stringify({ events: [event] }));
 }
 
 async function emit<N extends EventName>(name: N, props: EventProps[N], lang: Lang, once: boolean) {
@@ -268,17 +349,12 @@ async function emit<N extends EventName>(name: N, props: EventProps[N], lang: La
     const path = currentPath();
     const source = detectSource();
     const sid = await resolveSession();
+    if (name === "page_view" || name === "matcher_started") {
+      // Funnel-entry events are remembered so a late session rotation can re-send them.
+      if (!replayable.some((r) => r.name === name)) replayable.push({ name, props: {}, lang, path, source });
+    }
     if (once && !markOnce(sid, name)) return;
-    const event = {
-      event_id: crypto.randomUUID(),
-      session_id: sid,
-      event_name: name,
-      path,
-      lang: lang === "zh" ? "zh" : "en",
-      source,
-      props,
-    };
-    send(JSON.stringify({ events: [event] }));
+    sendEvent(sid, name, props, lang, path, source);
   } catch {}
 }
 
@@ -298,8 +374,11 @@ export function trackOncePerSession<N extends EventName>(name: N, props: EventPr
 export function __resetAnalyticsMemory() {
   sessionPromise = null;
   ownedSid = null;
+  liveSid = null;
   memorySid = null;
+  docNonce = null;
   memoryOnce.clear();
+  replayable.length = 0;
   try {
     channel?.close();
   } catch {}
