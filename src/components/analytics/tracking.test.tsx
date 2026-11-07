@@ -57,6 +57,7 @@ function matchOk(results = [listing("hc-1", "LIKELY_MATCH"), listing("hc-2", "NE
 beforeEach(() => {
   process.env.NEXT_PUBLIC_ANALYTICS_ENABLED = "true";
   sessionStorage.clear();
+  localStorage.clear();
   __resetAnalyticsMemory();
   beacons = [];
   eventsFetchImpl = null;
@@ -84,12 +85,13 @@ const submitForm = async (label: RegExp | string) => {
 };
 
 describe("feature flag", () => {
-  it.each([undefined, "false", "1", "TRUE"])("sends nothing and never touches sessionStorage when NEXT_PUBLIC_ANALYTICS_ENABLED=%s", async (v) => {
+  it.each([undefined, "false", "1", "TRUE"])("sends nothing, generates nothing and touches no storage when NEXT_PUBLIC_ANALYTICS_ENABLED=%s", async (v) => {
     if (v === undefined) delete process.env.NEXT_PUBLIC_ANALYTICS_ENABLED;
     else process.env.NEXT_PUBLIC_ANALYTICS_ENABLED = v;
     const RealBC = globalThis.BroadcastChannel;
     const bcSpy = vi.fn();
     vi.stubGlobal("BroadcastChannel", class extends RealBC { constructor(n: string) { super(n); bcSpy(n); } });
+    const uuidSpy = vi.spyOn(crypto, "randomUUID");
     matchOk();
     render(<><PageViewTracker lang="en" /><Matcher lang="en" /></>);
     fireEvent.change(incomeInput(), { target: { value: "85000" } });
@@ -97,7 +99,10 @@ describe("feature flag", () => {
     await screen.findByText("Project hc-1");
     expect(await names()).toEqual([]);
     expect(sessionStorage.length).toBe(0);
+    expect(localStorage.length).toBe(0);
+    expect(document.cookie).toBe("");
     expect(bcSpy).not.toHaveBeenCalled();
+    expect(uuidSpy).not.toHaveBeenCalled();
   });
 });
 
@@ -128,18 +133,21 @@ describe("page_view", () => {
     expect(e.lang).toBe("zh");
   });
 
-  it("maps utm_source to an allow-listed channel and keeps it for the session", async () => {
+  it("maps utm_source to an allow-listed channel for the whole document visit (incl. client-side route changes), without storage", async () => {
     window.history.replaceState({}, "", "/?utm_source=xiaohongshu&utm_campaign=x");
     render(<PageViewTracker lang="zh" />);
-    window.history.replaceState({}, "", "/listings");
+    window.history.replaceState({}, "", "/listings"); // client-side <Link> navigation: same document
     cleanup();
     render(<PageViewTracker lang="zh" />);
-    expect((await sent()).map((e) => e.source)).toEqual(["xiaohongshu", "xiaohongshu"]);
+    const ev = await sent();
+    expect(ev.map((e) => e.source)).toEqual(["xiaohongshu", "xiaohongshu"]);
+    expect(new Set(ev.map((e) => e.session_id)).size).toBe(1);
+    expect(sessionStorage.length).toBe(0);
   });
 });
 
 describe("matcher_started", () => {
-  it("fires on first interaction only, once per tab session (even across remounts)", async () => {
+  it("fires on first interaction only, once per document visit (even across remounts / client-side navigation)", async () => {
     render(<Matcher lang="en" />);
     expect(await names()).toEqual([]);
     fireEvent.change(incomeInput(), { target: { value: "5" } });
@@ -157,15 +165,16 @@ describe("matcher_started", () => {
     expect(await names()).toEqual(["matcher_started"]);
   });
 
-  it("starts again in a new tab session", async () => {
+  it("starts again in a new document visit (reload / new tab), with a new visit id", async () => {
     render(<Matcher lang="en" />);
     fireEvent.click(screen.getByRole("button", { name: "+" }));
     cleanup();
-    sessionStorage.clear(); // new tab
-    __resetAnalyticsMemory();
+    __resetAnalyticsMemory(); // = new document load
     render(<Matcher lang="en" />);
     fireEvent.click(screen.getByRole("button", { name: "+" }));
-    expect(await names()).toEqual(["matcher_started", "matcher_started"]);
+    const ev = await sent();
+    expect(ev.map((e) => e.event_name)).toEqual(["matcher_started", "matcher_started"]);
+    expect(ev[0].session_id).not.toBe(ev[1].session_id);
   });
 });
 
@@ -196,7 +205,7 @@ describe("matcher_completed", () => {
     for (const impl of [async () => { throw new TypeError("network"); }, async () => new Response("not json", { status: 200 })]) {
       cleanup();
       beacons = [];
-      sessionStorage.clear();
+      __resetAnalyticsMemory();
       fetchMock.mockImplementation(impl);
       render(<Matcher lang="en" />);
       fireEvent.change(incomeInput(), { target: { value: "85000" } });
@@ -332,23 +341,52 @@ describe("listing_details_opened and application_link_clicked", () => {
   });
 });
 
-describe("session id and payload contract", () => {
-  it("uses one random UUID per tab session, stored in sessionStorage only", async () => {
+describe("document-visit id and payload contract", () => {
+  it("one random UUID per document visit, shared by every event in the full funnel, never stored", async () => {
+    const bc = vi.fn();
+    const RealBC = globalThis.BroadcastChannel;
+    vi.stubGlobal("BroadcastChannel", class extends RealBC { constructor(n: string) { super(n); bc(n); } });
+    matchOk();
     render(<><PageViewTracker lang="en" /><Matcher lang="en" /></>);
-    fireEvent.click(screen.getByRole("button", { name: "+" }));
+    fireEvent.change(incomeInput(), { target: { value: "85000" } });
+    await new Promise((r) => setTimeout(r, 300)); // user pauses
+    await submitForm(/see my matches|find my matches|check/i);
+    await screen.findByText("Project hc-1");
+    await new Promise((r) => setTimeout(r, 300));
+    const d = document.querySelector("details") as HTMLDetailsElement;
+    d.open = true;
+    fireEvent(d, new Event("toggle"));
+    fireEvent.click(screen.getAllByRole("link")[0]);
     const ev = await sent();
+    expect(ev.map((e) => e.event_name)).toEqual(["page_view", "matcher_started", "matcher_completed", "listing_details_opened", "application_link_clicked"]);
     expect(new Set(ev.map((e) => e.session_id)).size).toBe(1);
-    expect(ev[0].session_id).toMatch(/^[0-9a-f-]{36}$/);
-    expect(sessionStorage.getItem("hn_sid")).toBe(ev[0].session_id);
-    expect(document.cookie).not.toMatch(/hn_/);
+    expect(ev[0].session_id).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/);
     expect(new Set(ev.map((e) => e.event_id)).size).toBe(ev.length);
+    expect(sessionStorage.length).toBe(0);
+    expect(localStorage.length).toBe(0);
+    expect(document.cookie).toBe("");
+    expect(bc).not.toHaveBeenCalled(); // no cross-tab coordination at all
   });
 
-  it("falls back to an in-memory session when sessionStorage is blocked", async () => {
+  it("works even when storage APIs throw (none are used)", async () => {
     const spy = vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => { throw new Error("blocked"); });
+    const spySet = vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => { throw new Error("blocked"); });
     render(<PageViewTracker lang="en" />);
-    spy.mockRestore();
     expect(await names()).toEqual(["page_view"]);
+    expect(spy).not.toHaveBeenCalled();
+    expect(spySet).not.toHaveBeenCalled();
+    spy.mockRestore();
+    spySet.mockRestore();
+  });
+
+  it("ignores any legacy hn_* keys left in sessionStorage by earlier builds", async () => {
+    sessionStorage.setItem("hn_sid", "11111111-2222-4333-8444-555555555555");
+    sessionStorage.setItem("hn_once:11111111-2222-4333-8444-555555555555:matcher_started", "1");
+    render(<Matcher lang="en" />);
+    fireEvent.click(screen.getByRole("button", { name: "+" }));
+    const [e] = await sent();
+    expect(e.event_name).toBe("matcher_started");
+    expect(e.session_id).not.toBe("11111111-2222-4333-8444-555555555555");
   });
 
   it("integration: every payload the browser builds is accepted by the real /api/events handler", async () => {
@@ -436,7 +474,6 @@ describe("attribution precedence", () => {
     ];
     for (const [ref, want] of cases) {
       cleanup();
-      sessionStorage.clear();
       __resetAnalyticsMemory();
       beacons = [];
       setReferrer(ref);
@@ -464,144 +501,3 @@ describe("match-count metric definition", () => {
   });
 });
 
-/** Fake peers may reply after a test closed them; ignore that instead of throwing late. */
-function safePost(ch: BroadcastChannel, m: unknown) {
-  try {
-    ch.postMessage(m);
-  } catch {}
-}
-
-describe("per-tab session (unit; real-browser proof lives in e2e/)", () => {
-  const COPIED = "11111111-2222-4333-8444-555555555555";
-  function otherTabOwning(sid: string, delayMs = 0) {
-    const ch = new BroadcastChannel("hn_session");
-    ch.onmessage = (e) => {
-      const d = e.data;
-      if ((d?.type === "probe" || d?.type === "hello") && d.sid === sid) {
-        const reply = () => safePost(ch, { type: "claimed", sid, to: d.nonce });
-        if (delayMs) setTimeout(reply, delayMs);
-        else reply();
-      }
-    };
-    return ch;
-  }
-  const seedCopiedStorage = () => {
-    sessionStorage.setItem("hn_sid", COPIED);
-    sessionStorage.setItem(`hn_once:${COPIED}:matcher_started`, "1");
-    sessionStorage.setItem("unrelated_app_state", "keep-me");
-  };
-
-  it("a copied tab (another live tab owns the id) rotates its id and resets the once marker, without clearing other keys", async () => {
-    seedCopiedStorage();
-    const owner = otherTabOwning(COPIED);
-    try {
-      render(<Matcher lang="en" />);
-      fireEvent.click(screen.getByRole("button", { name: "+" }));
-      await waitFor(async () => expect(await names()).toEqual(["matcher_started"]), { timeout: 2000 });
-      const [e] = await sent();
-      expect(e.session_id).not.toBe(COPIED);
-      expect(sessionStorage.getItem("hn_sid")).toBe(e.session_id);
-      expect(sessionStorage.getItem(`hn_once:${COPIED}:matcher_started`)).toBeNull(); // stale marker pruned
-      expect(sessionStorage.getItem(`hn_once:${e.session_id}:matcher_started`)).toBe("1");
-      expect(sessionStorage.getItem("unrelated_app_state")).toBe("keep-me");
-    } finally {
-      owner.close();
-    }
-  });
-
-  it("a same-tab reload (no live owner) keeps the id and still honours the once marker", async () => {
-    seedCopiedStorage();
-    render(<><PageViewTracker lang="en" /><Matcher lang="en" /></>);
-    fireEvent.click(screen.getByRole("button", { name: "+" }));
-    await waitFor(async () => expect(await names()).toEqual(["page_view"]), { timeout: 2000 });
-    expect((await sent())[0].session_id).toBe(COPIED);
-    expect(sessionStorage.getItem("unrelated_app_state")).toBe("keep-me");
-  });
-
-  it("answers probes for its own id so later copies of this tab rotate", async () => {
-    render(<PageViewTracker lang="en" />);
-    const sid = (await sent())[0].session_id;
-    const probe = new BroadcastChannel("hn_session");
-    const reply = new Promise((r) => (probe.onmessage = (e) => e.data?.type === "claimed" && r(e.data)));
-    probe.postMessage({ type: "probe", sid, nonce: "peer-nonce" });
-    await expect(reply).resolves.toEqual({ type: "claimed", sid, to: "peer-nonce" });
-    probe.close();
-  });
-});
-
-describe("late-claim arbitration (busy owner, concurrent copies)", () => {
-  const COPIED = "aaaaaaaa-bbbb-4ccc-8ddd-eeeeeeeeeeee";
-  const seed = () => {
-    sessionStorage.setItem("hn_sid", COPIED);
-    sessionStorage.setItem(`hn_once:${COPIED}:matcher_started`, "1");
-    sessionStorage.setItem("unrelated_app_state", "keep-me");
-  };
-  /** A peer that answers only after `delayMs` (a busy main thread processing its queue late). */
-  function busyOwner(sid: string, delayMs: number) {
-    const ch = new BroadcastChannel("hn_session");
-    ch.onmessage = (e) => {
-      const d = e.data;
-      if ((d?.type === "probe" || d?.type === "hello") && d.sid === sid) setTimeout(() => safePost(ch, { type: "claimed", sid, to: d.nonce }), delayMs);
-    };
-    return ch;
-  }
-
-  it("owner answers after the 150 ms window: the copy rotates late and re-sends page_view + matcher_started under its own id", async () => {
-    seed();
-    const owner = busyOwner(COPIED, 600);
-    try {
-      render(<><PageViewTracker lang="en" /><Matcher lang="en" /></>);
-      fireEvent.click(screen.getByRole("button", { name: "+" })); // suppressed: inherited marker
-      await waitFor(async () => expect((await sent()).length).toBeGreaterThanOrEqual(3), { timeout: 3000 });
-      const ev = await sent();
-      expect(ev[0]).toMatchObject({ event_name: "page_view", session_id: COPIED }); // sent during the busy window
-      const fresh = ev.filter((e) => e.session_id !== COPIED);
-      expect(fresh.map((e) => e.event_name).sort()).toEqual(["matcher_started", "page_view"]);
-      expect(new Set(fresh.map((e) => e.session_id)).size).toBe(1);
-      const newSid = fresh[0].session_id;
-      expect(sessionStorage.getItem("hn_sid")).toBe(newSid);
-      expect(sessionStorage.getItem(`hn_once:${newSid}:matcher_started`)).toBe("1");
-      expect(sessionStorage.getItem("unrelated_app_state")).toBe("keep-me");
-      // later events use the new id; no further duplicates
-      fireEvent.click(screen.getByRole("button", { name: "+" }));
-      await new Promise((r) => setTimeout(r, 50));
-      expect((await sent()).filter((e) => e.event_name === "matcher_started")).toHaveLength(1);
-    } finally {
-      owner.close();
-    }
-  });
-
-  it("tie-break: a peer that is OLDER and holds our id makes us rotate; a NEWER peer is told to rotate and we keep ours", async () => {
-    render(<PageViewTracker lang="en" />);
-    const sid = (await sent())[0].session_id;
-    const peer = new BroadcastChannel("hn_session");
-    const replies: unknown[] = [];
-    peer.onmessage = (e) => replies.push(e.data);
-    // newer peer (origin far in the future) → we answer claimed and keep our id
-    peer.postMessage({ type: "hello", sid, nonce: "newer", origin: performance.timeOrigin + 1e9 });
-    await waitFor(() => expect(replies).toContainEqual({ type: "claimed", sid, to: "newer" }));
-    expect(sessionStorage.getItem("hn_sid")).toBe(sid);
-    // older peer → we rotate and re-send our page_view under a fresh id
-    peer.postMessage({ type: "hello", sid, nonce: "older", origin: 0 });
-    await waitFor(async () => expect((await sent()).length).toBe(2));
-    const [, again] = await sent();
-    expect(again.event_name).toBe("page_view");
-    expect(again.session_id).not.toBe(sid);
-    expect(sessionStorage.getItem("hn_sid")).toBe(again.session_id);
-    peer.close();
-  });
-
-  it("a hidden document (pagehide, e.g. entering bfcache) never claims its id", async () => {
-    render(<PageViewTracker lang="en" />);
-    const sid = (await sent())[0].session_id;
-    window.dispatchEvent(new Event("pagehide"));
-    const peer = new BroadcastChannel("hn_session");
-    const replies: unknown[] = [];
-    peer.onmessage = (e) => replies.push(e.data);
-    peer.postMessage({ type: "probe", sid, nonce: "successor" });
-    peer.postMessage({ type: "hello", sid, nonce: "successor", origin: performance.timeOrigin + 1 });
-    await new Promise((r) => setTimeout(r, 200));
-    expect(replies).toEqual([]);
-    peer.close();
-  });
-});

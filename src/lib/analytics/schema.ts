@@ -11,6 +11,8 @@ export { COUNT_BUCKETS, MAX_BODY_BYTES, MAX_EVENTS_PER_REQUEST, SOURCES };
 
 const base = {
   event_id: z.uuid(),
+  // Document-visit id: one random UUID per page load (reload / new tab = new id). The name is
+  // kept for backend compatibility; it does NOT identify a user, browser tab or multi-page session.
   session_id: z.uuid(),
   path: z.string().regex(/^\/[A-Za-z0-9/_-]{0,199}$/, "pathname only"),
   lang: z.enum(["en", "zh"]),

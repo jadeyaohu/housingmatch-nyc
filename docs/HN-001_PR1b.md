@@ -1,125 +1,107 @@
 # HN-001 · PR 1b: frontend anonymous event tracking
 
-Builds on PR 1a (`/api/events`). Stacked PR: base branch is `feature/hn-001-pr1a-event-ingestion`.
+Builds on PR 1a (`/api/events`). This is a stacked PR whose base branch is `feature/hn-001-pr1a-event-ingestion`.
+
+## Unit of analysis: the document visit (PO decision, Option A, 2026-11-06)
+
+Each **document load** gets one random UUID that lives in memory only. Every event sent from that document carries it.
+
+| Situation | ID |
+|---|---|
+| Events within one document, at any pace, through the whole matcher funnel | **Same** |
+| Client-side route change (Next.js header `<Link>`), which stays in the same document | **Same** |
+| Reload, or full navigation (typed URL, the listings filter form, back/forward without bfcache) | **New** |
+| A new tab, a `window.open` child (with or without `noopener`), or "Duplicate tab" | **New, independent** |
+
+**No browser storage is used.** There's no `sessionStorage`, `localStorage` or cookies, and no `BroadcastChannel` or other cross-tab coordination. Copied storage therefore can't make two tabs share an ID. The earlier tab-session design, with its arbitration, late rotation and replay, has been removed. Legacy `hn_*` keys left by earlier builds are ignored.
+
+### `session_id` now means "document-visit ID"
+
+The backend field keeps the name `session_id` for compatibility (schema and migration unchanged). It is **not** a user, a browser tab, or a multi-page session. Dashboards should say **"visits"**, not sessions or users, and:
+
+- **Funnel steps** count `distinct session_id` (that is, visits) per event within a period.
+- A person who reloads, or opens results in a new tab, appears as **several visits**. Expect more visits than people.
+- A funnel that crosses documents (for example, matcher on `/` → full reload → apply on `/listings`) can't be joined. In-document funnels, including client-side navigation, are exact.
+- **Source attribution is per visit:** `utm_source` takes precedence over the referrer host. A same-host referrer, or none, counts as `direct`; unknown hosts map to `other`. A full navigation inside the site is a new visit whose referrer is our own host, so it reports `direct`. Acquisition should be read from the entry visits.
 
 ## Flags (independent)
 
 | Flag | Where | Effect |
 |---|---|---|
-| `NEXT_PUBLIC_ANALYTICS_ENABLED` | Browser, **inlined at build** | Exactly `"true"` → `track()` sends. Anything else → nothing is sent **and sessionStorage is never touched**. Changing it needs a rebuild |
-| `ANALYTICS_INGEST_ENABLED` (PR 1a) | Server, per request (applies on redeploy) | Off → `/api/events` returns 204 and drops everything, even if the browser sends |
+| `NEXT_PUBLIC_ANALYTICS_ENABLED` | Browser, **inlined at build** | Exactly `"true"` → events are sent. Anything else → nothing is sent and nothing is generated. No storage or `BroadcastChannel` is touched in either case. Changing it needs a rebuild |
+| `ANALYTICS_INGEST_ENABLED` (PR 1a) | Server, per request (applies on redeploy) | Off → `/api/events` returns 204 and drops everything |
 
-Both are off by default. Turning only the client flag on in a preview is safe: the server keeps dropping until its own flag is on.
+Both are off by default.
 
 ## Events
 
 | Event | Trigger (exact) | Never on | Props |
 |---|---|---|---|
-| `page_view` | `<PageViewTracker>` mount on `/` and `/listings` | Re-renders, EN/中文 switch (`router.refresh` re-renders without remounting), StrictMode double effect (ref guard) | none |
-| `matcher_started` | First `change` or `click` inside the matcher form (capture phase), once per **tab session** (`sessionStorage` flag) | Initial render, remounts in the same tab | none |
-| `matcher_completed` | After `res.ok` **and** a parsed JSON body with a `results` array | 4xx/5xx, network error, unparseable body | `likely_count`, `review_count` (buckets `0`/`1-5`/`6-20`/`20+`), `has_borough_pref` |
+| `page_view` | `<PageViewTracker>` mount on `/` and `/listings`, including after a client-side route change | Re-renders, EN/中文 switch (`router.refresh` doesn't remount), StrictMode double effect (ref guard) | none |
+| `matcher_started` | First `change` or `click` inside the matcher form (capture phase). Once **per document visit**, so remounts in the same document don't repeat it | Initial render | none |
+| `matcher_completed` | After `res.ok` **and** a parsed body with a `results` array | 4xx/5xx, network error, a 200 with a malformed body | `likely_count`, `review_count` (buckets), `has_borough_pref` |
 | `listing_details_opened` | `<details>` `toggle` with `open === true`; once per listing per result set | Results rendering, collapsing, re-opening | `listing_id` |
-| `application_link_clicked` | `click`, or middle-button `auxclick`, on the application link (`<TrackedLink>`) | Render, hover, right-click | `listing_id`, `from` (`results`/`listings`) |
+| `application_link_clicked` | `click`, or middle-button `auxclick`, on the application link | Render, hover, right-click | `listing_id`, `from` (`results`/`listings`) |
 
-## What is sent, and what never is
+**Payload:** random `event_id`, `session_id` (the visit ID), `event_name`, `path` (**pathname only**), `lang`, `source` (allow-listed) and typed `props`.
 
-Each event has: random `event_id`, random `session_id` (UUID in `sessionStorage`, key `hn_sid`, not a cookie, falls back to memory if storage is blocked), `event_name`, `path` (**pathname only**, no query string), `lang` (`en`/`zh`), `source` (allow-listed channel from `utm_source` or the referrer host, remembered per tab), and typed `props`.
-
-**Never sent:** income, household size, voucher, disability or age flags, email, free text, IP, user agent, query strings.
-
-The `track()` API only accepts the typed props above, so callers can't pass anything else. The server re-validates with a strict schema anyway. Listing IDs are pattern-checked client-side, and an event with a bad ID is dropped rather than sent.
-
-## Delivery (Referer-safe, cookie-compatible)
-
-Events are sent with `fetch("/api/events", { method: "POST", keepalive: true, referrerPolicy: "no-referrer", credentials: "same-origin", cache: "no-store" })`. Delivery is fire-and-forget: every failure is swallowed, and matching never depends on analytics.
-
-- **No Referer.** A beacon, or a default `fetch`, would send the page's full URL including the query string. Codex reproduced this (PR #4, P2; closed). The e2e test includes a control request that *does* carry the query, which proves the assertion is meaningful.
-- **Same-origin cookies.** Cookie-protected deployments (Vercel Authentication on Previews) reject requests without the session cookie. `same-origin` sends cookies to our own origin only.
-  - Auth cookies may therefore reach `/api/events` and edge logs. The route never reads cookies.
-  - No tokens appear in payloads or client source. Vercel Authentication and the Origin check are unchanged.
-  - A local e2e test runs behind a cookie-gated proxy (`e2e/auth-proxy.mjs`). With the cookie, the request passes (204). Without it, the request is rejected (401). Neither carries a Referer or any query text.
-  - **This local test doesn't prove anything about Vercel itself.** A protected Preview smoke test with an authorized signed-in session is still required after code approval.
-
-## Per-tab session
-
-`sessionStorage` is copied into tabs opened from a tab (`window.open`/`target=_blank`) and into "Duplicate tab". Messages go over `BroadcastChannel("hn_session")`, and each carries the sender's random nonce:
-
-| Message | Meaning |
-|---|---|
-| `probe {sid, nonce}` | Fast path on first use: "does a live tab own this sid?" Waits 150 ms. |
-| `claimed {sid, to}` | "I own this sid; you (`to`) are the copy." |
-| `hello {sid, nonce, origin}` | Sent once after a document resolves its ID. `origin` is `performance.timeOrigin`. |
-
-**Arbitration.** When two live documents hold the same ID, the **older** document keeps it (smaller `timeOrigin`, then smaller nonce) and the **newer** one rotates to a fresh UUID.
-
-- A **busy owner** that misses the probe window still processes the queued probe or hello once it frees up, and claims then. That **late claim** makes the copy rotate.
-- On rotation, the copy **re-sends its funnel-entry events** (`page_view`, and `matcher_started` even if it was suppressed by the inherited marker) under its new ID.
-- **Concurrent copies** with no live owner settle the same way through `hello`.
-- Each rotation draws a fresh random UUID, so arbitration terminates.
-
-**What doesn't change:**
-- A same-tab reload or navigation has no live owner, so it keeps its ID.
-- A document gives up ownership on `pagehide`, so a frozen (bfcache) page can't claim against its successor in the same tab.
-- Once-markers are keyed by ID (`hn_once:<sid>:<name>`) and stale ones are pruned by prefix. There is no `sessionStorage.clear()`, so other app keys are untouched.
-
-**Verified in real Chromium** (desktop and 375 px mobile):
-
-| Scenario | Result |
-|---|---|
-| `window.open` child | Inherits the copy (asserted), then rotates |
-| `noopener` child | Doesn't inherit in current Chromium; gets its own ID |
-| Seeded duplicate | Rotates |
-| **2.5 s busy owner** | The copy first uses the inherited ID, then late-rotates and re-sends `page_view` and `matcher_started`. The owner keeps its ID and its single `matcher_started` |
-| **Two concurrent copies, no owner** | Exactly one keeps the inherited ID; the other rotates |
-| Reload, same-tab navigation | Keep the ID |
-
-The timing-sensitive tests passed 30 times out of 30 with `--repeat-each 5`.
-
-**Residual semantics (best effort, documented):**
-- Events a copy sends *before* a late claim stay under the shared ID. Raw totals can therefore include one extra `page_view` per late-detected copy. Distinct-session funnel counts are still correct, because the shared session already had that step and the copy's new session gets its own.
-- Without `BroadcastChannel`, a copy keeps the inherited ID.
-- Native "Duplicate tab" can't be automated in Playwright, so it is simulated with an identical storage copy.
+**Never sent:** income, household size, voucher/disability/age flags, email, free text, IP, user agent, or query strings. The server re-validates every event with a strict schema.
 
 ## Metric definitions
 
-`matcher_completed` counts are over **all rows returned by `/api/match`**, which is the full eligibility evaluation. They don't depend on borough or bedroom preferences, or on which rows the UI shows. Rows with `matchesPreferences === false` are included.
+`matcher_completed` counts cover **all rows returned by `/api/match`**, regardless of preferences or what the UI shows. Rows with `matchesPreferences === false` are included.
 
-- `likely_count`: rows with `result.status === "LIKELY_MATCH"`, bucketed.
-- `review_count`: rows with `result.status === "NEEDS_REVIEW"`, bucketed.
-- `has_borough_pref`: at least one borough selected.
+- `likely_count`: number of rows with `LIKELY_MATCH`
+- `review_count`: number of rows with `NEEDS_REVIEW`
 
-A unit test pins this definition using hidden `matchesPreferences: false` rows.
+Both are bucketed (`0` / `1-5` / `6-20` / `20+`).
 
-## Attribution precedence
+## Delivery (Referer-safe, cookie-compatible)
 
-`utm_source` wins over the referrer host. A same-host referrer counts as `direct`, an unknown host maps to `other`, and no signal at all is `direct`. The value is remembered per tab, and a copied tab keeps the opener's channel. Unit tests cover each case.
+```js
+fetch("/api/events", {
+  method: "POST",
+  keepalive: true,
+  referrerPolicy: "no-referrer",
+  credentials: "same-origin",
+  cache: "no-store",
+});
+```
 
-## Matcher response validation
+Delivery is fire-and-forget: failures are swallowed and matching never depends on analytics.
 
-A `200` whose body lacks a `results` array is treated as an error, before any state update. The UI shows the error message, no results render, and no `matcher_completed` is sent. The request and normal results are unchanged.
+- **No Referer.** This prevents the page URL and query string from leaking (Codex P2, closed). The e2e test uses a control request that *does* carry the query, which shows the check is meaningful. `sendBeacon` isn't used because it can't control the Referer.
+- **Same-origin cookies.** These are needed for cookie-protected deployments such as Vercel Authentication on Previews.
+  - Auth cookies may reach `/api/events` and edge logs. The route never reads them, and no tokens appear in payloads or client source.
+  - Vercel Authentication and the Origin check are unchanged.
+  - A local cookie-gated proxy test (`e2e/auth-proxy.mjs`) covers this: with a cookie the request gets **204**, without one it gets **401**, and neither sends a Referer.
+  - **A protected Preview smoke test with an authorized signed-in session is still required** and needs separate authorization.
 
 ## Tests
 
-`src/components/analytics/tracking.test.tsx` (jsdom + Testing Library; `vitest.config.ts` adds the `@` alias and the automatic JSX runtime). It covers:
+**Unit** (`src/components/analytics/tracking.test.tsx`, jsdom):
+- Flag-off matrix: no requests, no UUIDs generated, no storage, no cookies, no `BroadcastChannel`.
+- Page view semantics.
+- `matcher_started` sent once per visit, and again after a new load with a new ID.
+- `matcher_completed` gating, including malformed 200s and recovery.
+- Bucket metric definition with hidden rows.
+- Details and link semantics.
+- Fetch init.
+- UTM precedence.
+- One ID across the full funnel, with pauses and no storage.
+- Storage APIs throwing has no effect.
+- Legacy `hn_*` keys are ignored.
+- **Integration:** every browser payload gets a 202 from the real `handleEvents()`.
 
-- the flag-off matrix
-- page_view only on initial render, StrictMode, the language switch, pathname only, and source persistence
-- matcher_started dedupe across remounts and new tab sessions
-- matcher_completed on 200 only, and not on 500 / network error / bad JSON, with buckets, borough preference, and no input values in payloads
-- the 中文 UI flow
-- details and link semantics (hover, right-click, middle-click)
-- the invalid listing ID drop
-- session ID storage and the blocked-storage fallback
-- a failed `/api/events` request leaving results and the `/api/match` request unchanged
-- malformed `200` bodies
-- fetch init (`no-referrer`, `omit`, `keepalive`, no beacon)
-- UTM precedence
-- the metric definition
-- session rotation, reload and probe answering
-- **integration:** every browser payload is accepted (202) by the real `handleEvents()`
-
-Earlier ad-hoc browser verification (before the fixes above): Playwright against a local `next start` build, desktop 1280×800 and mobile 375×812 (touch), EN and 中文.
-
-- **Flag on:** the event sequence was exactly `page_view → matcher_started → matcher_completed → listing_details_opened → application_link_clicked → page_view → application_link_clicked`, with one session, the correct language tag, and no PII strings.
-- **Flag off:** no `/api/events` requests at all.
-- **Both modes:** 150 results and one `/api/match` call, the same as before.
+**Chromium** (`e2e/`, desktop and 375 px mobile, real network):
+- No Referer or query leakage, checked against a control request.
+- Cookie-protected endpoint returns 204 with a cookie and 401 without.
+- Full funnel with human-like pauses uses one ID, and storage stays empty.
+- Reload gets a new ID and `matcher_started` fires again.
+- `matcher_started` fires once per visit.
+- Client-side navigation keeps the ID; a full navigation gets a new one.
+- `window.open` and `noopener` children are independent.
+- A tab seeded with a copy of another tab's storage (Duplicate-tab semantics) is independent.
+- Two concurrent tabs never share an ID.
+- `@flag-off` runs against a default build: zero `/api/events` requests, zero storage writes, no `BroadcastChannel`, no cookies, and matching still works.
+- CI runs both builds.

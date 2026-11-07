@@ -4,7 +4,7 @@ import { BOROUGHS, UNIT_TYPES, type Borough, type Listing, type MatchResult, typ
 import { boroughLabel, dict, unitLabel, type Lang } from "@/lib/i18n";
 import { StatusBadge } from "./StatusBadge";
 import { TrackedLink } from "./analytics/TrackedLink";
-import { bucket, track, trackOncePerSession } from "@/lib/analytics/client";
+import { bucket, track, trackOncePerVisit } from "@/lib/analytics/client";
 
 type Row = { listing: Listing; result: MatchResult };
 
@@ -43,7 +43,7 @@ export function Matcher({ lang }: { lang: Lang }) {
   const markStarted = () => {
     if (startedRef.current) return;
     startedRef.current = true;
-    trackOncePerSession("matcher_started", {}, lang);
+    trackOncePerVisit("matcher_started", {}, lang);
   };
 
   const toggle = <T,>(arr: T[], v: T, set: (x: T[]) => void) => set(arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
