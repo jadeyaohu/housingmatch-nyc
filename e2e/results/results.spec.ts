@@ -98,10 +98,17 @@ test("show unlikely reveals a third section; other counts don't change", async (
 
 test("language toggle re-renders results copy without breaking the page", async ({ page }) => {
   await run(page, "en");
-  const toggle = page.getByRole("group", { name: "Language" }).getByRole("button", { name: "中文" });
+  const group = page.getByRole("group", { name: "Language" });
+  const toggle = group.getByRole("button", { name: "中文" });
   await page.evaluate(() => window.scrollTo(0, 0));
-  await toggle.scrollIntoViewIfNeeded();
-  await toggle.click();
+  // Diagnostic for a PRE-EXISTING header issue (not changed by this PR): in CI at 375 px the EN
+  // button's box has been observed to overlap 中文's hit point. Log both boxes for follow-up.
+  const en = await group.getByRole("button", { name: "EN" }).boundingBox();
+  const zh = await toggle.boundingBox();
+  console.log(`[lang-toggle-boxes] ${test.info().project.name} EN=${JSON.stringify(en)} ZH=${JSON.stringify(zh)} overlap=${!!en && !!zh && en.x + en.width > zh.x}`);
+  // Activate via keyboard so this test checks results behaviour, not header hit-testing.
+  await toggle.focus();
+  await page.keyboard.press("Enter");
   await expect(toggle).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByTestId("result-counts")).toHaveText(COPY.zh.counts);
 });
