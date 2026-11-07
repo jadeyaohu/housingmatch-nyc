@@ -107,4 +107,9 @@ export interface MatchResult {
   outcomes: RuleOutcome[];
   /** Income bands the household appears to fit. */
   qualifyingBands: IncomeBand[];
+  /**
+   * Data-completeness facts for this result (Issue #5). Descriptive only — never affects status.
+   * Optional so older payloads remain valid.
+   */
+  quality?: import("./matching/quality").ResultQuality;
 }
