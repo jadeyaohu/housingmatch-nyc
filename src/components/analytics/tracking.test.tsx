@@ -464,6 +464,13 @@ describe("match-count metric definition", () => {
   });
 });
 
+/** Fake peers may reply after a test closed them; ignore that instead of throwing late. */
+function safePost(ch: BroadcastChannel, m: unknown) {
+  try {
+    ch.postMessage(m);
+  } catch {}
+}
+
 describe("per-tab session (unit; real-browser proof lives in e2e/)", () => {
   const COPIED = "11111111-2222-4333-8444-555555555555";
   function otherTabOwning(sid: string, delayMs = 0) {
@@ -471,7 +478,7 @@ describe("per-tab session (unit; real-browser proof lives in e2e/)", () => {
     ch.onmessage = (e) => {
       const d = e.data;
       if ((d?.type === "probe" || d?.type === "hello") && d.sid === sid) {
-        const reply = () => ch.postMessage({ type: "claimed", sid, to: d.nonce });
+        const reply = () => safePost(ch, { type: "claimed", sid, to: d.nonce });
         if (delayMs) setTimeout(reply, delayMs);
         else reply();
       }
@@ -534,7 +541,7 @@ describe("late-claim arbitration (busy owner, concurrent copies)", () => {
     const ch = new BroadcastChannel("hn_session");
     ch.onmessage = (e) => {
       const d = e.data;
-      if ((d?.type === "probe" || d?.type === "hello") && d.sid === sid) setTimeout(() => ch.postMessage({ type: "claimed", sid, to: d.nonce }), delayMs);
+      if ((d?.type === "probe" || d?.type === "hello") && d.sid === sid) setTimeout(() => safePost(ch, { type: "claimed", sid, to: d.nonce }), delayMs);
     };
     return ch;
   }
