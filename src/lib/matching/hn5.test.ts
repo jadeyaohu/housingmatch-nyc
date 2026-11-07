@@ -4,7 +4,7 @@ import { describe, expect, it } from "vitest";
 import { dict } from "../i18n";
 import type { Household, Listing, MatchStatus, RuleOutcome } from "../types";
 import { DEFAULT_CONFIG, matchAll, matchListing } from "./engine";
-import { ALL_FIXTURES, F1, F2, F3, F4, F5, F6, HH_3_85K, TODAY } from "./fixtures/hn5";
+import { ALL_FIXTURES, F1, F2, F3, F4, F5, F6, F7, HH_3_85K, TODAY } from "./fixtures/hn5";
 import { assessQuality, calendarDaysBetween, CLOSING_SOON_DAYS, type QualityWarning } from "./quality";
 
 const cfg = { ...DEFAULT_CONFIG, today: TODAY };
@@ -66,6 +66,21 @@ describe("F3 — hypothetical published unit-specific chart", () => {
   });
   it("income just below the 1BR minimum is UNLIKELY (published table, so a fail is legitimate)", () => {
     expect(m(F3, { ...HH_3_85K, annualIncome: 84_000 }).status).toBe("UNLIKELY_MATCH");
+  });
+});
+
+describe("F7 — complete published income data, unknown non-income restriction", () => {
+  const r = m(F7);
+  it("is NEEDS_REVIEW only because of the restriction; income and household size pass", () => {
+    expect(r.status).toBe("NEEDS_REVIEW");
+    expect(rule(r.outcomes, "income").result).toBe("pass");
+    expect(rule(r.outcomes, "household_size").result).toBe("pass");
+    expect(rule(r.outcomes, "restrictions").result).toBe("unknown");
+  });
+  it("has no quality warnings and no fit claim (so the UI must not rely on warnings to ask for confirmation)", () => {
+    expect(r.quality!.tier).toBe("published_limits");
+    expect(r.quality!.warnings).toEqual([]);
+    expect(r.quality!.fits).toEqual([]); // only LIKELY results list fits
   });
 });
 

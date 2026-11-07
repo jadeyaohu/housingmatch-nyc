@@ -4,7 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import { Matcher } from "@/components/Matcher";
 import { MatchResults, type Row } from "@/components/MatchResults";
 import { DEFAULT_CONFIG, matchAll } from "@/lib/matching/engine";
-import { ALL_FIXTURES, F1, F2, F3, HH_3_85K, TODAY } from "@/lib/matching/fixtures/hn5";
+import { ALL_FIXTURES, F1, F2, F3, F7, HH_3_85K, TODAY } from "@/lib/matching/fixtures/hn5";
 
 /** Results exactly as /api/match would return them for the synthetic fixtures (JSON round-trip). */
 const rowsFor = (listings = ALL_FIXTURES, h = HH_3_85K): Row[] =>
@@ -20,11 +20,11 @@ const card = (id: string) => screen.getByTestId(`result-${id}`);
 describe("sections and counts", () => {
   it("separates LIKELY from NEEDS_REVIEW with counts that don't merge them; UNLIKELY hidden by default", () => {
     render(<MatchResults rows={rowsFor()} lang="en" />);
-    expect(screen.getByTestId("result-counts").textContent).toBe("1 preliminary · 3 possible (data incomplete) · 2 not shown");
+    expect(screen.getByTestId("result-counts").textContent).toBe("1 preliminary · 4 possible (data incomplete) · 2 not shown");
     const likely = screen.getByTestId("section-LIKELY_MATCH");
     const review = screen.getByTestId("section-NEEDS_REVIEW");
     expect(within(likely).getByRole("heading", { level: 3 }).textContent).toMatch(/^Preliminary match — based on income limits in our data \(1\)$/);
-    expect(within(review).getByRole("heading", { level: 3 }).textContent).toMatch(/^Possible match — data incomplete, please confirm \(3\)$/);
+    expect(within(review).getByRole("heading", { level: 3 }).textContent).toMatch(/^Possible match — data incomplete, please confirm \(4\)$/);
     expect(within(likely).queryByTestId("result-hc-90001")).toBeNull();
     expect(within(review).getByTestId("result-hc-90001")).toBeTruthy();
     expect(screen.queryByTestId("section-UNLIKELY_MATCH")).toBeNull();
@@ -37,14 +37,14 @@ describe("sections and counts", () => {
     render(<MatchResults rows={rowsFor()} lang="en" />);
     fireEvent.click(screen.getByRole("checkbox"));
     expect(within(screen.getByTestId("section-UNLIKELY_MATCH")).getAllByRole("listitem").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getByTestId("result-counts").textContent).toBe("1 preliminary · 3 possible (data incomplete) · 2 not shown");
+    expect(screen.getByTestId("result-counts").textContent).toBe("1 preliminary · 4 possible (data incomplete) · 2 not shown");
   });
 
   it("中文: section titles, counts and badges use cautious wording", () => {
     render(<MatchResults rows={rowsFor()} lang="zh" />);
-    expect(screen.getByTestId("result-counts").textContent).toBe("初步符合 1 个 · 可能符合 3 个（资料不完整）· 未显示 2 个");
-    expect(within(screen.getByTestId("section-LIKELY_MATCH")).getByRole("heading", { level: 3 }).textContent).toContain("初步符合（基于现有收入数据）");
-    expect(within(screen.getByTestId("section-NEEDS_REVIEW")).getByRole("heading", { level: 3 }).textContent).toContain("可能符合（资料不完整，请核实）");
+    expect(screen.getByTestId("result-counts").textContent).toBe("初步符合 1 个 · 可能符合 4 个（资料不完整）· 未显示 2 个");
+    expect(within(screen.getByTestId("section-LIKELY_MATCH")).getByRole("heading", { level: 3 }).textContent).toContain("初步符合（基于现有收入资料）");
+    expect(within(screen.getByTestId("section-NEEDS_REVIEW")).getByRole("heading", { level: 3 }).textContent).toContain("可能符合（资格资料不完整，需核实）");
     expect(document.body.textContent).not.toMatch(/确认符合|官方批准/);
   });
 });
@@ -60,7 +60,7 @@ describe("F1 card (345-like)", () => {
     for (const w of warnings) expect(box.textContent).toContain(w);
     expect(box.textContent).toContain(units);
     expect(within(c).getByTestId("closing-soon").textContent).toBe(closing);
-    expect(within(c).getByTestId("provenance").textContent).toMatch(lang === "en" ? /Source: NYC Open Data · Not manually verified\./ : /未经人工核实/);
+    expect(within(c).getByTestId("provenance").textContent).toBe(lang === "en" ? "Source: NYC Open Data · Not manually verified" : "来源: NYC Open Data · 未经人工核实");
     const link = within(c).getByRole("link");
     expect(link.getAttribute("href")).toBe("https://housingconnect.nyc.gov/PublicWeb/details/90001");
     expect(link.getAttribute("target")).toBe("_blank");
@@ -95,7 +95,7 @@ describe("F3 card (published chart)", () => {
     const c = within(screen.getByTestId("section-LIKELY_MATCH")).getByTestId("result-hc-90003");
     expect(within(c).getByTestId("fits").textContent).toBe("Fits income limits in our data for 1 BR (130% AMI)");
     expect(c.textContent).not.toContain("Confirm on Housing Connect before applying.");
-    expect(within(c).getByTestId("provenance").textContent).toMatch(/Auto-collected from: Housing Connect · Not manually verified\. · income data collected automatically on 2026-11-06/);
+    expect(within(c).getByTestId("provenance").textContent).toBe("Auto-collected from: Housing Connect · Not manually verified · income data collected automatically on 2026-11-06");
     expect(within(c).getByRole("link").getAttribute("href")).toBe("https://housingconnect.nyc.gov/PublicWeb/details/90003");
   });
 });
@@ -133,6 +133,8 @@ describe("Matcher integration", () => {
     });
     await screen.findByTestId("section-LIKELY_MATCH");
     expect(screen.getByTestId("result-counts").textContent).toBe("1 preliminary · 2 possible (data incomplete) · 0 not shown");
+    // every NEEDS_REVIEW card carries the confirmation line
+    for (const id of ["hc-90001", "hc-90002"]) expect(within(card(id)).getByTestId("review-confirm").textContent).toBe("Confirm on Housing Connect before applying.");
     const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
     expect(url).toBe("/api/match");
     expect(JSON.parse(String(init.body))).toEqual({
@@ -140,10 +142,50 @@ describe("Matcher integration", () => {
     });
   });
 
-  it("older payloads without `quality` still render (no warnings, no crash)", () => {
-    const rows = rowsFor([F2]).map((r) => ({ ...r, result: { ...r.result, quality: undefined } }));
-    render(<MatchResults rows={rows} lang="en" />);
-    expect(card("hc-90002")).toBeTruthy();
-    expect(screen.queryByTestId("quality-warnings")).toBeNull();
+  it.each(["en", "zh"] as const)("%s: older payloads without `quality` still show a confirmation and the engine's unknown reasons", (lang) => {
+    const rows = rowsFor([F2, F7]).map((r) => ({ ...r, result: { ...r.result, quality: undefined } }));
+    render(<MatchResults rows={rows} lang={lang} />);
+    for (const id of ["hc-90002", "hc-90007"]) {
+      const c = card(id);
+      expect(within(c).getByTestId("review-confirm").textContent).toBe(lang === "en" ? "Confirm on Housing Connect before applying." : "申请前请在 Housing Connect 上核实。");
+      expect(within(c).queryByTestId("closing-soon")).toBeNull();
+      expect(within(c).queryAllByRole("listitem").filter((li) => li.getAttribute("data-warning"))).toHaveLength(0);
+    }
+    // without quality, every unknown rule's own reason is shown (F2: household_size + income; F7: restrictions)
+    const f2 = [...card("hc-90002").querySelectorAll("[data-unknown-rule]")].map((li) => li.getAttribute("data-unknown-rule"));
+    expect(f2).toEqual(["household_size", "income"]);
+    const f7 = [...card("hc-90007").querySelectorAll("[data-unknown-rule]")].map((li) => li.getAttribute("data-unknown-rule"));
+    expect(f7).toEqual(["restrictions"]);
+    expect(document.body.textContent).not.toMatch(/85,?000/); // no raw user input echoed
+  });
+});
+
+describe("F7 — complete income data, unknown restriction (Codex P2 regression)", () => {
+  it.each([
+    ["en", "Confirm on Housing Connect before applying.", /confirm you qualify/],
+    ["zh", "申请前请在 Housing Connect 上核实。", /请确认是否符合/],
+  ] as const)("%s: card shows the restriction reason and a confirmation even with zero quality warnings", (lang, confirm, reason) => {
+    render(<MatchResults rows={rowsFor([F7])} lang={lang} />);
+    const c = within(screen.getByTestId("section-NEEDS_REVIEW")).getByTestId("result-hc-90007");
+    expect(within(c).getByTestId("review-confirm").textContent).toBe(confirm);
+    const reasons = within(c).getByTestId("unknown-reasons");
+    expect(reasons.textContent).toMatch(reason);
+    expect(c.querySelectorAll("[data-warning]")).toHaveLength(0);
+    expect(within(c).queryByTestId("fits")).toBeNull();
+    expect(within(c).getByTestId("provenance").textContent).toBe(
+      lang === "en" ? "Auto-collected from: Housing Connect · checked 2026-11-06 · income data collected automatically on 2026-11-06" : "自动采集自: Housing Connect · 核对于 2026-11-06 · 收入数据于 2026-11-06 自动收集",
+    );
+    // Why section and rule statuses are unchanged
+    expect([...c.querySelectorAll("[data-outcome]")].map((li) => li.getAttribute("data-outcome"))).toEqual(["pass", "pass", "pass", "unknown"]);
+  });
+
+  it("every NEEDS_REVIEW card across all fixtures has a confirmation line (EN and 中文)", () => {
+    for (const lang of ["en", "zh"] as const) {
+      cleanup();
+      render(<MatchResults rows={rowsFor()} lang={lang} />);
+      const cards = within(screen.getByTestId("section-NEEDS_REVIEW")).getAllByRole("listitem").filter((li) => li.dataset.testid?.startsWith("result-"));
+      expect(cards.length).toBe(4);
+      for (const c of cards) expect(within(c).getByTestId("review-confirm").textContent).toBeTruthy();
+    }
   });
 });

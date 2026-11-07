@@ -9,7 +9,7 @@ Approved by the PO (issue #5 comment 6701964087). Presentation-only: **eligibili
 | `src/lib/matching/quality.ts` (new) | `assessQuality()` describes how complete our record is for *this* household's relevant bands. It returns a tier, warning codes, listed units, NYC calendar days to the deadline, a closing-soon flag, and facts for published-limit fits. It is descriptive only and never changes status |
 | `engine.ts` | Adds `result.quality`. Sort order: **preference match (unchanged) → status → data tier → qualifying bands → deadline**. Two category-only income reasons are reworded more cautiously; their result is still `unknown` |
 | `MatchResults.tsx` (new, extracted) | Shows separate sections for **Preliminary match** (`LIKELY_MATCH`) and **Possible match: data incomplete** (`NEEDS_REVIEW`), with UNLIKELY behind the existing toggle. Separate counts, bilingual warnings, a closing-soon chip, provenance, and **"View official listing & income chart ↗"** linking to the Housing Connect details page |
-| `i18n.ts` | Draft EN/中文 copy for sections, warnings and links. **Needs PO/product copy review before merge.** The `LIKELY_MATCH` badge is now `初步符合`, so it no longer collides with the 可能符合 section |
+| `i18n.ts` | Draft EN/中文 copy for sections, warnings and links. **Needs PO/product copy review before merge.** The `LIKELY_MATCH` badge is now `初步符合`, so it no longer collides with the 可能符合 section. The section titles use the PO-polished `初步符合（基于现有收入资料）` and `可能符合（资格资料不完整，需核实）`. The provenance line now reads "未经人工核实 ·", without the stray full stop |
 
 ## Tiers and warnings
 
@@ -24,6 +24,16 @@ Approved by the PO (issue #5 comment 6701964087). Presentation-only: **eligibili
   - `unit_pairing_unpublished`: the listing has more than one unit size and its bands aren't tied to unit sizes.
   - `not_manually_verified`: shown in the provenance line.
 - **Rules that always hold:** no dollar figure appears unless it's in the record. No unit size is named as fitting unless it comes from a published-limit qualifying band.
+
+## Confirmation on every NEEDS_REVIEW card (Codex P2 fix)
+
+Every `NEEDS_REVIEW` card renders the confirmation box, **independent of `quality.warnings`**, and also when `result.quality` is absent (older payloads). The box contains:
+
+- The quality warnings, if there are any.
+- The engine's own bilingual `reason` for every *other* `unknown` rule, such as restrictions or deadline. When `quality` is missing, these are the reasons for *all* `unknown` rules. Nothing is invented, and no user input is echoed.
+- **"Confirm on Housing Connect before applying." / 「申请前请在 Housing Connect 上核实。」**
+
+The "Why" section and rule statuses are unchanged. Fixture **F7** covers the case: F3's published bands, verified, `restrictions: ["veteran"]` → `NEEDS_REVIEW` with `quality.warnings: []`.
 
 ## Closing soon
 

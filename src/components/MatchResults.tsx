@@ -40,7 +40,15 @@ export function MatchResults({
   const card = ({ listing, result }: Row) => {
     const q = result.quality;
     const warnings = (q?.warnings ?? []).filter((w) => w !== "not_manually_verified") as Exclude<QualityWarning, "not_manually_verified">[];
-    const showWarnings = result.status !== "UNLIKELY_MATCH" && warnings.length > 0;
+    const review = result.status === "NEEDS_REVIEW";
+    // Rules whose uncertainty the quality warnings already explain (when quality is present).
+    const covered = new Set(q ? ["income", "household_size"] : []);
+    // Engine-authored, bilingual reasons for the remaining `unknown` rules (e.g. restrictions,
+    // deadline). Never user inputs; never new requirements.
+    const otherUnknown = review ? result.outcomes.filter((o) => o.result === "unknown" && !covered.has(o.rule)) : [];
+    // Every NEEDS_REVIEW card gets the box (with the confirmation line), even with no quality
+    // warnings or no `quality` at all. LIKELY cards show it only if there are warnings.
+    const showWarnings = review || (result.status === "LIKELY_MATCH" && warnings.length > 0);
     const showUnits = (q?.warnings.includes("household_size_unpublished") || q?.warnings.includes("unit_pairing_unpublished")) && (q?.unitsListed.length ?? 0) > 0;
     const days = q?.daysToDeadline;
     const closing =
@@ -79,7 +87,7 @@ export function MatchResults({
 
         {showWarnings && (
           <div data-testid="quality-warnings" className="mt-3 rounded-lg bg-amber-50 px-3 py-2 text-sm text-amber-950">
-            <ul className="space-y-1">
+            <ul className="space-y-1" hidden={warnings.length === 0}>
               {warnings.map((w) => (
                 <li key={w} data-warning={w} className="flex gap-2">
                   <span aria-hidden>⚠</span>
@@ -87,12 +95,26 @@ export function MatchResults({
                 </li>
               ))}
             </ul>
+            {otherUnknown.length > 0 && (
+              <ul data-testid="unknown-reasons" className="space-y-1">
+                {otherUnknown.map((o) => (
+                  <li key={o.rule} data-unknown-rule={o.rule} className="flex gap-2">
+                    <span aria-hidden>?</span>
+                    {o.reason[lang]}
+                  </li>
+                ))}
+              </ul>
+            )}
             {showUnits && (
               <p className="mt-1 text-amber-900">
                 {t.unitsListed}{lang === "en" ? " " : ""}{q!.unitsListed.map((u) => unitLabel[lang][u]).join(", ")}
               </p>
             )}
-            {result.status === "NEEDS_REVIEW" && <p className="mt-1 font-medium">{t.q_confirm}</p>}
+            {review && (
+              <p data-testid="review-confirm" className="mt-1 font-medium">
+                {t.q_confirm}
+              </p>
+            )}
           </div>
         )}
 
@@ -118,7 +140,7 @@ export function MatchResults({
         {listing.sourceName && (
           <p data-testid="provenance" className="mt-3 text-xs text-stone-500">
             {listing.dataSource === "muse" ? t.autoCollected : t.source}: {listing.sourceName}
-            {listing.lastVerifiedAt ? ` · ${t.checked} ${listing.lastVerifiedAt}` : ` · ${t.q_not_manually_verified}`}
+            {listing.lastVerifiedAt ? ` · ${t.checked} ${listing.lastVerifiedAt}` : ` · ${t.notManuallyVerifiedShort}`}
             {listing.dataSource === "muse" && collected && ` · ${fill(t.collectedAuto, { d: collected })}`}
           </p>
         )}

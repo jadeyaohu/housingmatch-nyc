@@ -131,4 +131,23 @@ export const F6 = base({
   ],
 });
 
-export const ALL_FIXTURES: Listing[] = [F1, F2, F3, F4, F5, F6];
+/**
+ * F7 — complete published income data (F3's bands), manually verified, but a non-income
+ * restriction (veteran) that the household didn't answer → NEEDS_REVIEW with NO quality warnings.
+ * Regression for Codex P2 on PR #6: the card must still show a confirmation instruction.
+ */
+export const F7 = base({
+  id: "hc-90007",
+  projectName: "F7 Synthetic Restricted Lottery",
+  borough: "Queens",
+  dataSource: "muse",
+  sourceName: "Housing Connect",
+  collectedAt: "2026-11-06T02:00:00.000Z",
+  lastVerifiedAt: "2026-11-06",
+  unitTypes: ["1br", "2br"],
+  applicationDeadline: "2026-11-25",
+  restrictions: ["veteran"],
+  incomeBands: F3.incomeBands,
+});
+
+export const ALL_FIXTURES: Listing[] = [F1, F2, F3, F4, F5, F6, F7];

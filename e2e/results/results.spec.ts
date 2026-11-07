@@ -8,12 +8,12 @@ import { ALL_FIXTURES, HH_3_85K, TODAY } from "../../src/lib/matching/fixtures/h
  */
 const results = JSON.parse(JSON.stringify(matchAll(HH_3_85K, ALL_FIXTURES, { ...DEFAULT_CONFIG, today: TODAY })));
 
-async function run(page: Page, lang: "en" | "zh") {
+async function run(page: Page, lang: "en" | "zh", payload: unknown = results) {
   await page.context().addCookies([{ name: "lang", value: lang, domain: "localhost", path: "/" }]);
   const bodies: unknown[] = [];
   await page.route("**/api/match", async (route) => {
     bodies.push(JSON.parse(route.request().postData() ?? "null"));
-    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ results }) });
+    await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ results: payload }) });
   });
   await page.goto("/");
   await page.locator('button[aria-label="+"]').click();
@@ -25,17 +25,21 @@ async function run(page: Page, lang: "en" | "zh") {
 
 const COPY = {
   en: {
-    counts: "1 preliminary · 3 possible (data incomplete) · 2 not shown",
+    counts: "1 preliminary · 4 possible (data incomplete) · 2 not shown",
     likely: "Preliminary match — based on income limits in our data (1)",
-    review: "Possible match — data incomplete, please confirm (3)",
+    review: "Possible match — data incomplete, please confirm (4)",
+    confirm: "Confirm on Housing Connect before applying.",
+    restriction: /veteran — confirm you qualify/,
     warn: "Household-size limits aren't in our data.",
     closing: "Closes in 3 days",
     link: "View official listing & income chart ↗",
   },
   zh: {
-    counts: "初步符合 1 个 · 可能符合 3 个（资料不完整）· 未显示 2 个",
-    likely: "初步符合（基于现有收入数据） (1)",
-    review: "可能符合（资料不完整，请核实） (3)",
+    counts: "初步符合 1 个 · 可能符合 4 个（资料不完整）· 未显示 2 个",
+    likely: "初步符合（基于现有收入资料） (1)",
+    review: "可能符合（资格资料不完整，需核实） (4)",
+    confirm: "申请前请在 Housing Connect 上核实。",
+    restriction: /请确认是否符合/,
     warn: "我们的数据中没有家庭人数限制。",
     closing: "3 天后截止",
     link: "查看官方页面和收入表 ↗",
@@ -55,9 +59,10 @@ for (const lang of ["en", "zh"] as const) {
     expect((await likely.boundingBox())!.y).toBeLessThan((await review.boundingBox())!.y);
     await expect(page.getByTestId("section-UNLIKELY_MATCH")).toHaveCount(0);
 
-    // Order inside sections: LIKELY F3; then F1 (3 days), F6, F2.
+    // Order inside sections: LIKELY F3; then F7 (published limits), F1 (3 days), F6, F2.
     await expect(likely.locator("li[data-testid^=result-]")).toHaveCount(1);
     expect(await review.locator("li[data-testid^=result-]").evaluateAll((els) => els.map((e) => e.getAttribute("data-testid")))).toEqual([
+      "result-hc-90007",
       "result-hc-90001",
       "result-hc-90006",
       "result-hc-90002",
@@ -74,6 +79,15 @@ for (const lang of ["en", "zh"] as const) {
     const f2 = page.getByTestId("result-hc-90002");
     expect(await f2.textContent()).not.toMatch(/\$\s?\d|84,103|96,652/);
     await expect(f2.getByTestId("closing-soon")).toHaveCount(0);
+
+    // Every NEEDS_REVIEW card shows the confirmation — incl. F7, which has NO quality warnings.
+    for (const id of ["hc-90007", "hc-90001", "hc-90006", "hc-90002"]) {
+      await expect(page.getByTestId(`result-${id}`).getByTestId("review-confirm")).toHaveText(c.confirm);
+    }
+    const f7 = page.getByTestId("result-hc-90007");
+    await expect(f7.getByTestId("unknown-reasons")).toContainText(c.restriction);
+    await expect(f7.locator("[data-warning]")).toHaveCount(0);
+    await expect(f7.getByTestId("review-confirm")).toBeVisible();
 
     // "Why" details: unknown rules show "?" — never "✓"
     await f1.locator("summary").click();
@@ -112,3 +126,17 @@ test("language toggle re-renders results copy without breaking the page", async 
   await expect(toggle).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByTestId("result-counts")).toHaveText(COPY.zh.counts);
 });
+
+for (const lang of ["en", "zh"] as const) {
+  test(`${lang}: older response without quality metadata still asks for confirmation on every possible match`, async ({ page }) => {
+    const stripped = (results as Array<{ result: Record<string, unknown> }>).map((r) => ({ ...r, result: { ...r.result, quality: undefined } }));
+    await run(page, lang, JSON.parse(JSON.stringify(stripped)));
+    const review = page.getByTestId("section-NEEDS_REVIEW");
+    const cards = review.locator("li[data-testid^=result-]");
+    await expect(cards).toHaveCount(4);
+    for (let i = 0; i < 4; i++) await expect(cards.nth(i).getByTestId("review-confirm")).toHaveText(COPY[lang].confirm);
+    await expect(page.getByTestId("result-hc-90007").getByTestId("unknown-reasons")).toContainText(COPY[lang].restriction);
+    await expect(page.getByTestId("closing-soon")).toHaveCount(0); // no quality → no chip, no invented data
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
+  });
+}
