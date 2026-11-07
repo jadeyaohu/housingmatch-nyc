@@ -14,7 +14,9 @@ export default defineConfig({
   timeout: 60_000,
   retries: process.env.CI ? 1 : 0,
   reporter: process.env.CI ? [["list"], ["github"]] : "list",
-  use: { baseURL: `http://localhost:${PORT}` },
+  // Short action/expect timeouts so a stuck step fails fast with a call log instead of eating the test budget.
+  expect: { timeout: 10_000 },
+  use: { baseURL: `http://localhost:${PORT}`, actionTimeout: 10_000, navigationTimeout: 20_000 },
   projects: [
     { name: "chromium-desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1280, height: 900 }, launchOptions: { executablePath } } },
     {

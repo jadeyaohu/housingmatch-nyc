@@ -98,7 +98,10 @@ test("show unlikely reveals a third section; other counts don't change", async (
 
 test("language toggle re-renders results copy without breaking the page", async ({ page }) => {
   await run(page, "en");
-  await page.getByRole("button", { name: "中文" }).click();
-  await expect(page.getByRole("button", { name: "中文" })).toHaveAttribute("aria-pressed", "true");
+  const toggle = page.getByRole("group", { name: "Language" }).getByRole("button", { name: "中文" });
+  await page.evaluate(() => window.scrollTo(0, 0));
+  await toggle.scrollIntoViewIfNeeded();
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByTestId("result-counts")).toHaveText(COPY.zh.counts);
 });
