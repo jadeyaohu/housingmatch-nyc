@@ -124,8 +124,13 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
     const total = int(r["Unit Count"]);
 
     const cd = (r["Community Board"] ?? "").trim();
+    const isCd = (x: string) => /^[1-5]\d\d$/.test(x) && Number(x.slice(1)) <= 18;
+    // The lottery row often says "Multiple" or is blank; its buildings carry the real districts
+    // (checked against Housing Connect in Muse T008: 7626 → Brooklyn CB 08; 7625 → Bronx CB 02/05/07).
+    const districts = isCd(cd) ? [cd] : [...new Set(buildings.map((b) => (b["Community Board"] ?? "").trim()).filter(isCd))].sort();
     const preferences = {
-      communityDistrict: /^[1-5]\d\d$/.test(cd) ? cd : null,
+      communityDistrict: districts.length === 1 ? districts[0] : null,
+      communityDistricts: districts,
       communityPct: int(r["Lottery Community Board Percentage"]),
       nychaPct: int(r["Lottery NYCHA Percentage"]),
       municipalVetPct: int(r["Lottery Municipal Employee/Military Veteran Percentage"]),

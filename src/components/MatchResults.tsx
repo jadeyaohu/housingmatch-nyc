@@ -7,7 +7,7 @@ import { StatusBadge } from "./StatusBadge";
 import { AvailabilityBadge } from "./AvailabilityBadge";
 import type { Availability } from "@/lib/availability";
 import type { LifestyleFit } from "@/lib/lifestyle";
-import { districtLabel, type PriorityItem } from "@/lib/priority";
+import { districtsLabel, type PriorityItem } from "@/lib/priority";
 
 export type Row = { listing: Listing; result: MatchResult; availability?: Availability; lifestyle?: LifestyleFit; priority?: PriorityItem[] };
 
@@ -114,7 +114,7 @@ export function MatchResults({
             <p className="font-medium">{t.pr_title}</p>
             <ul className="mt-1 space-y-1">
               {priority.map((p) => {
-                const district = districtLabel(p.district, lang);
+                const district = districtsLabel(p.districts ?? (p.district ? [p.district] : []), lang);
                 const main =
                   p.kind === "community"
                     ? district ? fill(t.pr_community, { pct: p.pct, district }) : fill(t.pr_community_any, { pct: p.pct })

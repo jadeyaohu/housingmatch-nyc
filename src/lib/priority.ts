@@ -22,6 +22,8 @@ export interface PriorityItem {
   /** yes = you appear to qualify; unknown = can't tell from what you told us; no = you said no. */
   fit: Tri;
   district?: string | null;
+  /** All districts covered by a community preference. */
+  districts?: string[];
 }
 
 /** Community districts a ZIP may fall in. Empty = we don't know this ZIP. */
@@ -30,23 +32,26 @@ export function districtsForZip(zip: string | null): string[] {
   return ZIP_DISTRICTS[zip] ?? [];
 }
 
-function communityFit(listingCd: string | null, zip: string | null): Tri {
-  if (!listingCd) return "unknown";
+function communityFit(listingCds: string[], zip: string | null): Tri {
+  if (listingCds.length === 0) return "unknown";
   const cds = districtsForZip(zip);
   if (cds.length === 0) return "unknown";
-  // Only a ZIP that sits entirely in the listing's district counts as a likely yes.
-  if (cds.length === 1 && cds[0] === listingCd) return "yes";
-  if (cds.includes(listingCd)) return "unknown"; // ZIP spans this and other districts
-  // Different borough entirely → clearly not this district. Same borough → can't be sure
+  // Only a ZIP whose every district is covered by the preference counts as a likely yes.
+  if (cds.every((c) => listingCds.includes(c))) return "yes";
+  if (cds.some((c) => listingCds.includes(c))) return "unknown"; // ZIP spans covered and other districts
+  // Different borough entirely → clearly not covered. Same borough → can't be sure
   // (our ZIP map only covers addresses that have had lottery buildings).
-  return cds.every((c) => c[0] !== listingCd[0]) ? "no" : "unknown";
+  return cds.every((c) => listingCds.every((l) => c[0] !== l[0])) ? "no" : "unknown";
 }
 
 export function priorityFit(l: Listing, a: PriorityAnswers): PriorityItem[] {
   const p = l.preferences;
   if (!p) return [];
   const out: PriorityItem[] = [];
-  if (p.communityPct > 0) out.push({ kind: "community", pct: p.communityPct, fit: communityFit(p.communityDistrict, a.zip), district: p.communityDistrict });
+  if (p.communityPct > 0) {
+    const districts = p.communityDistricts?.length ? p.communityDistricts : p.communityDistrict ? [p.communityDistrict] : [];
+    out.push({ kind: "community", pct: p.communityPct, fit: communityFit(districts, a.zip), district: p.communityDistrict, districts });
+  }
   const yn = (v: boolean | null): Tri => (v == null ? "unknown" : v ? "yes" : "no");
   if (p.nychaPct > 0) out.push({ kind: "nycha", pct: p.nychaPct, fit: yn(a.nycha) });
   if (p.municipalVetPct > 0) out.push({ kind: "municipal_vet", pct: p.municipalVetPct, fit: yn(a.municipalVet) });
@@ -60,6 +65,22 @@ const BORO_NAME: Record<string, { en: string; zh: string }> = {
   "4": { en: "Queens", zh: "皇后区" },
   "5": { en: "Staten Island", zh: "史泰登岛" },
 };
+
+/** Several districts: "Bronx Community Districts 2, 5 and 7" / "布朗克斯第 2、5、7 社区区". */
+export function districtsLabel(cds: string[] | undefined, lang: "en" | "zh"): string | null {
+  const v = (cds ?? []).filter((c) => /^[1-5]\d\d$/.test(c));
+  if (v.length === 0) return null;
+  if (v.length === 1) return districtLabel(v[0], lang);
+  const byBoro = new Map<string, number[]>();
+  for (const c of v) byBoro.set(c[0], [...(byBoro.get(c[0]) ?? []), Number(c.slice(1))]);
+  const parts = [...byBoro].map(([b, ns]) => {
+    const name = BORO_NAME[b][lang];
+    if (lang === "zh") return `${name}第 ${ns.join("、")} 社区区`;
+    const list = ns.length === 1 ? String(ns[0]) : `${ns.slice(0, -1).join(", ")} and ${ns[ns.length - 1]}`;
+    return `${name} Community District${ns.length > 1 ? "s" : ""} ${list}`;
+  });
+  return parts.join(lang === "zh" ? "或" : " or ");
+}
 
 /** "203" → "Bronx Community District 3" / "布朗克斯第 3 社区区". */
 export function districtLabel(cd: string | null | undefined, lang: "en" | "zh"): string | null {

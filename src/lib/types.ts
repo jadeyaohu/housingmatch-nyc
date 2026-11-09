@@ -52,8 +52,13 @@ export type DataSource = "opendata" | "muse" | "manual";
  * who qualify. These change the order applications are reviewed in; they are not eligibility.
  */
 export interface ListingPreferences {
-  /** Three-digit community district code, e.g. "203" (Bronx CD 3). Null if multiple/unknown. */
+  /** Three-digit community district code, e.g. "203" (Bronx CD 3), when there is exactly one. */
   communityDistrict: string | null;
+  /**
+   * Every district the preference covers. Lotteries spanning several buildings can cover several
+   * (e.g. Bronx CB 02, 05, 07). Taken from the lottery row, else from its buildings.
+   */
+  communityDistricts?: string[];
   communityPct: number;
   nychaPct: number;
   municipalVetPct: number;

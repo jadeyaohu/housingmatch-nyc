@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { districtLabel, priorityFit } from "./priority";
+import { districtLabel, districtsLabel, priorityFit } from "./priority";
 import type { Listing } from "./types";
 
 const base = { id: "x", externalId: null, projectName: "T", borough: "Bronx", address: null, housingProgram: null, unitTypes: [], incomeBands: [], restrictions: [], isRerental: false, applicationOpenDate: null, applicationDeadline: null, applicationUrl: null, sourceUrl: null, status: "open", lastVerifiedAt: null, eligibilityNotes: null } as unknown as Listing;
@@ -50,3 +50,17 @@ function findZip(pred: (cds: string[]) => boolean): [string, string[]] | null {
   for (const [z, cds] of Object.entries(zipMap as Record<string, string[]>)) if (pred(cds)) return [z, cds];
   return null;
 }
+
+describe("multi-district preferences (T008: lottery 7625 covers Bronx CB 02, 05, 07)", () => {
+  const multi = { ...withPrefs(null), preferences: { communityDistrict: null, communityDistricts: ["202", "205", "207"], communityPct: 20, nychaPct: 0, municipalVetPct: 10 } } as Listing;
+  it("labels all districts", () => {
+    expect(districtsLabel(["202", "205", "207"], "en")).toBe("Bronx Community Districts 2, 5 and 7");
+    expect(districtsLabel(["202", "205", "207"], "zh")).toBe("布朗克斯第 2、5、7 社区区");
+  });
+  it("a ZIP inside one of the covered districts is a yes; another borough is a no", () => {
+    const one = findZip((cds) => cds.length === 1 && cds[0] === "205");
+    if (one) expect(priorityFit(multi, { zip: one[0], nycha: null, municipalVet: null })[0].fit).toBe("yes");
+    const bk = findZip((cds) => cds.length === 1 && cds[0][0] === "3");
+    expect(priorityFit(multi, { zip: bk![0], nycha: null, municipalVet: null })[0].fit).toBe("no");
+  });
+});
