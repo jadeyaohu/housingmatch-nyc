@@ -1,0 +1,315 @@
+[
+  {
+    "file": "muse-2026-11-09-1036-B.csv",
+    "ranAt": "2026-11-09T15:38:01.288Z",
+    "sources": [
+      {
+        "source": "HDC",
+        "rows": 27,
+        "listings": 27,
+        "accepted": 13,
+        "quarantined": 14,
+        "added": [],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "skipped_circuit_breaker",
+        "reason": "14/27 listings failed checks"
+      },
+      {
+        "source": "Pronto Housing",
+        "rows": 17,
+        "listings": 8,
+        "accepted": 6,
+        "quarantined": 2,
+        "added": [
+          "muse-pronto-housing-eos-100-west-31st-st-new",
+          "muse-pronto-housing-bergen-saratoga-331-saratoga-ave-bro",
+          "muse-pronto-housing-the-greenpoint-23-india-st-brooklyn",
+          "muse-pronto-housing-st-albans-home-queens-ny-11412",
+          "muse-pronto-housing-walkers-paradise-corona-queens-ny-11368",
+          "muse-pronto-housing-livonia-commons-481-williams-ave-bro"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [
+          "muse-pronto-housing-eos-100-west-31st-st-new",
+          "muse-pronto-housing-bergen-saratoga-331-saratoga-ave-bro",
+          "muse-pronto-housing-the-greenpoint-23-india-st-brooklyn",
+          "muse-pronto-housing-walkers-paradise-corona-queens-ny-11368"
+        ],
+        "status": "published"
+      },
+      {
+        "source": "TF Cornerstone",
+        "rows": 22,
+        "listings": 5,
+        "accepted": 4,
+        "quarantined": 1,
+        "added": [
+          "muse-tf-cornerstone-5203-center-blvd-5203-center-blvd",
+          "muse-tf-cornerstone-5241-center-blvd-5241-center-blvd",
+          "muse-tf-cornerstone-505-w-37th-st-505-w-37th-st",
+          "muse-tf-cornerstone-595-dean-st-595-dean-st"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [
+          "muse-tf-cornerstone-5203-center-blvd-5203-center-blvd",
+          "muse-tf-cornerstone-5241-center-blvd-5241-center-blvd",
+          "muse-tf-cornerstone-505-w-37th-st-505-w-37th-st"
+        ],
+        "status": "published"
+      },
+      {
+        "source": "MNS",
+        "rows": 3,
+        "listings": 3,
+        "accepted": 3,
+        "quarantined": 0,
+        "added": [
+          "muse-mns-1730-harrison-ave-unit-4n-1730-harrison-ave-br",
+          "muse-mns-88-leonard-st-unit-510-88-leonard-street-ne",
+          "muse-mns-54-crown-st-unit-1221-54-crown-street-broo"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      },
+      {
+        "source": "Housing Partnership",
+        "rows": 1,
+        "listings": 1,
+        "accepted": 1,
+        "quarantined": 0,
+        "added": [
+          "muse-housing-partnership-540-waverly-540-waverly-ave-broo"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      },
+      {
+        "source": "MHANY",
+        "rows": 10,
+        "listings": 5,
+        "accepted": 4,
+        "quarantined": 1,
+        "added": [
+          "muse-mhany-stella-heights-hdfc-575-west-155th-stree",
+          "muse-mhany-pe2-700-manida-street-700-manida-street-br",
+          "muse-mhany-1921-cortelyou-road-1921-cortelyou-road-",
+          "muse-mhany-461-dean-street-461-dean-street-broo"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      },
+      {
+        "source": "iAfford",
+        "rows": 15,
+        "listings": 12,
+        "accepted": 11,
+        "quarantined": 1,
+        "added": [
+          "muse-iafford-183-covert-st-1026-unit-2f-183-covert-st-unit-2",
+          "muse-iafford-1420-stebbins-0126-unit-3a-1420-stebbins-ave-un",
+          "muse-iafford-the-garrison-0326-unit-1a-the-garrison",
+          "muse-iafford-2250-clarendon-road-0626-unit-6d-2250-clarendon-road-",
+          "muse-iafford-1032-dekalb-ave-unit-1a-1026-1032-dekalb-ave-unit",
+          "muse-iafford-2510-bedford-ave-apartments-0926-multiple-2510-bedford-ave",
+          "muse-iafford-923-broadway-unit-4b-1026-923-broadway-unit-4b",
+          "muse-iafford-649-hart-st-unit-2b-0626-649-hart-st-unit-2b",
+          "muse-iafford-2783-webb-ave-1125-unit-5a-2783-webb-ave-unit-5",
+          "muse-iafford-17-11-hancock-st-apartments-multiple-17-11-hancock-st",
+          "muse-iafford-83-67-116th-st-unit-505-0826-83-67-116th-st-unit-"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      }
+    ],
+    "rejections": [
+      {
+        "listingId": "muse-hdc-selfhelp-kvii-117-27-15th-ave-coll",
+        "name": "SELFHELP KVII",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"2470 - 2806\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-nehemiah-spring-creek-phase-4b1-310-stanley-ave-broo",
+        "name": "Nehemiah Spring Creek Phase 4B1",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"1923.67 - 2250.33\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-atlantic-chestnut-phase-i-305-atlantic-ave-bro",
+        "name": "Atlantic Chestnut Phase I",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"1933 - 2470\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-beach-21st-street-19-02-beach-21st-st-",
+        "name": "BEACH 21ST STREET",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"1995 - 2470\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-nehemiah-spring-creek-phase-4c-1555-hendrix-st-broo",
+        "name": "Nehemiah Spring Creek Phase 4C",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"2111 - 2470\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-90-sands-90-sands-st-brooklyn",
+        "name": "90 SANDS",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"2470 - 2806\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-nehemiah-spring-creek-phase-4b-2-320-stanley-ave-broo",
+        "name": "Nehemiah Spring Creek Phase 4B-2",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"2250.33 - 2806\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-oceanhill-ii-1716-st-marks-ave-br",
+        "name": "OCEANHILL II",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"2470 - 2806\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-creston-avenue-residence-2590-creston-ave-bro",
+        "name": "Creston Avenue Residence",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"2470 - 2806\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-one-flushing-133-37-41st-ave-flus",
+        "name": "ONE FLUSHING",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"1995 - 2806\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-apex-place-62-11-108th-st-fores",
+        "name": "APEX PLACE",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"2206 - 2618\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-5241-center-blvd-5241-center-blvd-lon",
+        "name": "5241 Center Blvd",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"2786.01 - 3384.58\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-the-carolina-1465-park-ave-new-yo",
+        "name": "The Carolina",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"3357.67 - 4110.47\")"
+        ]
+      },
+      {
+        "listingId": "muse-hdc-5203-center-blvd-5203-center-blvd-lon",
+        "name": "5203 Center Blvd",
+        "source": "HDC",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"2489.18 - 4052.02\")"
+        ]
+      },
+      {
+        "listingId": "muse-pronto-housing-waterside-plaza-10-waterside-plz-new",
+        "name": "Waterside Plaza",
+        "source": "Pronto Housing",
+        "sourceUrl": "https://prontohousingrentals.com/listings",
+        "problems": [
+          "row 4: monthly_rent is not a number (\"3689 - 4372\")"
+        ]
+      },
+      {
+        "listingId": "muse-pronto-housing-eastchester-heights-3459-corsa-ave-bronx",
+        "name": "Eastchester Heights",
+        "source": "Pronto Housing",
+        "sourceUrl": "https://prontohousingrentals.com/listings",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"983.10 - 1039.32\")",
+          "row 4: monthly_rent is not a number (\"1702.97 - 2300\")"
+        ]
+      },
+      {
+        "listingId": "muse-tf-cornerstone-455-w-37th-st-455-w-37th-st",
+        "name": "455 W 37th St",
+        "source": "TF Cornerstone",
+        "sourceUrl": "https://tfc.com/about/affordable-re-rentals",
+        "problems": [
+          "row 1: max_income_3 (51080) is lower than a smaller household's limit",
+          "row 1: max_income_3 51080 doesn't match 40% AMI pattern of the other sizes (expected ≈ 61080)"
+        ]
+      },
+      {
+        "listingId": "muse-mhany-810-fulton-llc-475-clermont-ave-bro",
+        "name": "810 Fulton LLC",
+        "source": "MHANY",
+        "sourceUrl": "https://www.mutualhousingny.org/810-fulton-475-clermont-avenue",
+        "problems": [
+          "row 1: monthly_rent is not a number (\"2370 - 2520\")",
+          "row 2: monthly_rent is not a number (\"2542 - 2669\")"
+        ]
+      },
+      {
+        "listingId": "muse-iafford-1515-park-place-apartments-0326-unit-802-1515-park-place-unit",
+        "name": "1515 Park Place Apartments - 0326 Unit 802",
+        "source": "iAfford",
+        "sourceUrl": "https://iaffordny.com/re-rentals/8283660",
+        "problems": [
+          "row 1: max_income_2 154440 doesn't match 130% AMI pattern of the other sizes (expected ≈ 158831)",
+          "row 1: max_income_3 176410 doesn't match 130% AMI pattern of the other sizes (expected ≈ 178729)",
+          "row 1: max_income_5 220480 doesn't match 130% AMI pattern of the other sizes (expected ≈ 214428)"
+        ]
+      }
+    ]
+  }
+]
