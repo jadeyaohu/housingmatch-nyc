@@ -167,7 +167,7 @@ export function MatchResults({
             }}
             className="mt-3 inline-block text-sm font-semibold text-teal-800 underline underline-offset-4"
           >
-            {t.officialLink} ↗
+            {t.officialLink} ↗<span className="sr-only"> {t.opensNewTab}</span>
           </a>
         )}
       </li>

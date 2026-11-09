@@ -106,7 +106,7 @@ const C = {
     pReviewD: "我们还没有完整的收入表，需要你去确认。",
     pOpen: "你选的区域里正在开放的抽签",
     pOpenD: "目前正在 Housing Connect 上接受申请。",
-    plusRr: "另外还有 {n} 个 Re-rental 和等候名单可以看看。",
+    plusRr: "另外还有 {n} 个空出房源（Re-rental）和等候名单可以看看。",
     disclaimer: "以上只是估算，不是官方审核结果。HousingMatch 不会影响抽签结果。",
     unlock: "免费注册，查看全部匹配结果",
     unlockD: "免费，不需要信用卡。可以收藏房源、接收截止提醒。",

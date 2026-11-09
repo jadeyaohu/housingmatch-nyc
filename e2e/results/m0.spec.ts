@@ -60,7 +60,7 @@ for (const lang of ["en", "zh"] as const) {
     await expect(main.filter({ hasText: "Synthetic Re-rental" })).toHaveCount(0);
     const section = page.getByTestId("rerentals");
     await expect(section).toBeVisible();
-    await expect(section).toContainText(lang === "en" ? "Couldn't find your match? Try Re-rentals." : "没有找到合适的？看看 Re-rental 空房。");
+    await expect(section).toContainText(lang === "en" ? "Couldn't find your match? Try Re-rentals." : "没有找到合适的？看看空出房源（Re-rental）。");
     await expect(section).toContainText(lang === "en" ? "HousingMatch does not submit applications." : "HousingMatch 不会替你提交申请。");
     await expect(section.getByText("Synthetic Re-rental")).toHaveCount(0); // collapsed
     await section.getByRole("button").click();

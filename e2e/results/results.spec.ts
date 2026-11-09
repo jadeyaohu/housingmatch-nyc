@@ -72,7 +72,7 @@ for (const lang of ["en", "zh"] as const) {
     await expect(f1.getByTestId("quality-warnings")).toContainText(c.warn);
     await expect(f1.getByTestId("closing-soon")).toHaveText(c.closing);
     const link = f1.getByRole("link");
-    await expect(link).toHaveText(c.link);
+    await expect(link).toContainText(c.link); // plus an sr-only "opens in a new tab" hint
     await expect(link).toHaveAttribute("href", "https://housingconnect.nyc.gov/PublicWeb/details/90001");
     await expect(link).toHaveAttribute("target", "_blank");
 
