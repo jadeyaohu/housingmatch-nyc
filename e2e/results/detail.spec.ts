@@ -9,9 +9,9 @@ for (const lang of ["en", "zh"] as const) {
     await expect(d.getByRole("heading", { level: 1 })).toHaveText("MORRIS HEIGHTS/UNIVERSITY HEIGHTS");
     await expect(page.getByTestId("detail-priority")).toContainText(lang === "en" ? "Bronx Community Districts 2, 5 and 7" : "布朗克斯第 2、5、7 社区区");
     await expect(page.getByTestId("income-bands")).toBeVisible();
-    // T011: Open Data groups are AMI ranges; say so instead of implying the top limit applies to every unit.
-    await expect(page.getByTestId("range-note").first()).toContainText(lang === "en" ? "covers 31–50% AMI" : "覆盖 31–50% AMI");
-    await expect(page.getByTestId("income-bands")).toContainText(lang === "en" ? "Sizes (whole building)" : "户型（整栋楼）");
+    // 7625 now carries Housing Connect's own table (Muse Run A): exact limits and rents, no estimate notes.
+    await expect(page.getByTestId("range-note")).toHaveCount(0);
+    await expect(page.getByTestId("income-bands")).toContainText("$732");
     await expect(page.getByTestId("detail-setaside")).toContainText(lang === "en" ? "5% mobility, 2% vision/hearing" : "5% 行动障碍、2% 视力/听力障碍");
     await expect(page.getByTestId("detail-official")).toHaveAttribute("href", /housingconnect\.nyc\.gov\/PublicWeb\/details\/7625/);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
@@ -27,4 +27,10 @@ test("browse card title opens the detail page; unknown id is a 404", async ({ pa
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(name);
   const r = await page.goto("/listings/does-not-exist");
   expect(r?.status()).toBe(404);
+});
+
+test("a lottery with only Open Data categories explains that the group is an AMI range", async ({ page }) => {
+  await page.goto("/listings/hc-7338");
+  await expect(page.getByTestId("range-note").first()).toContainText("covers 81–120% AMI");
+  await expect(page.getByTestId("income-bands")).toContainText("Sizes (whole building)");
 });
