@@ -47,9 +47,9 @@ const C = {
     q4: "How many people will live with you, including you?",
     h4: "Count everyone who will live in the apartment, including children.",
     q5: "What's your household's total yearly income before taxes?",
-    h5: "Add up everyone's income in the household: wages, benefits, child support, etc. An estimate is fine.",
-    q6: "Do you have a housing voucher or rental subsidy?",
-    h6: "For example Section 8 or CityFHEPS.",
+    h5: "Add up everyone's income in the household: wages, benefits, child support, etc. Use the amount before taxes are taken out. An estimate is fine.",
+    q6: "Does a program pay part of your rent, like a housing voucher?",
+    h6: "For example Section 8 or CityFHEPS — programs that pay part of your rent for you.",
     yes: "Yes",
     no: "No",
     unsure: "Not sure",
@@ -57,22 +57,22 @@ const C = {
     h7: "Some buildings set aside apartments for these households, or review their applications first.",
     senior: "Someone is 62 or older",
     disability: "Someone has a disability",
-    nycha: "We live in NYCHA public housing",
-    municipalVet: "Someone is a NYC city employee or a U.S. military veteran",
+    nycha: "We live in NYCHA public housing (run by the NYC Housing Authority)",
+    municipalVet: "Someone works for the City of New York, or is a U.S. military veteran",
     zip: "Your home ZIP code (optional)",
-    zipHelp: "Many lotteries put local residents first. We use your ZIP only to check this — it isn't saved.",
+    zipHelp: "Many lotteries save some apartments for people who already live nearby. We use your ZIP only to check this — it isn't saved.",
     none: "None of these",
     seeMatches: "See my matches",
     loading: "Finding your matches…",
     error: "Something went wrong. Please try again.",
     previewTitle: "Here's what we found for you",
-    pLikely: "Preliminary matches",
-    pLikelyD: "Your household appears to fit the published income limits.",
-    pReview: "Possible — need checking",
-    pReviewD: "We don't have the full income chart yet; you'd need to confirm.",
-    pOpen: "Open lotteries in your areas",
-    pOpenD: "Currently accepting applications on Housing Connect.",
-    plusRr: "Plus {n} re-rentals and waiting lists to explore.",
+    pLikely: "Look like a fit",
+    pLikelyD: "Your income and household size fit the income limits these lotteries published.",
+    pReview: "Might fit",
+    pReviewD: "We're missing part of the income chart. Check it on Housing Connect before applying.",
+    pOpen: "Of these, open now",
+    pOpenD: "Lotteries above that are accepting applications on Housing Connect today.",
+    plusRr: "Plus {n} single apartments that opened up again (re-rentals) and waiting lists to look at.",
     disclaimer: "These are estimates, not an official decision. HousingMatch doesn't affect lottery selection.",
     unlock: "Create your free account to see all your matches",
     unlockD: "Free. No credit card. Save homes and get deadline reminders.",
@@ -86,6 +86,7 @@ const C = {
     myAccount: "My account",
     viewNow: "View my full results",
     edit: "Change my answers",
+    startOver: "Start over",
   },
   zh: {
     step: "第 {n} 题，共 {total} 题",
@@ -104,9 +105,9 @@ const C = {
     q4: "包括你自己，一共几个人住？",
     h4: "所有会住在这套公寓里的人都要算上，包括孩子。",
     q5: "全家一年的税前总收入是多少？",
-    h5: "把家里每个人的收入加起来：工资、补助、子女抚养费等。大概的数字就可以。",
-    q6: "你有住房补助券或租金补贴吗？",
-    h6: "例如 Section 8 或 CityFHEPS。",
+    h5: "把家里每个人的收入加起来：工资、补助、子女抚养费等，按还没扣税的金额算。大概的数字就可以。",
+    q6: "有没有政府项目帮你付一部分房租？",
+    h6: "例如 Section 8（联邦租房补助券）或 CityFHEPS（纽约市租房补助）。",
     yes: "有",
     no: "没有",
     unsure: "不确定",
@@ -114,22 +115,22 @@ const C = {
     h7: "有些楼盘会为这些家庭保留部分单位，或者优先审核他们的申请。",
     senior: "家里有人 62 岁或以上",
     disability: "家里有人有残障",
-    nycha: "我们住在 NYCHA 公房",
-    municipalVet: "家里有人是纽约市政府雇员或美国退伍军人",
+    nycha: "我们住在 NYCHA 公房（纽约市房屋局管理的公共住房）",
+    municipalVet: "家里有人在纽约市政府工作，或是美国退伍军人",
     zip: "你家的邮编（选填）",
-    zipHelp: "很多抽签会优先考虑本社区的居民。邮编只用来判断这一点，不会被保存。",
+    zipHelp: "很多抽签会给附近的居民留一部分单位。邮编只用来判断这一点，不会被保存。",
     none: "都没有",
     seeMatches: "查看我的匹配",
     loading: "正在为你匹配…",
     error: "出错了，请再试一次。",
     previewTitle: "为你找到的结果",
-    pLikely: "初步符合",
-    pLikelyD: "按公布的收入限额，你的家庭看起来符合。",
-    pReview: "可能符合，需要核实",
-    pReviewD: "我们还没有完整的收入表，需要你去确认。",
-    pOpen: "你选的区域里正在开放的抽签",
-    pOpenD: "目前正在 Housing Connect 上接受申请。",
-    plusRr: "另外还有 {n} 个空出房源（Re-rental）和等候名单可以看看。",
+    pLikely: "看起来符合",
+    pLikelyD: "按这些抽签公布的收入要求，你家的收入和人数看起来符合。",
+    pReview: "可能符合",
+    pReviewD: "我们缺少部分收入表，申请前请在 Housing Connect 上核对。",
+    pOpen: "其中现在可以申请的",
+    pOpenD: "上面这些抽签里，今天在 Housing Connect 上还能申请的。",
+    plusRr: "另外还有 {n} 个重新空出来的单套房源和等候名单可以看看。",
     disclaimer: "以上只是估算，不是官方审核结果。HousingMatch 不会影响抽签结果。",
     unlock: "免费注册，查看全部匹配结果",
     unlockD: "免费，不需要信用卡。可以收藏房源、接收截止提醒。",
@@ -143,6 +144,7 @@ const C = {
     myAccount: "我的账号",
     viewNow: "查看完整结果",
     edit: "修改我的回答",
+    startOver: "重新开始",
   },
 } as const;
 
@@ -186,8 +188,11 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
     try {
       const raw = localStorage.getItem(STORE);
       if (raw) {
-        const { at, v } = JSON.parse(raw);
-        if (Date.now() - at < TTL) loaded = { ...EMPTY, ...v };
+        const { at, v, s } = JSON.parse(raw);
+        if (Date.now() - at < TTL) {
+          loaded = { ...EMPTY, ...v };
+          if (typeof s === "number" && s > 0 && s < 7) setStep(s); // pick up where they left off
+        }
         else localStorage.removeItem(STORE);
       }
     } catch {}
@@ -201,9 +206,15 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
   useEffect(() => {
     if (!ready) return;
     try {
-      localStorage.setItem(STORE, JSON.stringify({ at: Date.now(), v: a }));
+      localStorage.setItem(STORE, JSON.stringify({ at: Date.now(), v: a, s: step < 7 ? step : 0 }));
     } catch {}
-  }, [a, ready]);
+  }, [a, step, ready]);
+  const startOver = () => {
+    setA(EMPTY);
+    setStep(0);
+    setRows(null);
+    try { localStorage.removeItem(STORE); } catch {}
+  };
 
   const up = <K extends keyof Answers>(k: K, v: Answers[K]) => setA((x) => ({ ...x, [k]: v }));
   const toggle = <T,>(arr: T[], v: T) => (arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
@@ -254,7 +265,8 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
     return {
       likely: inPrefs.filter((r) => r.result.status === "LIKELY_MATCH").length,
       review: inPrefs.filter((r) => r.result.status === "NEEDS_REVIEW").length,
-      open: inPrefs.filter((r) => r.availability === "verified_open").length,
+      // Same households as the two numbers before it: open lotteries you may qualify for.
+      open: inPrefs.filter((r) => r.result.status !== "UNLIKELY_MATCH" && r.availability === "verified_open").length,
       rr: rerentals.filter((r) => r.result.matchesPreferences && r.result.status !== "UNLIKELY_MATCH").length,
     };
   }, [rows, rerentals]);
@@ -368,7 +380,14 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
     <div data-testid="quiz" className="mx-auto max-w-xl">
       <div className="mb-6">
         <div className="flex items-center justify-between text-sm text-stone-600">
-          <span data-testid="quiz-step">{fill(t.step, { n: step + 1, total: TOTAL })}</span>
+          <span className="flex items-center gap-3">
+            <span data-testid="quiz-step">{fill(t.step, { n: step + 1, total: TOTAL })}</span>
+            {(step > 0 || JSON.stringify(a) !== JSON.stringify(EMPTY)) && (
+              <button type="button" data-testid="quiz-start-over" onClick={startOver} className="min-h-11 px-1 text-stone-500 underline underline-offset-4">
+                {t.startOver}
+              </button>
+            )}
+          </span>
           {step > 0 && (
             <button type="button" onClick={() => setStep(step - 1)} className="min-h-11 px-2 font-medium text-teal-800">
               ← {t.back}

@@ -59,3 +59,33 @@ for (const lang of ["en", "zh"] as const) {
     expect(overflow).toBeLessThanOrEqual(0);
   });
 }
+
+test("T006: reload keeps the question you were on; Start over clears everything", async ({ page }) => {
+  await page.context().addCookies([{ name: "lang", value: "en", domain: "localhost", path: "/" }]);
+  await page.goto("/quiz");
+  await page.getByRole("button", { name: "Bronx" }).click();
+  await page.getByTestId("quiz-next").click();
+  await page.getByTestId("quiz-next").click();
+  await expect(page.getByTestId("quiz-step")).toContainText("Question 3 of 7");
+  await page.reload();
+  await expect(page.getByTestId("quiz-step")).toContainText("Question 3 of 7");
+  await page.getByTestId("quiz-start-over").click();
+  await expect(page.getByTestId("quiz-step")).toContainText("Question 1 of 7");
+  await expect(page.getByRole("button", { name: "Anywhere is fine" })).toHaveAttribute("aria-pressed", "true");
+  await page.reload();
+  await expect(page.getByTestId("quiz-step")).toContainText("Question 1 of 7");
+  await expect(page.getByTestId("quiz-start-over")).toHaveCount(0);
+});
+
+test("T006: 'open now' only counts lotteries you might fit, not unlikely ones", async ({ page }) => {
+  const unlikelyOpen = results.map((r: { result: { status: string } }) => ({ ...r, result: { ...r.result, status: "UNLIKELY_MATCH" } }));
+  await page.route("**/api/match", (route) => route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ results: unlikelyOpen, rerentals: [] }) }));
+  await page.goto("/quiz");
+  for (let i = 0; i < 4; i++) await page.getByTestId("quiz-next").click();
+  await page.fill('input[inputmode="numeric"]', "85000");
+  await page.getByTestId("quiz-next").click();
+  await page.getByRole("button", { name: "No", exact: true }).click();
+  await page.getByTestId("quiz-next").click();
+  await page.getByTestId("quiz-next").click();
+  await expect(page.getByTestId("count-open")).toContainText("0");
+});
