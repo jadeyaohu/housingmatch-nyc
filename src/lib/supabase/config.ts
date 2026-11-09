@@ -18,7 +18,7 @@ const PROD = {
 // "Continue with Google" is shown only once the Google provider is switched on in that
 // Supabase project (Authentication → Sign In / Providers → Google). Flip the flag here, or set
 // NEXT_PUBLIC_GOOGLE_AUTH=1 / =0 to override per deployment.
-const GOOGLE_ENABLED = { dev: false, prod: false };
+const GOOGLE_ENABLED = { dev: true, prod: false }; // dev on for Muse T009 setup + test; prod after founder approval
 
 export interface AuthConfig {
   url: string;
