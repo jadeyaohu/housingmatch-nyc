@@ -16,6 +16,8 @@ The Founder has authorized Muse to carry out these tasks without asking.
 - Every finding must point to a screenshot file you saved (or say "(not captured)").
 - If you could do something (e.g. resize the window, save screenshots), don't report that you couldn't. Check that your Summary matches your Findings and files.
 - If you're unsure whether something is real, write "unsure" rather than guessing.
+- **Before you finish, check every quote.** For each quoted string about OUR site (HousingMatch), make sure you copied it from the page, from the DOM, or from a screenshot taken in this run. If you can't point to where it came from, delete it, or rewrite it as `paraphrase:` with no quotation marks. Claude checks every quote against the code. Quotes that don't exist make the whole report less useful (T007 #3–4 and T008 #8 had several).
+- Say which tool each finding came from: **live browser**, **scripted browser (local build)**, or **text fetch**. Text fetches of Housing Connect can return stale or placeholder content (T008 #1), so confirm numbers in the live browser.
 
 ### Always
 - Never log in to Housing Connect or any housing site, never submit a housing application or form, never solve a CAPTCHA.
