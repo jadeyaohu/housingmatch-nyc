@@ -25,11 +25,14 @@ export function MatchResults({
   onDetailsOpen,
   onOfficialLinkClick,
   variant = "main",
+  action,
 }: {
   rows: Row[];
   lang: Lang;
   /** "secondary" = inside the re-rental box: no page-level heading, unique ids, provider-neutral copy. */
   variant?: "main" | "secondary";
+  /** Optional per-card control, e.g. the Save button for signed-in users. */
+  action?: (listing: Listing) => React.ReactNode;
   onDetailsOpen?: (listingId: string) => void;
   onOfficialLinkClick?: (listingId: string) => void;
 }) {
@@ -193,6 +196,8 @@ export function MatchResults({
               : `${t.source}: ${listing.sourceName}${listing.lastVerifiedAt ? ` · ${t.checked} ${listing.lastVerifiedAt}` : ` · ${t.notManuallyVerifiedShort}`}`}
           </p>
         )}
+        {(listing.applicationUrl || action) && (
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
         {listing.applicationUrl && (
           <a
             href={listing.applicationUrl}
@@ -202,10 +207,13 @@ export function MatchResults({
             onAuxClick={(e) => {
               if (e.button === 1) onOfficialLinkClick?.(listing.id);
             }}
-            className="mt-3 inline-block text-sm font-semibold text-teal-800 underline underline-offset-4"
+            className="inline-block text-sm font-semibold text-teal-800 underline underline-offset-4"
           >
             {linkLabel(listing)} ↗<span className="sr-only"> {t.opensNewTab}</span>
           </a>
+        )}
+        {action?.(listing)}
+          </div>
         )}
       </li>
     );

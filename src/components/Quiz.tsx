@@ -5,6 +5,7 @@ import { boroughLabel, unitLabel, type Lang } from "@/lib/i18n";
 import { MatchResults, type Row } from "./MatchResults";
 import { RerentalSection } from "./RerentalSection";
 import { browserClient } from "@/lib/supabase/browser";
+import { SaveButton } from "./SaveButton";
 import type { AuthConfig } from "@/lib/supabase/config";
 
 type Voucher = "yes" | "no" | "unsure";
@@ -181,6 +182,15 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [full, setFull] = useState(false);
+  const [savedIds, setSavedIds] = useState<Set<string> | null>(null);
+  useEffect(() => {
+    if (!signedIn || !auth || !full || savedIds) return;
+    void browserClient(auth).from("saved_listings").select("listing_id").then(({ data }: { data: { listing_id: string }[] | null }) => setSavedIds(new Set((data ?? []).map((r: { listing_id: string }) => r.listing_id))));
+  }, [signedIn, auth, full, savedIds]);
+  const saveAction =
+    signedIn && auth && savedIds
+      ? (l: { id: string }) => <SaveButton key={l.id} cfg={auth} listingId={l.id} initial={savedIds.has(l.id)} lang={lang} />
+      : undefined;
 
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -354,8 +364,8 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
                 )}
               </div>
             )}
-            <MatchResults rows={rows} lang={lang} />
-            <RerentalSection rows={rerentals} lang={lang} />
+            <MatchResults rows={rows} lang={lang} action={saveAction} />
+            <RerentalSection rows={rerentals} lang={lang} action={saveAction} />
             <button type="button" onClick={() => { setFull(false); setStep(0); }} className="mt-6 min-h-11 text-sm font-medium text-teal-800 underline underline-offset-4">
               {t.edit}
             </button>

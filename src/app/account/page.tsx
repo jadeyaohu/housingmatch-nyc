@@ -5,6 +5,9 @@ import { boroughLabel, unitLabel } from "@/lib/i18n";
 import { authConfig } from "@/lib/supabase/config";
 import { currentUser, serverClient } from "@/lib/supabase/server";
 import { AccountActions } from "@/components/AccountActions";
+import { SavedList } from "@/components/SavedList";
+import { getListings, todayNY } from "@/lib/data/listings";
+import { savedItems } from "@/lib/saved";
 
 export const dynamic = "force-dynamic";
 
@@ -22,6 +25,13 @@ export default async function Account() {
   const t = C[lang];
   const sb = await serverClient();
   const { data: p } = (await sb?.from("household_profiles").select("*").eq("user_id", user.id).maybeSingle()) ?? { data: null };
+  const { data: savedRows } = (await sb?.from("saved_listings").select("listing_id, created_at").eq("user_id", user.id).order("created_at", { ascending: false })) ?? { data: null };
+  const saved = savedItems(
+    (savedRows ?? []).map((r: { listing_id: string }) => r.listing_id),
+    await getListings(),
+    todayNY(),
+    (l) => [l.borough ? boroughLabel[lang][l.borough] : null, l.address].filter(Boolean).join(" · "),
+  );
   const row = (k: string, v: React.ReactNode) => (
     <div className="flex justify-between gap-4 border-b border-stone-100 py-2"><dt className="text-stone-500">{k}</dt><dd className="text-right text-stone-900">{v}</dd></div>
   );
@@ -42,6 +52,7 @@ export default async function Account() {
       ) : (
         <p className="mt-2 text-sm text-stone-600">{t.none}</p>
       )}
+      <SavedList cfg={cfg} items={saved} lang={lang} />
       <Link href="/quiz" className="mt-6 flex min-h-12 items-center justify-center rounded-xl bg-teal-800 font-semibold text-white hover:bg-teal-900">{p ? t.edit : t.take}</Link>
       <AccountActions cfg={cfg} labels={{ signOut: t.signOut, del: t.del, confirm: t.confirm, deleted: t.deleted }} />
     </div>

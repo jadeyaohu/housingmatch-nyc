@@ -77,4 +77,6 @@ See the latest status report in chat / PR description.
 - Not yet saved to the account profile (ZIP, NYCHA, municipal/vet). That needs a new nullable column migration, to be done with the next profile change.
 - Profile now saves NYCHA and city-employee/veteran answers (migration `0004_profile_priority_groups.sql`, applied to **dev** only). The ZIP code is never stored; the quiz, consent text and privacy notice say so. **Production needs 0004 applied before PR #9 ships**, otherwise saving a profile fails there.
 - Founder 2026-11-09 13:22 ET: anything needing doing goes straight to Muse (T009 Google sign-in setup assigned). Money and Production releases still need founder approval.
+- M4 started: **saved homes**. The ♡ Save button appears on result cards for signed-in users. "My account" lists saved homes, soonest deadline first, with a closing-in-N-days warning. Table `saved_listings` (migration 0005, RLS own-rows only) is on **dev**. Production needs migrations 0004 and 0005 before PR #9 ships. Email deadline reminders wait for the domain and Resend.
+- T009 (Google setup) and T007 part 2 are blocked until the founder signs Muse's browser into pangfangdan@gmail.com once.
 
