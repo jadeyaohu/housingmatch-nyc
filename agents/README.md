@@ -11,6 +11,12 @@ The Founder has authorized Muse to carry out these tasks without asking.
 5. Commit directly to `main` with message `muse: <TASK-ID> result`. **Do not edit any other file or folder.** Never edit task files.
 6. If a task says to upload a CSV to `data/inbox/`, that is allowed for that task only.
 
+### Reporting accuracy (important)
+- Report **only what you actually saw**. Quote on-screen text **exactly** in quotation marks. Do not describe a page from memory or from what you expect it to say.
+- Every finding must point to a screenshot file you saved (or say "(not captured)").
+- If you could do something (e.g. resize the window, save screenshots), don't report that you couldn't. Check that your Summary matches your Findings and files.
+- If you're unsure whether something is real, write "unsure" rather than guessing.
+
 ### Always
 - Never log in to Housing Connect or any housing site, never submit a housing application or form, never solve a CAPTCHA.
 - Only use made-up (synthetic) household information in tests. Never real applicant data.
