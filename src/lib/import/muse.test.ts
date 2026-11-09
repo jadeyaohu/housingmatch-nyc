@@ -81,6 +81,20 @@ describe("parseMuseRows validation", () => {
     expect(parseMuseRows([row({ record_type: "apartment" })], now).rejections).toHaveLength(1);
   });
 
+  it("accepts a rent range and keeps both ends", () => {
+    const { listings, rejections } = parseMuseRows([row({ monthly_rent: "1,650 - 1,820" })], now);
+    expect(rejections).toEqual([]);
+    expect(listings[0].incomeBands[0]).toMatchObject({ monthlyRent: 1650, monthlyRentMax: 1820 });
+    expect(parseMuseRows([row({ monthly_rent: "1820 - 1650" })], now).rejections).toHaveLength(1);
+  });
+
+  it("reads unit sizes from notes when unit_type is blank", () => {
+    const bare = { unit_type: "", ami_percent: "", household_size_min: "", household_size_max: "", min_income: "", max_income_1: "", max_income_2: "", max_income_3: "", monthly_rent: "2470 - 2806", notes: "unit types: 1BR, 2BR; pets welcome" };
+    const { listings, rejections } = parseMuseRows([row(bare)], now);
+    expect(rejections).toEqual([]);
+    expect(listings[0].unitTypes).toEqual(["1br", "2br"]);
+  });
+
   it("lotteries need a deadline; waitlists don't need income rows", () => {
     expect(parseMuseRows([row({ record_type: "lottery" })], now).rejections[0].problems.join()).toMatch(/end_date/);
     const wl = row({ record_type: "waitlist", unit_type: "", ami_percent: "", household_size_min: "", household_size_max: "", min_income: "", max_income_1: "", max_income_2: "", max_income_3: "", monthly_rent: "", units_available: "" });
@@ -150,6 +164,17 @@ describe("Housing Connect lottery IDs", () => {
     const r = applyRun(s, [hc()], later(1));
     expect(Object.keys(r.state.published)).toEqual(["hc-7667"]);
     expect(r.report.sources[0].removed).toEqual(["muse-housing-connect-1333-broadway"]);
+  });
+});
+
+describe("shared source pages", () => {
+  it("keeps several listings that share one source page", () => {
+    const shared = "https://www.nychdc.com/find-re-rentals";
+    const rows = ["A", "B", "C"].map((n) => row({ source_name: "HDC", source_url: shared, name: `Bldg ${n}` }));
+    let s = applyRun(emptyState(), rows, now).state;
+    expect(Object.keys(s.published)).toHaveLength(3);
+    s = applyRun(s, rows, later(1)).state;
+    expect(Object.keys(s.published)).toHaveLength(3);
   });
 });
 

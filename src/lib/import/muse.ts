@@ -80,6 +80,17 @@ const num = (v: unknown): number | null => {
   if (!t) return null;
   return /^\d+(\.\d+)?$/.test(t) ? Number(t) : NaN;
 };
+/** "2470 - 2806" / "$2,470–$2,806" → [2470, 2806]; a single number → [n, null]; else NaN. */
+function numRange(v: unknown): [number | null, number | null] {
+  const t = s(v);
+  const m = t.match(/^\$?\s*([\d,]+(?:\.\d+)?)\s*(?:-|–|—|to)\s*\$?\s*([\d,]+(?:\.\d+)?)$/i);
+  if (m) {
+    const a = Number(m[1].replace(/,/g, ""));
+    const b = Number(m[2].replace(/,/g, ""));
+    return a <= b ? [a, b] : [NaN, null];
+  }
+  return [num(v), null];
+}
 const slug = (t: string) => t.toLowerCase().normalize("NFKD").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 60);
 
 function parseType(v: string): ListingType | null {
@@ -110,7 +121,9 @@ export function bandsHash(bands: IncomeBand[]): string {
 // ---------- row → band validation ----------
 
 function rowToBand(r: Record<string, string>, problems: string[], label: string): IncomeBand | null {
-  const unit = s(r.unit_type);
+  // Some sources list sizes only in prose; accept "unit types: 1BR, 2BR" in notes.
+  const fromNotes = !s(r.unit_type) ? s(r.notes).match(/unit (?:types|sizes)\s*:\s*([^;]+)/i)?.[1] ?? "" : "";
+  const unit = s(r.unit_type) || fromNotes;
   const unitTypes: UnitType[] = unit ? parseUnitTypes(unit) : [];
   if (unit && unitTypes.length === 0) problems.push(`${label}: unknown unit_type "${unit}"`);
 
@@ -118,7 +131,7 @@ function rowToBand(r: Record<string, string>, problems: string[], label: string)
   const hMin = num(r.household_size_min);
   const hMax = num(r.household_size_max);
   const minInc = num(r.min_income);
-  const rent = num(r.monthly_rent);
+  const [rent, rentMax] = numRange(r.monthly_rent);
   const units = num(r.units_available);
   for (const [k, v] of Object.entries({ ami_percent: ami, household_size_min: hMin, household_size_max: hMax, min_income: minInc, monthly_rent: rent, units_available: units })) {
     if (Number.isNaN(v)) problems.push(`${label}: ${k} is not a number ("${r[k]}")`);
@@ -180,6 +193,7 @@ function rowToBand(r: Record<string, string>, problems: string[], label: string)
     minIncome: minInc,
     maxIncomeByHouseholdSize: maxes.length ? maxBy : null,
     monthlyRent: rent,
+    monthlyRentMax: rentMax,
     unitCount: units,
   };
 }
@@ -301,10 +315,12 @@ export function applyRun(state: MuseState, rows: RawRow[], now: string): { state
     for (const l of cand) {
       seen.add(l.id);
       const h = bandsHash(l.incomeBands);
-      // Same page published earlier under a different id (e.g. before its lottery ID
-      // was known): replace it instead of showing the listing twice.
+      // A Housing Connect lottery published earlier under a name-based id (before its
+      // lottery ID was known): replace it instead of showing it twice. Only for hc- ids,
+      // because a Housing Connect detail link identifies exactly one lottery; other
+      // sources often list many units on one shared page.
       for (const [oldId, p] of Object.entries(next.published)) {
-        if (oldId !== l.id && p.listing.sourceUrl === l.sourceUrl) {
+        if (l.id.startsWith("hc-") && oldId !== l.id && !oldId.startsWith("hc-") && p.listing.sourceUrl === l.sourceUrl) {
           delete next.published[oldId];
           delete next.pending[oldId];
           entry.removed.push(oldId);

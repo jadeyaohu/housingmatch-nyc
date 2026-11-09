@@ -39,6 +39,8 @@ export interface IncomeBand {
    */
   maxIncomeByHouseholdSize: Record<string, number> | null;
   monthlyRent: number | null;
+  /** Upper end when the source gives a rent range (e.g. "2470 - 2806"). */
+  monthlyRentMax?: number | null;
   unitCount: number | null;
 }
 
