@@ -61,7 +61,7 @@ describe("F1 card (345-like)", () => {
     expect(box.textContent).toContain(units);
     expect(within(c).getByTestId("closing-soon").textContent).toBe(closing);
     expect(within(c).getByTestId("provenance").textContent).toBe(lang === "en" ? "Source: NYC Open Data · Not manually verified" : "来源: NYC Open Data · 未经人工核实");
-    const link = within(c).getByRole("link");
+    const link = within(c).getByRole("link", { name: /official|官方/i });
     expect(link.getAttribute("href")).toBe("https://housingconnect.nyc.gov/PublicWeb/details/90001");
     expect(link.getAttribute("target")).toBe("_blank");
     expect(link.getAttribute("rel")).toBe("noopener noreferrer");
@@ -96,7 +96,7 @@ describe("F3 card (published chart)", () => {
     expect(within(c).getByTestId("fits").textContent).toBe("Fits income limits in our data for 1 BR (130% AMI)");
     expect(c.textContent).not.toContain("Confirm on Housing Connect before applying.");
     expect(within(c).getByTestId("provenance").textContent).toBe("Auto-collected from: Housing Connect · 2026-11-06 · Not manually verified");
-    expect(within(c).getByRole("link").getAttribute("href")).toBe("https://housingconnect.nyc.gov/PublicWeb/details/90003");
+    expect(within(c).getByRole("link", { name: /official|官方/i }).getAttribute("href")).toBe("https://housingconnect.nyc.gov/PublicWeb/details/90003");
   });
 });
 
@@ -112,7 +112,7 @@ describe("PR #4 analytics integration seam", () => {
     d.open = false;
     fireEvent(d, new Event("toggle"));
     expect(onDetailsOpen.mock.calls).toEqual([["hc-90001"]]);
-    const link = within(card("hc-90003")).getByRole("link");
+    const link = within(card("hc-90003")).getByRole("link", { name: /official|官方/i });
     fireEvent.mouseOver(link);
     fireEvent.click(link);
     fireEvent(link, new MouseEvent("auxclick", { bubbles: true, button: 1 }));

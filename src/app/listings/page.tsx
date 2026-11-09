@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { BOROUGHS, UNIT_TYPES } from "@/lib/types";
 import { boroughLabel, dict, unitLabel } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
@@ -68,7 +69,7 @@ export default async function ListingsPage({ searchParams }: { searchParams: SP 
       ) : (
         <p className="mt-6 text-sm text-stone-600">
           {t.browseLotteriesOnly}{" "}
-          <a href="/listings?type=rerental" className="font-semibold text-indigo-800 underline underline-offset-4">{t.browseRerentals}</a>
+          <Link href="/listings?type=rerental" className="font-semibold text-indigo-800 underline underline-offset-4">{t.browseRerentals}</Link>
         </p>
       )}
       <p data-testid="listing-count" className="mt-4 text-sm font-medium text-stone-700">{t.showingCount.replace("{n}", String(listings.length))}</p>
@@ -84,7 +85,7 @@ export default async function ListingsPage({ searchParams }: { searchParams: SP 
                 {secondary && <AvailabilityBadge value={availabilityOf(l, today)} lang={lang} date={(l.collectedAt ?? l.lastVerifiedAt)?.slice(0, 10)} />}
                 {l.isSample && <span className="rounded-full bg-violet-50 px-2 py-0.5 text-violet-800">{t.sample}</span>}
               </div>
-              <h2 className="mt-2 font-semibold leading-snug">{l.projectName}</h2>
+              <h2 className="mt-2 font-semibold leading-snug"><Link href={`/listings/${encodeURIComponent(l.id)}`} className="hover:underline">{l.projectName}</Link></h2>
               <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm text-stone-600">
                 <dt className="text-stone-500">{t.borough}</dt><dd>{l.borough ? boroughLabel[lang][l.borough] : <span className="text-stone-400">{t.notListed}</span>}</dd>
                 <dt className="text-stone-500">{t.units}</dt><dd>{l.unitTypes.map((u) => unitLabel[lang][u]).join(", ") || <span className="text-stone-400">{t.notListed}</span>}</dd>

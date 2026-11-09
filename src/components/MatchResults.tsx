@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import type { Listing, MatchResult, MatchStatus } from "@/lib/types";
 import { boroughLabel, dict, unitLabel, type Lang } from "@/lib/i18n";
@@ -96,7 +97,7 @@ export function MatchResults({
           )}
           {listing.isSample && <span className="rounded bg-violet-50 px-1.5 py-0.5 text-xs text-violet-800">{t.sample}</span>}
         </div>
-        <h4 className="mt-2 text-lg font-semibold text-stone-900">{listing.projectName}</h4>
+        <h4 className="mt-2 text-lg font-semibold text-stone-900"><Link href={`/listings/${encodeURIComponent(listing.id)}`} className="hover:underline">{listing.projectName}</Link></h4>
         <p className="text-sm text-stone-600">
           {listing.borough ? boroughLabel[lang][listing.borough] : "—"}
           {listing.unitTypes.length > 0 && " · " + listing.unitTypes.map((u) => unitLabel[lang][u]).join(", ")}
