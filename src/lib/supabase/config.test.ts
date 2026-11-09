@@ -11,4 +11,10 @@ describe("authConfig", () => {
     expect(authConfig({ VERCEL_ENV: "preview" })?.url).toBe("https://aqjdfeqorlanwewbhidm.supabase.co");
     expect(authConfig({})?.project).toBe("dev");
   });
+
+  it("hides Google sign-in until the provider is switched on, with an env override", () => {
+    expect(authConfig({})?.google).toBe(false);
+    expect(authConfig({ NEXT_PUBLIC_GOOGLE_AUTH: "1" })?.google).toBe(true);
+    expect(authConfig({ VERCEL_ENV: "production", NEXT_PUBLIC_GOOGLE_AUTH: "0" })?.google).toBe(false);
+  });
 });

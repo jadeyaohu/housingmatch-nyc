@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { serverClient } from "@/lib/supabase/server";
 
-// Magic-link landing: exchange the one-time code for a session cookie, then continue.
+// Magic-link and Google (OAuth) landing: exchange the one-time code for a session cookie, then continue.
 export async function GET(req: Request) {
   const url = new URL(req.url);
   const code = url.searchParams.get("code");

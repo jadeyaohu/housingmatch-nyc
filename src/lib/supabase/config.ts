@@ -15,17 +15,30 @@ const PROD = {
   key: "sb_publishable_QgGXKudlo6KgdHdRABAqtw_mRwJU2JU",
 };
 
+// "Continue with Google" is shown only once the Google provider is switched on in that
+// Supabase project (Authentication → Sign In / Providers → Google). Flip the flag here, or set
+// NEXT_PUBLIC_GOOGLE_AUTH=1 / =0 to override per deployment.
+const GOOGLE_ENABLED = { dev: false, prod: false };
+
 export interface AuthConfig {
   url: string;
   key: string;
   project: "dev" | "prod";
+  google: boolean;
+}
+
+function googleOn(env: Record<string, string | undefined>, project: "dev" | "prod"): boolean {
+  const o = env.NEXT_PUBLIC_GOOGLE_AUTH;
+  if (o === "1") return true;
+  if (o === "0") return false;
+  return GOOGLE_ENABLED[project];
 }
 
 export function authConfig(env: Record<string, string | undefined> = process.env): AuthConfig | null {
   const vercelEnv = env.NEXT_PUBLIC_VERCEL_ENV ?? env.VERCEL_ENV;
   if (vercelEnv === "production") {
     if (env.NEXT_PUBLIC_AUTH_DISABLED === "1") return null; // kill switch
-    return { url: env.NEXT_PUBLIC_AUTH_SUPABASE_URL ?? PROD.url, key: env.NEXT_PUBLIC_AUTH_SUPABASE_KEY ?? PROD.key, project: "prod" };
+    return { url: env.NEXT_PUBLIC_AUTH_SUPABASE_URL ?? PROD.url, key: env.NEXT_PUBLIC_AUTH_SUPABASE_KEY ?? PROD.key, project: "prod", google: googleOn(env, "prod") };
   }
-  return { url: env.NEXT_PUBLIC_AUTH_SUPABASE_URL ?? DEV.url, key: env.NEXT_PUBLIC_AUTH_SUPABASE_KEY ?? DEV.key, project: "dev" };
+  return { url: env.NEXT_PUBLIC_AUTH_SUPABASE_URL ?? DEV.url, key: env.NEXT_PUBLIC_AUTH_SUPABASE_KEY ?? DEV.key, project: "dev", google: googleOn(env, "dev") };
 }
