@@ -38,7 +38,7 @@ export function RerentalSection({ rows, lang }: { rows: Row[]; lang: Lang }) {
           </button>
           {open && (
             <div className="mt-4">
-              <MatchResults rows={rows} lang={lang} />
+              <MatchResults rows={rows} lang={lang} variant="secondary" />
             </div>
           )}
         </>
