@@ -123,6 +123,14 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
     const end = parseDate(r["Lottery End Date"]);
     const total = int(r["Unit Count"]);
 
+    const cd = (r["Community Board"] ?? "").trim();
+    const preferences = {
+      communityDistrict: /^[1-5]\d\d$/.test(cd) ? cd : null,
+      communityPct: int(r["Lottery Community Board Percentage"]),
+      nychaPct: int(r["Lottery NYCHA Percentage"]),
+      municipalVetPct: int(r["Lottery Municipal Employee/Military Veteran Percentage"]),
+    };
+
     out.push({
       id: `hc-${lotteryId}`,
       externalId: lotteryId,
@@ -140,6 +148,7 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
       sourceUrl: OPEN_DATA.lotteriesPage,
       status: statusFromDates(start, end, today),
       lastVerifiedAt: null,
+      preferences: preferences.communityPct || preferences.nychaPct || preferences.municipalVetPct ? preferences : null,
       eligibilityNotes:
         [total ? `${total} units` : null, prefs.length ? `Preferences: ${prefs.join(", ")}` : null, r["Lottery Status"] ? `Open Data status: ${r["Lottery Status"]}` : null]
           .filter(Boolean)
@@ -147,4 +156,22 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
     });
   }
   return out;
+}
+
+/**
+ * ZIP code → community districts seen at that ZIP in the Open Data buildings and lotteries files.
+ * A ZIP can span several districts, and coverage is only where lottery buildings exist, so this
+ * is a hint, never proof of residence.
+ */
+export function zipDistricts(lotteryRows: RawRow[], buildingRows: RawRow[]): Record<string, string[]> {
+  const m = new Map<string, Set<string>>();
+  for (const raw of [...buildingRows, ...lotteryRows]) {
+    const r = cleanKeys(raw);
+    const zip = (r["Postcode"] ?? "").trim();
+    const cd = (r["Community Board"] ?? "").trim();
+    if (!/^\d{5}$/.test(zip) || !/^[1-5]\d\d$/.test(cd) || Number(cd.slice(1)) > 18) continue;
+    if (!m.has(zip)) m.set(zip, new Set());
+    m.get(zip)!.add(cd);
+  }
+  return Object.fromEntries([...m].sort(([a], [b]) => a.localeCompare(b)).map(([z, s]) => [z, [...s].sort()]));
 }

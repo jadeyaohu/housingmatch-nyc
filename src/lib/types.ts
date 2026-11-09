@@ -47,6 +47,18 @@ export interface IncomeBand {
 export type ListingType = "lottery" | "rerental" | "waitlist";
 export type DataSource = "opendata" | "muse" | "manual";
 
+/**
+ * Lottery preference set-asides (Open Data). Percent of units reached first for applicants
+ * who qualify. These change the order applications are reviewed in; they are not eligibility.
+ */
+export interface ListingPreferences {
+  /** Three-digit community district code, e.g. "203" (Bronx CD 3). Null if multiple/unknown. */
+  communityDistrict: string | null;
+  communityPct: number;
+  nychaPct: number;
+  municipalVetPct: number;
+}
+
 export interface Listing {
   id: string;
   /** Defaults to "lottery" when absent. */
@@ -75,6 +87,7 @@ export interface Listing {
   eligibilityNotes: string | null;
   /** True for demo rows that are not real listings. */
   isSample?: boolean;
+  preferences?: ListingPreferences | null;
 }
 
 export interface Household {

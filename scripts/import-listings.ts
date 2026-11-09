@@ -11,7 +11,7 @@ import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 import { extname, resolve } from "node:path";
 import Papa from "papaparse";
 import { normalizeRows, type ImportIssue, type RawRow } from "../src/lib/import/normalize";
-import { fromOpenData, OPEN_DATA } from "../src/lib/import/opendata";
+import { fromOpenData, OPEN_DATA, zipDistricts } from "../src/lib/import/opendata";
 import { listingToRow } from "../src/lib/data/mapping";
 import type { Listing } from "../src/lib/types";
 import { PATHS, publish, writeJson } from "./publish";
@@ -44,7 +44,9 @@ async function main() {
     const bldText = flags.has("--fetch") ? await download(OPEN_DATA.buildingsCsv, bldPath) : readFileSync(resolve(bldPath), "utf8");
     const lotteryRows = parseCsv(lotText);
     rowsRead = lotteryRows.length;
-    listings = fromOpenData(lotteryRows, parseCsv(bldText), today);
+    const buildingRows = parseCsv(bldText);
+    listings = fromOpenData(lotteryRows, buildingRows, today);
+    writeFileSync("src/lib/data/zip-districts.json", JSON.stringify(zipDistricts(lotteryRows, buildingRows)) + "\n");
     source = "NYC Open Data vy5i-a666 + nibs-na6y";
     for (const l of listings) {
       if (!l.applicationDeadline) issues.push({ row: 0, field: "applicationDeadline", message: `${l.id}: no end date` });

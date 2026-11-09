@@ -7,8 +7,9 @@ import { StatusBadge } from "./StatusBadge";
 import { AvailabilityBadge } from "./AvailabilityBadge";
 import type { Availability } from "@/lib/availability";
 import type { LifestyleFit } from "@/lib/lifestyle";
+import { districtLabel, type PriorityItem } from "@/lib/priority";
 
-export type Row = { listing: Listing; result: MatchResult; availability?: Availability; lifestyle?: LifestyleFit };
+export type Row = { listing: Listing; result: MatchResult; availability?: Availability; lifestyle?: LifestyleFit; priority?: PriorityItem[] };
 
 /**
  * Matcher results, grouped into status sections with data-quality warnings (Issue #5 Phase A).
@@ -40,7 +41,7 @@ export function MatchResults({
   const section = (s: MatchStatus) => shown.filter((r) => r.result.status === s);
   const fill = (tpl: string, v: Record<string, string | number>) => tpl.replace(/\{(\w+)\}/g, (_, k) => String(v[k] ?? ""));
 
-  const card = ({ listing, result, availability, lifestyle }: Row) => {
+  const card = ({ listing, result, availability, lifestyle, priority }: Row) => {
     const q = result.quality;
     const warnings = (q?.warnings ?? []).filter((w) => w !== "not_manually_verified") as Exclude<QualityWarning, "not_manually_verified">[];
     const review = result.status === "NEEDS_REVIEW";
@@ -94,6 +95,30 @@ export function MatchResults({
               .map((f) => `${f.unitTypes.length ? f.unitTypes.map((u) => unitLabel[lang][u]).join("/") : t.anyUnit}${f.amiPercent != null ? ` (${f.amiPercent}% AMI)` : ""}`)
               .join(", ")}
           </p>
+        )}
+
+        {priority && priority.length > 0 && (
+          <div data-testid="priority" className="mt-3 rounded-lg bg-sky-50 px-3 py-2 text-sm text-sky-950">
+            <p className="font-medium">{t.pr_title}</p>
+            <ul className="mt-1 space-y-1">
+              {priority.map((p) => {
+                const district = districtLabel(p.district, lang);
+                const main =
+                  p.kind === "community"
+                    ? district ? fill(t.pr_community, { pct: p.pct, district }) : fill(t.pr_community_any, { pct: p.pct })
+                    : fill(t[`pr_${p.kind}`], { pct: p.pct });
+                const sub =
+                  p.kind === "community" ? t[`pr_community_${p.fit}`] : p.fit === "yes" ? t.pr_yes_you : null;
+                return (
+                  <li key={p.kind} data-priority={p.kind} data-fit={p.fit} className={`flex gap-2 ${p.fit === "no" ? "text-sky-900/60" : ""}`}>
+                    <span aria-hidden>{p.fit === "yes" ? "✓" : "•"}</span>
+                    <span>{main}{sub ? <span className="text-sky-900/80"> — {sub}</span> : null}</span>
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="mt-1 text-xs text-sky-900/70">{t.pr_note}</p>
+          </div>
         )}
 
         {showWarnings && (

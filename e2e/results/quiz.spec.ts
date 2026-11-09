@@ -40,10 +40,13 @@ for (const lang of ["en", "zh"] as const) {
     await expect(page.getByTestId("quiz-next")).toBeDisabled();
     await page.getByRole("button", { name: lang === "en" ? "No" : "没有", exact: true }).click();
     await page.getByTestId("quiz-next").click();
+    await page.getByTestId("quiz-nycha").click();
+    await page.getByTestId("quiz-zip").fill("10451abc");
+    await expect(page.getByTestId("quiz-zip")).toHaveValue("10451");
     await page.getByTestId("quiz-next").click();
 
     await expect(page.getByTestId("quiz-results")).toBeVisible();
-    expect(body).toMatchObject({ size: 3, annualIncome: 85000, boroughs: ["Bronx"], rentMax: 2500, hasVoucher: false });
+    expect(body).toMatchObject({ size: 3, annualIncome: 85000, boroughs: ["Bronx"], rentMax: 2500, hasVoucher: false, zip: "10451", nycha: true, municipalVet: null });
     for (const k of ["likely", "review", "open"]) await expect(page.getByTestId(`count-${k}`)).toBeVisible();
     // Preview/local builds have sign-up (dev Supabase project): the preview gates full results behind a free account.
     const cta = page.getByTestId("signup-cta");

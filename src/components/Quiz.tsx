@@ -17,8 +17,11 @@ interface Answers {
   voucher: Voucher | null;
   senior: boolean;
   disability: boolean;
+  zip: string;
+  nycha: boolean;
+  municipalVet: boolean;
 }
-const EMPTY: Answers = { boroughs: [], bedrooms: [], rentMax: null, size: 1, income: "", voucher: null, senior: false, disability: false };
+const EMPTY: Answers = { boroughs: [], bedrooms: [], rentMax: null, size: 1, income: "", voucher: null, senior: false, disability: false, zip: "", nycha: false, municipalVet: false };
 const STORE = "hm-quiz-v1";
 // Kept on this device only (24 h) so the answers survive opening the sign-in link in a new tab.
 // Sent once to /api/match (not stored there); saved to the account only when the user agrees.
@@ -51,9 +54,13 @@ const C = {
     no: "No",
     unsure: "Not sure",
     q7: "Anything else that applies? (optional)",
-    h7: "Some buildings set aside apartments for these households.",
+    h7: "Some buildings set aside apartments for these households, or review their applications first.",
     senior: "Someone is 62 or older",
     disability: "Someone has a disability",
+    nycha: "We live in NYCHA public housing",
+    municipalVet: "Someone is a NYC city employee or a U.S. military veteran",
+    zip: "Your home ZIP code (optional)",
+    zipHelp: "Many lotteries put local residents first. We use your ZIP only to check this — it isn't saved.",
     none: "None of these",
     seeMatches: "See my matches",
     loading: "Finding your matches…",
@@ -104,9 +111,13 @@ const C = {
     no: "没有",
     unsure: "不确定",
     q7: "还有以下情况吗？（选填）",
-    h7: "有些楼盘会为这些家庭保留部分单位。",
+    h7: "有些楼盘会为这些家庭保留部分单位，或者优先审核他们的申请。",
     senior: "家里有人 62 岁或以上",
     disability: "家里有人有残障",
+    nycha: "我们住在 NYCHA 公房",
+    municipalVet: "家里有人是纽约市政府雇员或美国退伍军人",
+    zip: "你家的邮编（选填）",
+    zipHelp: "很多抽签会优先考虑本社区的居民。邮编只用来判断这一点，不会被保存。",
     none: "都没有",
     seeMatches: "查看我的匹配",
     loading: "正在为你匹配…",
@@ -159,7 +170,7 @@ function Choice({ on, onClick, children, testid }: { on: boolean; onClick: () =>
   );
 }
 
-export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: AuthConfig | null; signedIn: boolean; profile: Answers | null }) {
+export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: AuthConfig | null; signedIn: boolean; profile: Partial<Answers> | null }) {
   const t = C[lang];
   const [a, setA] = useState<Answers>(EMPTY);
   const [step, setStep] = useState(0);
@@ -180,7 +191,7 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
         else localStorage.removeItem(STORE);
       }
     } catch {}
-    if (!loaded && profile) loaded = profile;
+    if (!loaded && profile) loaded = { ...EMPTY, ...profile };
     if (loaded) setA(loaded);
     setReady(true);
     // Signed in and the questions are answered → go straight to results.
@@ -220,6 +231,9 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
           hasMember62Plus: a2.senior,
           hasMember55Plus: a2.senior,
           hasDisability: a2.disability,
+          zip: /^\d{5}$/.test(a2.zip.trim()) ? a2.zip.trim() : null,
+          nycha: a2.nycha ? true : null,
+          municipalVet: a2.municipalVet ? true : null,
         }),
       });
       if (!res.ok) throw new Error();
@@ -426,7 +440,23 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
           <>
             <Choice on={a.senior} onClick={() => up("senior", !a.senior)}>{t.senior}</Choice>
             <Choice on={a.disability} onClick={() => up("disability", !a.disability)}>{t.disability}</Choice>
-            <Choice on={!a.senior && !a.disability} onClick={() => setA((x) => ({ ...x, senior: false, disability: false }))}>{t.none}</Choice>
+            <Choice testid="quiz-nycha" on={a.nycha} onClick={() => up("nycha", !a.nycha)}>{t.nycha}</Choice>
+            <Choice testid="quiz-municipal" on={a.municipalVet} onClick={() => up("municipalVet", !a.municipalVet)}>{t.municipalVet}</Choice>
+            <Choice on={!a.senior && !a.disability && !a.nycha && !a.municipalVet} onClick={() => setA((x) => ({ ...x, senior: false, disability: false, nycha: false, municipalVet: false }))}>{t.none}</Choice>
+            <label className="block pt-4">
+              <span className="text-base font-semibold text-stone-900">{t.zip}</span>
+              <span className="mt-1 block text-sm text-stone-600">{t.zipHelp}</span>
+              <input
+                data-testid="quiz-zip"
+                inputMode="numeric"
+                autoComplete="postal-code"
+                maxLength={5}
+                value={a.zip}
+                onChange={(e) => up("zip", e.target.value.replace(/\D/g, "").slice(0, 5))}
+                placeholder="10451"
+                className="mt-2 min-h-14 w-40 rounded-2xl border-2 border-stone-300 px-4 text-xl tabular-nums outline-none focus:border-teal-700"
+              />
+            </label>
           </>
         )}
       </div>
