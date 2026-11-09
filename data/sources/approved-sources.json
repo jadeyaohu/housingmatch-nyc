@@ -1,15 +1,39 @@
 {
   "_doc": "Muse sources allowed on Production. Preview shows every source. Approve a source only after its first batch has been audited (links, availability, income figures). See docs/DATA_PUBLICATION.md.",
   "approved": {
-    "Housing Connect": { "approvedOn": "2026-11-09", "by": "Claude", "basis": "Run A test batch (5 lotteries) checked field-by-field against the official Housing Connect pages; 0 errors" }
+    "Housing Connect": {
+      "approvedOn": "2026-11-09",
+      "by": "Claude",
+      "basis": "Run A test batch (5 lotteries) checked field-by-field against the official Housing Connect pages; 0 errors"
+    },
+    "MNS": {
+      "approvedOn": "2026-11-09",
+      "by": "Claude",
+      "basis": "T002 2026-11-09: 3/3 links open the unit page; all 3 available on source"
+    },
+    "Housing Partnership": {
+      "approvedOn": "2026-11-09",
+      "by": "Claude",
+      "basis": "T002 2026-11-09: 1/1 unit page; available ('currently accepting applications')"
+    },
+    "iAfford": {
+      "approvedOn": "2026-11-09",
+      "by": "Claude",
+      "basis": "T002 2026-11-09: 11/11 unit pages, all available; 1 column-shift error was quarantined by validation"
+    },
+    "MHANY": {
+      "approvedOn": "2026-11-09",
+      "by": "Claude",
+      "basis": "T002 2026-11-09: 5/5 available; 4 unit pages, 1 shared list page (461 Dean St)"
+    },
+    "Pronto Housing": {
+      "approvedOn": "2026-11-09",
+      "by": "Claude",
+      "basis": "T002 2026-11-09: 8/8 available; 7 link to the shared listings page (no per-unit URL from list)"
+    }
   },
   "pending": {
-    "HDC": "Run B 2026-11-09: no income tables (in ad PDFs); shared source page links. Waiting for T002 link/availability audit.",
-    "Pronto Housing": "Run B 2026-11-09: waiting for T002 link/availability audit.",
-    "TF Cornerstone": "Run B 2026-11-09: 1 digit error caught by validation; waiting for T002.",
-    "MNS": "Run B 2026-11-09: waiting for T002.",
-    "Housing Partnership": "Run B 2026-11-09: waiting for T002.",
-    "MHANY": "Run B 2026-11-09: one 404 link reported by Muse; waiting for T002.",
-    "iAfford": "Run B 2026-11-09: 1 column-shift error caught by validation; waiting for T002."
+    "HDC": "T002 2026-11-09: availability only inferred from list membership; 1 unit gone (Beach 21st St), 2 unclear (Willets Point Phase 1A, Creston Avenue Residence); no income tables. Re-check after next Run B opens the ad PDFs.",
+    "TF Cornerstone": "T002 2026-11-09: source says 'visit our on-site leasing office for current availability'; no rents or unit counts → availability can't be verified."
   }
 }
