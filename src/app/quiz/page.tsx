@@ -18,6 +18,7 @@ export default async function QuizPage() {
       profile = {
         boroughs: data.boroughs ?? [], bedrooms: data.bedrooms ?? [], rentMax: data.rent_max, size: data.household_size,
         income: String(data.annual_income), voucher: data.voucher, senior: data.has_member_62_plus, disability: data.has_disability,
+        nycha: data.nycha_resident ?? false, municipalVet: data.municipal_or_veteran ?? false,
       };
   }
   return <Quiz lang={lang} auth={cfg} signedIn={!!user} profile={profile} />;

@@ -75,4 +75,6 @@ See the latest status report in chat / PR description.
 - T004 verified: HPD LL217 report (2022–2024). Findings in `docs/LL217_FINDINGS.md`. Key result: community-district preference holders got 53% of leases in those lotteries from 5.5% of applications.
 - M3/M5: **priority groups**. The import now keeps each lottery's community-district / NYCHA / city-employee-veteran preference percentages. The quiz asks for an optional ZIP (not stored) plus NYCHA / city employee-veteran. Result cards show "Priority groups in this lottery" (tri-state, never odds). 430 listings carry preference data.
 - Not yet saved to the account profile (ZIP, NYCHA, municipal/vet). That needs a new nullable column migration, to be done with the next profile change.
+- Profile now saves NYCHA and city-employee/veteran answers (migration `0004_profile_priority_groups.sql`, applied to **dev** only). The ZIP code is never stored; the quiz, consent text and privacy notice say so. **Production needs 0004 applied before PR #9 ships**, otherwise saving a profile fails there.
+- Founder 2026-11-09 13:22 ET: anything needing doing goes straight to Muse (T009 Google sign-in setup assigned). Money and Production releases still need founder approval.
 

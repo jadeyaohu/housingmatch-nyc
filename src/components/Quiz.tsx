@@ -60,7 +60,7 @@ const C = {
     nycha: "We live in NYCHA public housing (run by the NYC Housing Authority)",
     municipalVet: "Someone works for the City of New York, or is a U.S. military veteran",
     zip: "Your home ZIP code (optional)",
-    zipHelp: "Many lotteries save some apartments for people who already live nearby. We use your ZIP only to check this — it isn't saved.",
+    zipHelp: "Many lotteries save some apartments for people who already live nearby. We use your ZIP only to check this and never store it on our servers.",
     none: "None of these",
     seeMatches: "See my matches",
     loading: "Finding your matches…",
@@ -79,7 +79,7 @@ const C = {
     authSoon: "Account sign-up is being set up. For now you can view your full results here.",
     signupBtn: "Create my free account",
     saveTitle: "Save your answers to your account?",
-    consent: "I agree to HousingMatch storing my household size, income range and preferences to show my matches.",
+    consent: "I agree to HousingMatch storing my household size, income, the answers above (not my ZIP code) and my preferences to show my matches.",
     privacyLink: "Privacy notice",
     saveBtn: "Save my profile",
     savedOk: "Saved.",
@@ -118,7 +118,7 @@ const C = {
     nycha: "我们住在 NYCHA 公房（纽约市房屋局管理的公共住房）",
     municipalVet: "家里有人在纽约市政府工作，或是美国退伍军人",
     zip: "你家的邮编（选填）",
-    zipHelp: "很多抽签会给附近的居民留一部分单位。邮编只用来判断这一点，不会被保存。",
+    zipHelp: "很多抽签会给附近的居民留一部分单位。邮编只用来判断这一点，不会存到我们的服务器上。",
     none: "都没有",
     seeMatches: "查看我的匹配",
     loading: "正在为你匹配…",
@@ -137,7 +137,7 @@ const C = {
     authSoon: "注册功能正在搭建中。现在可以先在这里查看完整结果。",
     signupBtn: "免费注册账号",
     saveTitle: "把你的回答保存到账号里？",
-    consent: "我同意 HousingMatch 保存我的家庭人数、收入和偏好，用来显示我的匹配结果。",
+    consent: "我同意 HousingMatch 保存我的家庭人数、收入、上面的回答（不包括邮编）和偏好，用来显示我的匹配结果。",
     privacyLink: "隐私说明",
     saveBtn: "保存我的资料",
     savedOk: "已保存。",
@@ -284,6 +284,7 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
       user_id: u.user.id, household_size: a.size, annual_income: incomeNum, voucher: a.voucher ?? "no",
       has_member_62_plus: a.senior, has_disability: a.disability, boroughs: a.boroughs, bedrooms: a.bedrooms,
       rent_max: a.rentMax, language: lang, consented_at: new Date().toISOString(),
+      nycha_resident: a.nycha, municipal_or_veteran: a.municipalVet, // ZIP is never saved
     });
     if (error) return setSaved("error");
     setSaved("saved");
