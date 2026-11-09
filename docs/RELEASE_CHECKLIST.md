@@ -17,7 +17,8 @@ Production = `main` → housingmatch-nyc.vercel.app. Nothing below happens witho
    - Redirect URL `https://housingmatch-nyc.vercel.app/**`.
 3. **Email sign-in for real users.** Supabase's built-in email reaches team members only.
    - **Option A:** buy the domain (~$10–15/yr, **founder approval: money**), set up Resend with custom SMTP, then turn on sign-up.
-   - **Option B:** launch with **Google sign-in only**. This needs T009 done and `GOOGLE_ENABLED.prod = true`. The email box would be hidden in Production until A is done.
+   - **Option B:** launch with **Google sign-in only**. This needs T009 done and `GOOGLE_ENABLED.prod = true`. The email box is already hidden in Production (`EMAIL_ENABLED.prod = false`) until A is done.
+   - **Neither yet:** Production simply has no accounts. The quiz shows full results directly and there is no sign-up gate. This is the safe default in code today.
 4. **Google sign-in** (if used): T009 must be complete, with the provider enabled in the prod project. Publish the Google consent screen (no review is needed for email/profile). Before a custom domain, the consent screen shows the supabase.co address.
 5. **Merge order:** PR #8 → main, then retarget PR #9 to main and merge. Close the stale PRs #2, #3, #4 and #6.
 6. **Kill switch.** If sign-in misbehaves, set `NEXT_PUBLIC_AUTH_DISABLED=1` in Vercel Production env. This needs Vercel access: founder re-authorizes the Vercel connector, or Muse does it in the dashboard. The quiz then shows full results without accounts.

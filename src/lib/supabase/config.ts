@@ -20,11 +20,24 @@ const PROD = {
 // NEXT_PUBLIC_GOOGLE_AUTH=1 / =0 to override per deployment.
 const GOOGLE_ENABLED = { dev: true, prod: false }; // dev on for Muse T009 setup + test; prod after founder approval
 
+// Email magic links need custom SMTP (domain + Resend) to reach real users; Supabase's built-in
+// mailer only delivers to team members. Off in Production until that is set up
+// (NEXT_PUBLIC_EMAIL_AUTH=1 / =0 overrides).
+const EMAIL_ENABLED = { dev: true, prod: false };
+
 export interface AuthConfig {
   url: string;
   key: string;
   project: "dev" | "prod";
   google: boolean;
+  email: boolean;
+}
+
+function emailOn(env: Record<string, string | undefined>, project: "dev" | "prod"): boolean {
+  const o = env.NEXT_PUBLIC_EMAIL_AUTH;
+  if (o === "1") return true;
+  if (o === "0") return false;
+  return EMAIL_ENABLED[project];
 }
 
 function googleOn(env: Record<string, string | undefined>, project: "dev" | "prod"): boolean {
@@ -38,7 +51,11 @@ export function authConfig(env: Record<string, string | undefined> = process.env
   const vercelEnv = env.NEXT_PUBLIC_VERCEL_ENV ?? env.VERCEL_ENV;
   if (vercelEnv === "production") {
     if (env.NEXT_PUBLIC_AUTH_DISABLED === "1") return null; // kill switch
-    return { url: env.NEXT_PUBLIC_AUTH_SUPABASE_URL ?? PROD.url, key: env.NEXT_PUBLIC_AUTH_SUPABASE_KEY ?? PROD.key, project: "prod", google: googleOn(env, "prod") };
+    const google = googleOn(env, "prod");
+    const email = emailOn(env, "prod");
+    // No way to sign in yet → behave as if accounts don't exist (full results, no sign-up gate).
+    if (!google && !email) return null;
+    return { url: env.NEXT_PUBLIC_AUTH_SUPABASE_URL ?? PROD.url, key: env.NEXT_PUBLIC_AUTH_SUPABASE_KEY ?? PROD.key, project: "prod", google, email };
   }
-  return { url: env.NEXT_PUBLIC_AUTH_SUPABASE_URL ?? DEV.url, key: env.NEXT_PUBLIC_AUTH_SUPABASE_KEY ?? DEV.key, project: "dev", google: googleOn(env, "dev") };
+  return { url: env.NEXT_PUBLIC_AUTH_SUPABASE_URL ?? DEV.url, key: env.NEXT_PUBLIC_AUTH_SUPABASE_KEY ?? DEV.key, project: "dev", google: googleOn(env, "dev"), email: emailOn(env, "dev") };
 }

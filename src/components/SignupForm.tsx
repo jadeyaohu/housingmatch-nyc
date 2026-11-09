@@ -64,7 +64,7 @@ export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; la
     <div className="mx-auto max-w-md rounded-3xl border border-stone-200 bg-white p-6 shadow-sm sm:p-8">
       {cfg.project === "dev" && <p className="mb-4 rounded-lg bg-violet-50 px-3 py-2 text-xs text-violet-900">{t.preview}</p>}
       <h1 className="text-2xl font-bold tracking-tight text-stone-900">{t.title}</h1>
-      <p className="mt-2 text-stone-600">{cfg.google ? t.subGoogle : t.sub}</p>
+      <p className="mt-2 text-stone-600">{cfg.google || !cfg.email ? t.subGoogle : t.sub}</p>
       {linkError && state === "idle" && <p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{t.linkError}</p>}
       {state === "sent" ? (
         <p data-testid="signup-sent" className="mt-6 rounded-xl bg-teal-50 p-4 text-teal-950">{t.sent}</p>
@@ -88,9 +88,10 @@ export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; la
               {t.google}
             </button>
             {gState === "error" && <p className="mt-2 text-sm text-red-800">{t.googleError}</p>}
-            <p className="mt-6 text-center text-sm text-stone-500">{t.or}</p>
+            {cfg.email && <p className="mt-6 text-center text-sm text-stone-500">{t.or}</p>}
           </div>
         )}
+        {cfg.email && (
         <form onSubmit={submit} className={cfg.google ? "mt-4 space-y-4" : "mt-6 space-y-4"}>
           <label className="block">
             <span className="text-sm font-medium text-stone-800">{t.email}</span>
@@ -108,6 +109,7 @@ export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; la
           </button>
           {state === "error" && <p className="text-sm text-red-800">{t.error}</p>}
         </form>
+        )}
         </>
       )}
       <p className="mt-6 text-xs leading-relaxed text-stone-500">{t.privacy}</p>
