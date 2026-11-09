@@ -3,6 +3,7 @@ import { useState } from "react";
 import { BOROUGHS, UNIT_TYPES, type Borough, type UnitType } from "@/lib/types";
 import { boroughLabel, dict, unitLabel, type Lang } from "@/lib/i18n";
 import { MatchResults, type Row } from "./MatchResults";
+import { RerentalSection } from "./RerentalSection";
 
 function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -29,6 +30,7 @@ export function Matcher({ lang }: { lang: Lang }) {
   const [senior, setSenior] = useState(false);
   const [disability, setDisability] = useState(false);
   const [rows, setRows] = useState<Row[] | null>(null);
+  const [rerentals, setRerentals] = useState<Row[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
@@ -54,7 +56,9 @@ export function Matcher({ lang }: { lang: Lang }) {
         }),
       });
       if (!res.ok) throw new Error();
-      setRows((await res.json()).results);
+      const data = await res.json();
+      setRows(data.results);
+      setRerentals(data.rerentals ?? []);
     } catch {
       setError(true);
     } finally {
@@ -134,6 +138,7 @@ export function Matcher({ lang }: { lang: Lang }) {
       <section aria-live="polite">
         {error && <p className="rounded-lg bg-red-50 p-4 text-sm text-red-800">{t.error}</p>}
         {rows && <MatchResults rows={rows} lang={lang} />}
+        {rows && <RerentalSection rows={rerentals} lang={lang} />}
       </section>
     </div>
   );

@@ -4,8 +4,10 @@ import type { Listing, MatchResult, MatchStatus } from "@/lib/types";
 import { boroughLabel, dict, unitLabel, type Lang } from "@/lib/i18n";
 import type { QualityWarning } from "@/lib/matching/quality";
 import { StatusBadge } from "./StatusBadge";
+import { AvailabilityBadge } from "./AvailabilityBadge";
+import type { Availability } from "@/lib/availability";
 
-export type Row = { listing: Listing; result: MatchResult };
+export type Row = { listing: Listing; result: MatchResult; availability?: Availability };
 
 /**
  * Matcher results, grouped into status sections with data-quality warnings (Issue #5 Phase A).
@@ -37,7 +39,7 @@ export function MatchResults({
   const section = (s: MatchStatus) => shown.filter((r) => r.result.status === s);
   const fill = (tpl: string, v: Record<string, string | number>) => tpl.replace(/\{(\w+)\}/g, (_, k) => String(v[k] ?? ""));
 
-  const card = ({ listing, result }: Row) => {
+  const card = ({ listing, result, availability }: Row) => {
     const q = result.quality;
     const warnings = (q?.warnings ?? []).filter((w) => w !== "not_manually_verified") as Exclude<QualityWarning, "not_manually_verified">[];
     const review = result.status === "NEEDS_REVIEW";
@@ -58,6 +60,8 @@ export function MatchResults({
       <li key={listing.id} data-testid={`result-${listing.id}`} className="rounded-2xl border border-stone-200 bg-white p-5">
         <div className="flex flex-wrap items-center gap-2">
           <StatusBadge status={result.status} label={t[result.status]} />
+          {availability && availability !== "verified_open" ? <AvailabilityBadge value={availability} lang={lang} date={collected} /> : null}
+          {availability === "verified_open" && listing.listingType && listing.listingType !== "lottery" ? <AvailabilityBadge value={availability} lang={lang} date={collected} /> : null}
           {closing && (
             <span data-testid="closing-soon" className="rounded-full bg-red-50 px-2 py-0.5 text-xs font-medium text-red-800 ring-1 ring-inset ring-red-700/20">
               {closing}
