@@ -62,5 +62,10 @@ _Last verified: 2026-11-09 (Claude). Facts below were read from GitHub and the l
 ## Data publication
 See `docs/DATA_PUBLICATION.md`. Approved Muse sources (Production): Housing Connect. Pending (Preview only): HDC, Pronto Housing, TF Cornerstone, MNS, Housing Partnership, MHANY, iAfford — awaiting T002 audit.
 
+## Founder decisions (log)
+- 2026-11-09: Housing Connect content — keep showing Muse-collected income tables despite the nyc.gov Terms of Use IP clause ("You may not use, reproduce, display, publish… without the City's prior written permission"). Founder's call; revisit if the City objects.
+- 2026-11-09: Supabase — paused "House of bounce"; created `housingmatch-prod` (us-east-1) with migration 0003 + RLS (advisor clean). Dev = `housing-navigator-dev`.
+- 2026-11-09: Email — use Resend free tier for auth emails.
+
 ## Founder decisions pending
 See the latest status report in chat / PR description.

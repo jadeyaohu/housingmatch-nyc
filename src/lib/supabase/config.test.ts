@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 import { authConfig } from "./config";
 
 describe("authConfig", () => {
-  it("production has no auth unless production keys are set (never the dev project)", () => {
-    expect(authConfig({ VERCEL_ENV: "production" })).toBeNull();
-    expect(authConfig({ NEXT_PUBLIC_VERCEL_ENV: "production" })).toBeNull();
-    expect(authConfig({ VERCEL_ENV: "production", NEXT_PUBLIC_AUTH_SUPABASE_URL: "https://p.supabase.co", NEXT_PUBLIC_AUTH_SUPABASE_KEY: "k" })).toMatchObject({ project: "prod" });
+  it("production uses the prod project, never the dev one, and can be switched off", () => {
+    expect(authConfig({ VERCEL_ENV: "production" })).toMatchObject({ project: "prod", url: "https://ldootzmoeuxarukxctxk.supabase.co" });
+    expect(authConfig({ NEXT_PUBLIC_VERCEL_ENV: "production" })?.url).not.toContain("aqjdfeqorlanwewbhidm");
+    expect(authConfig({ VERCEL_ENV: "production", NEXT_PUBLIC_AUTH_DISABLED: "1" })).toBeNull();
   });
   it("preview and local use the dev project", () => {
     expect(authConfig({ VERCEL_ENV: "preview" })?.url).toBe("https://aqjdfeqorlanwewbhidm.supabase.co");
