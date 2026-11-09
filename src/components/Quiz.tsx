@@ -4,6 +4,8 @@ import { BOROUGHS, UNIT_TYPES, type Borough, type UnitType } from "@/lib/types";
 import { boroughLabel, unitLabel, type Lang } from "@/lib/i18n";
 import { MatchResults, type Row } from "./MatchResults";
 import { RerentalSection } from "./RerentalSection";
+import { browserClient } from "@/lib/supabase/browser";
+import type { AuthConfig } from "@/lib/supabase/config";
 
 type Voucher = "yes" | "no" | "unsure";
 interface Answers {
@@ -17,7 +19,10 @@ interface Answers {
   disability: boolean;
 }
 const EMPTY: Answers = { boroughs: [], bedrooms: [], rentMax: null, size: 1, income: "", voucher: null, senior: false, disability: false };
-const STORE = "hm-quiz-v1"; // sessionStorage only: answers never leave this browser tab except for the one match request
+const STORE = "hm-quiz-v1";
+// Kept on this device only (24 h) so the answers survive opening the sign-in link in a new tab.
+// Sent once to /api/match (not stored there); saved to the account only when the user agrees.
+const TTL = 24 * 3600 * 1000;
 
 const BUDGETS = [1000, 1500, 2000, 2500, 3000, 3500, 4500];
 
@@ -65,6 +70,13 @@ const C = {
     unlock: "Create your free account to see all your matches",
     unlockD: "Free. No credit card. Save homes and get deadline reminders.",
     authSoon: "Account sign-up is being set up. For now you can view your full results here.",
+    signupBtn: "Create my free account",
+    saveTitle: "Save your answers to your account?",
+    consent: "I agree to HousingMatch storing my household size, income range and preferences to show my matches.",
+    privacyLink: "Privacy notice",
+    saveBtn: "Save my profile",
+    savedOk: "Saved.",
+    myAccount: "My account",
     viewNow: "View my full results",
     edit: "Change my answers",
   },
@@ -111,6 +123,13 @@ const C = {
     unlock: "免费注册，查看全部匹配结果",
     unlockD: "免费，不需要信用卡。可以收藏房源、接收截止提醒。",
     authSoon: "注册功能正在搭建中。现在可以先在这里查看完整结果。",
+    signupBtn: "免费注册账号",
+    saveTitle: "把你的回答保存到账号里？",
+    consent: "我同意 HousingMatch 保存我的家庭人数、收入和偏好，用来显示我的匹配结果。",
+    privacyLink: "隐私说明",
+    saveBtn: "保存我的资料",
+    savedOk: "已保存。",
+    myAccount: "我的账号",
     viewNow: "查看完整结果",
     edit: "修改我的回答",
   },
@@ -140,7 +159,7 @@ function Choice({ on, onClick, children, testid }: { on: boolean; onClick: () =>
   );
 }
 
-export function Quiz({ lang, authEnabled }: { lang: Lang; authEnabled: boolean }) {
+export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: AuthConfig | null; signedIn: boolean; profile: Answers | null }) {
   const t = C[lang];
   const [a, setA] = useState<Answers>(EMPTY);
   const [step, setStep] = useState(0);
@@ -150,17 +169,30 @@ export function Quiz({ lang, authEnabled }: { lang: Lang; authEnabled: boolean }
   const [error, setError] = useState(false);
   const [full, setFull] = useState(false);
 
+  const [ready, setReady] = useState(false);
   useEffect(() => {
+    let loaded: Answers | null = null;
     try {
-      const saved = sessionStorage.getItem(STORE);
-      if (saved) setA({ ...EMPTY, ...JSON.parse(saved) });
+      const raw = localStorage.getItem(STORE);
+      if (raw) {
+        const { at, v } = JSON.parse(raw);
+        if (Date.now() - at < TTL) loaded = { ...EMPTY, ...v };
+        else localStorage.removeItem(STORE);
+      }
     } catch {}
+    if (!loaded && profile) loaded = profile;
+    if (loaded) setA(loaded);
+    setReady(true);
+    // Signed in and the questions are answered → go straight to results.
+    if (signedIn && loaded && loaded.income.trim() !== "" && loaded.voucher) void run(loaded);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
+    if (!ready) return;
     try {
-      sessionStorage.setItem(STORE, JSON.stringify(a));
+      localStorage.setItem(STORE, JSON.stringify({ at: Date.now(), v: a }));
     } catch {}
-  }, [a]);
+  }, [a, ready]);
 
   const up = <K extends keyof Answers>(k: K, v: Answers[K]) => setA((x) => ({ ...x, [k]: v }));
   const toggle = <T,>(arr: T[], v: T) => (arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
@@ -169,7 +201,9 @@ export function Quiz({ lang, authEnabled }: { lang: Lang; authEnabled: boolean }
   const TOTAL = 7;
   const canNext = step === 4 ? a.income.trim() !== "" : step === 5 ? a.voucher != null : true;
 
-  async function run() {
+  async function run(ans: Answers = a) {
+    const a2 = ans;
+    const incomeN = Math.round(Number(a2.income.replace(/[^\d.]/g, "")) || 0);
     setLoading(true);
     setError(false);
     try {
@@ -177,15 +211,15 @@ export function Quiz({ lang, authEnabled }: { lang: Lang; authEnabled: boolean }
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          size: a.size,
-          annualIncome: incomeNum,
-          boroughs: a.boroughs,
-          bedrooms: a.bedrooms,
-          rentMax: a.rentMax,
-          hasVoucher: a.voucher === "yes",
-          hasMember62Plus: a.senior,
-          hasMember55Plus: a.senior,
-          hasDisability: a.disability,
+          size: a2.size,
+          annualIncome: incomeN,
+          boroughs: a2.boroughs,
+          bedrooms: a2.bedrooms,
+          rentMax: a2.rentMax,
+          hasVoucher: a2.voucher === "yes",
+          hasMember62Plus: a2.senior,
+          hasMember55Plus: a2.senior,
+          hasDisability: a2.disability,
         }),
       });
       if (!res.ok) throw new Error();
@@ -193,6 +227,7 @@ export function Quiz({ lang, authEnabled }: { lang: Lang; authEnabled: boolean }
       setRows(d.results);
       setRerentals(d.rerentals ?? []);
       setStep(TOTAL);
+      if (signedIn) setFull(true);
     } catch {
       setError(true);
     } finally {
@@ -211,6 +246,23 @@ export function Quiz({ lang, authEnabled }: { lang: Lang; authEnabled: boolean }
   }, [rows, rerentals]);
 
   const next = () => (step === TOTAL - 1 ? run() : setStep(step + 1));
+  const [consent, setConsent] = useState(false);
+  const [saved, setSaved] = useState<"idle" | "saving" | "saved" | "error">("idle");
+  async function saveProfile() {
+    if (!auth) return;
+    setSaved("saving");
+    const sb = browserClient(auth);
+    const { data: u } = await sb.auth.getUser();
+    if (!u.user) return setSaved("error");
+    const { error } = await sb.from("household_profiles").upsert({
+      user_id: u.user.id, household_size: a.size, annual_income: incomeNum, voucher: a.voucher ?? "no",
+      has_member_62_plus: a.senior, has_disability: a.disability, boroughs: a.boroughs, bedrooms: a.bedrooms,
+      rent_max: a.rentMax, language: lang, consented_at: new Date().toISOString(),
+    });
+    if (error) return setSaved("error");
+    setSaved("saved");
+    try { localStorage.removeItem(STORE); } catch {}
+  }
 
   // ---------- results ----------
   if (step === TOTAL && rows) {
@@ -237,9 +289,9 @@ export function Quiz({ lang, authEnabled }: { lang: Lang; authEnabled: boolean }
             <div className="mt-6 rounded-2xl border-2 border-teal-800 p-5">
               <p className="text-lg font-semibold text-stone-900">{t.unlock}</p>
               <p className="mt-1 text-sm text-stone-600">{t.unlockD}</p>
-              {authEnabled ? (
-                <a href="/signup" className="mt-4 flex min-h-12 items-center justify-center rounded-xl bg-teal-800 px-5 font-semibold text-white hover:bg-teal-900">
-                  {t.unlock}
+              {auth ? (
+                <a href={`/signup?next=${encodeURIComponent("/quiz")}`} data-testid="signup-cta" className="mt-4 flex min-h-12 items-center justify-center rounded-xl bg-teal-800 px-5 font-semibold text-white hover:bg-teal-900">
+                  {t.signupBtn}
                 </a>
               ) : (
                 <>
@@ -256,6 +308,25 @@ export function Quiz({ lang, authEnabled }: { lang: Lang; authEnabled: boolean }
           </section>
         ) : (
           <>
+            {signedIn && (
+              <div data-testid="save-profile" className="mb-6 rounded-2xl border border-teal-200 bg-teal-50/60 p-4 text-sm">
+                {saved === "saved" ? (
+                  <p className="font-medium text-teal-900">{t.savedOk} <a href="/account" className="underline underline-offset-4">{t.myAccount}</a></p>
+                ) : (
+                  <>
+                    <p className="font-semibold text-stone-900">{t.saveTitle}</p>
+                    <label className="mt-2 flex items-start gap-3 text-stone-700">
+                      <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} className="mt-1 h-5 w-5 accent-teal-800" />
+                      <span>{t.consent} <a href="/privacy" className="underline underline-offset-4">{t.privacyLink}</a></span>
+                    </label>
+                    <button type="button" disabled={!consent || saved === "saving"} onClick={saveProfile} className="mt-3 min-h-11 rounded-xl bg-teal-800 px-4 font-semibold text-white disabled:opacity-50">
+                      {t.saveBtn}
+                    </button>
+                    {saved === "error" && <p className="mt-2 text-red-800">{t.error}</p>}
+                  </>
+                )}
+              </div>
+            )}
             <MatchResults rows={rows} lang={lang} />
             <RerentalSection rows={rerentals} lang={lang} />
             <button type="button" onClick={() => { setFull(false); setStep(0); }} className="mt-6 min-h-11 text-sm font-medium text-teal-800 underline underline-offset-4">

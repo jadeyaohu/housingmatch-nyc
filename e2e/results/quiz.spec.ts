@@ -6,7 +6,7 @@ import { ALL_FIXTURES, HH_3_85K, TODAY } from "../../src/lib/matching/fixtures/h
 const results = JSON.parse(JSON.stringify(matchAll(HH_3_85K, ALL_FIXTURES, { ...DEFAULT_CONFIG, today: TODAY }))).map((r: object) => ({ ...r, availability: "verified_open" }));
 
 for (const lang of ["en", "zh"] as const) {
-  test(`${lang}: landing → quiz → match-count preview → full results`, async ({ page }) => {
+  test(`${lang}: landing → quiz → match-count preview → sign-up gate`, async ({ page }) => {
     await page.context().addCookies([{ name: "lang", value: lang, domain: "localhost", path: "/" }]);
     let body: Record<string, unknown> | null = null;
     await page.route("**/api/match", async (route) => {
@@ -45,11 +45,13 @@ for (const lang of ["en", "zh"] as const) {
     await expect(page.getByTestId("quiz-results")).toBeVisible();
     expect(body).toMatchObject({ size: 3, annualIncome: 85000, boroughs: ["Bronx"], rentMax: 2500, hasVoucher: false });
     for (const k of ["likely", "review", "open"]) await expect(page.getByTestId(`count-${k}`)).toBeVisible();
-    await expect(page.getByTestId("auth-soon")).toBeVisible();
-
-    await page.getByRole("button", { name: lang === "en" ? "View my full results" : "查看完整结果" }).click();
-    await expect(page.getByTestId("section-LIKELY_MATCH").or(page.getByTestId("section-NEEDS_REVIEW")).first()).toBeVisible();
-    await expect(page.getByTestId("rerentals")).toBeVisible();
+    // Preview/local builds have sign-up (dev Supabase project): the preview gates full results behind a free account.
+    const cta = page.getByTestId("signup-cta");
+    await expect(cta).toBeVisible();
+    await expect(cta).toHaveAttribute("href", "/signup?next=%2Fquiz");
+    await cta.click();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(lang === "en" ? "Create your free account" : "免费注册账号");
+    await expect(page.locator('input[type="email"]')).toBeVisible();
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
     expect(overflow).toBeLessThanOrEqual(0);
   });
