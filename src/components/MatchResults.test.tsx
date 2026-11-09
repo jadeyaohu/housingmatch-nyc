@@ -190,3 +190,18 @@ describe("F7 — complete income data, unknown restriction (Codex P2 regression)
     }
   });
 });
+
+describe("long lists", () => {
+  it("shows 10 per section, then 'Show more' reveals more without changing the counts", async () => {
+    const { fireEvent } = await import("@testing-library/react");
+    const base = rowsFor().find((r) => r.result.status === "NEEDS_REVIEW")!;
+    const many = Array.from({ length: 23 }, (_, i) => ({ ...base, listing: { ...base.listing, id: `x-${i}`, projectName: `P${i}` } }));
+    render(<MatchResults rows={many} lang="en" />);
+    const sec = screen.getByTestId("section-NEEDS_REVIEW");
+    expect(sec.querySelectorAll("[data-testid^=\"result-x-\"]")).toHaveLength(10);
+    expect(screen.getByTestId("result-counts").textContent).toContain("23 might fit");
+    fireEvent.click(screen.getByTestId("more-NEEDS_REVIEW"));
+    expect(sec.querySelectorAll("[data-testid^=\"result-x-\"]")).toHaveLength(23);
+    expect(screen.queryByTestId("more-NEEDS_REVIEW")).toBeNull();
+  });
+});

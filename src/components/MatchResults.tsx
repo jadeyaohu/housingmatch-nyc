@@ -37,6 +37,9 @@ export function MatchResults({
   const secondary = variant === "secondary";
   const idp = secondary ? "rr-" : "";
   const [showUnlikely, setShowUnlikely] = useState(false);
+  // Long lists are hard to scroll on a phone: show the first PAGE per section, then "Show more".
+  const PAGE = 10;
+  const [limit, setLimit] = useState<Record<string, number>>({});
 
   const shown = rows.filter((r) => showUnlikely || (r.result.status !== "UNLIKELY_MATCH" && r.result.matchesPreferences));
   const inPrefs = (s: MatchStatus) => rows.filter((r) => r.result.matchesPreferences && r.result.status === s).length;
@@ -219,7 +222,17 @@ export function MatchResults({
           </h3>
         )}
         {note && <p className="mt-1 mb-3 text-sm text-stone-600">{note}</p>}
-        <ul className="space-y-4">{items.map(card)}</ul>
+        <ul className="space-y-4">{items.slice(0, limit[s] ?? PAGE).map(card)}</ul>
+        {items.length > (limit[s] ?? PAGE) && (
+          <button
+            type="button"
+            data-testid={`${idp}more-${s}`}
+            onClick={() => setLimit((m) => ({ ...m, [s]: (m[s] ?? PAGE) + PAGE * 2 }))}
+            className="mt-4 min-h-12 w-full rounded-xl border border-stone-300 bg-white text-sm font-semibold text-stone-800 hover:bg-stone-50"
+          >
+            {fill(t.showMore, { n: Math.min(PAGE * 2, items.length - (limit[s] ?? PAGE)), left: items.length - (limit[s] ?? PAGE) })}
+          </button>
+        )}
       </section>
     );
   };
