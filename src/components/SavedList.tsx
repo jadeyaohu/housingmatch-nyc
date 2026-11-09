@@ -15,8 +15,8 @@ export interface SavedItem {
 }
 
 const L = {
-  en: { title: "Saved homes", none: "Nothing saved yet. Tap ♡ Save on any result.", closes: "Applications close {d}", closesIn: "Closes in {n} days", today: "Closes today", closed: "Closed — no longer accepting applications", unknown: "No deadline published — check the source", gone: "This listing is no longer in our data.", open: "View listing ↗" },
-  zh: { title: "收藏的房源", none: "还没有收藏。在任何结果上点 ♡ 收藏 即可。", closes: "截止日期 {d}", closesIn: "还有 {n} 天截止", today: "今天截止", closed: "已截止，不再接受申请", unknown: "没有公布截止日期，请查看来源", gone: "这个房源已不在我们的数据中。", open: "查看房源 ↗" },
+  en: { soon: "{n} saved home(s) close within 7 days. Apply on the official site before the deadline.", title: "Saved homes", none: "Nothing saved yet. Tap ♡ Save on any result.", closes: "Applications close {d}", closesIn: "Closes in {n} days", today: "Closes today", closed: "Closed — no longer accepting applications", unknown: "No deadline published — check the source", gone: "This listing is no longer in our data.", open: "View listing ↗" },
+  zh: { soon: "你收藏的房源里有 {n} 个将在 7 天内截止，请在截止前到官方网站申请。", title: "收藏的房源", none: "还没有收藏。在任何结果上点 ♡ 收藏 即可。", closes: "截止日期 {d}", closesIn: "还有 {n} 天截止", today: "今天截止", closed: "已截止，不再接受申请", unknown: "没有公布截止日期，请查看来源", gone: "这个房源已不在我们的数据中。", open: "查看房源 ↗" },
 } as const;
 
 export function SavedList({ cfg, items, lang }: { cfg: AuthConfig; items: SavedItem[]; lang: Lang }) {
@@ -26,6 +26,11 @@ export function SavedList({ cfg, items, lang }: { cfg: AuthConfig; items: SavedI
   const fill = (s: string, v: Record<string, string | number>) => s.replace(/\{(\w+)\}/g, (_, k) => String(v[k] ?? ""));
   return (
     <section data-testid="saved" className="mt-8">
+      {shown.some((i) => i.state === "closing") && (
+        <p role="status" data-testid="closing-banner" className="mb-3 rounded-xl bg-red-50 px-4 py-3 text-sm font-medium text-red-900">
+          {fill(t.soon, { n: shown.filter((i) => i.state === "closing").length })}
+        </p>
+      )}
       <h2 className="font-semibold">{t.title}</h2>
       {shown.length === 0 ? (
         <p className="mt-2 text-sm text-stone-600">{t.none}</p>
