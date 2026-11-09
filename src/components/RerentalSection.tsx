@@ -2,12 +2,13 @@
 import { useState } from "react";
 import { dict, type Lang } from "@/lib/i18n";
 import { MatchResults, type Row } from "./MatchResults";
+import type { Listing } from "@/lib/types";
 
 /**
  * Secondary discovery: re-rentals and waiting lists, visually separate from lease-up matches and
  * never counted with them. Collapsed by default.
  */
-export function RerentalSection({ rows, lang }: { rows: Row[]; lang: Lang }) {
+export function RerentalSection({ rows, lang, action }: { rows: Row[]; lang: Lang; action?: (l: Listing) => React.ReactNode }) {
   const t = dict[lang];
   const [open, setOpen] = useState(false);
   const relevant = rows.filter((r) => r.result.status !== "UNLIKELY_MATCH" && r.result.matchesPreferences).length;
@@ -38,7 +39,7 @@ export function RerentalSection({ rows, lang }: { rows: Row[]; lang: Lang }) {
           </button>
           {open && (
             <div className="mt-4">
-              <MatchResults rows={rows} lang={lang} variant="secondary" />
+              <MatchResults rows={rows} lang={lang} variant="secondary" action={action} />
             </div>
           )}
         </>

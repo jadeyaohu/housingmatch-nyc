@@ -26,9 +26,10 @@ export async function getListings(): Promise<Listing[]> {
 }
 
 async function loadListings(): Promise<Listing[]> {
+  // Listings come from the JSON file unless explicitly switched; auth config must not change the data source.
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (url && anon) {
+  if (process.env.LISTINGS_SOURCE === "supabase" && url && anon) {
     const db = createClient(url, anon, { auth: { persistSession: false } });
     const { data, error } = await db.from("listings").select("*").neq("status", "closed").limit(5000);
     if (error) throw error;

@@ -4,6 +4,8 @@ import { BOROUGHS, UNIT_TYPES } from "@/lib/types";
 import { DEFAULT_CONFIG, matchAll } from "@/lib/matching/engine";
 import { getListings, todayNY } from "@/lib/data/listings";
 import { availabilityOf, isSecondary } from "@/lib/availability";
+import { lifestyleFit } from "@/lib/lifestyle";
+import { priorityFit } from "@/lib/priority";
 
 // Anonymous matching: input is validated, used once, and never stored or logged.
 const HouseholdInput = z.object({
@@ -15,6 +17,12 @@ const HouseholdInput = z.object({
   hasMember62Plus: z.boolean().nullable().default(null),
   hasMember55Plus: z.boolean().nullable().default(null),
   hasDisability: z.boolean().nullable().default(null),
+  // Lifestyle (optional, never affects eligibility)
+  rentMax: z.number().int().min(0).max(50_000).nullable().default(null),
+  // Priority groups (optional, never affect eligibility). ZIP is used once, never stored.
+  zip: z.string().regex(/^\d{5}$/).nullable().default(null),
+  nycha: z.boolean().nullable().default(null),
+  municipalVet: z.boolean().nullable().default(null),
 });
 
 export async function POST(req: Request) {
@@ -30,7 +38,12 @@ export async function POST(req: Request) {
   const listings = await getListings();
   const today = todayNY();
   const all = matchAll(parsed.data, listings, { ...DEFAULT_CONFIG, today })
-    .map((r) => ({ ...r, availability: availabilityOf(r.listing, today) }))
+    .map((r) => ({
+      ...r,
+      availability: availabilityOf(r.listing, today),
+      lifestyle: lifestyleFit(r.listing, { boroughs: parsed.data.boroughs, bedrooms: parsed.data.bedrooms, rentMax: parsed.data.rentMax }),
+      priority: priorityFit(r.listing, { zip: parsed.data.zip, nycha: parsed.data.nycha, municipalVet: parsed.data.municipalVet }),
+    }))
     .filter((r) => r.availability !== "confirmed_closed");
   // Lease-up lotteries are the main result. Re-rentals / waiting lists are a separate,
   // secondary list and never counted in the main matches.

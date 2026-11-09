@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import type { Listing, MatchResult, MatchStatus } from "@/lib/types";
 import { boroughLabel, dict, unitLabel, type Lang } from "@/lib/i18n";
@@ -6,8 +7,10 @@ import type { QualityWarning } from "@/lib/matching/quality";
 import { StatusBadge } from "./StatusBadge";
 import { AvailabilityBadge } from "./AvailabilityBadge";
 import type { Availability } from "@/lib/availability";
+import type { LifestyleFit } from "@/lib/lifestyle";
+import { districtsLabel, type PriorityItem } from "@/lib/priority";
 
-export type Row = { listing: Listing; result: MatchResult; availability?: Availability };
+export type Row = { listing: Listing; result: MatchResult; availability?: Availability; lifestyle?: LifestyleFit; priority?: PriorityItem[] };
 
 /**
  * Matcher results, grouped into status sections with data-quality warnings (Issue #5 Phase A).
@@ -23,11 +26,14 @@ export function MatchResults({
   onDetailsOpen,
   onOfficialLinkClick,
   variant = "main",
+  action,
 }: {
   rows: Row[];
   lang: Lang;
   /** "secondary" = inside the re-rental box: no page-level heading, unique ids, provider-neutral copy. */
   variant?: "main" | "secondary";
+  /** Optional per-card control, e.g. the Save button for signed-in users. */
+  action?: (listing: Listing) => React.ReactNode;
   onDetailsOpen?: (listingId: string) => void;
   onOfficialLinkClick?: (listingId: string) => void;
 }) {
@@ -35,6 +41,9 @@ export function MatchResults({
   const secondary = variant === "secondary";
   const idp = secondary ? "rr-" : "";
   const [showUnlikely, setShowUnlikely] = useState(false);
+  // Long lists are hard to scroll on a phone: show the first PAGE per section, then "Show more".
+  const PAGE = 10;
+  const [limit, setLimit] = useState<Record<string, number>>({});
 
   const shown = rows.filter((r) => showUnlikely || (r.result.status !== "UNLIKELY_MATCH" && r.result.matchesPreferences));
   const inPrefs = (s: MatchStatus) => rows.filter((r) => r.result.matchesPreferences && r.result.status === s).length;
@@ -48,7 +57,7 @@ export function MatchResults({
     return isGenericUrl(l.applicationUrl) ? fill(t.searchLinkSrc, { source: l.sourceName }) : fill(t.officialLinkSrc, { source: l.sourceName });
   };
 
-  const card = ({ listing, result, availability }: Row) => {
+  const card = ({ listing, result, availability, lifestyle, priority }: Row) => {
     const q = result.quality;
     const warnings = (q?.warnings ?? []).filter((w) => w !== "not_manually_verified") as Exclude<QualityWarning, "not_manually_verified">[];
     const review = result.status === "NEEDS_REVIEW";
@@ -77,12 +86,18 @@ export function MatchResults({
             </span>
           )}
           {!result.matchesPreferences && <span className="text-xs text-stone-500">{t.outsidePrefs}</span>}
+          {lifestyle?.budget && (
+            <span data-budget={lifestyle.budget} className={`rounded-full px-2 py-0.5 text-xs ring-1 ring-inset ${lifestyle.budget === "yes" ? "bg-teal-50 text-teal-900 ring-teal-700/20" : lifestyle.budget === "no" ? "bg-rose-50 text-rose-900 ring-rose-700/20" : "bg-stone-100 text-stone-600 ring-stone-400/30"}`}>
+              {t[`budget_${lifestyle.budget}`]}
+              {lifestyle.rentFrom != null ? ` · $${lifestyle.rentFrom.toLocaleString("en-US")}+` : ""}
+            </span>
+          )}
           {listing.listingType && listing.listingType !== "lottery" && (
             <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-800">{t[`type_${listing.listingType}`]}</span>
           )}
           {listing.isSample && <span className="rounded bg-violet-50 px-1.5 py-0.5 text-xs text-violet-800">{t.sample}</span>}
         </div>
-        <h4 className="mt-2 text-lg font-semibold text-stone-900">{listing.projectName}</h4>
+        <h4 className="mt-2 text-lg font-semibold text-stone-900"><Link href={`/listings/${encodeURIComponent(listing.id)}`} className="hover:underline">{listing.projectName}</Link></h4>
         <p className="text-sm text-stone-600">
           {listing.borough ? boroughLabel[lang][listing.borough] : "—"}
           {listing.unitTypes.length > 0 && " · " + listing.unitTypes.map((u) => unitLabel[lang][u]).join(", ")}
@@ -96,6 +111,30 @@ export function MatchResults({
               .map((f) => `${f.unitTypes.length ? f.unitTypes.map((u) => unitLabel[lang][u]).join("/") : t.anyUnit}${f.amiPercent != null ? ` (${f.amiPercent}% AMI)` : ""}`)
               .join(", ")}
           </p>
+        )}
+
+        {priority && priority.length > 0 && (
+          <div data-testid="priority" className="mt-3 rounded-lg bg-sky-50 px-3 py-2 text-sm text-sky-950">
+            <p className="font-medium">{t.pr_title}</p>
+            <ul className="mt-1 space-y-1">
+              {priority.map((p) => {
+                const district = districtsLabel(p.districts ?? (p.district ? [p.district] : []), lang);
+                const main =
+                  p.kind === "community"
+                    ? district ? fill(t.pr_community, { pct: p.pct, district }) : fill(t.pr_community_any, { pct: p.pct })
+                    : fill(t[`pr_${p.kind}`], { pct: p.pct });
+                const sub =
+                  p.kind === "community" ? t[`pr_community_${p.fit}`] : p.fit === "yes" ? t.pr_yes_you : null;
+                return (
+                  <li key={p.kind} data-priority={p.kind} data-fit={p.fit} className={`flex gap-2 ${p.fit === "no" ? "text-sky-900/60" : ""}`}>
+                    <span aria-hidden>{p.fit === "yes" ? "✓" : "•"}</span>
+                    <span>{main}{sub ? <span className="text-sky-900/80"> — {sub}</span> : null}</span>
+                  </li>
+                );
+              })}
+            </ul>
+            <p className="mt-1 text-xs text-sky-900/70">{t.pr_note}</p>
+          </div>
         )}
 
         {showWarnings && (
@@ -158,6 +197,8 @@ export function MatchResults({
               : `${t.source}: ${listing.sourceName}${listing.lastVerifiedAt ? ` · ${t.checked} ${listing.lastVerifiedAt}` : ` · ${t.notManuallyVerifiedShort}`}`}
           </p>
         )}
+        {(listing.applicationUrl || action) && (
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
         {listing.applicationUrl && (
           <a
             href={listing.applicationUrl}
@@ -167,10 +208,13 @@ export function MatchResults({
             onAuxClick={(e) => {
               if (e.button === 1) onOfficialLinkClick?.(listing.id);
             }}
-            className="mt-3 inline-block text-sm font-semibold text-teal-800 underline underline-offset-4"
+            className="inline-block text-sm font-semibold text-teal-800 underline underline-offset-4"
           >
-            {linkLabel(listing)} ↗
+            {linkLabel(listing)} ↗<span className="sr-only"> {t.opensNewTab}</span>
           </a>
+        )}
+        {action?.(listing)}
+          </div>
         )}
       </li>
     );
@@ -187,7 +231,17 @@ export function MatchResults({
           </h3>
         )}
         {note && <p className="mt-1 mb-3 text-sm text-stone-600">{note}</p>}
-        <ul className="space-y-4">{items.map(card)}</ul>
+        <ul className="space-y-4">{items.slice(0, limit[s] ?? PAGE).map(card)}</ul>
+        {items.length > (limit[s] ?? PAGE) && (
+          <button
+            type="button"
+            data-testid={`${idp}more-${s}`}
+            onClick={() => setLimit((m) => ({ ...m, [s]: (m[s] ?? PAGE) + PAGE * 2 }))}
+            className="mt-4 min-h-12 w-full rounded-xl border border-stone-300 bg-white text-sm font-semibold text-stone-800 hover:bg-stone-50"
+          >
+            {fill(t.showMore, { n: Math.min(PAGE * 2, items.length - (limit[s] ?? PAGE)), left: items.length - (limit[s] ?? PAGE) })}
+          </button>
+        )}
       </section>
     );
   };

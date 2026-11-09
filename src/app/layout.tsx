@@ -4,6 +4,8 @@ import "./globals.css";
 import { dict } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
 import { LangToggle } from "@/components/LangToggle";
+import { authConfig } from "@/lib/supabase/config";
+import { currentUser } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "HousingMatch NYC",
@@ -13,6 +15,7 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await getLang();
   const t = dict[lang];
+  const user = authConfig() ? await currentUser() : null;
   return (
     <html lang={lang === "zh" ? "zh-Hans" : "en"}>
       <body className="min-h-screen bg-stone-50 text-stone-900 antialiased">
@@ -24,15 +27,18 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <span className="max-[399px]:sr-only">HousingMatch<span className="hidden sm:inline"> NYC</span></span>
             </Link>
             <div className="flex shrink-0 items-center gap-2 whitespace-nowrap text-sm sm:gap-5">
-              <Link href="/" className="hidden text-stone-600 hover:text-stone-900 sm:inline">{t.navMatch}</Link>
+              <Link href="/quiz" className="hidden text-stone-600 hover:text-stone-900 sm:inline">{t.navMatch}</Link>
               <Link href="/listings" className="text-stone-600 hover:text-stone-900">{t.navListings}</Link>
+              {authConfig() && (
+                <Link href={user ? "/account" : "/signup"} className="hidden text-stone-600 hover:text-stone-900 sm:inline">{user ? t.navAccount : t.navSignIn}</Link>
+              )}
               <LangToggle lang={lang} />
             </div>
           </nav>
         </header>
         <main className="mx-auto max-w-6xl px-5 py-10">{children}</main>
         <footer className="border-t border-stone-200 bg-white">
-          <p className="mx-auto max-w-6xl px-5 py-6 text-xs leading-relaxed text-stone-500">{t.footer}</p>
+          <p className="mx-auto max-w-6xl px-5 py-6 text-xs leading-relaxed text-stone-500">{t.footer} <Link href="/privacy" className="underline underline-offset-2">{t.privacyNav}</Link></p>
         </footer>
       </body>
     </html>

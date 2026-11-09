@@ -20,11 +20,11 @@ const card = (id: string) => screen.getByTestId(`result-${id}`);
 describe("sections and counts", () => {
   it("separates LIKELY from NEEDS_REVIEW with counts that don't merge them; UNLIKELY hidden by default", () => {
     render(<MatchResults rows={rowsFor()} lang="en" />);
-    expect(screen.getByTestId("result-counts").textContent).toBe("1 preliminary · 4 possible (data incomplete) · 2 not shown");
+    expect(screen.getByTestId("result-counts").textContent).toBe("1 look like a fit · 4 might fit (details missing) · 2 not shown");
     const likely = screen.getByTestId("section-LIKELY_MATCH");
     const review = screen.getByTestId("section-NEEDS_REVIEW");
-    expect(within(likely).getByRole("heading", { level: 3 }).textContent).toMatch(/^Preliminary match — based on income limits in our data \(1\)$/);
-    expect(within(review).getByRole("heading", { level: 3 }).textContent).toMatch(/^Possible match — data incomplete, please confirm \(4\)$/);
+    expect(within(likely).getByRole("heading", { level: 3 }).textContent).toMatch(/^Looks like a fit — based on the income limits we have \(1\)$/);
+    expect(within(review).getByRole("heading", { level: 3 }).textContent).toMatch(/^Might fit — we're missing some details, please check \(4\)$/);
     expect(within(likely).queryByTestId("result-hc-90001")).toBeNull();
     expect(within(review).getByTestId("result-hc-90001")).toBeTruthy();
     expect(screen.queryByTestId("section-UNLIKELY_MATCH")).toBeNull();
@@ -37,14 +37,14 @@ describe("sections and counts", () => {
     render(<MatchResults rows={rowsFor()} lang="en" />);
     fireEvent.click(screen.getByRole("checkbox"));
     expect(within(screen.getByTestId("section-UNLIKELY_MATCH")).getAllByRole("listitem").length).toBeGreaterThanOrEqual(2);
-    expect(screen.getByTestId("result-counts").textContent).toBe("1 preliminary · 4 possible (data incomplete) · 2 not shown");
+    expect(screen.getByTestId("result-counts").textContent).toBe("1 look like a fit · 4 might fit (details missing) · 2 not shown");
   });
 
   it("中文: section titles, counts and badges use cautious wording", () => {
     render(<MatchResults rows={rowsFor()} lang="zh" />);
-    expect(screen.getByTestId("result-counts").textContent).toBe("初步符合 1 个 · 可能符合 4 个（资料不完整）· 未显示 2 个");
-    expect(within(screen.getByTestId("section-LIKELY_MATCH")).getByRole("heading", { level: 3 }).textContent).toContain("初步符合（基于现有收入资料）");
-    expect(within(screen.getByTestId("section-NEEDS_REVIEW")).getByRole("heading", { level: 3 }).textContent).toContain("可能符合（资格资料不完整，需核实）");
+    expect(screen.getByTestId("result-counts").textContent).toBe("看起来符合 1 个 · 可能符合 4 个（缺少部分资料）· 未显示 2 个");
+    expect(within(screen.getByTestId("section-LIKELY_MATCH")).getByRole("heading", { level: 3 }).textContent).toContain("看起来符合（根据我们现有的收入要求）");
+    expect(within(screen.getByTestId("section-NEEDS_REVIEW")).getByRole("heading", { level: 3 }).textContent).toContain("可能符合（我们缺少部分资料，请再核对）");
     expect(document.body.textContent).not.toMatch(/确认符合|官方批准/);
   });
 });
@@ -61,7 +61,7 @@ describe("F1 card (345-like)", () => {
     expect(box.textContent).toContain(units);
     expect(within(c).getByTestId("closing-soon").textContent).toBe(closing);
     expect(within(c).getByTestId("provenance").textContent).toBe(lang === "en" ? "Source: NYC Open Data · Not manually verified" : "来源: NYC Open Data · 未经人工核实");
-    const link = within(c).getByRole("link");
+    const link = within(c).getByRole("link", { name: /official|官方/i });
     expect(link.getAttribute("href")).toBe("https://housingconnect.nyc.gov/PublicWeb/details/90001");
     expect(link.getAttribute("target")).toBe("_blank");
     expect(link.getAttribute("rel")).toBe("noopener noreferrer");
@@ -96,7 +96,7 @@ describe("F3 card (published chart)", () => {
     expect(within(c).getByTestId("fits").textContent).toBe("Fits income limits in our data for 1 BR (130% AMI)");
     expect(c.textContent).not.toContain("Confirm on Housing Connect before applying.");
     expect(within(c).getByTestId("provenance").textContent).toBe("Auto-collected from: Housing Connect · 2026-11-06 · Not manually verified");
-    expect(within(c).getByRole("link").getAttribute("href")).toBe("https://housingconnect.nyc.gov/PublicWeb/details/90003");
+    expect(within(c).getByRole("link", { name: /official|官方/i }).getAttribute("href")).toBe("https://housingconnect.nyc.gov/PublicWeb/details/90003");
   });
 });
 
@@ -112,7 +112,7 @@ describe("PR #4 analytics integration seam", () => {
     d.open = false;
     fireEvent(d, new Event("toggle"));
     expect(onDetailsOpen.mock.calls).toEqual([["hc-90001"]]);
-    const link = within(card("hc-90003")).getByRole("link");
+    const link = within(card("hc-90003")).getByRole("link", { name: /official|官方/i });
     fireEvent.mouseOver(link);
     fireEvent.click(link);
     fireEvent(link, new MouseEvent("auxclick", { bubbles: true, button: 1 }));
@@ -132,7 +132,7 @@ describe("Matcher integration", () => {
       fireEvent.submit(screen.getByPlaceholderText("65,000").closest("form")!);
     });
     await screen.findByTestId("section-LIKELY_MATCH");
-    expect(screen.getByTestId("result-counts").textContent).toBe("1 preliminary · 2 possible (data incomplete) · 0 not shown");
+    expect(screen.getByTestId("result-counts").textContent).toBe("1 look like a fit · 2 might fit (details missing) · 0 not shown");
     // every NEEDS_REVIEW card carries the confirmation line
     for (const id of ["hc-90001", "hc-90002"]) expect(within(card(id)).getByTestId("review-confirm").textContent).toBe("Confirm on Housing Connect before applying.");
     const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit];
@@ -188,5 +188,20 @@ describe("F7 — complete income data, unknown restriction (Codex P2 regression)
       expect(cards.length).toBe(4);
       for (const c of cards) expect(within(c).getByTestId("review-confirm").textContent).toBeTruthy();
     }
+  });
+});
+
+describe("long lists", () => {
+  it("shows 10 per section, then 'Show more' reveals more without changing the counts", async () => {
+    const { fireEvent } = await import("@testing-library/react");
+    const base = rowsFor().find((r) => r.result.status === "NEEDS_REVIEW")!;
+    const many = Array.from({ length: 23 }, (_, i) => ({ ...base, listing: { ...base.listing, id: `x-${i}`, projectName: `P${i}` } }));
+    render(<MatchResults rows={many} lang="en" />);
+    const sec = screen.getByTestId("section-NEEDS_REVIEW");
+    expect(sec.querySelectorAll("[data-testid^=\"result-x-\"]")).toHaveLength(10);
+    expect(screen.getByTestId("result-counts").textContent).toContain("23 might fit");
+    fireEvent.click(screen.getByTestId("more-NEEDS_REVIEW"));
+    expect(sec.querySelectorAll("[data-testid^=\"result-x-\"]")).toHaveLength(23);
+    expect(screen.queryByTestId("more-NEEDS_REVIEW")).toBeNull();
   });
 });

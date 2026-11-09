@@ -19,7 +19,7 @@ For each source, source_name must be exactly the name in quotes:
 - Skip homeownership (for-sale) units.
 - record_type: rerental (or waitlist, see above)
 - lottery_id: blank.
-- source_url: the link of the individual listing page if there is one; otherwise the source page.
+- source_url: the link of the individual listing page. On Pronto Housing, open the building's card and copy the address bar from that page — never the general https://prontohousingrentals.com/listings page. If a site truly has no page per listing, use the source page and write "no per-listing page" in notes.
 - application_start_date and application_end_date: blank, unless the listing states a deadline.
 - Put each unit size on its own row (unit_type = Studio, 1BR, ...). Do not list sizes in notes.
 - max_income_N is ALWAYS the limit for an N-person household: max_income_1 = 1 person, max_income_2 = 2 people, and so on. If a table starts at 2 people, leave max_income_1 blank and put the 2-person limit in max_income_2. Double-check you have not shifted a column.

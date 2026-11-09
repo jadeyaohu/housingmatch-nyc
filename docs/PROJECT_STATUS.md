@@ -62,5 +62,21 @@ _Last verified: 2026-11-09 (Claude). Facts below were read from GitHub and the l
 ## Data publication
 See `docs/DATA_PUBLICATION.md`. Approved Muse sources (Production): Housing Connect. Pending (Preview only): HDC, Pronto Housing, TF Cornerstone, MNS, Housing Partnership, MHANY, iAfford — awaiting T002 audit.
 
+## Founder decisions (log)
+- 2026-11-09: Housing Connect content — keep showing Muse-collected income tables despite the nyc.gov Terms of Use IP clause ("You may not use, reproduce, display, publish… without the City's prior written permission"). Founder's call; revisit if the City objects.
+- 2026-11-09: Supabase — paused "House of bounce"; created `housingmatch-prod` (us-east-1) with migration 0003 + RLS (advisor clean). Dev = `housing-navigator-dev`.
+- 2026-11-09: Email — use Resend free tier for auth emails.
+
 ## Founder decisions pending
 See the latest status report in chat / PR description.
+
+## 2026-11-09 (afternoon)
+- Sign-up: "Continue with Google" button built; hidden until the founder enables the Google provider (flag `GOOGLE_ENABLED` in `src/lib/supabase/config.ts`).
+- T004 verified: HPD LL217 report (2022–2024). Findings in `docs/LL217_FINDINGS.md`. Key result: community-district preference holders got 53% of leases in those lotteries from 5.5% of applications.
+- M3/M5: **priority groups**. The import now keeps each lottery's community-district / NYCHA / city-employee-veteran preference percentages. The quiz asks for an optional ZIP (not stored) plus NYCHA / city employee-veteran. Result cards show "Priority groups in this lottery" (tri-state, never odds). 430 listings carry preference data.
+- Not yet saved to the account profile (ZIP, NYCHA, municipal/vet). That needs a new nullable column migration, to be done with the next profile change.
+- Profile now saves NYCHA and city-employee/veteran answers (migration `0004_profile_priority_groups.sql`, applied to **dev** only). The ZIP code is never stored; the quiz, consent text and privacy notice say so. **Production needs 0004 applied before PR #9 ships**, otherwise saving a profile fails there.
+- Founder 2026-11-09 13:22 ET: anything needing doing goes straight to Muse (T009 Google sign-in setup assigned). Money and Production releases still need founder approval.
+- M4 started: **saved homes**. The ♡ Save button appears on result cards for signed-in users. "My account" lists saved homes, soonest deadline first, with a closing-in-N-days warning. Table `saved_listings` (migration 0005, RLS own-rows only) is on **dev**. Production needs migrations 0004 and 0005 before PR #9 ships. Email deadline reminders wait for the domain and Resend.
+- T009 (Google setup) and T007 part 2 are blocked until the founder signs Muse's browser into pangfangdan@gmail.com once.
+
