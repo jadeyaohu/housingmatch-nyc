@@ -29,7 +29,7 @@ async function submit(page: Page, lang: "en" | "zh") {
   await page.route("**/api/match", (route) =>
     route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ results: lotteries, rerentals }) }),
   );
-  await page.goto("/");
+  await page.goto("/match");
   await page.locator('button[aria-label="+"]').click();
   await page.fill('input[inputmode="numeric"]', "85000");
   await page.locator('form button:not([type="button"])').click();

@@ -6,8 +6,9 @@ import type { QualityWarning } from "@/lib/matching/quality";
 import { StatusBadge } from "./StatusBadge";
 import { AvailabilityBadge } from "./AvailabilityBadge";
 import type { Availability } from "@/lib/availability";
+import type { LifestyleFit } from "@/lib/lifestyle";
 
-export type Row = { listing: Listing; result: MatchResult; availability?: Availability };
+export type Row = { listing: Listing; result: MatchResult; availability?: Availability; lifestyle?: LifestyleFit };
 
 /**
  * Matcher results, grouped into status sections with data-quality warnings (Issue #5 Phase A).
@@ -39,7 +40,7 @@ export function MatchResults({
   const section = (s: MatchStatus) => shown.filter((r) => r.result.status === s);
   const fill = (tpl: string, v: Record<string, string | number>) => tpl.replace(/\{(\w+)\}/g, (_, k) => String(v[k] ?? ""));
 
-  const card = ({ listing, result, availability }: Row) => {
+  const card = ({ listing, result, availability, lifestyle }: Row) => {
     const q = result.quality;
     const warnings = (q?.warnings ?? []).filter((w) => w !== "not_manually_verified") as Exclude<QualityWarning, "not_manually_verified">[];
     const review = result.status === "NEEDS_REVIEW";
@@ -68,6 +69,12 @@ export function MatchResults({
             </span>
           )}
           {!result.matchesPreferences && <span className="text-xs text-stone-500">{t.outsidePrefs}</span>}
+          {lifestyle?.budget && (
+            <span data-budget={lifestyle.budget} className={`rounded-full px-2 py-0.5 text-xs ring-1 ring-inset ${lifestyle.budget === "yes" ? "bg-teal-50 text-teal-900 ring-teal-700/20" : lifestyle.budget === "no" ? "bg-rose-50 text-rose-900 ring-rose-700/20" : "bg-stone-100 text-stone-600 ring-stone-400/30"}`}>
+              {t[`budget_${lifestyle.budget}`]}
+              {lifestyle.rentFrom != null ? ` · $${lifestyle.rentFrom.toLocaleString("en-US")}+` : ""}
+            </span>
+          )}
           {listing.listingType && listing.listingType !== "lottery" && (
             <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-800">{t[`type_${listing.listingType}`]}</span>
           )}

@@ -15,7 +15,7 @@ async function run(page: Page, lang: "en" | "zh", payload: unknown = results) {
     bodies.push(JSON.parse(route.request().postData() ?? "null"));
     await route.fulfill({ status: 200, contentType: "application/json", body: JSON.stringify({ results: payload }) });
   });
-  await page.goto("/");
+  await page.goto("/match");
   await page.locator('button[aria-label="+"]').click();
   await page.fill('input[inputmode="numeric"]', "85000");
   await page.locator('form button:not([type="button"])').click();

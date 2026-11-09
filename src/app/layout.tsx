@@ -24,7 +24,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <span className="max-[399px]:sr-only">HousingMatch<span className="hidden sm:inline"> NYC</span></span>
             </Link>
             <div className="flex shrink-0 items-center gap-2 whitespace-nowrap text-sm sm:gap-5">
-              <Link href="/" className="hidden text-stone-600 hover:text-stone-900 sm:inline">{t.navMatch}</Link>
+              <Link href="/quiz" className="hidden text-stone-600 hover:text-stone-900 sm:inline">{t.navMatch}</Link>
               <Link href="/listings" className="text-stone-600 hover:text-stone-900">{t.navListings}</Link>
               <LangToggle lang={lang} />
             </div>
