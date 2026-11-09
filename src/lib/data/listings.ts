@@ -4,12 +4,28 @@ import path from "node:path";
 import { createClient } from "@supabase/supabase-js";
 import type { Listing } from "../types";
 import { rowToListing, type ListingRow } from "./mapping";
+import { currentEnvironment, isPublishable, type ApprovedSources } from "./publication";
 
 /**
  * Loads listings from Supabase when configured, otherwise from data/listings.json
  * (the importer's output, or demo rows during development).
  */
+async function approvedSources(): Promise<ApprovedSources> {
+  try {
+    return JSON.parse(await readFile(path.join(process.cwd(), "data", "sources", "approved-sources.json"), "utf8"));
+  } catch {
+    return { approved: {} }; // fail closed: no Muse source is public without the file
+  }
+}
+
+/** Listings visible in the current environment (Production hides unapproved Muse sources). */
 export async function getListings(): Promise<Listing[]> {
+  const [all, sources] = await Promise.all([loadListings(), approvedSources()]);
+  const env = currentEnvironment();
+  return all.filter((l) => isPublishable(l, sources, env));
+}
+
+async function loadListings(): Promise<Listing[]> {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
   if (url && anon) {

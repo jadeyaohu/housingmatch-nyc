@@ -1,0 +1,15 @@
+{
+  "_doc": "Muse sources allowed on Production. Preview shows every source. Approve a source only after its first batch has been audited (links, availability, income figures). See docs/DATA_PUBLICATION.md.",
+  "approved": {
+    "Housing Connect": { "approvedOn": "2026-11-09", "by": "Claude", "basis": "Run A test batch (5 lotteries) checked field-by-field against the official Housing Connect pages; 0 errors" }
+  },
+  "pending": {
+    "HDC": "Run B 2026-11-09: no income tables (in ad PDFs); shared source page links. Waiting for T002 link/availability audit.",
+    "Pronto Housing": "Run B 2026-11-09: waiting for T002 link/availability audit.",
+    "TF Cornerstone": "Run B 2026-11-09: 1 digit error caught by validation; waiting for T002.",
+    "MNS": "Run B 2026-11-09: waiting for T002.",
+    "Housing Partnership": "Run B 2026-11-09: waiting for T002.",
+    "MHANY": "Run B 2026-11-09: one 404 link reported by Muse; waiting for T002.",
+    "iAfford": "Run B 2026-11-09: 1 column-shift error caught by validation; waiting for T002."
+  }
+}

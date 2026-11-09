@@ -143,9 +143,10 @@ export function MatchResults({
 
         {listing.sourceName && (
           <p data-testid="provenance" className="mt-3 text-xs text-stone-500">
-            {listing.dataSource === "muse" ? t.autoCollected : t.source}: {listing.sourceName}
-            {listing.lastVerifiedAt ? ` · ${t.checked} ${listing.lastVerifiedAt}` : ` · ${t.notManuallyVerifiedShort}`}
-            {listing.dataSource === "muse" && collected && ` · ${fill(t.collectedAuto, { d: collected })}`}
+            {/* Automated collection is not manual verification, so Muse data is always labelled as such. */}
+            {listing.dataSource === "muse"
+              ? `${t.autoCollected}: ${listing.sourceName}${collected ? ` · ${collected}` : ""} · ${t.notManuallyVerifiedShort}`
+              : `${t.source}: ${listing.sourceName}${listing.lastVerifiedAt ? ` · ${t.checked} ${listing.lastVerifiedAt}` : ` · ${t.notManuallyVerifiedShort}`}`}
           </p>
         )}
         {listing.applicationUrl && (

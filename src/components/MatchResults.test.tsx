@@ -95,7 +95,7 @@ describe("F3 card (published chart)", () => {
     const c = within(screen.getByTestId("section-LIKELY_MATCH")).getByTestId("result-hc-90003");
     expect(within(c).getByTestId("fits").textContent).toBe("Fits income limits in our data for 1 BR (130% AMI)");
     expect(c.textContent).not.toContain("Confirm on Housing Connect before applying.");
-    expect(within(c).getByTestId("provenance").textContent).toBe("Auto-collected from: Housing Connect · Not manually verified · income data collected automatically on 2026-11-06");
+    expect(within(c).getByTestId("provenance").textContent).toBe("Auto-collected from: Housing Connect · 2026-11-06 · Not manually verified");
     expect(within(c).getByRole("link").getAttribute("href")).toBe("https://housingconnect.nyc.gov/PublicWeb/details/90003");
   });
 });
@@ -174,7 +174,7 @@ describe("F7 — complete income data, unknown restriction (Codex P2 regression)
     expect(c.querySelectorAll("[data-warning]")).toHaveLength(0);
     expect(within(c).queryByTestId("fits")).toBeNull();
     expect(within(c).getByTestId("provenance").textContent).toBe(
-      lang === "en" ? "Auto-collected from: Housing Connect · checked 2026-11-06 · income data collected automatically on 2026-11-06" : "自动采集自: Housing Connect · 核对于 2026-11-06 · 收入数据于 2026-11-06 自动收集",
+      lang === "en" ? "Auto-collected from: Housing Connect · 2026-11-06 · Not manually verified" : "自动采集自: Housing Connect · 2026-11-06 · 未经人工核实",
     );
     // Why section and rule statuses are unchanged
     expect([...c.querySelectorAll("[data-outcome]")].map((li) => li.getAttribute("data-outcome"))).toEqual(["pass", "pass", "pass", "unknown"]);

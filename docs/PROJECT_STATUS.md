@@ -51,13 +51,16 @@ _Last verified: 2026-11-09 (Claude). Facts below were read from GitHub and the l
 ## Milestones
 | # | Scope | Status |
 |---|---|---|
-| M0 | Stabilize: integrate PR #6, fix #7, separate re-rentals + availability states, publication gate for Muse data, this status file, Muse task channel | **In progress** (`milestone-0/stabilize`) |
+| M0 | Stabilize: integrate PR #6, fix #7, separate re-rentals + availability states, publication gate for Muse data, this status file, Muse task channel | **In progress** — PR #8 (Draft). Done: PR #6 merged in, #7 fixed, re-rentals separated, availability states, per-source publication gate, `agents/` channel + T001–T005. Waiting: Muse T001–T005 results |
 | M1 | Data accuracy: Housing Connect detail coverage (income tables, preferences, accessibility, amenities), enrichment/publication boundaries | Next |
 | M2 | New UX: landing, quiz, match-count preview, free registration, personalized results | Needs Supabase + auth provider decision |
 | M3 | Preferences: lifestyle matching (YES/NO/UNKNOWN), deal breakers, amenities | |
 | M4 | Retention: saved homes/searches, deadline reminders, education | |
 | M5 | Applicant readiness incl. Log Number analysis (`docs/LOG_NUMBER_MODEL.md`) | |
 | M6 | B2B exploration | |
+
+## Data publication
+See `docs/DATA_PUBLICATION.md`. Approved Muse sources (Production): Housing Connect. Pending (Preview only): HDC, Pronto Housing, TF Cornerstone, MNS, Housing Partnership, MHANY, iAfford — awaiting T002 audit.
 
 ## Founder decisions pending
 See the latest status report in chat / PR description.

@@ -32,7 +32,7 @@ export const dict = {
     senior62: "Someone in my household is 62 or older",
     disability: "Someone in my household has a disability",
     results: "Your preliminary results",
-    LIKELY_MATCH: "Likely match",
+    LIKELY_MATCH: "Preliminary match",
     NEEDS_REVIEW: "Needs confirmation",
     // Issue #5 Phase A — results sections & data-quality warnings (draft copy; PO review before merge).
     sectionLikely: "Preliminary match — based on income limits in our data",
