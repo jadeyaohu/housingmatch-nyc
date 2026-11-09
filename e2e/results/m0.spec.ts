@@ -66,5 +66,16 @@ for (const lang of ["en", "zh"] as const) {
     await section.getByRole("button").click();
     await expect(section.getByText("Synthetic Re-rental")).toBeVisible();
     await expect(section.locator('[data-availability="verified_open"]')).toBeVisible();
+    // T005 #8: the box must not repeat the page heading or reuse the main sections' ids.
+    const dupIds = await page.evaluate(() => {
+      const ids = [...document.querySelectorAll("[id]")].map((e) => e.id);
+      return ids.filter((id, i) => ids.indexOf(id) !== i);
+    });
+    expect(dupIds).toEqual([]);
+    await expect(page.getByRole("heading", { level: 2, name: lang === "en" ? "Your preliminary results" : "初步匹配结果" })).toHaveCount(1);
+    for (const el of await section.locator("[aria-labelledby]").all()) {
+      const id = await el.getAttribute("aria-labelledby");
+      expect(await section.locator(`#${id}`).count()).toBe(1);
+    }
   });
 }

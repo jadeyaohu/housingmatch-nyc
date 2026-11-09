@@ -29,6 +29,9 @@ export function availabilityOf(l: Listing, today: string): Availability {
     return "unverified";
   }
 
+  // A waiting-list lottery on Housing Connect has an official deadline, like any lottery.
+  if (type === "waitlist" && (l.dataSource ?? "opendata") === "opendata" && l.applicationDeadline && l.status === "open") return "verified_waitlist";
+
   // Re-rentals and waiting lists: only as fresh as the last time someone saw them listed.
   const seen = l.collectedAt ?? l.lastVerifiedAt;
   const fresh = seen != null && Date.parse(today) - Date.parse(seen.slice(0, 10)) <= REVERIFY_DAYS * DAY;

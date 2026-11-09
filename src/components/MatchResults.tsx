@@ -22,13 +22,18 @@ export function MatchResults({
   lang,
   onDetailsOpen,
   onOfficialLinkClick,
+  variant = "main",
 }: {
   rows: Row[];
   lang: Lang;
+  /** "secondary" = inside the re-rental box: no page-level heading, unique ids, provider-neutral copy. */
+  variant?: "main" | "secondary";
   onDetailsOpen?: (listingId: string) => void;
   onOfficialLinkClick?: (listingId: string) => void;
 }) {
   const t = dict[lang];
+  const secondary = variant === "secondary";
+  const idp = secondary ? "rr-" : "";
   const [showUnlikely, setShowUnlikely] = useState(false);
 
   const shown = rows.filter((r) => showUnlikely || (r.result.status !== "UNLIKELY_MATCH" && r.result.matchesPreferences));
@@ -38,6 +43,10 @@ export function MatchResults({
   const hiddenN = rows.length - likelyN - reviewN;
   const section = (s: MatchStatus) => shown.filter((r) => r.result.status === s);
   const fill = (tpl: string, v: Record<string, string | number>) => tpl.replace(/\{(\w+)\}/g, (_, k) => String(v[k] ?? ""));
+  const linkLabel = (l: Listing) => {
+    if (isHousingConnect(l) || !l.sourceName) return t.officialLink; // Housing Connect page with the income chart
+    return isGenericUrl(l.applicationUrl) ? fill(t.searchLinkSrc, { source: l.sourceName }) : fill(t.officialLinkSrc, { source: l.sourceName });
+  };
 
   const card = ({ listing, result, availability }: Row) => {
     const q = result.quality;
@@ -116,7 +125,7 @@ export function MatchResults({
             )}
             {review && (
               <p data-testid="review-confirm" className="mt-1 font-medium">
-                {t.q_confirm}
+                {isHousingConnect(listing) ? t.q_confirm : listing.sourceName ? fill(t.q_confirm_src, { source: listing.sourceName }) : t.q_confirm_any}
               </p>
             )}
           </div>
@@ -160,7 +169,7 @@ export function MatchResults({
             }}
             className="mt-3 inline-block text-sm font-semibold text-teal-800 underline underline-offset-4"
           >
-            {t.officialLink} ↗
+            {linkLabel(listing)} ↗
           </a>
         )}
       </li>
@@ -171,9 +180,9 @@ export function MatchResults({
     const items = section(s);
     if (items.length === 0) return null;
     return (
-      <section key={s} data-testid={`section-${s}`} aria-labelledby={`h-${s}`} className="mb-8">
+      <section key={s} data-testid={`${idp}section-${s}`} aria-labelledby={title ? `${idp}h-${s}` : undefined} className="mb-8">
         {title && (
-          <h3 id={`h-${s}`} className="text-base font-semibold text-stone-900">
+          <h3 id={`${idp}h-${s}`} className="text-base font-semibold text-stone-900">
             {title} <span className="font-normal text-stone-500">({items.length})</span>
           </h3>
         )}
@@ -186,7 +195,7 @@ export function MatchResults({
   return (
     <>
       <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2">
-        <h2 className="text-xl font-semibold text-stone-900">{t.results}</h2>
+        {!secondary && <h2 className="text-xl font-semibold text-stone-900">{t.results}</h2>}
         {hiddenN > 0 || showUnlikely ? (
           <label className="flex items-center gap-2 text-sm text-stone-600">
             <input type="checkbox" checked={showUnlikely} onChange={(e) => setShowUnlikely(e.target.checked)} className="accent-teal-800" />
@@ -200,8 +209,27 @@ export function MatchResults({
       <p className="mb-6 rounded-lg bg-stone-100 px-4 py-2.5 text-sm text-stone-700">{t.disclaimerShort}</p>
       {shown.length === 0 && <p className="text-stone-500">{t.noResults}</p>}
       {block("LIKELY_MATCH", t.sectionLikely, t.sectionLikelyNote)}
-      {block("NEEDS_REVIEW", t.sectionReview, t.sectionReviewNote)}
+      {block("NEEDS_REVIEW", t.sectionReview, secondary ? t.sectionReviewNoteRr : t.sectionReviewNote)}
       {block("UNLIKELY_MATCH", t.UNLIKELY_MATCH, null)}
     </>
   );
+}
+
+function isHousingConnect(l: Listing): boolean {
+  // Open Data rows are Housing Connect lotteries; Muse rows say which site they came from.
+  return l.dataSource !== "muse" || l.sourceName === "Housing Connect";
+}
+
+/** A site's index/search page rather than one listing (e.g. https://prontohousingrentals.com/listings). */
+export function isGenericUrl(url: string | null): boolean {
+  if (!url) return false;
+  try {
+    const u = new URL(url);
+    const parts = u.pathname.split("/").filter(Boolean);
+    if (parts.length === 0) return true;
+    if (/\d/.test(u.pathname)) return false;
+    return parts.length === 1 && /^(listings?|rentals?|re-rentals|search|apartments|properties|availability|available-units)$/i.test(parts[0]);
+  } catch {
+    return false;
+  }
 }

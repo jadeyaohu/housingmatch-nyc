@@ -123,13 +123,18 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
     const end = parseDate(r["Lottery End Date"]);
     const total = int(r["Unit Count"]);
 
+    // Housing Connect also runs lotteries that only build a waiting list for future vacancies
+    // ("… - Waiting List"). They are secondary listings, never part of the lease-up match count.
+    const isWaitlist = /wait(ing)?[\s-]*list/i.test(r["Lottery Name"] ?? "");
+
     out.push({
       id: `hc-${lotteryId}`,
+      ...(isWaitlist ? { listingType: "waitlist" as const } : {}),
       externalId: lotteryId,
       projectName: r["Lottery Name"].replace(/\s+/g, " "),
       borough,
       address,
-      housingProgram: r["Development Type"] === "Owner" ? "Homeownership" : r["Development Type"] || null,
+      housingProgram: isWaitlist ? "Waiting list" : r["Development Type"] === "Owner" ? "Homeownership" : r["Development Type"] || null,
       unitTypes,
       incomeBands,
       restrictions,
