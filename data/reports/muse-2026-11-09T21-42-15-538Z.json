@@ -1,0 +1,58 @@
+[
+  {
+    "file": "muse-2026-11-09-1640-A.csv",
+    "ranAt": "2026-11-09T21:42:15.538Z",
+    "sources": [
+      {
+        "source": "Housing Connect",
+        "rows": 100,
+        "listings": 34,
+        "accepted": 34,
+        "quarantined": 0,
+        "added": [
+          "hc-7698",
+          "hc-7716",
+          "hc-7700",
+          "hc-7657",
+          "hc-7722",
+          "hc-7703",
+          "hc-7718",
+          "hc-7728",
+          "hc-7630",
+          "hc-7665",
+          "hc-7710",
+          "hc-7729",
+          "hc-7712",
+          "hc-7670",
+          "hc-7654",
+          "hc-7663",
+          "hc-7599",
+          "hc-7637",
+          "hc-7626",
+          "hc-7625",
+          "hc-7687",
+          "hc-7726",
+          "hc-7650",
+          "hc-7676",
+          "hc-7675",
+          "hc-7673",
+          "hc-7693",
+          "hc-7686",
+          "hc-7659"
+        ],
+        "updated": [
+          "hc-7667",
+          "hc-7730",
+          "hc-7714",
+          "hc-7662"
+        ],
+        "changeAwaitingConfirmation": [
+          "hc-7688"
+        ],
+        "removed": [],
+        "status": "published"
+      }
+    ],
+    "rejections": []
+  }
+]
