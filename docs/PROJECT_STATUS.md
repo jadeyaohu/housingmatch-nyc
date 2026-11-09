@@ -80,3 +80,35 @@ See the latest status report in chat / PR description.
 - M4 started: **saved homes**. The ♡ Save button appears on result cards for signed-in users. "My account" lists saved homes, soonest deadline first, with a closing-in-N-days warning. Table `saved_listings` (migration 0005, RLS own-rows only) is on **dev**. Production needs migrations 0004 and 0005 before PR #9 ships. Email deadline reminders wait for the domain and Resend.
 - T009 (Google setup) and T007 part 2 are blocked until the founder signs Muse's browser into pangfangdan@gmail.com once.
 
+## Daily summary 2026-11-09 (18:31 ET)
+**Done today**
+- **M0/M1 (PR #8 → also merged into PR #9)**
+  - T005 fixes: re-rental box ids and headings, source-aware copy and links, generic-URL labels.
+  - 93 Open Data "Waiting List" lotteries now treated as secondary.
+- **M1 data**
+  - Muse Run A (T012): Housing Connect tables for all 34 open lotteries (100 rows).
+  - 0 quarantined; unit totals match Open Data; 7625 and 7718 match T011.
+  - Already live in Production through the normal pipeline.
+- **M2 (PR #9)**
+  - Quiz wording in plain language.
+  - "Open now" counts only possible fits.
+  - Quiz resumes where it left off; "Start over" button.
+  - Results show 10 per section, then "Show more".
+- **M3 (PR #9)**
+  - Priority groups: community district / NYCHA / city employee-veteran, with ZIP (never stored). Multi-district support.
+  - Disability set-asides shown separately.
+  - LL217 findings (`docs/LL217_FINDINGS.md`).
+- **M4 (PR #9)**
+  - Saved homes (♡) and a saved list on My account with deadline states and a closing-soon banner.
+  - Dev migrations 0004 and 0005.
+- **New page:** listing detail `/listings/[id]` with exact HC tables, or labelled estimates with an AMI-range note.
+- **Auth:** "Continue with Google" button built.
+  - Production has email sign-in off until SMTP is set up.
+  - With no sign-in method, there are no accounts (full results are shown).
+- `docs/RELEASE_CHECKLIST.md`.
+
+**Validation:** PR #9 has 130 unit and 44 e2e tests; PR #8 has 110 unit and 22 e2e tests. tsc, lint and build are clean.
+
+**Blocked**
+- T007 part 2 (email sign-in), T009 (Google OAuth setup) and T010 (signed-in full check) need the founder to sign Muse's browser into pangfangdan@gmail.com once.
+
