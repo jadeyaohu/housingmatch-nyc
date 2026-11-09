@@ -12,12 +12,18 @@ For each source, source_name must be exactly the name in quotes:
   "MNS" https://www.mns.com/affordable_units
   "Housing Partnership" https://housingpartnership.com/what-we-do/current-vacancies/
   "MHANY" https://www.mutualhousingny.org/affordable-re-rental-units
-  "Settlement Housing Fund" https://www.settlementhousingfund.org/find-housing/
   "iAfford" https://iaffordny.com/re-rentals
-- record_type: rerental
+- Open every listing fully: expand any "+N more offerings", "show more" or similar so you see every unit.
+- HDC: the income table is in each listing's advertisement PDF. Open the PDF and copy its income table. If a PDF won't open, still add the listing with the income columns blank and say so in notes.
+- Units that only accept waiting-list applications (e.g. on Pronto Housing): include them with record_type waitlist instead of skipping them.
+- Skip homeownership (for-sale) units.
+- record_type: rerental (or waitlist, see above)
 - lottery_id: blank.
 - source_url: the link of the individual listing page if there is one; otherwise the source page.
 - application_start_date and application_end_date: blank, unless the listing states a deadline.
+- Put each unit size on its own row (unit_type = Studio, 1BR, ...). Do not list sizes in notes.
+- max_income_N is ALWAYS the limit for an N-person household: max_income_1 = 1 person, max_income_2 = 2 people, and so on. If a table starts at 2 people, leave max_income_1 blank and put the 2-person limit in max_income_2. Double-check you have not shifted a column.
+- monthly_rent may be a single number or a range such as "2470 - 2806".
 - If a listing has no income table, still add one row with the listing details and leave the income columns blank.
 - If a source has no available re-rentals today, add nothing for it and say so in your report.
 
