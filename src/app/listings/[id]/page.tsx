@@ -22,6 +22,9 @@ const C = {
     unitsNote: "Each row is one income group. You need to fit at least one row for your household size.",
     group: "Income group",
     sizes: "Sizes",
+    sizesAll: "Sizes (whole building)",
+    upTo: "Up to: ",
+    rangeNote: "This group covers {min}–{max}% AMI. Units here may be set at a lower level than {max}%, with lower limits. The limits shown are for {max}%.",
     maxIncome: "Max yearly income",
     rent: "Rent / month",
     count: "Units",
@@ -35,6 +38,9 @@ const C = {
     prCommunityAny: "{pct}% for residents of the local community district",
     prNycha: "{pct}% for NYCHA residents",
     prMuni: "{pct}% for NYC city employees and veterans",
+    setAside: "Set aside for households that need accessible units: {list}. These are reserved units, not a priority order.",
+    mob: "{pct}% mobility",
+    vis: "{pct}% vision/hearing",
     notes: "Other notes from the source",
     source: "Source",
     checked: "last checked",
@@ -53,6 +59,9 @@ const C = {
     unitsNote: "每一行是一个收入组。按你的家庭人数，至少要符合其中一行。",
     group: "收入组",
     sizes: "户型",
+    sizesAll: "户型（整栋楼）",
+    upTo: "最高：",
+    rangeNote: "这个收入组覆盖 {min}–{max}% AMI。组里的单位可能定在比 {max}% 更低的等级，收入上限也会更低。这里显示的是 {max}% 的上限。",
     maxIncome: "年收入上限",
     rent: "月租",
     count: "套数",
@@ -66,6 +75,9 @@ const C = {
     prCommunityAny: "{pct}% 给本社区区的居民",
     prNycha: "{pct}% 给 NYCHA 公房住户",
     prMuni: "{pct}% 给纽约市政府雇员和退伍军人",
+    setAside: "为需要无障碍单位的家庭保留：{list}。这是专门保留的单位，不是审核顺序。",
+    mob: "{pct}% 行动障碍",
+    vis: "{pct}% 视力/听力障碍",
     notes: "来源上的其他说明",
     source: "来源",
     checked: "最近核对",
@@ -108,7 +120,7 @@ function incomeCell(b: IncomeBand, t: (typeof C)["en" | "zh"]) {
     if (v.length)
       return (
         <span>
-          {v.map(([n, x]) => fill(t.forSize, { n, v: money(x!) })).join(" · ")}{" "}
+          {b.amiMinPercent != null ? t.upTo : ""}{v.map(([n, x]) => fill(t.forSize, { n, v: money(x!) })).join(" · ")}{" "}
           <span className="rounded bg-amber-50 px-1 text-xs text-amber-900">{t.est}</span>
         </span>
       );
@@ -159,7 +171,7 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
                     {[b.amiCategory ? (lang === "zh" ? CAT_ZH[b.amiCategory] ?? b.amiCategory : b.amiCategory) : null, b.amiPercent != null ? `${b.amiMinPercent != null ? `${b.amiMinPercent}–` : ""}${b.amiPercent}% AMI` : null].filter(Boolean).join(" · ") || t.group}
                   </p>
                   <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-stone-700">
-                    <dt className="text-stone-500">{t.sizes}</dt>
+                    <dt className="text-stone-500">{b.unitTypes.length ? t.sizes : t.sizesAll}</dt>
                     <dd>{(b.unitTypes.length ? b.unitTypes : l.unitTypes).map((u) => unitLabel[lang][u]).join(", ") || d.notListed}</dd>
                     <dt className="text-stone-500">{t.maxIncome}</dt>
                     <dd>{incomeCell(b, t)}</dd>
@@ -167,6 +179,9 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
                     <dd>{b.monthlyRent != null ? `$${money(b.monthlyRent)}${b.monthlyRentMax ? `–$${money(b.monthlyRentMax)}` : ""}` : d.notListed}</dd>
                     {b.unitCount != null && (<><dt className="text-stone-500">{t.count}</dt><dd>{b.unitCount}</dd></>)}
                   </dl>
+                  {b.amiMinPercent != null && b.amiPercent != null && !(b.maxIncomeByHouseholdSize && Object.keys(b.maxIncomeByHouseholdSize).length) && (
+                    <p data-testid="range-note" className="mt-2 text-xs text-amber-900">{fill(t.rangeNote, { min: b.amiMinPercent, max: b.amiPercent })}</p>
+                  )}
                 </li>
               ))}
             </ul>
@@ -174,6 +189,12 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
           </>
         )}
       </section>
+
+      {p && (p.mobilityPct || p.visionHearingPct) ? (
+        <p data-testid="detail-setaside" className="mt-6 text-sm text-stone-700">
+          {fill(t.setAside, { list: [p.mobilityPct ? fill(t.mob, { pct: p.mobilityPct }) : null, p.visionHearingPct ? fill(t.vis, { pct: p.visionHearingPct }) : null].filter(Boolean).join(lang === "zh" ? "、" : ", ") })}
+        </p>
+      ) : null}
 
       {p && (p.communityPct > 0 || p.nychaPct > 0 || p.municipalVetPct > 0) && (
         <section data-testid="detail-priority" className="mt-8 rounded-xl bg-sky-50 p-4 text-sm text-sky-950">

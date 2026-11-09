@@ -62,6 +62,9 @@ export interface ListingPreferences {
   communityPct: number;
   nychaPct: number;
   municipalVetPct: number;
+  /** Units set aside (not a priority order) for households needing accessible units. */
+  mobilityPct?: number;
+  visionHearingPct?: number;
 }
 
 export interface Listing {
