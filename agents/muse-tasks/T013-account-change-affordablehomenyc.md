@@ -16,4 +16,8 @@ The founder's Google account for this project is **affordablehomenyc@gmail.com**
 4. **Do T009** (Google sign-in setup). Use affordablehomenyc@gmail.com everywhere it asks for an email and as the test user.
 5. **Do T010** (signed-in full check).
 
-Write one result file per task as usual: T013-result.md for steps 1–2, plus T007-result-2.md, T009-result.md and T010-result.md. The secret rule from T009 still applies.
+**This task replaces the earlier blocked runs of T007 Part 2, T009 and T010.** Those already have result files, so do their steps as part of T013.
+
+Write **one** result file, `agents/claude-inbox/T013-result.md`, with one section per step: 1–2, T007 Part 2, T009, T010. Put screenshots in `agents/claude-inbox/T013/`. If you run out of time, commit what you have with `status: partial` and say which step to continue from.
+
+The secret rule from T009 still applies: the client secret goes only into Supabase. The Client ID is fine to report.
