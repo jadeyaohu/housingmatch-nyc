@@ -366,6 +366,10 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
             )}
             <MatchResults rows={rows} lang={lang} action={saveAction} />
             <RerentalSection rows={rerentals} lang={lang} action={saveAction} />
+            <a href="/prepare" data-testid="prepare-cta" className="mt-8 block rounded-2xl border border-teal-200 bg-teal-50 p-4 text-teal-950 hover:bg-teal-100">
+              <span className="font-semibold">{lang === "zh" ? "下一步：提前准备申请材料 →" : "Next: get your documents ready →"}</span>
+              <span className="mt-1 block text-sm">{lang === "zh" ? "被抽中后通常只有很短的时间交材料。按官方清单提前准备。" : "If you're picked, you usually get little time to send papers. Use the official checklist to prepare early."}</span>
+            </a>
             <button type="button" onClick={() => { setFull(false); setStep(0); }} className="mt-6 min-h-11 text-sm font-medium text-teal-800 underline underline-offset-4">
               {t.edit}
             </button>

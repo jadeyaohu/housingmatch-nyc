@@ -29,6 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <div className="flex shrink-0 items-center gap-2 whitespace-nowrap text-sm sm:gap-5">
               <Link href="/quiz" className="hidden text-stone-600 hover:text-stone-900 sm:inline">{t.navMatch}</Link>
               <Link href="/listings" className="text-stone-600 hover:text-stone-900">{t.navListings}</Link>
+              <Link href="/prepare" className="hidden text-stone-600 hover:text-stone-900 md:inline">{lang === "zh" ? "准备材料" : "Get documents ready"}</Link>
               {authConfig() && (
                 <Link href={user ? "/account" : "/signup"} className="hidden text-stone-600 hover:text-stone-900 sm:inline">{user ? t.navAccount : t.navSignIn}</Link>
               )}
