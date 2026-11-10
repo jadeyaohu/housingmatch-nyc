@@ -15,3 +15,14 @@ for (const lang of ["en", "zh"] as const) {
     expect(overflow).toBeLessThanOrEqual(0);
   });
 }
+
+test("after-you-apply page: 6 steps from HPD guide, links to /prepare, no odds claims", async ({ page }) => {
+  await page.goto("/after-you-apply");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("What happens after you apply");
+  await expect(page.locator("ol > li")).toHaveCount(6);
+  await expect(page.getByTestId("after-you-apply")).toContainText("2 to 12 months");
+  await expect(page.getByTestId("after-you-apply")).not.toContainText(/odds|chance of winning|%/);
+  await page.getByTestId("to-prepare").click();
+  await expect(page.getByTestId("prepare")).toBeVisible();
+  await expect(page.getByTestId("to-after")).toHaveAttribute("href", "/after-you-apply");
+});

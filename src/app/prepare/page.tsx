@@ -135,6 +135,9 @@ export default async function Prepare() {
           ))}
         </ul>
       </section>
+      <Link href="/after-you-apply" data-testid="to-after" className="mt-6 inline-block text-sm font-semibold text-teal-800 underline underline-offset-4">
+        {lang === "zh" ? "申请之后会发生什么？→" : "What happens after you apply? →"}
+      </Link>
       <p className="mt-6 text-xs text-stone-500">
         {t.source}{" "}
         <a href={OFFICIAL} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2">Attachment H-1C ↗</a>
