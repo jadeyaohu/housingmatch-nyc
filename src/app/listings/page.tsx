@@ -3,6 +3,8 @@ import { boroughLabel, dict, unitLabel } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
 import { getListings, todayNY } from "@/lib/data/listings";
 import { lifecycle } from "@/lib/import/normalize";
+import { availabilityOf } from "@/lib/availability";
+import { AvailabilityBadge } from "@/components/AvailabilityBadge";
 
 type SP = Promise<Record<string, string | undefined>>;
 
@@ -12,10 +14,11 @@ export default async function ListingsPage({ searchParams }: { searchParams: SP 
   const t = dict[lang];
   const today = todayNY();
   const all = await getListings();
+  const secondary = sp.type === "rerental" || sp.type === "waitlist";
 
   const listings = all
     .map((l) => ({ l, lc: lifecycle(l, today) }))
-    .filter(({ l, lc }) => (!sp.borough || l.borough === sp.borough) && (!sp.unit || l.unitTypes.includes(sp.unit as never)) && (!sp.status || lc === sp.status) && (!sp.type || (l.listingType ?? "lottery") === sp.type))
+    .filter(({ l, lc }) => (!sp.borough || l.borough === sp.borough) && (!sp.unit || l.unitTypes.includes(sp.unit as never)) && (!sp.status || lc === sp.status) && (l.listingType ?? "lottery") === (sp.type || "lottery") && availabilityOf(l, today) !== "confirmed_closed")
     .sort((a, b) => (a.l.applicationDeadline ?? "9999").localeCompare(b.l.applicationDeadline ?? "9999"));
 
   const select = "rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm";
@@ -44,13 +47,27 @@ export default async function ListingsPage({ searchParams }: { searchParams: SP 
           <option value="">{t.status}: {t.any}</option>
           {(["new", "open", "closing_soon", "upcoming"] as const).map((s) => <option key={s} value={s}>{t[`lc_${s}`]}</option>)}
         </select>
-        <select name="type" defaultValue={sp.type ?? ""} className={select} aria-label={t.type}>
-          <option value="">{t.type}: {t.any}</option>
+        <select name="type" defaultValue={sp.type ?? "lottery"} className={select} aria-label={t.type}>
           {(["lottery", "rerental", "waitlist"] as const).map((x) => <option key={x} value={x}>{t[`type_${x}`]}</option>)}
         </select>
         <button className="rounded-lg bg-teal-800 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-900">{t.apply_filters}</button>
       </form>
 
+      {secondary ? (
+        <div data-testid="rerental-banner" className="mt-6 rounded-2xl border border-dashed border-indigo-300 bg-indigo-50/40 p-4 text-sm text-stone-700">
+          <p className="font-semibold text-stone-900">{t.rr_heading}</p>
+          <ul className="mt-2 space-y-1">
+            {[t.rr_note1, t.rr_note2, t.rr_note3].map((n) => (
+              <li key={n} className="flex gap-2"><span aria-hidden>•</span>{n}</li>
+            ))}
+          </ul>
+        </div>
+      ) : (
+        <p className="mt-6 text-sm text-stone-600">
+          {t.browseLotteriesOnly}{" "}
+          <a href="/listings?type=rerental" className="font-semibold text-indigo-800 underline underline-offset-4">{t.browseRerentals}</a>
+        </p>
+      )}
       {listings.length === 0 && <p className="mt-8 text-stone-500">{t.noResults}</p>}
       <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {listings.map(({ l, lc }) => {
@@ -60,6 +77,7 @@ export default async function ListingsPage({ searchParams }: { searchParams: SP 
               <div className="flex flex-wrap gap-1.5 text-xs">
                 <span className={`rounded-full px-2 py-0.5 font-medium ${lcStyle[lc]}`}>{t[`lc_${lc}`]}</span>
                 {l.listingType && l.listingType !== "lottery" && <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-indigo-800">{t[`type_${l.listingType}`]}</span>}
+                {secondary && <AvailabilityBadge value={availabilityOf(l, today)} lang={lang} date={(l.collectedAt ?? l.lastVerifiedAt)?.slice(0, 10)} />}
                 {l.isSample && <span className="rounded-full bg-violet-50 px-2 py-0.5 text-violet-800">{t.sample}</span>}
               </div>
               <h2 className="mt-2 font-semibold leading-snug">{l.projectName}</h2>
