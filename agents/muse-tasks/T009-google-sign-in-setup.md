@@ -1,7 +1,7 @@
 # T009: Set up "Continue with Google" sign-in
 priority: high · created: 2026-11-09 · do right after T007 (T007 sets the redirect URLs this test needs)
 
-The founder approved this in chat on 2026-11-09. Use the founder's own Google account (pangfangdan@gmail.com) in the browser. Nothing here costs money. If any screen asks for a credit card or for billing, **stop** and report it.
+The founder approved this in chat on 2026-11-09. Use the founder's own Google account (affordablehomenyc@gmail.com) in the browser. Nothing here costs money. If any screen asks for a credit card or for billing, **stop** and report it.
 
 ## SECRET RULE: read before you start
 The **client secret** must go **only** into the two Supabase screens in step 4:
@@ -19,12 +19,12 @@ Go to https://console.cloud.google.com. Click the project picker at the top left
 ## 2. Set up the consent screen
 Left menu: **Google Auth Platform** (older name: "APIs & Services → OAuth consent screen"). Click **Get started**.
 - App name: `HousingMatch NYC`
-- User support email: pangfangdan@gmail.com
+- User support email: affordablehomenyc@gmail.com
 - Audience: **External**
-- Contact email: pangfangdan@gmail.com
+- Contact email: affordablehomenyc@gmail.com
 - Agree to the Google API policy and create.
 
-Leave the publishing status as **Testing** for now; do not publish. Under **Audience → Test users**, add `pangfangdan@gmail.com`.
+Leave the publishing status as **Testing** for now; do not publish. Under **Audience → Test users**, add `affordablehomenyc@gmail.com`.
 
 Scopes: add nothing. The defaults (email, profile, openid) are all we need.
 
@@ -51,7 +51,7 @@ Do **not** touch the project "House of bounce".
 ## 5. Test on the Preview (not Production)
 Preview: https://housingmatch-nyc-git-milestone-2-quiz-yao-s-projects16.vercel.app/signup. Use Vercel login via GitHub, as in T006.
 1. Phone size 390 × 844. You should see a **Continue with Google** button above the email box. Screenshot it in EN and 中文.
-2. Tap it and sign in with pangfangdan@gmail.com. Write down exactly what the Google screen says. Screenshot it, cropping any personal info except the app or site name.
+2. Tap it and sign in with affordablehomenyc@gmail.com. Write down exactly what the Google screen says. Screenshot it, cropping any personal info except the app or site name.
 3. After Google, where do you land? Is "My account" / "我的账号" visible in the header? Screenshot it.
 4. Open /account and sign out. Did that work?
 5. Then do the quiz with this **made-up** household: anywhere / any size / no limit / 2 people / 50000 / voucher No / none.

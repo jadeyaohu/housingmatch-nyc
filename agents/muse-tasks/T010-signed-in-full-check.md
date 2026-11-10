@@ -1,7 +1,7 @@
 # T010: Signed-in full check (results, priority box, saving, account)
 priority: high · created: 2026-11-09
 
-**Start only once your browser is signed in to Google as pangfangdan@gmail.com.** The founder will do that. Do T007 part 2 and T009 first. If you're still not signed in, write a one-line result saying so and stop.
+**Start only once your browser is signed in to Google as affordablehomenyc@gmail.com.** The founder will do that. Do T007 part 2 and T009 first. If you're still not signed in, write a one-line result saying so and stop.
 
 **Preview:** https://housingmatch-nyc-git-milestone-2-quiz-yao-s-projects16.vercel.app
 
