@@ -81,6 +81,8 @@ describe("fromOpenData", () => {
   it("'… - Waiting List' lotteries are secondary waiting lists, not lease-up lotteries", () => {
     const [w] = fromOpenData([{ ...row, "Lottery Name": "Riverton Square -- Waiting List", "Lottery End Date": "12/01/2026" }], [], today);
     expect(w.listingType).toBe("waitlist");
+    expect(w.dataSource).toBe("opendata");
+    expect(w.sourceName).toBe("NYC Open Data");
     expect(isSecondary(w)).toBe(true);
     expect(availabilityOf(w, today)).toBe("verified_waitlist");
     expect(l.listingType).toBeUndefined();

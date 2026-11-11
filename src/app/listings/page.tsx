@@ -3,7 +3,7 @@ import { boroughLabel, dict, unitLabel } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
 import { getListings, todayNY } from "@/lib/data/listings";
 import { lifecycle } from "@/lib/import/normalize";
-import { availabilityOf } from "@/lib/availability";
+import { availabilityOf, listingTypeOf } from "@/lib/availability";
 import { AvailabilityBadge } from "@/components/AvailabilityBadge";
 
 type SP = Promise<Record<string, string | undefined>>;
@@ -18,7 +18,7 @@ export default async function ListingsPage({ searchParams }: { searchParams: SP 
 
   const listings = all
     .map((l) => ({ l, lc: lifecycle(l, today) }))
-    .filter(({ l, lc }) => (!sp.borough || l.borough === sp.borough) && (!sp.unit || l.unitTypes.includes(sp.unit as never)) && (!sp.status || lc === sp.status) && (l.listingType ?? "lottery") === (sp.type || "lottery") && availabilityOf(l, today) !== "confirmed_closed")
+    .filter(({ l, lc }) => (!sp.borough || l.borough === sp.borough) && (!sp.unit || l.unitTypes.includes(sp.unit as never)) && (!sp.status || lc === sp.status) && listingTypeOf(l) === (sp.type || "lottery") && availabilityOf(l, today) !== "confirmed_closed")
     .sort((a, b) => (a.l.applicationDeadline ?? "9999").localeCompare(b.l.applicationDeadline ?? "9999"));
 
   const select = "rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm";
