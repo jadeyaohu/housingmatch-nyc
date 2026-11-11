@@ -12,6 +12,10 @@ for (const lang of ["en", "zh"] as const) {
     // 7625 now carries Housing Connect's own table (Muse Run A): exact limits and rents, no estimate notes.
     await expect(page.getByTestId("range-note")).toHaveCount(0);
     await expect(page.getByTestId("income-bands")).toContainText("$732");
+    await expect(page.getByTestId("income-bands")).toContainText("$29,418");
+    // Published columns for larger households must not be truncated after four entries.
+    await expect(page.getByTestId("income-bands")).toContainText(lang === "en" ? "7 people: $105,200" : "7 人：$105,200");
+    await expect(page.getByTestId("income-bands")).toContainText(lang === "en" ? "3–7 people" : "3–7 人");
     await expect(page.getByTestId("detail-setaside")).toContainText(lang === "en" ? "5% mobility, 2% vision/hearing" : "5% 行动障碍、2% 视力/听力障碍");
     await expect(page.getByTestId("detail-official")).toHaveAttribute("href", /housingconnect\.nyc\.gov\/PublicWeb\/details\/7625/);
     const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
@@ -33,4 +37,7 @@ test("a lottery with only Open Data categories explains that the group is an AMI
   await page.goto("/listings/hc-7338");
   await expect(page.getByTestId("range-note").first()).toContainText("covers 81–120% AMI");
   await expect(page.getByTestId("income-bands")).toContainText("Sizes (whole building)");
+  await expect(page.getByTestId("income-incomplete").first()).toBeVisible();
+  await expect(page.getByTestId("income-bands")).toContainText("General HPD reference maximum");
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
 });

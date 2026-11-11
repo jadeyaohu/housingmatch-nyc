@@ -26,6 +26,11 @@ const C = {
     upTo: "Up to: ",
     rangeNote: "This group covers {min}–{max}% AMI. Units here may be set at a lower level than {max}%, with lower limits. The limits shown are for {max}%.",
     maxIncome: "Max yearly income",
+    minIncome: "Min yearly income",
+    household: "Household size",
+    householdRange: "{min}–{max} people",
+    maxIncomeEstimate: "General HPD reference maximum (estimate)",
+    incomplete: "Project-specific income requirements are incomplete in our record. Do not treat general AMI references as this lottery's eligibility table; confirm the official chart.",
     rent: "Rent / month",
     count: "Units",
     est: "estimate",
@@ -63,6 +68,11 @@ const C = {
     upTo: "最高：",
     rangeNote: "这个收入组覆盖 {min}–{max}% AMI。组里的单位可能定在比 {max}% 更低的等级，收入上限也会更低。这里显示的是 {max}% 的上限。",
     maxIncome: "年收入上限",
+    minIncome: "最低年收入",
+    household: "家庭人数",
+    householdRange: "{min}–{max} 人",
+    maxIncomeEstimate: "HPD 一般参考上限（估算）",
+    incomplete: "记录中的项目具体收入要求不完整。请勿把一般 AMI 参考值当作该项目的资格表，请核实官方收入表。",
     rent: "月租",
     count: "套数",
     est: "估算",
@@ -112,7 +122,7 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 
 function incomeCell(b: IncomeBand, t: (typeof C)["en" | "zh"]) {
   if (b.maxIncomeByHouseholdSize && Object.keys(b.maxIncomeByHouseholdSize).length) {
-    const e = Object.entries(b.maxIncomeByHouseholdSize).sort(([a], [c]) => Number(a) - Number(c)).slice(0, 4);
+    const e = Object.entries(b.maxIncomeByHouseholdSize).sort(([a], [c]) => Number(a) - Number(c));
     return <span>{e.map(([n, v]) => fill(t.forSize, { n, v: money(v) })).join(" · ")}</span>;
   }
   if (b.amiPercent != null) {
@@ -126,6 +136,16 @@ function incomeCell(b: IncomeBand, t: (typeof C)["en" | "zh"]) {
       );
   }
   return <span className="text-stone-400">—</span>;
+}
+
+function incompleteRequirements(b: IncomeBand, l: Listing): boolean {
+  if (b.minIncome == null || b.householdSizeMin == null || b.householdSizeMax == null) return true;
+  if (!Number.isInteger(b.householdSizeMin) || !Number.isInteger(b.householdSizeMax) ||
+    b.householdSizeMin < 1 || b.householdSizeMax > 12 || b.householdSizeMin > b.householdSizeMax) return true;
+  for (let size = b.householdSizeMin; size <= b.householdSizeMax; size++) {
+    if (b.maxIncomeByHouseholdSize?.[String(size)] == null) return true;
+  }
+  return b.unitTypes.length === 0 && l.unitTypes.length !== 1;
 }
 
 export default async function ListingDetail({ params }: { params: Promise<{ id: string }> }) {
@@ -173,12 +193,19 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
                   <dl className="mt-1 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-stone-700">
                     <dt className="text-stone-500">{b.unitTypes.length ? t.sizes : t.sizesAll}</dt>
                     <dd>{(b.unitTypes.length ? b.unitTypes : l.unitTypes).map((u) => unitLabel[lang][u]).join(", ") || d.notListed}</dd>
-                    <dt className="text-stone-500">{t.maxIncome}</dt>
+                    <dt className="text-stone-500">{t.household}</dt>
+                    <dd>{b.householdSizeMin != null && b.householdSizeMax != null ? fill(t.householdRange, { min: b.householdSizeMin, max: b.householdSizeMax }) : d.notListed}</dd>
+                    <dt className="text-stone-500">{t.minIncome}</dt>
+                    <dd>{b.minIncome != null ? `$${money(b.minIncome)}` : d.notListed}</dd>
+                    <dt className="text-stone-500">{b.maxIncomeByHouseholdSize && Object.keys(b.maxIncomeByHouseholdSize).length ? t.maxIncome : b.amiPercent != null ? t.maxIncomeEstimate : t.maxIncome}</dt>
                     <dd>{incomeCell(b, t)}</dd>
                     <dt className="text-stone-500">{t.rent}</dt>
                     <dd>{b.monthlyRent != null ? `$${money(b.monthlyRent)}${b.monthlyRentMax ? `–$${money(b.monthlyRentMax)}` : ""}` : d.notListed}</dd>
                     {b.unitCount != null && (<><dt className="text-stone-500">{t.count}</dt><dd>{b.unitCount}</dd></>)}
                   </dl>
+                  {incompleteRequirements(b, l) && (
+                    <p data-testid="income-incomplete" className="mt-2 rounded-lg bg-amber-50 p-2 text-sm text-amber-950">{t.incomplete}</p>
+                  )}
                   {b.amiMinPercent != null && b.amiPercent != null && !(b.maxIncomeByHouseholdSize && Object.keys(b.maxIncomeByHouseholdSize).length) && (
                     <p data-testid="range-note" className="mt-2 text-xs text-amber-900">{fill(t.rangeNote, { min: b.amiMinPercent, max: b.amiPercent })}</p>
                   )}

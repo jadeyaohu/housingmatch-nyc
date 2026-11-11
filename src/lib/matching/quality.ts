@@ -64,6 +64,12 @@ function sizeFits(band: IncomeBand, size: number): boolean | null {
 const hasExplicitMax = (b: IncomeBand, size: number) => b.maxIncomeByHouseholdSize?.[String(size)] != null;
 const hasExplicitLimits = (b: IncomeBand, size: number) => hasExplicitMax(b, size) || b.minIncome != null;
 
+/** Requirements used for a positive fit must all belong to this same published row. */
+export function hasPublishedRequirements(b: IncomeBand, size: number, unitsListed: UnitType[]): boolean {
+  return hasExplicitMax(b, size) && b.minIncome != null && b.householdSizeMin != null && b.householdSizeMax != null && sizeFits(b, size) === true &&
+    (b.unitTypes.length > 0 || unitsListed.length === 1);
+}
+
 export function assessQuality(
   listing: Listing,
   household: Household,
@@ -101,7 +107,7 @@ export function assessQuality(
 
   const fits =
     tier === "published_limits" && result.status === "LIKELY_MATCH"
-      ? result.qualifyingBands.filter((b) => hasExplicitLimits(b, size)).map((b) => ({ unitTypes: b.unitTypes, amiPercent: b.amiPercent }))
+      ? result.qualifyingBands.filter((b) => hasPublishedRequirements(b, size, listing.unitTypes)).map((b) => ({ unitTypes: b.unitTypes, amiPercent: b.amiPercent }))
       : [];
 
   return { tier, warnings, unitsListed: listing.unitTypes, daysToDeadline, closingSoon, fits };
