@@ -1,0 +1,292 @@
+[
+  {
+    "file": "muse-2026-11-11-0843-C.csv",
+    "ranAt": "2026-11-11T13:44:31.729Z",
+    "sources": [
+      {
+        "source": "HPD Mitchell-Lama",
+        "rows": 17,
+        "listings": 17,
+        "accepted": 17,
+        "quarantined": 0,
+        "added": [
+          "muse-hpd-mitchell-lama-arlington-terrace-waiting-list-89-holland-avenue-st",
+          "muse-hpd-mitchell-lama-atlantic-terminal-2-waiting-list-475-carlton-avenue-b",
+          "muse-hpd-mitchell-lama-bay-towers-waiting-list-319-beach-98th-stree",
+          "muse-hpd-mitchell-lama-bronxwood-towers-waiting-list-855-east-233rd-stree",
+          "muse-hpd-mitchell-lama-castleton-park-waiting-list-165-185-st-marks-pla",
+          "muse-hpd-mitchell-lama-chatterton-terrace-waiting-list-1041-pugsley-avenue-",
+          "muse-hpd-mitchell-lama-dca-central-brooklyn-waiting-list-477-howard-avenue-br",
+          "muse-hpd-mitchell-lama-goodwill-terrace-waiting-list-4-21-27-avenue-astor",
+          "muse-hpd-mitchell-lama-hamilton-house-waiting-list-141-west-73rd-street",
+          "muse-hpd-mitchell-lama-mins-plaza-waiting-list-443-445-saint-ann-s-",
+          "muse-hpd-mitchell-lama-o-u-b-houses-waiting-list-545-east-144th-stree",
+          "muse-hpd-mitchell-lama-ocean-village-waiting-list-57-15-shore-front-pa",
+          "muse-hpd-mitchell-lama-seaview-towers-waiting-list-331-beach-31st-stree",
+          "muse-hpd-mitchell-lama-tanya-towers-waiting-list-620-east-13th-street",
+          "muse-hpd-mitchell-lama-tilden-towers-i-waiting-list-3511-barnes-avenue-b",
+          "muse-hpd-mitchell-lama-tilden-towers-ii-waiting-list-801-tilden-street-br",
+          "muse-hpd-mitchell-lama-nordeck-arverne-waiting-list-353-beach-57th-stree"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      },
+      {
+        "source": "HCR",
+        "rows": 168,
+        "listings": 39,
+        "accepted": 20,
+        "quarantined": 19,
+        "added": [
+          "muse-hcr-webster-waiting-list-1201-webster-avenue-",
+          "muse-hcr-the-frederick-shack-residence-waiting-list-1175-findlay-avenue-",
+          "muse-hcr-jackson-avenue-waiting-list-26-14-jackson-avenue",
+          "muse-hcr-1182-woodycrest-waiting-list-1182-woodycrest-aven",
+          "muse-hcr-4519-wpr-the-plains-waiting-list-4519-white-plains-ro",
+          "muse-hcr-historic-front-street-development-waiting-list-217-front-street-new",
+          "muse-hcr-nevins-street-apartments-waiting-list-50-nevins-street-bro",
+          "muse-hcr-saint-james-terrace-waiting-list-2520-jerome-avenue-b",
+          "muse-hcr-vital-brookdale-waiting-list-523-east-98th-street",
+          "muse-hcr-brookdale-village-waiting-list-125-beach-19th-st-fa",
+          "muse-hcr-carnes-mckinney-residence-waiting-list-750-faile-st-bronx-n",
+          "muse-hcr-cathedral-parkway-waiting-list-424-cathedral-parkwa",
+          "muse-hcr-findlay-house-weinstein-waiting-list-1175-findlay-ave-bro",
+          "muse-hcr-gorman-apartments-waiting-list-1381a-linden-blvd-br",
+          "muse-hcr-inwood-gardens-waiting-list-45-fairview-ave-new-",
+          "muse-hcr-jamie-towers-waiting-list-633-olmstead-ave-bro",
+          "muse-hcr-jimerson-apartments-waiting-list-1407-linden-blvd-bro",
+          "muse-hcr-northbay-estates-waiting-list-2730-w-33rd-st-brook",
+          "muse-hcr-oak-drive-mutual-housing-corp-waiting-list-3260-cruger-ave-bron",
+          "muse-hcr-woodlawn-apartments-waiting-list-4260-katonah-ave-bro"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      }
+    ],
+    "rejections": [
+      {
+        "listingId": "muse-hcr-utica-crescent-waiting-list-1080-utica-avenue-br",
+        "name": "Utica Crescent (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001gK9MbEAK/hcr000171",
+        "problems": [
+          "row 1: income limits don't match 30% AMI (HPD 2026 table ≈ 1p 35640, 2p 40710, 3p 45810)",
+          "row 2: income limits don't match 30% AMI (HPD 2026 table ≈ 1p 35640)",
+          "row 3: income limits don't match 40% AMI (HPD 2026 table ≈ 1p 47520, 2p 54280, 3p 61080)",
+          "row 4: income limits don't match 40% AMI (HPD 2026 table ≈ 2p 54280, 3p 61080, 4p 67840, 5p 73280)",
+          "row 5: income limits don't match 40% AMI (HPD 2026 table ≈ 1p 47520)",
+          "row 6: income limits don't match 50% AMI (HPD 2026 table ≈ 1p 59400, 2p 67850, 3p 76350)",
+          "row 7: income limits don't match 50% AMI (HPD 2026 table ≈ 2p 67850, 3p 76350, 4p 84800, 5p 91600)",
+          "row 8: income limits don't match 50% AMI (HPD 2026 table ≈ 1p 59400)",
+          "row 9: income limits don't match 60% AMI (HPD 2026 table ≈ 1p 71280, 2p 81420, 3p 91620)",
+          "row 10: income limits don't match 60% AMI (HPD 2026 table ≈ 2p 81420, 3p 91620, 4p 101760, 5p 109920)",
+          "row 11: income limits don't match 60% AMI (HPD 2026 table ≈ 3p 91620, 4p 101760, 5p 109920, 6p 118080, 7p 126240)",
+          "row 12: income limits don't match 60% AMI (HPD 2026 table ≈ 1p 71280)",
+          "row 13: income limits don't match 70% AMI (HPD 2026 table ≈ 1p 83160, 2p 94990, 3p 106890)",
+          "row 14: income limits don't match 70% AMI (HPD 2026 table ≈ 2p 94990, 3p 106890, 4p 118720, 5p 128240)",
+          "row 15: income limits don't match 70% AMI (HPD 2026 table ≈ 1p 83160)",
+          "row 16: income limits don't match 80% AMI (HPD 2026 table ≈ 1p 95040, 2p 108560, 3p 122160)",
+          "row 17: income limits don't match 80% AMI (HPD 2026 table ≈ 2p 108560, 3p 122160, 4p 135680, 5p 146560)",
+          "row 18: income limits don't match 80% AMI (HPD 2026 table ≈ 1p 95040)",
+          "row 19: income limits don't match 90% AMI (HPD 2026 table ≈ 1p 106920, 2p 122130, 3p 137430)",
+          "row 20: income limits don't match 90% AMI (HPD 2026 table ≈ 2p 122130, 3p 137430, 4p 152640, 5p 164880)",
+          "row 21: income limits don't match 90% AMI (HPD 2026 table ≈ 1p 106920)"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-baez-place-apartments-waiting-list-334-east-176th-stree",
+        "name": "Baez Place Apartments (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00002BceQ6EAJ/hcr000306",
+        "problems": [
+          "row 1: income limits don't match 60% AMI (HPD 2026 table ≈ 1p 71280, 2p 81420)",
+          "row 1: max_income_2 77760 doesn't match 60% AMI pattern of the other sizes (expected ≈ 88822)",
+          "row 2: income limits don't match 80% AMI (HPD 2026 table ≈ 1p 95040, 2p 108560)",
+          "row 2: max_income_2 103680 doesn't match 80% AMI pattern of the other sizes (expected ≈ 118429)"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-boone-avenue-apartments-waiting-list-1559-boone-avenue-br",
+        "name": "Boone Avenue Apartments (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001OZipREAT/hcr000135",
+        "problems": [
+          "apply_url must be a full http(s) link"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-inwood-405-407-w-206th-st-waiting-list-405-west-206th-stree",
+        "name": "Inwood 405-407 W 206th St (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000lkASmEAM/hcr000054",
+        "problems": [
+          "apply_url must be a full http(s) link",
+          "row 1: rent 3536/mo is implausible for min_income 0",
+          "row 2: rent 4230/mo is implausible for min_income 0",
+          "row 3: rent 3306/mo is implausible for min_income 0"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-joseph-house-waiting-list-101-myrtle-avenue-st",
+        "name": "Joseph House (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000iE3RTEA0/hcr000023",
+        "problems": [
+          "row 1: rent 1881/mo is implausible for min_income 0",
+          "row 2: rent 1541/mo is implausible for min_income 0",
+          "row 3: rent 1881/mo is implausible for min_income 0",
+          "row 4: rent 1541/mo is implausible for min_income 0"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-self-help-ki-kii-associates-llc-waiting-list-137-47-45th-avenue-q",
+        "name": "Self Help KI KII Associates LLC (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000iE3ReEAK/hcr000034",
+        "problems": [
+          "row 1: max_income_2 68040 doesn't match 60% AMI pattern of the other sizes (expected ≈ 77719)"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-amalgamated-houses-waiting-list-98-van-cortland-park",
+        "name": "Amalgamated Houses (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK17EAE/hcr000218",
+        "problems": [
+          "apply_url must be a full http(s) link"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-co-op-city-riverbay-waiting-list-2049-bartow-ave-bron",
+        "name": "Co-op City (Riverbay) (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1PEAU/hcr000236",
+        "problems": [
+          "apply_url must be a full http(s) link"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-concourse-village-waiting-list-775-concourse-villag",
+        "name": "Concourse Village (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1OEAU/hcr000235",
+        "problems": [
+          "row 1: rent 860/mo is implausible for min_income 0",
+          "row 2: rent 1120.08/mo is implausible for min_income 0",
+          "row 3: rent 1406.1/mo is implausible for min_income 0",
+          "row 4: rent 1719.12/mo is implausible for min_income 0"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-harry-silver-apartments-waiting-list-828-midwood-st-brook",
+        "name": "Harry Silver Apartments (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK0xEAE/hcr000208",
+        "problems": [
+          "apply_url must be a full http(s) link"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-inwood-terrace-waiting-list-99-hillside-ave-new-",
+        "name": "Inwood Terrace (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK0zEAE/hcr000210",
+        "problems": [
+          "row 1: rent 753.05/mo is implausible for min_income 0",
+          "row 2: rent 973.37/mo is implausible for min_income 0",
+          "row 3: rent 1243.89/mo is implausible for min_income 0"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-inwood-tower-waiting-list-11-fort-george-hill-",
+        "name": "Inwood Tower (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK11EAE/hcr000212",
+        "problems": [
+          "row 1: rent 612.86/mo is implausible for min_income 0",
+          "row 2: rent 823.3/mo is implausible for min_income 0",
+          "row 3: rent 913.54/mo is implausible for min_income 0",
+          "row 4: rent 1284.6/mo is implausible for min_income 0"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-kittay-w-kingsbridge-waiting-list-2550-webb-ave-bronx-",
+        "name": "Kittay (W.Kingsbridge) (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK14EAE/hcr000215",
+        "problems": [
+          "row 1: monthly_rent 0 out of range",
+          "row 2: rent 2811.96/mo is implausible for min_income 0"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-mayflower-terrace-waiting-list-1720-mayflower-ave-b",
+        "name": "Mayflower Terrace (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1wEAE/hcr000269",
+        "problems": [
+          "row 1: rent 690.84/mo is implausible for min_income 0",
+          "row 2: rent 789.6/mo is implausible for min_income 0",
+          "row 3: rent 1036.28/mo is implausible for min_income 0",
+          "row 4: rent 1221.23/mo is implausible for min_income 0"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-mutual-apartments-waiting-list-636-brooklyn-ave-bro",
+        "name": "Mutual Apartments (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK18EAE/hcr000219",
+        "problems": [
+          "row 1: rent 657.93/mo is implausible for min_income 0",
+          "row 2: rent 1130.86/mo is implausible for min_income 0"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-orloff-towers-waiting-list-3900-bailey-ave-bron",
+        "name": "Orloff Towers (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1DEAU/hcr000224",
+        "problems": [
+          "row 1: rent 1002.64/mo is implausible for min_income 3044.73",
+          "row 2: rent 1230.48/mo is implausible for min_income 3723.03",
+          "row 3: rent 1552.98/mo is implausible for min_income 4711.53"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-park-reservoir-apartments-waiting-list-3835-sedgwick-ave-br",
+        "name": "Park Reservoir Apartments (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1uEAE/hcr000267",
+        "problems": [
+          "row 1: rent 862.39/mo is implausible for min_income 0"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-rochdale-village-waiting-list-169-65-137th-ave-jam",
+        "name": "Rochdale Village (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK0lEAE/hcr000196",
+        "problems": [
+          "row 1: rent 941.05/mo is implausible for min_income 0",
+          "row 2: rent 941.05/mo is implausible for min_income 0",
+          "row 3: rent 1539.92/mo is implausible for min_income 0",
+          "row 4: rent 1992.83/mo is implausible for min_income 0"
+        ]
+      },
+      {
+        "listingId": "muse-hcr-waldo-apartments-waiting-list-3800-waldo-ave-bronx",
+        "name": "Waldo Apartments (waiting list)",
+        "source": "HCR",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1oEAE/hcr000261",
+        "problems": [
+          "row 1: rent 798.21/mo is implausible for min_income 0",
+          "row 2: rent 1068.08/mo is implausible for min_income 0"
+        ]
+      }
+    ]
+  }
+]

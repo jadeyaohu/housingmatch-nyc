@@ -6470,6 +6470,2650 @@
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],110,1,3,75067,{\"1\":130680,\"2\":149270,\"3\":167970},null]|[[\"1br\"],110,1,3,75123,{\"1\":130680,\"2\":149270,\"3\":167970},null]|[[\"1br\"],110,1,3,84557,{\"1\":130680,\"2\":149270,\"3\":167970},null]|[[\"1br\"],110,1,3,84562,{\"1\":130680,\"2\":149270,\"3\":167970},null]|[[\"1br\"],110,1,3,84562,{\"1\":130680,\"2\":149270,\"3\":167970},null]|[[\"2br\"],110,2,5,84245,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"2br\"],110,2,5,84251,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"2br\"],110,2,5,89834,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"2br\"],110,2,5,90163,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"2br\"],110,2,5,90382,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"2br\"],110,2,5,97839,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"3br\"],110,3,7,97122,{\"3\":167970,\"4\":186560,\"5\":201520,\"6\":216480,\"7\":231440},null]|[[\"3br\"],110,3,7,97208,{\"3\":167970,\"4\":186560,\"5\":201520,\"6\":216480,\"7\":231440},null]"
+    },
+    "muse-hpd-mitchell-lama-arlington-terrace-waiting-list-89-holland-avenue-st": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-arlington-terrace-waiting-list-89-holland-avenue-st",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "ARLINGTON TERRACE (waiting list)",
+        "borough": "Staten Island",
+        "address": "89 Holland Avenue, Staten Island, New York 10303",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: Studio, 1BR, 2BR, 3BR, 4BR+. Federally subsidized: Yes. Rental. Request application from RY Management Inc., 1619 Third Avenue (Main Office), New York, NY 10128-3459, 212-534-6140."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-atlantic-terminal-2-waiting-list-475-carlton-avenue-b": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-atlantic-terminal-2-waiting-list-475-carlton-avenue-b",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "ATLANTIC TERMINAL 2 (waiting list)",
+        "borough": "Brooklyn",
+        "address": "475 Carlton Avenue, Brooklyn, New York 11238",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: 4BR+ only (Studio, 1BR, 2BR, 3BR closed). Federally subsidized: Yes. Cooperative. Request application from Prestige Management, Inc, 1776 Eastchester Road, Suite 210, Bronx, New York 10461, (718) 822-7377."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-bay-towers-waiting-list-319-beach-98th-stree": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-bay-towers-waiting-list-319-beach-98th-stree",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "BAY TOWERS (waiting list)",
+        "borough": "Queens",
+        "address": "319 Beach 98th Street, Rockaway Park, New York 11694",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: Studio, 1BR, 2BR, 3BR (4BR+ none). Federally subsidized: Yes. Rental. Request application from US Housing Management, 319 Beach 98th Street, Rockaway Park, New York 11694, (718) 474-2400."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-bronxwood-towers-waiting-list-855-east-233rd-stree": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-bronxwood-towers-waiting-list-855-east-233rd-stree",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "BRONXWOOD TOWERS (waiting list)",
+        "borough": "Bronx",
+        "address": "855 East 233rd Street, Bronx, New York 10466",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: 1BR, 2BR, 3BR (Studio, 4BR+ none). Federally subsidized: No. Cooperative. Request application from New Bedford Management Corp., 210 E. 23rd Street, 5th Floor, New York, New York 10010, (212) 674-6123."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-castleton-park-waiting-list-165-185-st-marks-pla": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-castleton-park-waiting-list-165-185-st-marks-pla",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "CASTLETON PARK (waiting list)",
+        "borough": "Staten Island",
+        "address": "165-185 St. Marks Place, Staten Island, New York 10301",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: Studio, 1BR, 2BR, 3BR (4BR+ none). Federally subsidized: No. Rental. Request application from Stellar Management, 44 West 28th Street, 6th floor, New York, New York 10001, (212) 403-0030. Also on short waiting lists PDF (phone there 212-843-3763)."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-chatterton-terrace-waiting-list-1041-pugsley-avenue-": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-chatterton-terrace-waiting-list-1041-pugsley-avenue-",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "CHATTERTON TERRACE (waiting list)",
+        "borough": "Bronx",
+        "address": "1041 Pugsley Avenue, Bronx, New York 10472",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: 4BR+ only (1BR, 2BR, 3BR closed; Studio none). Federally subsidized: No. Cooperative. Request application from Century Management, 1430 Broadway, Suite 505, New York, New York 10018, (212) 560-6400."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-dca-central-brooklyn-waiting-list-477-howard-avenue-br": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-dca-central-brooklyn-waiting-list-477-howard-avenue-br",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "DCA CENTRAL BROOKLYN (waiting list)",
+        "borough": "Brooklyn",
+        "address": "477 Howard Avenue, Brooklyn, New York 11233",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: 2BR only (1BR, 3BR closed; Studio, 4BR+ none). Federally subsidized: Yes. Rental. Request application from Paths Management Services LLC, 909 Third Avenue, 21st Floor, New York, New York 10022, (646) 502-7200."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-goodwill-terrace-waiting-list-4-21-27-avenue-astor": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-goodwill-terrace-waiting-list-4-21-27-avenue-astor",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "GOODWILL TERRACE (waiting list)",
+        "borough": "Queens",
+        "address": "4-21 27 Avenue, Astoria, NY 11102",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: Studio, 1BR (2BR closed; 3BR, 4BR+ none). Federally subsidized: No. Rental. Request application from Rose Associates Inc., 777 Third Avenue, 6th Floor, New York, NY 10017, (212) 210-6666."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-hamilton-house-waiting-list-141-west-73rd-street": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-hamilton-house-waiting-list-141-west-73rd-street",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "HAMILTON HOUSE (waiting list)",
+        "borough": "Manhattan",
+        "address": "141 West 73rd Street, New York, NY 10023",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [
+          "senior_62plus"
+        ],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: Studio, 1BR, 2BR (3BR, 4BR+ none). Federally subsidized: No. Rental. Age 62+ Senior Only. Request application from Project Find, 160 W 71st Street, 2F, New York, NY 10023, (212) 579-7881."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-mins-plaza-waiting-list-443-445-saint-ann-s-": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-mins-plaza-waiting-list-443-445-saint-ann-s-",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "MINS PLAZA (waiting list)",
+        "borough": "Bronx",
+        "address": "443-445 Saint Ann's Avenue, Bronx, New York 10454",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: 1BR, 2BR Section 8 (PBV closed); 3BR, 4BR+ Section 8 and PBV open (Studio none). Federally subsidized: Yes. Rental. Request application from ACACIA, 370 Brook Avenue- 1st Floor, Bronx, New York 10454, (718) 741-1913."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-o-u-b-houses-waiting-list-545-east-144th-stree": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-o-u-b-houses-waiting-list-545-east-144th-stree",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "O.U.B. HOUSES (waiting list)",
+        "borough": "Bronx",
+        "address": "545 East 144th Street, Bronx, New York 10454",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: 1BR, 2BR Section 8 (PBV closed); 3BR, 4BR+ Section 8 and PBV open (Studio none). Federally subsidized: Yes. Rental. Request application from ACACIA, 370 Brook Avenue- 1st Floor, Bronx, New York 10454, (718) 741-1913."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-ocean-village-waiting-list-57-15-shore-front-pa": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-ocean-village-waiting-list-57-15-shore-front-pa",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "OCEAN VILLAGE (waiting list)",
+        "borough": "Queens",
+        "address": "57-15 Shore Front Parkway, Queens, New York 11694",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: Studio, 1BR, 2BR, 3BR, 4BR+. Federally subsidized: Yes. Rental. Request application from C & C Affordable Management LLC, 1735 Park Avenue, 3rd Floor, New York, New York 10035, (718) 634-2100. Also on short waiting lists PDF."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-seaview-towers-waiting-list-331-beach-31st-stree": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-seaview-towers-waiting-list-331-beach-31st-stree",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "SEAVIEW TOWERS (waiting list)",
+        "borough": "Queens",
+        "address": "331 Beach 31st Street, Far Rockaway, New York 11691",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: Studio, 1BR, 2BR, 3BR (4BR+ none). Federally subsidized: Yes. Rental. Request application from A-1 Realty Management Inc., 1551 Franklin Avenue, 1st floor, Mineola, New York 11501, (516) 203-3900."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-tanya-towers-waiting-list-620-east-13th-street": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-tanya-towers-waiting-list-620-east-13th-street",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "TANYA TOWERS (waiting list)",
+        "borough": "Manhattan",
+        "address": "620 East 13th Street, New York, NY 10009",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [
+          "senior_62plus",
+          "disability"
+        ],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: Studio, 1BR (2BR, 3BR, 4BR+ none). Federally subsidized: Yes. Rental. Age 62+ Senior or Disable Only (as printed). Request application from Wavecrest Management, 87-14 116th Street, Richmond Hill, New York 11418, (718) 463-1200."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-tilden-towers-i-waiting-list-3511-barnes-avenue-b": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-tilden-towers-i-waiting-list-3511-barnes-avenue-b",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "TILDEN TOWERS I (waiting list)",
+        "borough": "Bronx",
+        "address": "3511 Barnes Avenue, Bronx, New York 10467",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: 1BR, 2BR, 3BR (Studio, 4BR+ none). Federally subsidized: No. Cooperative. Request application from Metro Management Development Inc., 1981 Marcus Avenue, Suite C-131, Lake Success, New York 11042, (718) 706 7755."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-tilden-towers-ii-waiting-list-801-tilden-street-br": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-tilden-towers-ii-waiting-list-801-tilden-street-br",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "TILDEN TOWERS II (waiting list)",
+        "borough": "Bronx",
+        "address": "801 Tilden Street, Bronx, New York 10467",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/ML-waiting-Lists-Status.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Open: 1BR, 2BR, 3BR (Studio, 4BR+ none). Federally subsidized: Yes. Cooperative. Request application from Metro Management Development Inc., 1981 Marcus Avenue, Suite C-131, Lake Success, NY 11042, (718) 706 7755."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hpd-mitchell-lama-nordeck-arverne-waiting-list-353-beach-57th-stree": {
+      "listing": {
+        "id": "muse-hpd-mitchell-lama-nordeck-arverne-waiting-list-353-beach-57th-stree",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HPD Mitchell-Lama",
+        "collectedAt": "2026-11-11T13:09:00.000Z",
+        "externalId": null,
+        "projectName": "NORDECK/ARVERNE (waiting list)",
+        "borough": "Queens",
+        "address": "353 Beach 57th Street, Arverne, NY 11692",
+        "housingProgram": "Waiting list",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/Short-waiting-Lists.pdf",
+        "sourceUrl": "https://www.nyc.gov/assets/hpd/downloads/pdfs/services/Short-waiting-Lists.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Short waiting list (Mitchell-Lama Developments With Short Waiting Lists PDF: Call for an application today!). Cooperative. Phone 718-332-0777."
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-hcr-webster-waiting-list-1201-webster-avenue-": {
+      "listing": {
+        "id": "muse-hcr-webster-waiting-list-1201-webster-avenue-",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:10:00.000Z",
+        "externalId": null,
+        "projectName": "Webster (waiting list)",
+        "borough": "Bronx",
+        "address": "1201 Webster Avenue, Bronx, NY 10456",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 30,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 1,
+            "minIncome": 26092,
+            "maxIncomeByHouseholdSize": {
+              "1": 34020
+            },
+            "monthlyRent": 1022,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 26092,
+            "maxIncomeByHouseholdSize": {
+              "1": 45360,
+              "2": 51840
+            },
+            "monthlyRent": 1022,
+            "monthlyRentMax": null,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 32400,
+            "maxIncomeByHouseholdSize": {
+              "1": 56700,
+              "2": 64800,
+              "3": 72900
+            },
+            "monthlyRent": 1270,
+            "monthlyRentMax": null,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 29400,
+            "maxIncomeByHouseholdSize": {
+              "1": 56700,
+              "2": 64800
+            },
+            "monthlyRent": 1170,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 39000,
+            "maxIncomeByHouseholdSize": {
+              "1": 68040,
+              "2": 77760,
+              "3": 87480
+            },
+            "monthlyRent": 1500,
+            "monthlyRentMax": null,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 47400,
+            "maxIncomeByHouseholdSize": {
+              "2": 77760,
+              "3": 87480,
+              "4": 97200
+            },
+            "monthlyRent": 1830,
+            "monthlyRentMax": null,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 36000,
+            "maxIncomeByHouseholdSize": {
+              "1": 68040,
+              "2": 77760
+            },
+            "monthlyRent": 1400,
+            "monthlyRentMax": null,
+            "unitCount": 4
+          },
+          {
+            "amiPercent": 70,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 45000,
+            "maxIncomeByHouseholdSize": {
+              "1": 79380,
+              "2": 90720,
+              "3": 102060
+            },
+            "monthlyRent": 1750,
+            "monthlyRentMax": null,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 70,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 54000,
+            "maxIncomeByHouseholdSize": {
+              "2": 90720,
+              "3": 102060,
+              "4": 113400
+            },
+            "monthlyRent": 2100,
+            "monthlyRentMax": null,
+            "unitCount": 8
+          },
+          {
+            "amiPercent": 70,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 42000,
+            "maxIncomeByHouseholdSize": {
+              "1": 79380,
+              "2": 90720
+            },
+            "monthlyRent": 1600,
+            "monthlyRentMax": null,
+            "unitCount": 6
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-11-20",
+        "applicationUrl": "https://www.breakingground.org/our-housing/webster-avenue",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00002Lif0lEAB/hcr000317",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "2 units adapted for mobility impairment; 1 unit adapted for hearing/vision impairment; no additional eligibility requirements"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],50,1,3,32400,{\"1\":56700,\"2\":64800,\"3\":72900},1270]|[[\"1br\"],60,1,3,39000,{\"1\":68040,\"2\":77760,\"3\":87480},1500]|[[\"1br\"],70,1,3,45000,{\"1\":79380,\"2\":90720,\"3\":102060},1750]|[[\"2br\"],60,2,4,47400,{\"2\":77760,\"3\":87480,\"4\":97200},1830]|[[\"2br\"],70,2,4,54000,{\"2\":90720,\"3\":102060,\"4\":113400},2100]|[[\"studio\"],30,1,1,26092,{\"1\":34020},1022]|[[\"studio\"],40,1,2,26092,{\"1\":45360,\"2\":51840},1022]|[[\"studio\"],50,1,2,29400,{\"1\":56700,\"2\":64800},1170]|[[\"studio\"],60,1,2,36000,{\"1\":68040,\"2\":77760},1400]|[[\"studio\"],70,1,2,42000,{\"1\":79380,\"2\":90720},1600]"
+    },
+    "muse-hcr-the-frederick-shack-residence-waiting-list-1175-findlay-avenue-": {
+      "listing": {
+        "id": "muse-hcr-the-frederick-shack-residence-waiting-list-1175-findlay-avenue-",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:11:00.000Z",
+        "externalId": null,
+        "projectName": "The Frederick Shack Residence (waiting list)",
+        "borough": "Bronx",
+        "address": "1175 Findlay Avenue, Bronx, NY 10456",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 1,
+            "minIncome": 28000,
+            "maxIncomeByHouseholdSize": {
+              "1": 59400
+            },
+            "monthlyRent": 1150,
+            "monthlyRentMax": null,
+            "unitCount": 20
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 1,
+            "minIncome": 33000,
+            "maxIncomeByHouseholdSize": {
+              "1": 71280
+            },
+            "monthlyRent": 1300,
+            "monthlyRentMax": null,
+            "unitCount": 9
+          }
+        ],
+        "restrictions": [
+          "senior_62plus"
+        ],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-11-27",
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00002PeuAXEAZ/hcr000327",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00002PeuAXEAZ/hcr000327",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Senior Households must be 62 and older. At least one household member must be 55 years of age or older to qualify for occupancy. Remaining household members must be at least 18 years old. Description says Crossroads is marketing 9 units (6 senior, 1 mobility, 2 remaining); table totals 29 units."
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],50,1,1,28000,{\"1\":59400},1150]|[[\"1br\"],60,1,1,33000,{\"1\":71280},1300]"
+    },
+    "muse-hcr-jackson-avenue-waiting-list-26-14-jackson-avenue": {
+      "listing": {
+        "id": "muse-hcr-jackson-avenue-waiting-list-26-14-jackson-avenue",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:12:00.000Z",
+        "externalId": null,
+        "projectName": "Jackson Avenue (waiting list)",
+        "borough": "Queens",
+        "address": "26-14 Jackson Avenue, Long Island City, Queens, NY 11101",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 27310,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54280,
+              "3": 61080
+            },
+            "monthlyRent": 671,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 33631,
+            "maxIncomeByHouseholdSize": {
+              "2": 54280,
+              "3": 61080,
+              "4": 67840,
+              "5": 73280
+            },
+            "monthlyRent": 814,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 25162,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54280
+            },
+            "monthlyRent": 795,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 25399,
+            "maxIncomeByHouseholdSize": {
+              "1": 59400,
+              "2": 67850,
+              "3": 76350
+            },
+            "monthlyRent": 983,
+            "monthlyRentMax": null,
+            "unitCount": 10
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 41122,
+            "maxIncomeByHouseholdSize": {
+              "2": 67850,
+              "3": 76350,
+              "4": 84800,
+              "5": 91600
+            },
+            "monthlyRent": 1049,
+            "monthlyRentMax": null,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 30221,
+            "maxIncomeByHouseholdSize": {
+              "1": 59400,
+              "2": 67850
+            },
+            "monthlyRent": 817,
+            "monthlyRentMax": null,
+            "unitCount": 3
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-12-10",
+        "applicationUrl": "https://www.2614jackson.com/",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00002MTUOVEA5/hcr000318",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": null
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],40,1,3,27310,{\"1\":47520,\"2\":54280,\"3\":61080},671]|[[\"1br\"],50,1,3,25399,{\"1\":59400,\"2\":67850,\"3\":76350},983]|[[\"2br\"],40,2,5,33631,{\"2\":54280,\"3\":61080,\"4\":67840,\"5\":73280},814]|[[\"2br\"],50,2,5,41122,{\"2\":67850,\"3\":76350,\"4\":84800,\"5\":91600},1049]|[[\"studio\"],40,1,2,25162,{\"1\":47520,\"2\":54280},795]|[[\"studio\"],50,1,2,30221,{\"1\":59400,\"2\":67850},817]"
+    },
+    "muse-hcr-1182-woodycrest-waiting-list-1182-woodycrest-aven": {
+      "listing": {
+        "id": "muse-hcr-1182-woodycrest-waiting-list-1182-woodycrest-aven",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:13:00.000Z",
+        "externalId": null,
+        "projectName": "1182 Woodycrest (waiting list)",
+        "borough": "Bronx",
+        "address": "1182 Woodycrest Avenue, Bronx, NY 10452",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 49520,
+            "maxIncomeByHouseholdSize": {
+              "1": 56700,
+              "2": 64800,
+              "3": 72900
+            },
+            "monthlyRent": 1167,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 59820,
+            "maxIncomeByHouseholdSize": {
+              "1": 68040,
+              "2": 77760,
+              "3": 87480
+            },
+            "monthlyRent": 1424,
+            "monthlyRentMax": null,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 71752,
+            "maxIncomeByHouseholdSize": {
+              "2": 77760,
+              "3": 87480,
+              "4": 97200,
+              "5": 105000
+            },
+            "monthlyRent": 1710,
+            "monthlyRentMax": null,
+            "unitCount": 5
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 7,
+            "minIncome": 82219,
+            "maxIncomeByHouseholdSize": {
+              "3": 87480,
+              "4": 97200,
+              "5": 105000,
+              "6": 112800,
+              "7": 120540
+            },
+            "monthlyRent": 1973,
+            "monthlyRentMax": null,
+            "unitCount": 5
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 73210,
+            "maxIncomeByHouseholdSize": {
+              "1": 90720,
+              "2": 103680,
+              "3": 116640
+            },
+            "monthlyRent": 1759,
+            "monthlyRentMax": null,
+            "unitCount": 5
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 87861,
+            "maxIncomeByHouseholdSize": {
+              "2": 103680,
+              "3": 116640,
+              "4": 129600,
+              "5": 140000
+            },
+            "monthlyRent": 2113,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 7,
+            "minIncome": 101400,
+            "maxIncomeByHouseholdSize": {
+              "3": 116640,
+              "4": 129600,
+              "5": 140000,
+              "6": 150400,
+              "7": 160720
+            },
+            "monthlyRent": 2438,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 90,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 80420,
+            "maxIncomeByHouseholdSize": {
+              "1": 102060,
+              "2": 116640,
+              "3": 131220
+            },
+            "monthlyRent": 1939,
+            "monthlyRentMax": null,
+            "unitCount": 4
+          },
+          {
+            "amiPercent": 90,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 96513,
+            "maxIncomeByHouseholdSize": {
+              "2": 116640,
+              "3": 131220,
+              "4": 145800,
+              "5": 157500
+            },
+            "monthlyRent": 2329,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 90,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 7,
+            "minIncome": 111412,
+            "maxIncomeByHouseholdSize": {
+              "3": 131220,
+              "4": 145800,
+              "5": 157500,
+              "6": 169200,
+              "7": 180810
+            },
+            "monthlyRent": 2688,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001kWz8bEAC/hcr000191",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001kWz8bEAC/hcr000191",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "1 unit must have 1 occupant 62 years of age or older; 2 units adapted for mobility impairment; 1 unit adapted for hearing/vision impairment · 3BR min income $82,819 for 3-4 person households, $82,219 for 5-7 person households (as printed)"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],50,1,3,49520,{\"1\":56700,\"2\":64800,\"3\":72900},1167]|[[\"1br\"],60,1,3,59820,{\"1\":68040,\"2\":77760,\"3\":87480},1424]|[[\"1br\"],80,1,3,73210,{\"1\":90720,\"2\":103680,\"3\":116640},1759]|[[\"1br\"],90,1,3,80420,{\"1\":102060,\"2\":116640,\"3\":131220},1939]|[[\"2br\"],60,2,5,71752,{\"2\":77760,\"3\":87480,\"4\":97200,\"5\":105000},1710]|[[\"2br\"],80,2,5,87861,{\"2\":103680,\"3\":116640,\"4\":129600,\"5\":140000},2113]|[[\"2br\"],90,2,5,96513,{\"2\":116640,\"3\":131220,\"4\":145800,\"5\":157500},2329]|[[\"3br\"],60,3,7,82219,{\"3\":87480,\"4\":97200,\"5\":105000,\"6\":112800,\"7\":120540},1973]|[[\"3br\"],80,3,7,101400,{\"3\":116640,\"4\":129600,\"5\":140000,\"6\":150400,\"7\":160720},2438]|[[\"3br\"],90,3,7,111412,{\"3\":131220,\"4\":145800,\"5\":157500,\"6\":169200,\"7\":180810},2688]"
+    },
+    "muse-hcr-4519-wpr-the-plains-waiting-list-4519-white-plains-ro": {
+      "listing": {
+        "id": "muse-hcr-4519-wpr-the-plains-waiting-list-4519-white-plains-ro",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:13:00.000Z",
+        "externalId": null,
+        "projectName": "4519 WPR (The Plains) (waiting list)",
+        "borough": "Bronx",
+        "address": "4519 White Plains Road, Bronx, NY 10470",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 43480,
+            "maxIncomeByHouseholdSize": {
+              "1": 56700,
+              "2": 64800
+            },
+            "monthlyRent": 994,
+            "monthlyRentMax": null,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 49720,
+            "maxIncomeByHouseholdSize": {
+              "2": 64800,
+              "3": 72900,
+              "4": 81000,
+              "5": 87480
+            },
+            "monthlyRent": 1194,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 43480,
+            "maxIncomeByHouseholdSize": {
+              "1": 56700,
+              "2": 64800
+            },
+            "monthlyRent": 911,
+            "monthlyRentMax": null,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 55000,
+            "maxIncomeByHouseholdSize": {
+              "1": 68040,
+              "2": 77760
+            },
+            "monthlyRent": 1250,
+            "monthlyRentMax": null,
+            "unitCount": 4
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 61300,
+            "maxIncomeByHouseholdSize": {
+              "2": 77760,
+              "3": 87480,
+              "4": 97200,
+              "5": 105000
+            },
+            "monthlyRent": 1500,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 50000,
+            "maxIncomeByHouseholdSize": {
+              "1": 68040,
+              "2": 77760
+            },
+            "monthlyRent": 1151,
+            "monthlyRentMax": null,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 72000,
+            "maxIncomeByHouseholdSize": {
+              "1": 90720,
+              "2": 103680
+            },
+            "monthlyRent": 1760,
+            "monthlyRentMax": null,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 83000,
+            "maxIncomeByHouseholdSize": {
+              "2": 103680,
+              "3": 116640,
+              "4": 129600,
+              "5": 140000
+            },
+            "monthlyRent": 2112,
+            "monthlyRentMax": null,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 68000,
+            "maxIncomeByHouseholdSize": {
+              "1": 90720,
+              "2": 103680
+            },
+            "monthlyRent": 1625,
+            "monthlyRentMax": null,
+            "unitCount": 6
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000iQZosEAG/hcr000045",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000iQZosEAG/hcr000045",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Min income $49,720 for 2-person households"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],50,1,2,43480,{\"1\":56700,\"2\":64800},994]|[[\"1br\"],60,1,2,55000,{\"1\":68040,\"2\":77760},1250]|[[\"1br\"],80,1,2,72000,{\"1\":90720,\"2\":103680},1760]|[[\"2br\"],50,2,5,49720,{\"2\":64800,\"3\":72900,\"4\":81000,\"5\":87480},1194]|[[\"2br\"],60,2,5,61300,{\"2\":77760,\"3\":87480,\"4\":97200,\"5\":105000},1500]|[[\"2br\"],80,2,5,83000,{\"2\":103680,\"3\":116640,\"4\":129600,\"5\":140000},2112]|[[\"studio\"],50,1,2,43480,{\"1\":56700,\"2\":64800},911]|[[\"studio\"],60,1,2,50000,{\"1\":68040,\"2\":77760},1151]|[[\"studio\"],80,1,2,68000,{\"1\":90720,\"2\":103680},1625]"
+    },
+    "muse-hcr-historic-front-street-development-waiting-list-217-front-street-new": {
+      "listing": {
+        "id": "muse-hcr-historic-front-street-development-waiting-list-217-front-street-new",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:20:00.000Z",
+        "externalId": null,
+        "projectName": "Historic Front Street Development (waiting list)",
+        "borough": "Manhattan",
+        "address": "217 Front Street, New York, NY 10038; 220 Front Street, New York, NY 10038; 225 Front Street, New York, NY 10038; 229 Front Street, New York, NY 10038",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 150,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 104067,
+            "maxIncomeByHouseholdSize": {
+              "1": 170100,
+              "2": 194400,
+              "3": 218700
+            },
+            "monthlyRent": 3122,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 150,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 132267,
+            "maxIncomeByHouseholdSize": {
+              "2": 194400,
+              "3": 218700,
+              "4": 243000,
+              "5": 262500
+            },
+            "monthlyRent": 3968,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 150,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 85633,
+            "maxIncomeByHouseholdSize": {
+              "1": 170100,
+              "2": 194400
+            },
+            "monthlyRent": 2569,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.historicfrontstreet.com/about/",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001UzwGcEAJ/hcr000158",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": null
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],150,1,3,104067,{\"1\":170100,\"2\":194400,\"3\":218700},3122]|[[\"2br\"],150,2,5,132267,{\"2\":194400,\"3\":218700,\"4\":243000,\"5\":262500},3968]|[[\"studio\"],150,1,2,85633,{\"1\":170100,\"2\":194400},2569]"
+    },
+    "muse-hcr-nevins-street-apartments-waiting-list-50-nevins-street-bro": {
+      "listing": {
+        "id": "muse-hcr-nevins-street-apartments-waiting-list-50-nevins-street-bro",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:28:00.000Z",
+        "externalId": null,
+        "projectName": "Nevins Street Apartments (waiting list)",
+        "borough": "Brooklyn",
+        "address": "50 Nevins Street, Brooklyn, NY 11217",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "2br",
+          "3br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 71897,
+            "maxIncomeByHouseholdSize": {
+              "2": 77760,
+              "3": 87480,
+              "4": 97200
+            },
+            "monthlyRent": 1988,
+            "monthlyRentMax": null,
+            "unitCount": 7
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 6,
+            "minIncome": 83040,
+            "maxIncomeByHouseholdSize": {
+              "3": 87480,
+              "4": 97200,
+              "5": 105000,
+              "6": 112800
+            },
+            "monthlyRent": 2288,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 55885,
+            "maxIncomeByHouseholdSize": {
+              "1": 68040,
+              "2": 77760
+            },
+            "monthlyRent": 1556,
+            "monthlyRentMax": null,
+            "unitCount": 41
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000iE3RZEA0/hcr000029",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000iE3RZEA0/hcr000029",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "3 units adapted for mobility impairment; 1 unit adapted for hearing/vision impairment; External URL on page is an email address marketing@springmanagement.net"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"2br\"],60,2,4,71897,{\"2\":77760,\"3\":87480,\"4\":97200},1988]|[[\"3br\"],60,3,6,83040,{\"3\":87480,\"4\":97200,\"5\":105000,\"6\":112800},2288]|[[\"studio\"],60,1,2,55885,{\"1\":68040,\"2\":77760},1556]"
+    },
+    "muse-hcr-saint-james-terrace-waiting-list-2520-jerome-avenue-b": {
+      "listing": {
+        "id": "muse-hcr-saint-james-terrace-waiting-list-2520-jerome-avenue-b",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:31:00.000Z",
+        "externalId": null,
+        "projectName": "Saint James Terrace (waiting list)",
+        "borough": "Bronx",
+        "address": "2520 Jerome Avenue, Bronx, NY 10468",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 56480,
+            "maxIncomeByHouseholdSize": {
+              "1": 68040,
+              "2": 77760
+            },
+            "monthlyRent": 1412,
+            "monthlyRentMax": null,
+            "unitCount": 14
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 67280,
+            "maxIncomeByHouseholdSize": {
+              "2": 77760,
+              "3": 87480,
+              "4": 97200
+            },
+            "monthlyRent": 1682,
+            "monthlyRentMax": null,
+            "unitCount": 10
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 6,
+            "minIncome": 77240,
+            "maxIncomeByHouseholdSize": {
+              "3": 87480,
+              "4": 97200,
+              "5": 105000,
+              "6": 112800
+            },
+            "monthlyRent": 1931,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 70,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 67080,
+            "maxIncomeByHouseholdSize": {
+              "1": 79380,
+              "2": 90720
+            },
+            "monthlyRent": 1677,
+            "monthlyRentMax": null,
+            "unitCount": 14
+          },
+          {
+            "amiPercent": 70,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 80000,
+            "maxIncomeByHouseholdSize": {
+              "2": 90720,
+              "3": 102060,
+              "4": 113400
+            },
+            "monthlyRent": 2000,
+            "monthlyRentMax": null,
+            "unitCount": 11
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000iE3RcEAK/hcr000032",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000iE3RcEAK/hcr000032",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "5 units adapted for mobility impairment; 2 units adapted for hearing/vision impairment"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],60,1,2,56480,{\"1\":68040,\"2\":77760},1412]|[[\"1br\"],70,1,2,67080,{\"1\":79380,\"2\":90720},1677]|[[\"2br\"],60,2,4,67280,{\"2\":77760,\"3\":87480,\"4\":97200},1682]|[[\"2br\"],70,2,4,80000,{\"2\":90720,\"3\":102060,\"4\":113400},2000]|[[\"3br\"],60,3,6,77240,{\"3\":87480,\"4\":97200,\"5\":105000,\"6\":112800},1931]"
+    },
+    "muse-hcr-vital-brookdale-waiting-list-523-east-98th-street": {
+      "listing": {
+        "id": "muse-hcr-vital-brookdale-waiting-list-523-east-98th-street",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:33:00.000Z",
+        "externalId": null,
+        "projectName": "Vital Brookdale (waiting list)",
+        "borough": "Brooklyn",
+        "address": "523 East 98th Street, Brooklyn, NY 11212",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "2br",
+          "studio",
+          "1br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 54712,
+            "maxIncomeByHouseholdSize": {
+              "2": 64800,
+              "3": 72900,
+              "4": 81000,
+              "5": 87500
+            },
+            "monthlyRent": 1459,
+            "monthlyRentMax": null,
+            "unitCount": 17
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 46000,
+            "maxIncomeByHouseholdSize": {
+              "1": 56700,
+              "2": 64800
+            },
+            "monthlyRent": 1150,
+            "monthlyRentMax": null,
+            "unitCount": 10
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 55912,
+            "maxIncomeByHouseholdSize": {
+              "1": 68040,
+              "2": 77760,
+              "3": 87480
+            },
+            "monthlyRent": 1491,
+            "monthlyRentMax": null,
+            "unitCount": 14
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 66637,
+            "maxIncomeByHouseholdSize": {
+              "2": 77760,
+              "3": 87480,
+              "4": 97200,
+              "5": 105000
+            },
+            "monthlyRent": 1777,
+            "monthlyRentMax": null,
+            "unitCount": 31
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 6,
+            "minIncome": 69977,
+            "maxIncomeByHouseholdSize": {
+              "3": 87480,
+              "4": 97200,
+              "5": 105000,
+              "6": 112800
+            },
+            "monthlyRent": 2041,
+            "monthlyRentMax": null,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 55880,
+            "maxIncomeByHouseholdSize": {
+              "1": 68040,
+              "2": 77760
+            },
+            "monthlyRent": 1397,
+            "monthlyRentMax": null,
+            "unitCount": 8
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 75787,
+            "maxIncomeByHouseholdSize": {
+              "1": 90720,
+              "2": 103680,
+              "3": 116640
+            },
+            "monthlyRent": 2021,
+            "monthlyRentMax": null,
+            "unitCount": 15
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 82731,
+            "maxIncomeByHouseholdSize": {
+              "2": 103680,
+              "3": 116640,
+              "4": 129600,
+              "5": 140000
+            },
+            "monthlyRent": 2413,
+            "monthlyRentMax": null,
+            "unitCount": 10
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 6,
+            "minIncome": 95177,
+            "maxIncomeByHouseholdSize": {
+              "3": 116640,
+              "4": 129600,
+              "5": 140000,
+              "6": 150400
+            },
+            "monthlyRent": 2776,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000iE3RfEAK/hcr000035",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00000iE3RfEAK/hcr000035",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Min income $58,360 for 3-5 person households · Min income $59,640 for 2-3 person households · Min income $71,080 for 3-5 person households · Min income $81,640 for 4-6 person households · Min income $80,840 for 2-3 person households · Min income $96,520 for 3-5 person households · Min income $111,040 for 4-6 person households; number of units shown as 1 on the page"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],60,1,3,55912,{\"1\":68040,\"2\":77760,\"3\":87480},1491]|[[\"1br\"],80,1,3,75787,{\"1\":90720,\"2\":103680,\"3\":116640},2021]|[[\"2br\"],50,2,5,54712,{\"2\":64800,\"3\":72900,\"4\":81000,\"5\":87500},1459]|[[\"2br\"],60,2,5,66637,{\"2\":77760,\"3\":87480,\"4\":97200,\"5\":105000},1777]|[[\"2br\"],80,2,5,82731,{\"2\":103680,\"3\":116640,\"4\":129600,\"5\":140000},2413]|[[\"3br\"],60,3,6,69977,{\"3\":87480,\"4\":97200,\"5\":105000,\"6\":112800},2041]|[[\"3br\"],80,3,6,95177,{\"3\":116640,\"4\":129600,\"5\":140000,\"6\":150400},2776]|[[\"studio\"],50,1,2,46000,{\"1\":56700,\"2\":64800},1150]|[[\"studio\"],60,1,2,55880,{\"1\":68040,\"2\":77760},1397]"
+    },
+    "muse-hcr-brookdale-village-waiting-list-125-beach-19th-st-fa": {
+      "listing": {
+        "id": "muse-hcr-brookdale-village-waiting-list-125-beach-19th-st-fa",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:16:00.000Z",
+        "externalId": null,
+        "projectName": "Brookdale Village (waiting list)",
+        "borough": "Queens",
+        "address": "125 Beach 19th St, Far Rockaway, Queens, NY 11691",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "studio",
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 26750,
+            "maxIncomeByHouseholdSize": {
+              "1": 76356,
+              "2": 76356
+            },
+            "monthlyRent": 743,
+            "monthlyRentMax": 909,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 31215,
+            "maxIncomeByHouseholdSize": {
+              "1": 89124,
+              "2": 89124
+            },
+            "monthlyRent": 867,
+            "monthlyRentMax": 1061,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [
+          "senior_62plus"
+        ],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1CEAU/hcr000223",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1CEAU/hcr000223",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Senior Only; Applicants must be 62 years of age or older"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,1,2,31215,{\"1\":89124,\"2\":89124},867]|[[\"studio\"],null,1,2,26750,{\"1\":76356,\"2\":76356},743]"
+    },
+    "muse-hcr-carnes-mckinney-residence-waiting-list-750-faile-st-bronx-n": {
+      "listing": {
+        "id": "muse-hcr-carnes-mckinney-residence-waiting-list-750-faile-st-bronx-n",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:16:00.000Z",
+        "externalId": null,
+        "projectName": "Carnes McKinney Residence (waiting list)",
+        "borough": "Bronx",
+        "address": "750 Faile St, Bronx, NY 10474",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 108572.52,
+            "maxIncomeByHouseholdSize": {
+              "1": 127906.38,
+              "2": 127906.38
+            },
+            "monthlyRent": 1471.83,
+            "monthlyRentMax": 1752.25,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 139908.72,
+            "maxIncomeByHouseholdSize": {
+              "2": 159395.04,
+              "3": 159395.04,
+              "4": 159395.04
+            },
+            "monthlyRent": 1911.09,
+            "monthlyRentMax": 2191,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 4,
+            "householdSizeMax": 6,
+            "minIncome": 209841.6,
+            "maxIncomeByHouseholdSize": {
+              "4": 232389.12,
+              "5": 232389.12,
+              "6": 232389.12
+            },
+            "monthlyRent": 2511.6,
+            "monthlyRentMax": 2758.96,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1KEAU/hcr000231",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1KEAU/hcr000231",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$75 application fee (money order payable to Carnes McKinney); purchase price 6383 to 6930; credit check and criminal background check required; additional fees may apply · purchase price 8662.50 to 8662.50 · purchase price 11398.50 to 12311.58"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,1,2,108572.52,{\"1\":127906.38,\"2\":127906.38},1471.83]|[[\"2br\"],null,2,4,139908.72,{\"2\":159395.04,\"3\":159395.04,\"4\":159395.04},1911.09]|[[\"3br\"],null,4,6,209841.6,{\"4\":232389.12,\"5\":232389.12,\"6\":232389.12},2511.6]"
+    },
+    "muse-hcr-cathedral-parkway-waiting-list-424-cathedral-parkwa": {
+      "listing": {
+        "id": "muse-hcr-cathedral-parkway-waiting-list-424-cathedral-parkwa",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:17:00.000Z",
+        "externalId": null,
+        "projectName": "Cathedral Parkway (waiting list)",
+        "borough": "Manhattan",
+        "address": "424 Cathedral Parkway, New York, NY 10025",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 4,
+            "householdSizeMax": 6,
+            "minIncome": 139560,
+            "maxIncomeByHouseholdSize": {
+              "4": 297276,
+              "5": 297276,
+              "6": 297276
+            },
+            "monthlyRent": 3489,
+            "monthlyRentMax": 3539,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1LEAU/hcr000232",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1LEAU/hcr000232",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$100 application fee; credit check required; additional fees may apply; Studio, 1BR, 2BR, 4BR waitlists closed"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"3br\"],null,4,6,139560,{\"4\":297276,\"5\":297276,\"6\":297276},3489]"
+    },
+    "muse-hcr-findlay-house-weinstein-waiting-list-1175-findlay-ave-bro": {
+      "listing": {
+        "id": "muse-hcr-findlay-house-weinstein-waiting-list-1175-findlay-ave-bro",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:19:00.000Z",
+        "externalId": null,
+        "projectName": "Findlay House (Weinstein) (waiting list)",
+        "borough": "Bronx",
+        "address": "1175 Findlay Ave, Bronx, NY 10456",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "studio",
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 29160,
+            "maxIncomeByHouseholdSize": {
+              "1": 268488,
+              "2": 268488
+            },
+            "monthlyRent": 729,
+            "monthlyRentMax": 2456,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 35920,
+            "maxIncomeByHouseholdSize": {
+              "1": 281124,
+              "2": 281124,
+              "3": 281124
+            },
+            "monthlyRent": 898,
+            "monthlyRentMax": 2563,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [
+          "senior_62plus"
+        ],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1cEAE/hcr000249",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1cEAE/hcr000249",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "Senior Only; Senior Households must be 62 and older"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,1,3,35920,{\"1\":281124,\"2\":281124,\"3\":281124},898]|[[\"studio\"],null,1,2,29160,{\"1\":268488,\"2\":268488},729]"
+    },
+    "muse-hcr-gorman-apartments-waiting-list-1381a-linden-blvd-br": {
+      "listing": {
+        "id": "muse-hcr-gorman-apartments-waiting-list-1381a-linden-blvd-br",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:19:00.000Z",
+        "externalId": null,
+        "projectName": "Gorman Apartments (waiting list)",
+        "borough": "Brooklyn",
+        "address": "1381A Linden Blvd, Brooklyn, NY 11212",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 54257,
+            "maxIncomeByHouseholdSize": {
+              "1": 78609.6,
+              "2": 78609.6
+            },
+            "monthlyRent": 733.44,
+            "monthlyRentMax": 780.35,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 71075,
+            "maxIncomeByHouseholdSize": {
+              "1": 100873.04,
+              "2": 100873.04
+            },
+            "monthlyRent": 962.13,
+            "monthlyRentMax": 1009.17,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 85415,
+            "maxIncomeByHouseholdSize": {
+              "2": 135627.48,
+              "3": 135627.48,
+              "4": 135627.48
+            },
+            "monthlyRent": 1150.77,
+            "monthlyRentMax": 1191.01,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 4,
+            "householdSizeMax": 6,
+            "minIncome": 104314,
+            "maxIncomeByHouseholdSize": {
+              "4": 162209.52,
+              "5": 162209.52,
+              "6": 162209.52
+            },
+            "monthlyRent": 1391.64,
+            "monthlyRentMax": 1421.79,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK0wEAE/hcr000207",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK0wEAE/hcr000207",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$75 application fee (payable to Patrick E. Gorman Houses C.O. Inc.); purchase price 11354.05 to 12445.79; credit check and criminal background check required; additional fees may apply · purchase price 15145.37 to 16361.54 · purchase price 15134.58 to 21307.30 · purchase price 21874.85 to 21874.85"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,1,2,71075,{\"1\":100873.04,\"2\":100873.04},962.13]|[[\"2br\"],null,2,4,85415,{\"2\":135627.48,\"3\":135627.48,\"4\":135627.48},1150.77]|[[\"3br\"],null,4,6,104314,{\"4\":162209.52,\"5\":162209.52,\"6\":162209.52},1391.64]|[[\"studio\"],null,1,2,54257,{\"1\":78609.6,\"2\":78609.6},733.44]"
+    },
+    "muse-hcr-inwood-gardens-waiting-list-45-fairview-ave-new-": {
+      "listing": {
+        "id": "muse-hcr-inwood-gardens-waiting-list-45-fairview-ave-new-",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:22:00.000Z",
+        "externalId": null,
+        "projectName": "Inwood Gardens (waiting list)",
+        "borough": "Manhattan",
+        "address": "45 Fairview Ave, New York, NY 10040",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 28686,
+            "maxIncomeByHouseholdSize": {
+              "1": 129600,
+              "2": 129600
+            },
+            "monthlyRent": 717.15,
+            "monthlyRentMax": 939.71,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 36881.6,
+            "maxIncomeByHouseholdSize": {
+              "2": 162000,
+              "3": 162000,
+              "4": 162000
+            },
+            "monthlyRent": 922.04,
+            "monthlyRentMax": 1124.52,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 4,
+            "householdSizeMax": 6,
+            "minIncome": 47702.8,
+            "maxIncomeByHouseholdSize": {
+              "4": 188000,
+              "5": 188000,
+              "6": 188000
+            },
+            "monthlyRent": 1192.57,
+            "monthlyRentMax": 1435.23,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK10EAE/hcr000211",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK10EAE/hcr000211",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$75 application fee; purchase price 34427.56 to 46533.94; credit check and criminal background check required; additional fees may apply · purchase price 45020.64 to 55046.26 · purchase price 63936.88 to 73773.32"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,1,2,28686,{\"1\":129600,\"2\":129600},717.15]|[[\"2br\"],null,2,4,36881.6,{\"2\":162000,\"3\":162000,\"4\":162000},922.04]|[[\"3br\"],null,4,6,47702.8,{\"4\":188000,\"5\":188000,\"6\":188000},1192.57]"
+    },
+    "muse-hcr-jamie-towers-waiting-list-633-olmstead-ave-bro": {
+      "listing": {
+        "id": "muse-hcr-jamie-towers-waiting-list-633-olmstead-ave-bro",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:23:00.000Z",
+        "externalId": null,
+        "projectName": "Jamie Towers (waiting list)",
+        "borough": "Bronx",
+        "address": "633 Olmstead Ave, Bronx, NY 10473",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 45000,
+            "maxIncomeByHouseholdSize": {
+              "1": 142531.92,
+              "2": 142531.92
+            },
+            "monthlyRent": 959.14,
+            "monthlyRentMax": 1240.04,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 53000,
+            "maxIncomeByHouseholdSize": {
+              "1": 194187.24,
+              "2": 194187.24,
+              "3": 194187.24
+            },
+            "monthlyRent": 1007.43,
+            "monthlyRentMax": 1693.33,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 62000,
+            "maxIncomeByHouseholdSize": {
+              "2": 238501.8,
+              "3": 238501.8,
+              "4": 238501.8,
+              "5": 238501.8
+            },
+            "monthlyRent": 1569.74,
+            "monthlyRentMax": 2078.65,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 4,
+            "householdSizeMax": 6,
+            "minIncome": 90000,
+            "maxIncomeByHouseholdSize": {
+              "4": 281923.2,
+              "5": 281923.2,
+              "6": 281923.2
+            },
+            "monthlyRent": 2279.13,
+            "monthlyRentMax": 2443.2,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK13EAE/hcr000214",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK13EAE/hcr000214",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$75 application fee (money order); purchase price 9600 to 9600; credit check and criminal background check required; additional fees may apply · purchase price 12600 to 12600 · purchase price 15600 to 15600 · purchase price 20100 to 20101"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,1,3,53000,{\"1\":194187.24,\"2\":194187.24,\"3\":194187.24},1007.43]|[[\"2br\"],null,2,5,62000,{\"2\":238501.8,\"3\":238501.8,\"4\":238501.8,\"5\":238501.8},1569.74]|[[\"3br\"],null,4,6,90000,{\"4\":281923.2,\"5\":281923.2,\"6\":281923.2},2279.13]|[[\"studio\"],null,1,2,45000,{\"1\":142531.92,\"2\":142531.92},959.14]"
+    },
+    "muse-hcr-jimerson-apartments-waiting-list-1407-linden-blvd-bro": {
+      "listing": {
+        "id": "muse-hcr-jimerson-apartments-waiting-list-1407-linden-blvd-bro",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:24:00.000Z",
+        "externalId": null,
+        "projectName": "Jimerson Apartments (waiting list)",
+        "borough": "Brooklyn",
+        "address": "1407 Linden blvd, Brooklyn, NY 11212",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 63511,
+            "maxIncomeByHouseholdSize": {
+              "1": 78888,
+              "2": 78888
+            },
+            "monthlyRent": 759.81,
+            "monthlyRentMax": 772.67,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 85330,
+            "maxIncomeByHouseholdSize": {
+              "1": 102320,
+              "2": 102320
+            },
+            "monthlyRent": 996.42,
+            "monthlyRentMax": 1010.69,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 102718,
+            "maxIncomeByHouseholdSize": {
+              "2": 125264,
+              "3": 125264,
+              "4": 125264
+            },
+            "monthlyRent": 1223.44,
+            "monthlyRentMax": 1237.72,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 4,
+            "householdSizeMax": 6,
+            "minIncome": 133903,
+            "maxIncomeByHouseholdSize": {
+              "4": 157544,
+              "5": 157544,
+              "6": 157544
+            },
+            "monthlyRent": 1539.56,
+            "monthlyRentMax": 1558.12,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://jimersonhousing.com/",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1hEAE/hcr000254",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$75 application fee (money order); purchase price 7500 to 9500; credit check and criminal background check required; additional fees may apply · purchase price 11500 to 15500 · purchase price 15800 to 18500 · purchase price 18800 to 21500"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,1,2,85330,{\"1\":102320,\"2\":102320},996.42]|[[\"2br\"],null,2,4,102718,{\"2\":125264,\"3\":125264,\"4\":125264},1223.44]|[[\"3br\"],null,4,6,133903,{\"4\":157544,\"5\":157544,\"6\":157544},1539.56]|[[\"studio\"],null,1,2,63511,{\"1\":78888,\"2\":78888},759.81]"
+    },
+    "muse-hcr-northbay-estates-waiting-list-2730-w-33rd-st-brook": {
+      "listing": {
+        "id": "muse-hcr-northbay-estates-waiting-list-2730-w-33rd-st-brook",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:28:00.000Z",
+        "externalId": null,
+        "projectName": "Northbay Estates (waiting list)",
+        "borough": "Brooklyn",
+        "address": "2730 W 33rd St, Brooklyn, NY 11224",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br",
+          "3br",
+          "4br+"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 1,
+            "minIncome": 58320,
+            "maxIncomeByHouseholdSize": {
+              "1": 68040
+            },
+            "monthlyRent": 1701,
+            "monthlyRentMax": null,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 62469,
+            "maxIncomeByHouseholdSize": {
+              "1": 77760,
+              "2": 77760
+            },
+            "monthlyRent": 1822,
+            "monthlyRentMax": null,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 74983,
+            "maxIncomeByHouseholdSize": {
+              "2": 97200,
+              "3": 97200,
+              "4": 97200
+            },
+            "monthlyRent": 2187,
+            "monthlyRentMax": null,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 6,
+            "minIncome": 86640,
+            "maxIncomeByHouseholdSize": {
+              "3": 112800,
+              "4": 112800,
+              "5": 112800,
+              "6": 112800
+            },
+            "monthlyRent": 2527,
+            "monthlyRentMax": null,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "4br+"
+            ],
+            "householdSizeMin": 4,
+            "householdSizeMax": 8,
+            "minIncome": 96686,
+            "maxIncomeByHouseholdSize": {
+              "4": 171120,
+              "5": 171120,
+              "6": 171120,
+              "7": 171120,
+              "8": 171120
+            },
+            "monthlyRent": 2820,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1nEAE/hcr000260",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1nEAE/hcr000260",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": null
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,1,2,62469,{\"1\":77760,\"2\":77760},1822]|[[\"2br\"],null,2,4,74983,{\"2\":97200,\"3\":97200,\"4\":97200},2187]|[[\"3br\"],null,3,6,86640,{\"3\":112800,\"4\":112800,\"5\":112800,\"6\":112800},2527]|[[\"4br+\"],null,4,8,96686,{\"4\":171120,\"5\":171120,\"6\":171120,\"7\":171120,\"8\":171120},2820]|[[\"studio\"],null,1,1,58320,{\"1\":68040},1701]"
+    },
+    "muse-hcr-oak-drive-mutual-housing-corp-waiting-list-3260-cruger-ave-bron": {
+      "listing": {
+        "id": "muse-hcr-oak-drive-mutual-housing-corp-waiting-list-3260-cruger-ave-bron",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:29:00.000Z",
+        "externalId": null,
+        "projectName": "Oak Drive Mutual Housing Corp. (waiting list)",
+        "borough": "Bronx",
+        "address": "3260 Cruger Ave, Bronx, NY 10467",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 36551.2,
+            "maxIncomeByHouseholdSize": {
+              "1": 98132.16,
+              "2": 98132.16
+            },
+            "monthlyRent": 913.78,
+            "monthlyRentMax": 964.01,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 45539.2,
+            "maxIncomeByHouseholdSize": {
+              "2": 135605.88,
+              "3": 135605.88,
+              "4": 135605.88
+            },
+            "monthlyRent": 1138.49,
+            "monthlyRentMax": 1189.91,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 4,
+            "householdSizeMax": 6,
+            "minIncome": 54340.08,
+            "maxIncomeByHouseholdSize": {
+              "4": 160774.2,
+              "5": 160774.2,
+              "6": 160774.2
+            },
+            "monthlyRent": 1358.52,
+            "monthlyRentMax": 1407.65,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1BEAU/hcr000222",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1BEAU/hcr000222",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$75 application fee (non-refundable, money order only, payable to Oak Drive Mutual Housing Corp.); purchase price 28755 to 28755; credit check and criminal background check required; additional fees may apply · purchase price 32205.60 to 32205.60 · purchase price 36816 to 36816"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,1,2,36551.2,{\"1\":98132.16,\"2\":98132.16},913.78]|[[\"2br\"],null,2,4,45539.2,{\"2\":135605.88,\"3\":135605.88,\"4\":135605.88},1138.49]|[[\"3br\"],null,4,6,54340.08,{\"4\":160774.2,\"5\":160774.2,\"6\":160774.2},1358.52]"
+    },
+    "muse-hcr-woodlawn-apartments-waiting-list-4260-katonah-ave-bro": {
+      "listing": {
+        "id": "muse-hcr-woodlawn-apartments-waiting-list-4260-katonah-ave-bro",
+        "listingType": "waitlist",
+        "dataSource": "muse",
+        "sourceName": "HCR",
+        "collectedAt": "2026-11-11T13:34:00.000Z",
+        "externalId": null,
+        "projectName": "Woodlawn Apartments (waiting list)",
+        "borough": "Bronx",
+        "address": "4260 Katonah Ave, Bronx, NY 10470",
+        "housingProgram": "Waiting list",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 33128,
+            "maxIncomeByHouseholdSize": {
+              "1": 97350.12,
+              "2": 97350.12
+            },
+            "monthlyRent": 828.2,
+            "monthlyRentMax": 852.24,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 42567.6,
+            "maxIncomeByHouseholdSize": {
+              "2": 140796.36,
+              "3": 140796.36,
+              "4": 140796.36
+            },
+            "monthlyRent": 1064.19,
+            "monthlyRentMax": 1231.17,
+            "unitCount": null
+          },
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 4,
+            "householdSizeMax": 6,
+            "minIncome": 51793.2,
+            "maxIncomeByHouseholdSize": {
+              "4": 151652.52,
+              "5": 151652.52,
+              "6": 151652.52
+            },
+            "monthlyRent": 1294.83,
+            "monthlyRentMax": 1331.69,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1qEAE/hcr000263",
+        "sourceUrl": "https://housingsearch.hcr.ny.gov/housing/s/waitlist/a0Ycs00001nyK1qEAE/hcr000263",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$50 application fee (money order); purchase price 20110.76 to 20110.76; credit check and criminal background check required; additional fees may apply · purchase price 24176.87 to 27473.71 · purchase price 26704.45 to 27473.71"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,1,2,33128,{\"1\":97350.12,\"2\":97350.12},828.2]|[[\"2br\"],null,2,4,42567.6,{\"2\":140796.36,\"3\":140796.36,\"4\":140796.36},1064.19]|[[\"3br\"],null,4,6,51793.2,{\"4\":151652.52,\"5\":151652.52,\"6\":151652.52},1294.83]"
     }
   },
   "pending": {
@@ -6662,6 +9306,16 @@
     "iAfford": {
       "lastSuccess": "2026-11-09T15:45:16.038Z",
       "lastRowCount": 15,
+      "lastRunSkipped": null
+    },
+    "HPD Mitchell-Lama": {
+      "lastSuccess": "2026-11-11T13:44:31.729Z",
+      "lastRowCount": 17,
+      "lastRunSkipped": null
+    },
+    "HCR": {
+      "lastSuccess": "2026-11-11T13:44:31.729Z",
+      "lastRowCount": 168,
       "lastRunSkipped": null
     }
   }
