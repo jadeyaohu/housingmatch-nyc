@@ -13,7 +13,7 @@ export async function POST(req: Request) {
   const internal = new URL(req.url);
   // Next may normalize req.url to localhost behind its listener/proxy. The browser's
   // Host header is authoritative for same-origin checks unless a canonical origin is pinned.
-  const expectedOrigin = process.env.CONSULTATION_APP_ORIGIN ?? `${internal.protocol}//${req.headers.get("host") ?? internal.host}`;
+  const expectedOrigin = process.env.CONSULTATION_APP_ORIGIN || `${internal.protocol}//${req.headers.get("host") ?? internal.host}`;
   if (req.headers.get("origin") !== expectedOrigin) return reply({ error: "forbidden" }, 403);
   if (!req.headers.get("content-type")?.toLowerCase().startsWith("application/json")) return reply({ error: "invalid_input" }, 415);
   if (!bookingConfigured()) return reply({ error: "unavailable" }, 503);

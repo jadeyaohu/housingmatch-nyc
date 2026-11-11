@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 vi.mock("@/lib/consultation/storage", () => ({ bookingConfigured: vi.fn(), saveBooking: vi.fn() }));
 import { bookingConfigured, saveBooking } from "@/lib/consultation/storage";
 import { POST } from "./route";
@@ -9,7 +9,13 @@ function request(body: unknown = valid, origin = "http://localhost:3000") {
   return new Request("http://localhost:3000/api/consultation/bookings", { method: "POST", headers: { Origin: origin, "Content-Type": "application/json" }, body: JSON.stringify(body) });
 }
 beforeEach(() => { vi.clearAllMocks(); vi.useFakeTimers(); vi.setSystemTime(new Date("2030-01-01")); vi.mocked(bookingConfigured).mockReturnValue(true); });
+afterEach(() => vi.unstubAllEnvs());
 describe("booking POST security", () => {
+  it("keeps Phase 1 working with an empty optional canonical origin", async () => {
+    vi.stubEnv("CONSULTATION_APP_ORIGIN", "");
+    vi.mocked(saveBooking).mockResolvedValue({ id: valid.requestId, status: "requested", paymentStatus: "not_started" });
+    expect((await POST(request())).status).toBe(201);
+  });
   it("denies cross-origin writes before storage", async () => {
     expect((await POST(request(valid, "https://other.test"))).status).toBe(403);
     expect(saveBooking).not.toHaveBeenCalled();
