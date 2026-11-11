@@ -18,6 +18,6 @@ Intentional limitations: no automated reconciliation worker, staff login UI, inv
 
 ## External acceptance not performed
 
-The dedicated Stripe test key, webhook signing secret, Supabase URL/service key and canonical application origin were all absent (presence checked without printing values). No external Stripe API was called and no hosted Checkout, charge or refund was created. Tests use Stripe SDK signature fixtures/provider mocks and real local SQL procedures, not an externally configured payment account.
+The dedicated Stripe test key, webhook signing secret, Supabase URL/service key and canonical application origin were all absent (presence checked without printing values). Current enforced managed network metadata also contains no Stripe or hosted-Supabase hosts; approved service access is an additional setup prerequisite. No external Stripe API was called and no hosted Checkout, charge or refund was created. Tests use Stripe SDK signature fixtures/provider mocks and real local SQL procedures, not an externally configured payment account.
 
 Remaining setup is documented in README.md: approved development Supabase/Auth/operator membership; Stripe sandbox key and CLI listener; exact canonical origin and matching signing secret; an actual synthetic hosted Checkout/refund and expiry/async-method run; legal/privacy/process approval and protected Preview QA. These are explicit acceptance/activation blockers, not silently bypassed prerequisites.

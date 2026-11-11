@@ -37,6 +37,8 @@ Keep `CONSULTATION_STRIPE_ENABLED=false` until local/nonproduction setup is revi
 - `CONSULTATION_STRIPE_SECRET_KEY`: **sk_test_** secret from an approved Stripe sandbox. Live/restricted/unknown prefixes are rejected. The existing unrelated `STRIPE_SECRET_KEY` is never a fallback.
 - `CONSULTATION_STRIPE_WEBHOOK_SECRET`: signing secret for the exact local listener/development endpoint. Never use the API secret as a signing secret.
 
+The managed cloud policy currently permits GitHub/package hosts, not Stripe or hosted Supabase. Before external sandbox testing, approve outbound HTTPS to `api.stripe.com` and the designated development Supabase hostname, and configure Stripe CLI connectivity/incoming webhook forwarding through the supported environment settings. No network policy was changed in this PR.
+
 No publishable key/Stripe.js or pre-created Stripe price/product is required: server-controlled `price_data` creates one-time test-mode Checkout line items. Amount/currency/package pairing is checked against the Phase 1 constants and stored booking price, never browser input. Stripe receives only opaque booking/attempt IDs in metadata, not the Phase 1 topic/name/email. Stripe-hosted Checkout may collect its own synthetic payment/email details. Never enter real card/applicant data.
 
 Legal terms, retention/deletion/contact and operator response processes remain founder-approval gates from Phase 1. Test overrides are not legal approval. A separate approved development Supabase project is required; never copy Production credentials here. No migration was applied to a hosted/Production database during implementation.
