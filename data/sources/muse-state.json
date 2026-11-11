@@ -6,11 +6,11 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7667",
         "projectName": "1333 Broadway Apartments",
         "borough": "Brooklyn",
-        "address": "1333 Broadway, Brooklyn, NY 11221",
+        "address": "1333 BROADWAY, BROOKLYN, NY 11221",
         "housingProgram": null,
         "unitTypes": [
           "studio",
@@ -97,8 +97,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7667",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7667",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 220480"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],130,1,3,115749,{\"1\":154440,\"2\":176410,\"3\":198510},3250]|[[\"2br\"],130,2,5,136012,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},3800]|[[\"3br\"],130,3,7,151166,{\"3\":198510,\"4\":220480,\"5\":238160,\"6\":255840,\"7\":273520},4200]|[[\"studio\"],130,1,2,104949,{\"1\":154440,\"2\":176410},2950]"
@@ -109,11 +109,11 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7688",
         "projectName": "2-10 Beach 28th Street Apartments",
         "borough": "Queens",
-        "address": "2-10 Beach 28th St, Queens, NY 11691",
+        "address": "2-10 B 28 St, Queens, NY 11691",
         "housingProgram": null,
         "unitTypes": [
           "studio",
@@ -177,8 +177,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7688",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7688",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],80,1,3,74042,{\"1\":95040,\"2\":108560,\"3\":122160},1866]|[[\"2br\"],80,2,5,85214,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2052]|[[\"studio\"],80,1,2,67886,{\"1\":95040,\"2\":108560},1812]"
@@ -189,7 +189,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7730",
         "projectName": "1303 Hoe Avenue",
         "borough": "Bronx",
@@ -276,8 +276,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7730",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7730",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 118720; pref 20% Bronx CB03, 10% Municipal/Veteran · asset limit 169600"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],70,1,3,63498,{\"1\":83160,\"2\":94990,\"3\":106890},1548]|[[\"2br\"],70,2,5,76149,{\"2\":94990,\"3\":106890,\"4\":118720,\"5\":128240},1764]|[[\"studio\"],100,1,2,84892,{\"1\":118800,\"2\":135700},2264]|[[\"studio\"],70,1,2,59280,{\"1\":83160,\"2\":94990},1494]"
@@ -288,11 +288,11 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7662",
         "projectName": "1 Gouverneur Lane",
         "borough": "Manhattan",
-        "address": "1 Gouverneur Lane, New York, NY 10005",
+        "address": "1 GOUVERNEUR LANE, NEW YORK, NY 10005",
         "housingProgram": null,
         "unitTypes": [
           "1br",
@@ -393,8 +393,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7662",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7662",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 67840 · asset limit 135680 · asset limit 169600"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],100,1,3,101109,{\"1\":118800,\"2\":135700,\"3\":152700},2823]|[[\"1br\"],40,1,3,40526,{\"1\":47520,\"2\":54280,\"3\":61080},1056]|[[\"1br\"],80,1,3,80915,{\"1\":95040,\"2\":108560,\"3\":122160},2234]|[[\"2br\"],80,2,5,97063,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2664]|[[\"studio\"],100,1,2,94423,{\"1\":118800,\"2\":135700},2643]"
@@ -405,11 +405,11 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7714",
         "projectName": "36-45 31st Street Apartments",
         "borough": "Queens",
-        "address": "36-45 31st St, Astoria, NY 11106",
+        "address": "36-45 31 STREET, ASTORIA, NY 11106",
         "housingProgram": null,
         "unitTypes": [
           "1br"
@@ -440,8 +440,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7714",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7714",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 220480"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],130,1,3,113520,{\"1\":154440,\"2\":176410,\"3\":198510},3059]"
@@ -3694,7 +3694,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7698",
         "projectName": "Artifact No. 1861 Phase II",
         "borough": "Manhattan",
@@ -3746,8 +3746,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7698",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7698",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 118720"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],70,1,3,73098,{\"1\":83160,\"2\":94990,\"3\":106890},1852]|[[\"studio\"],70,1,2,68195,{\"1\":83160,\"2\":94990},1777]"
@@ -3758,7 +3758,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7716",
         "projectName": "942 New York Avenue Apartments",
         "borough": "Brooklyn",
@@ -3794,8 +3794,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7716",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7716",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"2br\"],80,2,5,103098,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2749]"
@@ -3806,7 +3806,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7700",
         "projectName": "2184 Muliner Avenue",
         "borough": "Bronx",
@@ -3860,8 +3860,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7700",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7700",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 101760; pref 20% Bronx CB11, 10% Municipal/Veteran"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],60,1,3,62675,{\"1\":71280,\"2\":81420,\"3\":91620},1548]|[[\"2br\"],60,2,5,75360,{\"2\":81420,\"3\":91620,\"4\":101760,\"5\":109920},1764]"
@@ -3872,7 +3872,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7657",
         "projectName": "139 Beach 29th Street Apartments",
         "borough": "Queens",
@@ -3904,12 +3904,12 @@
         "restrictions": [],
         "isRerental": false,
         "applicationOpenDate": null,
-        "applicationDeadline": "2026-12-01",
+        "applicationDeadline": "2026-12-02",
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7657",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7657",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"2br\"],80,2,5,101863,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2713]"
@@ -3920,7 +3920,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7722",
         "projectName": "4212 Park Avenue Apartments",
         "borough": "Bronx",
@@ -4011,8 +4011,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7722",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7722",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],80,1,3,81909,{\"1\":95040,\"2\":108560,\"3\":122160},2173]|[[\"2br\"],80,2,5,97406,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2583]|[[\"3br\"],80,3,7,112698,{\"3\":122160,\"4\":135680,\"5\":146560,\"6\":157440,\"7\":168320},2962]|[[\"studio\"],80,1,2,75189,{\"1\":95040,\"2\":108560},2040]"
@@ -4023,7 +4023,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7703",
         "projectName": "3030 Bronx Park East",
         "borough": "Bronx",
@@ -4075,8 +4075,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7703",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7703",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],80,1,3,81326,{\"1\":95040,\"2\":108560,\"3\":122160},2092]|[[\"studio\"],80,1,2,75840,{\"1\":95040,\"2\":108560},2000]"
@@ -4087,7 +4087,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7718",
         "projectName": "Kingsland Commons Building 2",
         "borough": "Brooklyn",
@@ -4410,8 +4410,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7718",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7718",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 50880; set-aside 5% Mobility, 2% Vision/Hearing; pref 20% Brooklyn CB01, 10% Municipal/Veteran · asset limit 67840 · asset limit 84800 · asset limit 101760 · asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],30,1,3,29418,{\"1\":35640,\"2\":40710,\"3\":45810},751]|[[\"1br\"],40,1,3,40355,{\"1\":47520,\"2\":54280,\"3\":61080},1070]|[[\"1br\"],50,1,3,51258,{\"1\":59400,\"2\":67850,\"3\":76350},1388]|[[\"1br\"],60,1,3,62160,{\"1\":71280,\"2\":81420,\"3\":91620},1706]|[[\"1br\"],80,1,3,83966,{\"1\":95040,\"2\":108560,\"3\":122160},2342]|[[\"2br\"],30,2,5,35315,{\"2\":40710,\"3\":45810,\"4\":50880,\"5\":54960},889]|[[\"2br\"],40,2,5,48412,{\"2\":54280,\"3\":61080,\"4\":67840,\"5\":73280},1271]|[[\"2br\"],50,2,5,61509,{\"2\":67850,\"3\":76350,\"4\":84800,\"5\":91600},1653]|[[\"2br\"],60,2,5,74572,{\"2\":81420,\"3\":91620,\"4\":101760,\"5\":109920},2034]|[[\"2br\"],80,2,5,100766,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2798]|[[\"3br\"],30,3,7,40800,{\"3\":45810,\"4\":50880,\"5\":54960,\"6\":59040,\"7\":63120},1015]|[[\"3br\"],40,3,7,55920,{\"3\":61080,\"4\":67840,\"5\":73280,\"6\":78720,\"7\":84160},1456]|[[\"3br\"],50,3,7,71040,{\"3\":76350,\"4\":84800,\"5\":91600,\"6\":98400,\"7\":105200},1897]|[[\"3br\"],60,3,7,86160,{\"3\":91620,\"4\":101760,\"5\":109920,\"6\":118080,\"7\":126240},2338]|[[\"3br\"],80,3,7,116400,{\"3\":122160,\"4\":135680,\"5\":146560,\"6\":157440,\"7\":168320},3220]|[[\"studio\"],40,1,2,32263,{\"1\":47520,\"2\":54280},846]|[[\"studio\"],50,1,2,41006,{\"1\":59400,\"2\":67850},1101]"
@@ -4422,11 +4422,11 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7728",
         "projectName": "1506 Southern Boulevard",
         "borough": "Bronx",
-        "address": "1506 Southern Blvd, Bronx, NY 10460",
+        "address": "1506 SOUTHERN BOULEVARD, BRONX, NY 10460",
         "housingProgram": null,
         "unitTypes": [
           "studio",
@@ -4493,8 +4493,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7728",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7728",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],80,1,3,83966,{\"1\":95040,\"2\":108560,\"3\":122160},2234]|[[\"2br\"],80,2,5,101040,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2664]|[[\"studio\"],80,1,2,78309,{\"1\":95040,\"2\":108560},2093]"
@@ -4505,11 +4505,11 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7630",
         "projectName": "3743 White Plains Road",
         "borough": "Bronx",
-        "address": "3743 White Plains Rd, Bronx, NY 10467",
+        "address": "3743 WHITE PLAINS ROAD, BRONX, NY 10467",
         "housingProgram": null,
         "unitTypes": [
           "studio",
@@ -4576,8 +4576,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7630",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7630",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],80,1,3,84858,{\"1\":95040,\"2\":108560,\"3\":122160},2283]|[[\"2br\"],80,2,5,101863,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2713]|[[\"studio\"],80,1,2,67886,{\"1\":95040,\"2\":108560},1812]"
@@ -4588,9 +4588,9 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7665",
-        "projectName": "3-06 Beach 68th St",
+        "projectName": "3-06 Beach 68th Street Apartments",
         "borough": "Queens",
         "address": "3-06 Beach 68th St, Queens, NY 11692",
         "housingProgram": null,
@@ -4624,8 +4624,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7665",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7665",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"2br\"],80,2,5,101795,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2749]"
@@ -4636,9 +4636,9 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7710",
-        "projectName": "87 Herbert St",
+        "projectName": "87 Herbert Street Apartments",
         "borough": "Brooklyn",
         "address": "87 Herbert St, Brooklyn, NY 11222",
         "housingProgram": null,
@@ -4690,8 +4690,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7710",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7710",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 118720 · asset limit 220480"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],70,1,3,76320,{\"1\":83160,\"2\":94990,\"3\":106890},1974]|[[\"2br\"],130,2,5,170126,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},4566]"
@@ -4702,9 +4702,9 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7729",
-        "projectName": "919 Freeman St",
+        "projectName": "919 Freeman Street Apartments",
         "borough": "Bronx",
         "address": "919 Freeman St, Bronx, NY 10459",
         "housingProgram": null,
@@ -4738,8 +4738,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7729",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7729",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"2br\"],80,2,5,102652,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2713]"
@@ -4750,9 +4750,9 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7712",
-        "projectName": "2-24 Beach 28th St",
+        "projectName": "2-24 Beach 28th Street",
         "borough": "Queens",
         "address": "2-24 B 28 St, Queens, NY 11691",
         "housingProgram": null,
@@ -4786,8 +4786,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7712",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7712",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"2br\"],80,2,5,100560,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2713]"
@@ -4798,9 +4798,9 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7670",
-        "projectName": "2512 Bronx Parks East",
+        "projectName": "2512 Bronx Parks East Apartments",
         "borough": "Bronx",
         "address": "2512 Bronx Pk E, Bronx, NY 10467",
         "housingProgram": null,
@@ -4869,8 +4869,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7670",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7670",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],80,1,3,84960,{\"1\":95040,\"2\":108560,\"3\":122160},2198]|[[\"2br\"],80,2,5,102069,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2542]|[[\"studio\"],80,1,2,67955,{\"1\":95040,\"2\":108560},1770]"
@@ -4881,9 +4881,9 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7654",
-        "projectName": "492 Thomas S Boyland St",
+        "projectName": "492 Thomas S Boyland Street Apartments",
         "borough": "Brooklyn",
         "address": "492 Thomas S Boyland St, Brooklyn, NY 11212",
         "housingProgram": null,
@@ -4952,8 +4952,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7654",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7654",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],80,1,3,84960,{\"1\":95040,\"2\":108560,\"3\":122160},2198]|[[\"2br\"],80,2,5,102035,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2542]|[[\"studio\"],80,1,2,67955,{\"1\":95040,\"2\":108560},1770]"
@@ -4964,11 +4964,11 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7663",
-        "projectName": "1619 Undercliff Ave",
+        "projectName": "1619 Undercliff Avenue",
         "borough": "Bronx",
-        "address": "1619 Undercliff Ave, Bronx, NY 10453",
+        "address": "1619 UNDERCLIFF AVENUE, BRONX, NY 10453",
         "housingProgram": null,
         "unitTypes": [
           "1br",
@@ -5018,8 +5018,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7663",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7663",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],80,1,3,84240,{\"1\":95040,\"2\":108560,\"3\":122160},2283]|[[\"2br\"],80,2,5,101006,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2713]"
@@ -5030,11 +5030,11 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7599",
         "projectName": "Seagirt Apartments",
         "borough": "Queens",
-        "address": "272 Seagirt Blvd, Far Rockaway, NY 11691",
+        "address": "272 Seagirt Boulevard, Far Rockaway, NY 11691",
         "housingProgram": null,
         "unitTypes": [
           "2br",
@@ -5086,8 +5086,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7599",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7599",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"2br\"],80,2,5,97406,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2583]|[[\"3br\"],80,3,7,112698,{\"3\":122160,\"4\":135680,\"5\":146560,\"6\":157440,\"7\":168320},2962]"
@@ -5098,9 +5098,9 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7637",
-        "projectName": "2102 Union St",
+        "projectName": "2102 Union Street",
         "borough": "Brooklyn",
         "address": "2102 Union St, Brooklyn, NY 11212",
         "housingProgram": null,
@@ -5189,8 +5189,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7637",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7637",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 101760 · asset limit 169600"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],100,1,3,93875,{\"1\":118800,\"2\":135700,\"3\":152700},2546]|[[\"2br\"],60,2,5,75120,{\"2\":81420,\"3\":91620,\"4\":101760,\"5\":109920},1933]|[[\"3br\"],60,3,7,86915,{\"3\":91620,\"4\":101760,\"5\":109920,\"6\":118080,\"7\":126240},2210]|[[\"studio\"],100,1,2,89452,{\"1\":118800,\"2\":135700},2441]"
@@ -5201,9 +5201,9 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7626",
-        "projectName": "1058 Pacific St aka 1060 Pacific St",
+        "projectName": "1058 Pacific Street aka 1060 Pacific Street",
         "borough": "Brooklyn",
         "address": "1058 Pacific St, Brooklyn, NY 11238",
         "housingProgram": null,
@@ -5308,8 +5308,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7626",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7626",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 67840 · asset limit 101760 · asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],40,1,3,43509,{\"1\":47520,\"2\":54280,\"3\":61080},1017]|[[\"2br\"],40,2,5,53658,{\"2\":54280,\"3\":61080,\"4\":67840,\"5\":73280},1169]|[[\"2br\"],60,2,5,78652,{\"2\":81420,\"3\":91620,\"4\":101760,\"5\":109920},1898]|[[\"2br\"],80,2,5,103646,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2627]|[[\"studio\"],40,1,2,39875,{\"1\":47520,\"2\":54280},975]"
@@ -5320,7 +5320,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7625",
         "projectName": "MORRIS HEIGHTS/UNIVERSITY HEIGHTS",
         "borough": "Bronx",
@@ -5446,8 +5446,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7625",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7625",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 50880; set-aside 5% Mobility, 2% Vision/Hearing; pref 20% Bronx CB02/05/07, 10% Municipal/Veteran · asset limit 84800 · asset limit 118720"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],30,1,3,29418,{\"1\":35640,\"2\":40710,\"3\":45810},732]|[[\"1br\"],50,1,3,51258,{\"1\":59400,\"2\":67850,\"3\":76350},1369]|[[\"1br\"],70,1,3,73063,{\"1\":83160,\"2\":94990,\"3\":106890},2005]|[[\"2br\"],50,2,5,61509,{\"2\":67850,\"3\":76350,\"4\":84800,\"5\":91600},1627]|[[\"2br\"],70,2,5,87669,{\"2\":94990,\"3\":106890,\"4\":118720,\"5\":128240},2390]|[[\"3br\"],50,3,7,71040,{\"3\":76350,\"4\":84800,\"5\":91600,\"6\":98400,\"7\":105200},1863]"
@@ -5458,7 +5458,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7687",
         "projectName": "315 East 29th Street Apartments",
         "borough": "Brooklyn",
@@ -5492,8 +5492,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7687",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7687",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"studio\"],80,1,2,75772,{\"1\":95040,\"2\":108560},2022]"
@@ -5504,7 +5504,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7726",
         "projectName": "1529 Brooklyn Avenue Apartments",
         "borough": "Brooklyn",
@@ -5559,8 +5559,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7726",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7726",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 220480"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],130,1,3,103886,{\"1\":154440,\"2\":176410,\"3\":198510},2750]|[[\"3br\"],130,3,7,159155,{\"3\":198510,\"4\":220480,\"5\":238160,\"6\":255840,\"7\":273520},4095]"
@@ -5571,7 +5571,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7650",
         "projectName": "292 East 51st Street Apartments",
         "borough": "Brooklyn",
@@ -5606,8 +5606,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7650",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7650",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 101760"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],60,1,3,62606,{\"1\":71280,\"2\":81420,\"3\":91620},1574]"
@@ -5618,7 +5618,7 @@
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7676",
         "projectName": "6-05 129th Street Apartments",
         "borough": "Queens",
@@ -5672,8 +5672,8 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7676",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7676",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 220480"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],130,1,3,84103,{\"1\":154440,\"2\":176410,\"3\":198510},2200]|[[\"2br\"],130,2,5,96652,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},2500]"
@@ -5741,7 +5741,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 101760"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],60,1,3,65418,{\"1\":71280,\"2\":81420,\"3\":91620},1656]|[[\"2br\"],60,2,5,78515,{\"2\":81420,\"3\":91620,\"4\":101760,\"5\":109920},1894]"
     },
     "hc-7673": {
@@ -5790,7 +5790,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"3br\"],80,3,7,119349,{\"3\":122160,\"4\":135680,\"5\":146560,\"6\":157440,\"7\":168320},3156]"
     },
     "hc-7693": {
@@ -5910,7 +5910,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 118720 · asset limit 220480"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],130,1,3,135360,{\"1\":154440,\"2\":176410,\"3\":198510},3784]|[[\"1br\"],70,1,3,72892,{\"1\":83160,\"2\":94990,\"3\":106890},1962]|[[\"2br\"],130,2,5,162446,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},4518]|[[\"3br\"],130,3,7,187715,{\"3\":198510,\"4\":220480,\"5\":238160,\"6\":255840,\"7\":273520},5200]|[[\"studio\"],70,1,2,68092,{\"1\":83160,\"2\":94990},1842]"
     },
     "hc-7686": {
@@ -5976,7 +5976,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],80,1,3,84343,{\"1\":95040,\"2\":108560,\"3\":122160},2166]|[[\"2br\"],80,2,5,101658,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2577]"
     },
     "hc-7659": {
@@ -6038,23 +6038,453 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 101760; pref 20% Manhattan CB06, 10% Municipal/Veteran · asset limit 169600"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\"],100,1,2,94560,{\"1\":118800,\"2\":135700},2596]|[[\"studio\"],60,1,2,58423,{\"1\":71280,\"2\":81420},1542]"
+    },
+    "hc-7741": {
+      "listing": {
+        "id": "hc-7741",
+        "listingType": "lottery",
+        "dataSource": "muse",
+        "sourceName": "Housing Connect",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
+        "externalId": "7741",
+        "projectName": "2683 Creston Avenue",
+        "borough": "Bronx",
+        "address": "2683 Creston Ave, Bronx, NY 10468",
+        "housingProgram": null,
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 75840,
+            "maxIncomeByHouseholdSize": {
+              "1": 95040,
+              "2": 108560
+            },
+            "monthlyRent": 2000,
+            "monthlyRentMax": null,
+            "unitCount": 5
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-12-03",
+        "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7741",
+        "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7741",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],80,1,2,75840,{\"1\":95040,\"2\":108560},2000]"
+    },
+    "hc-7690": {
+      "listing": {
+        "id": "hc-7690",
+        "listingType": "lottery",
+        "dataSource": "muse",
+        "sourceName": "Housing Connect",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
+        "externalId": "7690",
+        "projectName": "904 East 98th Street Apartments",
+        "borough": "Brooklyn",
+        "address": "904 EAST 98 STREET, BROOKLYN, NY 11236",
+        "housingProgram": null,
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 37989,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54280
+            },
+            "monthlyRent": 940,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 75703,
+            "maxIncomeByHouseholdSize": {
+              "1": 95040,
+              "2": 108560
+            },
+            "monthlyRent": 2040,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 100,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 89452,
+            "maxIncomeByHouseholdSize": {
+              "1": 118800,
+              "2": 135700
+            },
+            "monthlyRent": 2441,
+            "monthlyRentMax": null,
+            "unitCount": 4
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-12-03",
+        "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7690",
+        "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7690",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],100,1,2,89452,{\"1\":118800,\"2\":135700},2441]|[[\"studio\"],40,1,2,37989,{\"1\":47520,\"2\":54280},940]|[[\"studio\"],80,1,2,75703,{\"1\":95040,\"2\":108560},2040]"
+    },
+    "hc-7765": {
+      "listing": {
+        "id": "hc-7765",
+        "listingType": "lottery",
+        "dataSource": "muse",
+        "sourceName": "Housing Connect",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
+        "externalId": "7765",
+        "projectName": "Mitchell-Lama Lindsay Park Housing Corp. Studio Waiting Lists - 2026",
+        "borough": "Brooklyn",
+        "address": "202 UNION AVENUE, BROOKLYN, NY 11211",
+        "housingProgram": null,
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-11-30",
+        "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7765",
+        "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7765",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$75 application fee; sale price $6,193-$7,632; monthly maintenance $627-$774; income limits $25,080-$190,875"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],null,1,2,null,null,null]"
+    },
+    "hc-7338": {
+      "listing": {
+        "id": "hc-7338",
+        "listingType": "lottery",
+        "dataSource": "muse",
+        "sourceName": "Housing Connect",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
+        "externalId": "7338",
+        "projectName": "Washington Heights ANCP Cluster Phase 2",
+        "borough": "Manhattan",
+        "address": "609 WEST 158 STREET, NEW YORK, NY 10032; 9 FORT WASHINGTON AVENUE, NEW YORK, NY 10032",
+        "housingProgram": null,
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 75123,
+            "maxIncomeByHouseholdSize": {
+              "1": 130680,
+              "2": 149270,
+              "3": 167970
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 84562,
+            "maxIncomeByHouseholdSize": {
+              "1": 130680,
+              "2": 149270,
+              "3": 167970
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 84557,
+            "maxIncomeByHouseholdSize": {
+              "1": 130680,
+              "2": 149270,
+              "3": 167970
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 84562,
+            "maxIncomeByHouseholdSize": {
+              "1": 130680,
+              "2": 149270,
+              "3": 167970
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 75067,
+            "maxIncomeByHouseholdSize": {
+              "1": 130680,
+              "2": 149270,
+              "3": 167970
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 89834,
+            "maxIncomeByHouseholdSize": {
+              "2": 149270,
+              "3": 167970,
+              "4": 186560,
+              "5": 201520
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 90163,
+            "maxIncomeByHouseholdSize": {
+              "2": 149270,
+              "3": 167970,
+              "4": 186560,
+              "5": 201520
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 84245,
+            "maxIncomeByHouseholdSize": {
+              "2": 149270,
+              "3": 167970,
+              "4": 186560,
+              "5": 201520
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 84251,
+            "maxIncomeByHouseholdSize": {
+              "2": 149270,
+              "3": 167970,
+              "4": 186560,
+              "5": 201520
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 90382,
+            "maxIncomeByHouseholdSize": {
+              "2": 149270,
+              "3": 167970,
+              "4": 186560,
+              "5": 201520
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 97839,
+            "maxIncomeByHouseholdSize": {
+              "2": 149270,
+              "3": 167970,
+              "4": 186560,
+              "5": 201520
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 7,
+            "minIncome": 97122,
+            "maxIncomeByHouseholdSize": {
+              "3": 167970,
+              "4": 186560,
+              "5": 201520,
+              "6": 216480,
+              "7": 231440
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 110,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 7,
+            "minIncome": 97208,
+            "maxIncomeByHouseholdSize": {
+              "3": 167970,
+              "4": 186560,
+              "5": 201520,
+              "6": 216480,
+              "7": 231440
+            },
+            "monthlyRent": null,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-11-20",
+        "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7338",
+        "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7338",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "sale price $214,705; monthly maintenance $900 · sale price $201,234; monthly maintenance $1,292 · sale price $195,191; monthly maintenance $1,292 · sale price $193,878; monthly maintenance $1,300 · sale price $218,107; monthly maintenance $878 · sale price $251,456; monthly maintenance $1,109 · sale price $229,343; monthly maintenance $1,251 · sale price $214,880; monthly maintenance $1,165 · sale price $213,239; monthly maintenance $1,175 · sale price $241,269; monthly maintenance $1,186 · sale price $274,084; monthly maintenance $1,207 · sale price $237,022; monthly maintenance $1,408 · sale price $232,099; monthly maintenance $1,440"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],110,1,3,75067,{\"1\":130680,\"2\":149270,\"3\":167970},null]|[[\"1br\"],110,1,3,75123,{\"1\":130680,\"2\":149270,\"3\":167970},null]|[[\"1br\"],110,1,3,84557,{\"1\":130680,\"2\":149270,\"3\":167970},null]|[[\"1br\"],110,1,3,84562,{\"1\":130680,\"2\":149270,\"3\":167970},null]|[[\"1br\"],110,1,3,84562,{\"1\":130680,\"2\":149270,\"3\":167970},null]|[[\"2br\"],110,2,5,84245,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"2br\"],110,2,5,84251,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"2br\"],110,2,5,89834,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"2br\"],110,2,5,90163,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"2br\"],110,2,5,90382,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"2br\"],110,2,5,97839,{\"2\":149270,\"3\":167970,\"4\":186560,\"5\":201520},null]|[[\"3br\"],110,3,7,97122,{\"3\":167970,\"4\":186560,\"5\":201520,\"6\":216480,\"7\":231440},null]|[[\"3br\"],110,3,7,97208,{\"3\":167970,\"4\":186560,\"5\":201520,\"6\":216480,\"7\":231440},null]"
     }
   },
   "pending": {
     "hc-7688": {
-      "bandsHash": "[[\"1br\"],80,1,3,84103,{\"1\":95040,\"2\":108560,\"3\":122160},2283]|[[\"2br\"],80,2,5,101795,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2713]|[[\"studio\"],80,1,2,67886,{\"1\":95040,\"2\":108560},1812]",
+      "bandsHash": "[[\"1br\"],80,1,3,84858,{\"1\":95040,\"2\":108560,\"3\":122160},2283]|[[\"2br\"],80,2,5,101863,{\"2\":108560,\"3\":122160,\"4\":135680,\"5\":146560},2713]|[[\"studio\"],80,1,2,67886,{\"1\":95040,\"2\":108560},1812]",
       "listing": {
         "id": "hc-7688",
         "listingType": "lottery",
         "dataSource": "muse",
         "sourceName": "Housing Connect",
-        "collectedAt": "2026-11-09T21:30:00.000Z",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
         "externalId": "7688",
         "projectName": "2-10 Beach 28th Street Apartments",
         "borough": "Queens",
-        "address": "2-10 Beach 28th St, Queens, NY 11691",
+        "address": "2-10 B 28 St, Queens, NY 11691",
         "housingProgram": null,
         "unitTypes": [
           "studio",
@@ -6076,7 +6506,7 @@
             },
             "monthlyRent": 1812,
             "monthlyRentMax": null,
-            "unitCount": 7
+            "unitCount": 3
           },
           {
             "amiPercent": 80,
@@ -6085,7 +6515,7 @@
             ],
             "householdSizeMin": 1,
             "householdSizeMax": 3,
-            "minIncome": 84103,
+            "minIncome": 84858,
             "maxIncomeByHouseholdSize": {
               "1": 95040,
               "2": 108560,
@@ -6102,7 +6532,7 @@
             ],
             "householdSizeMin": 2,
             "householdSizeMax": 5,
-            "minIncome": 101795,
+            "minIncome": 101863,
             "maxIncomeByHouseholdSize": {
               "2": 108560,
               "3": 122160,
@@ -6111,7 +6541,7 @@
             },
             "monthlyRent": 2713,
             "monthlyRentMax": null,
-            "unitCount": 2
+            "unitCount": 9
           }
         ],
         "restrictions": [],
@@ -6121,16 +6551,82 @@
         "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7688",
         "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7688",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; asset limit 135680"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
       },
-      "firstSeen": "2026-11-09T21:42:15.538Z"
+      "firstSeen": "2026-11-11T12:29:39.256Z"
+    },
+    "hc-7700": {
+      "bandsHash": "[[\"1br\"],60,1,3,62675,{\"1\":71280,\"2\":81420,\"3\":91620},1548]|[[\"2br\"],60,2,5,74572,{\"2\":81420,\"3\":91620,\"4\":101760,\"5\":109920},1764]",
+      "listing": {
+        "id": "hc-7700",
+        "listingType": "lottery",
+        "dataSource": "muse",
+        "sourceName": "Housing Connect",
+        "collectedAt": "2026-11-11T12:15:00.000Z",
+        "externalId": "7700",
+        "projectName": "2184 Muliner Avenue",
+        "borough": "Bronx",
+        "address": "2184 Muliner Ave, Bronx, NY 10462",
+        "housingProgram": null,
+        "unitTypes": [
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 62675,
+            "maxIncomeByHouseholdSize": {
+              "1": 71280,
+              "2": 81420,
+              "3": 91620
+            },
+            "monthlyRent": 1548,
+            "monthlyRentMax": null,
+            "unitCount": 5
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 74572,
+            "maxIncomeByHouseholdSize": {
+              "2": 81420,
+              "3": 91620,
+              "4": 101760,
+              "5": 109920
+            },
+            "monthlyRent": 1764,
+            "monthlyRentMax": null,
+            "unitCount": 6
+          }
+        ],
+        "restrictions": [],
+        "isRerental": false,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-12-02",
+        "applicationUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7700",
+        "sourceUrl": "https://housingconnect.nyc.gov/PublicWeb/details/7700",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "voucher holders exempt from minimum income"
+      },
+      "firstSeen": "2026-11-11T12:29:39.256Z"
     }
   },
   "sources": {
     "Housing Connect": {
-      "lastSuccess": "2026-11-09T21:42:15.538Z",
-      "lastRowCount": 100,
+      "lastSuccess": "2026-11-11T12:29:39.256Z",
+      "lastRowCount": 106,
       "lastRunSkipped": null
     },
     "HDC": {
