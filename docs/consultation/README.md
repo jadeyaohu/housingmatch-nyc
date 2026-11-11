@@ -48,6 +48,8 @@ npm run test:e2e:consultation -- --workers=2
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium npm run test:e2e:consultation -- --workers=2
 ```
 
+After workspace recovery on November 11, 2026, lint, all 79 unit tests, the production build/typecheck and all 14 Chromium tests passed again. Screenshots were refreshed from that run. The PostgreSQL/real-HTTP evidence below was obtained before the interruption; it was not rerun during recovery.
+
 Browser tests intentionally use synthetic server settings and **mock successful POST responses** to cover UI/consent/referrer/retry behavior. They do not claim a real Supabase end-to-end booking. Unmocked writes fail closed. PostgreSQL integration assertions in `supabase/tests/consultation.sql` independently exercise RPC persistence, retries/conflicts, default states/prices, RLS/privileges, invalid transitions and the rate cap. Run with `psql -v ON_ERROR_STOP=1 -f ...` against a freshly migrated disposable database only; rows are synthetic and the test rolls back. Do not run the test against a populated database (it expects an empty table).
 
 Screenshots in `screenshots/` show synthetic local browser pages, not a deployed site or approved legal terms. A separate local production-build HTTP test exercised Next → Supabase JS → a local gateway-path proxy → PostgREST 12.2.3 → PostgreSQL 17.11, including real EN/中文 Chromium submissions. It passed 29 HTTP/browser checks, saved 20 synthetic rows all requested/not_started (two expert browser bookings), rejected conflicting retries/cross-origin/tampered input, denied anonymous reads and returned 429 after the cap. Hosted Supabase gateway behavior, notification delivery/operating procedures and founder approval still need verification before real requests.
