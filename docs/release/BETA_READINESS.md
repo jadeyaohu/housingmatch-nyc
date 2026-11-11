@@ -27,6 +27,7 @@ Main's `data/listings.json`, collector CSVs/state and ingestion schedule remain 
 - Auth is explicit/default-OFF, with no embedded development/Production project fallback. Supply an approved per-environment project/provider before enabling. Signup requires an unchecked privacy-consent acknowledgement. No real email was sent in tests.
 - Same-origin auth destinations reject protocol-relative/backslash redirects. Sign-out clears the local 24h quiz cache so a different user does not inherit household answers. Saved-data deletion is owner scoped and atomic; sign-in account/email deletion still needs an approved complete account/support process.
 - Reconciles 0001 vs 0005 saved-list schema: drops only the catalog FK and legacy subscription save-limit trigger, preserves existing rows/columns, restricts grants to owner SELECT/INSERT/DELETE and adds `delete_my_housing_data()` under RLS. JSON-catalog IDs no longer require an unrelated DB listing import. Free favorites do not require a subscription.
+- The dependency audit identified vulnerable test/build dependencies. Vitest is updated to patched 4.1.12 with an explicit Oxc JSX transform; PostCSS is constrained to patched 8.5.32+, and TypeScript-ESLint stays on the ESLint-9-compatible 8.x line. Next remains on 15.5.29. The resolved dependency audit reports zero advisories, and CI enforces the audit rather than accepting critical development-tool findings.
 - Candidate CI checks the **PR head SHA**, not a different merge snapshot, and uploads SHA-tagged fixture screenshots. Booking, auth and Stripe remain default-OFF unless explicitly configured; live Stripe keys are rejected.
 
 ## Evidence: fixture PASS is not real-provider PASS
@@ -50,6 +51,7 @@ Committed `docs/release/screenshots` are actual browser captures at 390/1440 wit
 Use Node 24, Docker's local socket, no Production keys or remote Docker context. Install with `npm ci`. Use only synthetic fixtures:
 
 ```sh
+npm audit --audit-level=moderate
 npm run lint
 npm test
 npm run test:db:beta
@@ -82,3 +84,5 @@ Do not switch `LISTINGS_SOURCE` to Supabase until provenance/type round-trip and
 5. If later explicitly approved, keep kill switches ready: disable booking, auth or Stripe independently; payments must never fall back to live or insecure storage. Revert code through a reviewed PR rather than destructive SQL. Preserve booking/payment/refund event ledgers for reconciliation; migration rollback must not delete customer/payment history. Monitor failed webhooks and investigate ambiguous provider operations rather than clearing idempotency reservations.
 
 If required gates are incomplete at the deadline, recommend **NO-GO for monetized Beta**. A free-only directory/quiz scope is an alternative, not an automatic publication: it still requires its own source/security/QA gates and founder deployment approval.
+
+Distributed/edge rate-limit acceptance is still required before public traffic: the booking SQL cap and capability/operator boundaries are tested, but they are not a complete bot/volume-control strategy for anonymous matching and status routes. No paid protection service or project policy was enabled here.

@@ -5,6 +5,6 @@ import { defineConfig } from "vitest/config";
 // `// @vitest-environment jsdom` docblock.
 export default defineConfig({
   resolve: { alias: { "@": path.resolve(__dirname, "src") } },
-  esbuild: { jsx: "automatic" },
+  oxc: { jsx: { runtime: "automatic" } },
   test: { exclude: ["node_modules/**", ".next/**", "e2e/**"] },
 });
