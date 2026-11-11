@@ -66,6 +66,7 @@ const C = {
     seeMatches: "See my matches",
     loading: "Finding your matches…",
     error: "Something went wrong. Please try again.",
+    incomeInvalid: "Enter a valid yearly income between $0 and $5,000,000.",
     previewTitle: "Here's what we found for you",
     pLikely: "Look like a fit",
     pLikelyD: "Your income and household size fit the income limits these lotteries published.",
@@ -124,6 +125,7 @@ const C = {
     seeMatches: "查看我的匹配",
     loading: "正在为你匹配…",
     error: "出错了，请再试一次。",
+    incomeInvalid: "请输入 $0 至 $5,000,000 之间的有效家庭年收入。",
     previewTitle: "为你找到的结果",
     pLikely: "看起来符合",
     pLikelyD: "按这些抽签公布的收入要求，你家的收入和人数看起来符合。",
@@ -228,14 +230,20 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
 
   const up = <K extends keyof Answers>(k: K, v: Answers[K]) => setA((x) => ({ ...x, [k]: v }));
   const toggle = <T,>(arr: T[], v: T) => (arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
-  const incomeNum = Math.round(Number(a.income.replace(/[^\d.]/g, "")) || 0);
+  const incomeNum = Number(a.income);
 
   const TOTAL = 7;
-  const canNext = step === 4 ? a.income.trim() !== "" : step === 5 ? a.voucher != null : true;
+  const validIncome = /^\d{1,8}$/.test(a.income) && Number(a.income) <= 5_000_000;
+  const canNext = step === 4 ? validIncome : step === 5 ? a.voucher != null : true;
 
   async function run(ans: Answers = a) {
     const a2 = ans;
-    const incomeN = Math.round(Number(a2.income.replace(/[^\d.]/g, "")) || 0);
+    // Never silently interpret invalid income as $0 and send misleading eligibility matches.
+    if (!/^\d{1,8}$/.test(a2.income) || Number(a2.income) > 5_000_000) {
+      setError(true);
+      return;
+    }
+    const incomeN = Number(a2.income);
     setLoading(true);
     setError(false);
     try {
@@ -458,12 +466,16 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
                 autoFocus
                 inputMode="numeric"
                 value={a.income}
-                onChange={(e) => up("income", e.target.value)}
+                maxLength={8}
+                onChange={(e) => up("income", e.target.value.replace(/\D/g, "").slice(0, 8))}
                 onKeyDown={(e) => e.key === "Enter" && canNext && next()}
                 placeholder="65,000"
                 className="min-h-16 w-full rounded-2xl border-2 border-stone-300 pl-9 pr-4 text-2xl tabular-nums outline-none focus:border-teal-700"
               />
             </div>
+            {a.income !== "" && !validIncome && (
+              <p role="alert" className="mt-2 text-sm text-red-800">{t.incomeInvalid}</p>
+            )}
           </label>
         )}
         {step === 5 &&

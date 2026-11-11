@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useState } from "react";
 import { browserClient } from "@/lib/supabase/browser";
 import type { AuthConfig } from "@/lib/supabase/config";
@@ -41,11 +42,13 @@ const C = {
 
 export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; lang: Lang; next: string; linkError: boolean }) {
   const t = C[lang];
+  const [accepted, setAccepted] = useState(false);
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [gState, setGState] = useState<"idle" | "going" | "error">("idle");
 
   async function google() {
+    if (!accepted) return;
     setGState("going");
     const redirect = `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
     const { error } = await browserClient(cfg).auth.signInWithOAuth({ provider: "google", options: { redirectTo: redirect } });
@@ -54,6 +57,7 @@ export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; la
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (!accepted) return;
     setState("sending");
     const redirect = `${window.location.origin}/auth/callback?next=${encodeURIComponent(next)}`;
     const { error } = await browserClient(cfg).auth.signInWithOtp({ email: email.trim(), options: { emailRedirectTo: redirect, shouldCreateUser: true } });
@@ -65,6 +69,7 @@ export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; la
       {cfg.project === "dev" && <p className="mb-4 rounded-lg bg-violet-50 px-3 py-2 text-xs text-violet-900">{t.preview}</p>}
       <h1 className="text-2xl font-bold tracking-tight text-stone-900">{t.title}</h1>
       <p className="mt-2 text-stone-600">{cfg.google || !cfg.email ? t.subGoogle : t.sub}</p>
+      <label className="mt-5 flex items-start gap-3 text-sm leading-relaxed"><input data-testid="account-consent" type="checkbox" checked={accepted} onChange={e=>setAccepted(e.target.checked)} className="mt-1 size-4 shrink-0"/><span>{lang === "zh" ? "我已阅读隐私草案，同意使用邮箱处理免费登录请求。" : "I have read the draft privacy notice and consent to using my email for free sign-in."} <Link href="/privacy" target="_blank" rel="noopener noreferrer" className="text-teal-800 underline">{lang === "zh" ? "隐私草案" : "Draft privacy notice"}</Link></span></label>
       {linkError && state === "idle" && <p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{t.linkError}</p>}
       {state === "sent" ? (
         <p data-testid="signup-sent" className="mt-6 rounded-xl bg-teal-50 p-4 text-teal-950">{t.sent}</p>
@@ -76,7 +81,7 @@ export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; la
               type="button"
               data-testid="google-signin"
               onClick={google}
-              disabled={gState === "going"}
+              disabled={!accepted || gState === "going"}
               className="flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl border-2 border-stone-300 bg-white font-semibold text-stone-900 hover:bg-stone-50 disabled:opacity-60"
             >
               <svg aria-hidden="true" viewBox="0 0 48 48" className="h-5 w-5">
@@ -104,7 +109,7 @@ export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; la
               className="mt-2 min-h-14 w-full rounded-2xl border-2 border-stone-300 px-4 text-lg outline-none focus:border-teal-700"
             />
           </label>
-          <button disabled={state === "sending"} className="min-h-14 w-full rounded-2xl bg-teal-800 font-semibold text-white hover:bg-teal-900 disabled:opacity-60">
+          <button disabled={!accepted || state === "sending"} className="min-h-14 w-full rounded-2xl bg-teal-800 font-semibold text-white hover:bg-teal-900 disabled:opacity-60">
             {state === "sending" ? t.sending : t.send}
           </button>
           {state === "error" && <p className="text-sm text-red-800">{t.error}</p>}

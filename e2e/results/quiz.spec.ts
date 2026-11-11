@@ -89,3 +89,26 @@ test("T006: 'open now' only counts lotteries you might fit, not unlikely ones", 
   await page.getByTestId("quiz-next").click();
   await expect(page.getByTestId("count-open")).toContainText("0");
 });
+
+
+test("annual income rejects text and overlarge amounts before matching (EN + 中文)", async ({ page }) => {
+  await page.addInitScript(()=>localStorage.removeItem("hm-quiz-v1"));
+  for (const lang of ["en", "zh"] as const) {
+    await page.context().clearCookies();
+    await page.context().addCookies([{ name: "lang", value: lang, domain: "localhost", path: "/" }]);
+    await page.goto("/quiz");
+    for (let i = 0; i < 4; i++) await page.getByTestId("quiz-next").click();
+    const income = page.locator('input[inputmode="numeric"]').first();
+    await income.fill("not income");
+    await expect(income).toHaveValue("");
+    await expect(page.getByTestId("quiz-next")).toBeDisabled();
+    await income.fill("99999999");
+    await expect(page.getByTestId("quiz").getByRole("alert")).toContainText(lang === "en" ? "valid yearly income" : "家庭年收入");
+    await expect(page.getByTestId("quiz-next")).toBeDisabled();
+    await income.fill("5000001");
+    await expect(page.getByTestId("quiz-next")).toBeDisabled();
+    await income.fill("85,000");
+    await expect(income).toHaveValue("85000");
+    await expect(page.getByTestId("quiz-next")).toBeEnabled();
+  }
+});

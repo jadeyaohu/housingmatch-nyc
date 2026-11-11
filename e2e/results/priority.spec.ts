@@ -32,7 +32,7 @@ for (const lang of ["en", "zh"] as const) {
   });
 }
 
-test("API: real data returns priority groups for a ZIP, and rejects a malformed ZIP", async ({ request }) => {
+test("API: synthetic data returns priority groups for a ZIP, and rejects a malformed ZIP", async ({ request }) => {
   const ok = await request.post("/api/match", { data: { size: 1, annualIncome: 60000, zip, nycha: true } });
   expect(ok.ok()).toBeTruthy();
   const body = await ok.json();

@@ -1,3 +1,4 @@
+import { authReturnPath } from "@/lib/auth/redirect";
 import { NextResponse } from "next/server";
 import { serverClient } from "@/lib/supabase/server";
 
@@ -6,7 +7,7 @@ export async function GET(req: Request) {
   const url = new URL(req.url);
   const code = url.searchParams.get("code");
   const next = url.searchParams.get("next") ?? "/quiz";
-  const safeNext = next.startsWith("/") && !next.startsWith("//") ? next : "/quiz";
+  const safeNext = authReturnPath(next);
   const sb = await serverClient();
   if (sb && code) {
     const { error } = await sb.auth.exchangeCodeForSession(code);

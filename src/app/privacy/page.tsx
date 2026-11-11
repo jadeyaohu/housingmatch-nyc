@@ -1,3 +1,5 @@
+import { consultationCopy } from "@/lib/consultation/content";
+import { PRIVACY_VERSION } from "@/lib/consultation/model";
 import { getLang } from "@/lib/lang";
 
 const C = {
@@ -26,7 +28,9 @@ const C = {
 } as const;
 
 export default async function Privacy() {
-  const t = C[await getLang()];
+  const lang = await getLang();
+  const t = C[lang];
+  const consultation = consultationCopy[lang];
   return (
     <article className="mx-auto max-w-2xl">
       <h1 className="text-3xl font-bold tracking-tight">{t.title}</h1>
@@ -37,6 +41,11 @@ export default async function Privacy() {
           <p className="mt-1 leading-relaxed text-stone-700">{b}</p>
         </section>
       ))}
+      <section className="mt-8 border-t border-stone-200 pt-6">
+        <h2 className="text-xl font-semibold">{consultation.privacy}</h2>
+        <p className="mt-2 text-xs text-stone-500">{PRIVACY_VERSION} — {consultation.draft}</p>
+        {consultation.privacySections.slice(1).map(([title, body]) => <section key={title} className="mt-5"><h3 className="font-semibold">{title}</h3><p className="mt-1 leading-relaxed text-stone-700">{body}</p></section>)}
+      </section>
     </article>
   );
 }

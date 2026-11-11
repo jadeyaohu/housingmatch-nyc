@@ -2,7 +2,8 @@
 //
 // Muse (automated collection) records reach Production only if their source has been approved
 // in data/sources/approved-sources.json. Preview and local builds show every source so new
-// batches can be audited. Official Open Data records are always published.
+// batches can be audited. Explicit Open Data/manual records are trusted; records whose
+// provenance was lost (for example by the legacy Supabase mapper) fail closed in Production.
 
 import type { Listing } from "../types";
 
@@ -21,6 +22,7 @@ export function currentEnvironment(env: NodeJS.ProcessEnv = process.env): Enviro
 
 export function isPublishable(l: Listing, sources: ApprovedSources, environment: Environment): boolean {
   if (environment !== "production") return true;
-  if (l.dataSource !== "muse") return true;
+  if (l.dataSource === "opendata" || l.dataSource === "manual") return true;
+  if (l.dataSource !== "muse") return false;
   return l.sourceName != null && Object.prototype.hasOwnProperty.call(sources.approved, l.sourceName);
 }

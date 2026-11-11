@@ -7,7 +7,7 @@ import { defineConfig, devices } from "@playwright/test";
  * Separate file name/port from PR #4's playwright.config.ts so the two never conflict.
  */
 const PORT = Number(process.env.E2E_RESULTS_PORT ?? 3220);
-const executablePath = process.env.PW_CHROMIUM_PATH || undefined; // local sandbox override
+const executablePath = process.env.PW_CHROMIUM_PATH || process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH || undefined; // local sandbox override
 
 export default defineConfig({
   testDir: "e2e/results",
@@ -18,11 +18,11 @@ export default defineConfig({
   expect: { timeout: 10_000 },
   use: { baseURL: `http://localhost:${PORT}`, actionTimeout: 10_000, navigationTimeout: 20_000 },
   projects: [
-    { name: "chromium-desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1280, height: 900 }, launchOptions: { executablePath } } },
+    { name: "chromium-desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 }, launchOptions: { executablePath } } },
     {
       name: "chromium-mobile",
-      use: { ...devices["Desktop Chrome"], viewport: { width: 375, height: 812 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2, launchOptions: { executablePath } },
+      use: { ...devices["Desktop Chrome"], viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2, launchOptions: { executablePath } },
     },
   ],
-  webServer: { command: `npx next start -p ${PORT}`, url: `http://localhost:${PORT}`, reuseExistingServer: false, timeout: 60_000 },
+  webServer: { command: `npx next start -p ${PORT}`, url: `http://localhost:${PORT}`, reuseExistingServer: false, timeout: 60_000, env: { BETA_FIXTURES: "synthetic", NEXT_PUBLIC_AUTH_ENABLED: "true", NEXT_PUBLIC_AUTH_SUPABASE_URL: "http://127.0.0.1:54321", NEXT_PUBLIC_AUTH_SUPABASE_KEY: "synthetic-public-placeholder", NEXT_PUBLIC_EMAIL_AUTH: "1" } },
 });

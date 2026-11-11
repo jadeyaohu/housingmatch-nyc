@@ -1,4 +1,5 @@
 import "server-only";
+import { syntheticListings } from "../testing/listings";
 import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { createClient } from "@supabase/supabase-js";
@@ -20,6 +21,10 @@ async function approvedSources(): Promise<ApprovedSources> {
 
 /** Listings visible in the current environment (Production hides unapproved Muse sources). */
 export async function getListings(): Promise<Listing[]> {
+  if (process.env.BETA_FIXTURES === "synthetic") {
+    if (process.env.VERCEL_ENV === "production") throw new Error("Synthetic fixtures are forbidden in Production");
+    return syntheticListings(todayNY());
+  }
   const [all, sources] = await Promise.all([loadListings(), approvedSources()]);
   const env = currentEnvironment();
   return all.filter((l) => isPublishable(l, sources, env));

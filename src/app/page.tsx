@@ -1,3 +1,4 @@
+import { consultationCopy } from "@/lib/consultation/content";
 import Link from "next/link";
 import { dict } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
@@ -39,6 +40,11 @@ export default async function Home() {
         ))}
       </section>
 
+      <section className="mt-12 rounded-3xl border border-stone-200 bg-white p-6 sm:p-8">
+        <h2 className="text-2xl font-semibold">{consultationCopy[lang].homeTitle}</h2>
+        <p className="mt-3 leading-relaxed text-stone-600">{consultationCopy[lang].homeBody}</p>
+        <Link href="/consultation" className="mt-5 inline-block rounded-xl border border-teal-800 px-5 py-3 font-semibold text-teal-800">{consultationCopy[lang].nav}</Link>
+      </section>
       <p className="mt-10 text-sm text-stone-600">
         <Link href="/match" className="font-medium text-teal-800 underline underline-offset-4">{t.quickMatch}</Link>
       </p>

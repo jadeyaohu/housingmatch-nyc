@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { currentEnvironment, isPublishable, type ApprovedSources } from "./publication";
 import type { Listing } from "../types";
+import { listingToRow, rowToListing } from "./mapping";
 
 const sources: ApprovedSources = { approved: { "Housing Connect": { approvedOn: "2026-11-09", by: "Claude", basis: "audit" } } };
 const l = (o: Partial<Listing>) => ({ id: "x", dataSource: "muse", sourceName: "HDC", ...o }) as Listing;
@@ -15,6 +16,16 @@ describe("publication gate", () => {
   it("Preview and development show everything for auditing", () => {
     expect(isPublishable(l({ sourceName: "HDC" }), sources, "preview")).toBe(true);
     expect(isPublishable(l({ sourceName: "HDC" }), sources, "development")).toBe(true);
+  });
+  it("fails closed when a legacy database round-trip loses source provenance", () => {
+    const legacy = rowToListing(listingToRow(l({ listingType: "rerental", isRerental: true })));
+    expect(legacy.dataSource).toBeUndefined();
+    expect(isPublishable(legacy, sources, "production")).toBe(false);
+    expect(isPublishable(legacy, sources, "preview")).toBe(true);
+  });
+  it("requires explicit provenance, while preserving explicitly manual records", () => {
+    expect(isPublishable(l({ dataSource: undefined, sourceName: "Housing Connect" }), sources, "production")).toBe(false);
+    expect(isPublishable(l({ dataSource: "manual" }), sources, "production")).toBe(true);
   });
   it("reads the Vercel environment", () => {
     expect(currentEnvironment({ VERCEL_ENV: "production" } as unknown as NodeJS.ProcessEnv)).toBe("production");

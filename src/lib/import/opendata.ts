@@ -143,6 +143,8 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
 
     out.push({
       id: `hc-${lotteryId}`,
+      dataSource: "opendata",
+      sourceName: "NYC Open Data",
       ...(isWaitlist ? { listingType: "waitlist" as const } : {}),
       externalId: lotteryId,
       projectName: r["Lottery Name"].replace(/\s+/g, " "),

@@ -5,7 +5,7 @@
 // else LIKELY_MATCH. Results are preliminary and never an official determination.
 
 import { amiMaxIncome } from "../ami";
-import { assessQuality, STATUS_ORDER, TIER_ORDER } from "./quality";
+import { assessQuality, hasPublishedRequirements, STATUS_ORDER, TIER_ORDER } from "./quality";
 import type {
   Household,
   IncomeBand,
@@ -151,7 +151,7 @@ const incomeRule: Rule = {
     }
 
     let fits = false;
-    let fitsEstimated = false;
+    let fitsPublished = false;
     let unknown = false;
     let belowMinWithVoucher = false;
     let belowCategory = false;
@@ -180,12 +180,23 @@ const incomeRule: Rule = {
         }
       }
       fits = true;
-      if (estimated) fitsEstimated = true;
+      // All requirements must be known on the SAME fitting row. A different row's
+      // household-size pass cannot complete this row, and a missing minimum is not zero.
+      if (!estimated && hasPublishedRequirements(band, household.size, listing.unitTypes)) fitsPublished = true;
       ctx.qualifyingBands.push(band);
     }
 
-    if (fits && !fitsEstimated) {
+    if (fitsPublished) {
       return { rule: "income", result: "pass", reason: { en: "Your income falls within a published income band.", zh: "您的收入在公布的收入范围内。" } };
+    }
+    if (fits && ctx.qualifyingBands.some((b) => b.maxIncomeByHouseholdSize?.[String(household.size)] != null)) {
+      return {
+        rule: "income", result: "unknown",
+        reason: {
+          en: "A potentially fitting income row is missing its published minimum income, household-size limits, or unit-size pairing. Confirm the complete requirements on the official listing.",
+          zh: "可能符合的收入档缺少已公布的最低收入、家庭人数限制或户型对应关系，请在官方页面核实完整要求。",
+        },
+      };
     }
     if (fits) {
       const cats = [...new Set(ctx.qualifyingBands.map((b) => b.amiCategory).filter(Boolean))];
@@ -315,9 +326,13 @@ function combine(outcomes: RuleOutcome[]): MatchStatus {
   return "LIKELY_MATCH";
 }
 
-function matchesPreferences(h: Household, l: Listing): boolean {
+function matchesPreferences(h: Household, l: Listing, qualifyingBands: IncomeBand[]): boolean {
   const boroughOk = h.boroughs.length === 0 || (l.borough != null && h.boroughs.includes(l.borough));
-  const bedroomOk = h.bedrooms.length === 0 || l.unitTypes.length === 0 || l.unitTypes.some((u) => h.bedrooms.includes(u));
+  const exactUnits = qualifyingBands.filter((b) => hasPublishedRequirements(b, h.size, l.unitTypes)).flatMap((b) => b.unitTypes);
+  // Inventory elsewhere in the building cannot satisfy a bedroom preference when the
+  // published qualifying rows identify the actual fitting unit sizes.
+  const units = exactUnits.length ? exactUnits : l.unitTypes;
+  const bedroomOk = h.bedrooms.length === 0 || units.length === 0 || units.some((u) => h.bedrooms.includes(u));
   return boroughOk && bedroomOk;
 }
 
@@ -328,7 +343,7 @@ export function matchListing(household: Household, listing: Listing, config: Mat
   return {
     listingId: listing.id,
     status,
-    matchesPreferences: matchesPreferences(household, listing),
+    matchesPreferences: matchesPreferences(household, listing, ctx.qualifyingBands),
     outcomes,
     qualifyingBands: ctx.qualifyingBands,
     quality: assessQuality(listing, household, { status, outcomes, qualifyingBands: ctx.qualifyingBands }, config.today),

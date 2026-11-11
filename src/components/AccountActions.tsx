@@ -1,9 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { browserClient } from "@/lib/supabase/browser";
 import type { AuthConfig } from "@/lib/supabase/config";
 
-export function AccountActions({ cfg, labels }: { cfg: AuthConfig; labels: { signOut: string; del: string; confirm: string; deleted: string } }) {
+export function AccountActions({ cfg, labels }: { cfg: AuthConfig; labels: { signOut: string; del: string; confirm: string; deleted: string; error?: string } }) {
+  const router = useRouter();
   const [msg, setMsg] = useState<string | null>(null);
   const sb = browserClient(cfg);
   return (
@@ -11,8 +13,10 @@ export function AccountActions({ cfg, labels }: { cfg: AuthConfig; labels: { sig
       <button
         type="button"
         onClick={async () => {
-          await sb.auth.signOut();
-          window.location.href = "/";
+          const { error } = await sb.auth.signOut();
+          try { localStorage.removeItem("hm-quiz-v1"); } catch {}
+          if (error) { setMsg(labels.error ?? "Could not complete this request. Try again."); return; }
+          router.replace("/"); router.refresh();
         }}
         className="min-h-11 rounded-xl border-2 border-stone-300 px-4 font-semibold text-stone-800"
       >
@@ -25,11 +29,12 @@ export function AccountActions({ cfg, labels }: { cfg: AuthConfig; labels: { sig
           if (!window.confirm(labels.confirm)) return;
           const { data } = await sb.auth.getUser();
           if (!data.user) return;
-          const { error } = await sb.from("household_profiles").delete().eq("user_id", data.user.id);
+          const { error } = await sb.rpc("delete_my_housing_data");
+          if (error) { setMsg(labels.error ?? "Could not complete this request. Try again."); return; }
           if (!error) {
             try { localStorage.removeItem("hm-quiz-v1"); } catch {}
             setMsg(labels.deleted);
-            window.location.reload();
+            router.refresh();
           }
         }}
         className="min-h-11 rounded-xl border-2 border-rose-300 px-4 font-semibold text-rose-800"

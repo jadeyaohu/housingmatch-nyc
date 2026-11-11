@@ -12,8 +12,8 @@ import { savedItems } from "@/lib/saved";
 export const dynamic = "force-dynamic";
 
 const C = {
-  en: { title: "My account", signedInAs: "Signed in as", profile: "My housing profile", none: "You haven't saved a profile yet.", take: "Find my matches", edit: "Update my answers", people: "Household size", income: "Yearly income", voucher: "Voucher", areas: "Areas", sizes: "Sizes", budget: "Rent budget", any: "Any", signOut: "Sign out", del: "Delete my saved profile", confirm: "Delete your saved household profile? This can't be undone.", deleted: "Deleted.", yes: "Yes", no: "No", unsure: "Not sure" },
-  zh: { title: "我的账号", signedInAs: "当前登录", profile: "我的住房资料", none: "你还没有保存资料。", take: "查找我的匹配", edit: "修改我的回答", people: "家庭人数", income: "年收入", voucher: "住房补助券", areas: "区域", sizes: "户型", budget: "租金预算", any: "不限", signOut: "退出登录", del: "删除我保存的资料", confirm: "确定删除你保存的家庭资料吗？删除后无法恢复。", deleted: "已删除。", yes: "有", no: "没有", unsure: "不确定" },
+  en: { title: "My account", signedInAs: "Signed in as", profile: "My housing profile", none: "You haven't saved a profile yet.", take: "Find my matches", edit: "Update my answers", people: "Household size", income: "Yearly income", voucher: "Voucher", areas: "Areas", sizes: "Sizes", budget: "Rent budget", any: "Any", signOut: "Sign out", del: "Delete my saved housing data", confirm: "Delete your saved profile and all saved listings? Your sign-in account remains. This cannot be undone.", deleted: "Deleted.", error: "Could not complete this request. Please retry.", yes: "Yes", no: "No", unsure: "Not sure" },
+  zh: { title: "我的账号", signedInAs: "当前登录", profile: "我的住房资料", none: "你还没有保存资料。", take: "查找我的匹配", edit: "修改我的回答", people: "家庭人数", income: "年收入", voucher: "住房补助券", areas: "区域", sizes: "户型", budget: "租金预算", any: "不限", signOut: "退出登录", del: "删除我的住房资料和收藏", confirm: "确定删除家庭资料和所有收藏吗？登录账号仍保留，删除后无法恢复。", deleted: "已删除。", error: "无法完成此请求，请重试。", yes: "有", no: "没有", unsure: "不确定" },
 } as const;
 
 export default async function Account() {
@@ -54,7 +54,7 @@ export default async function Account() {
       )}
       <SavedList cfg={cfg} items={saved} lang={lang} />
       <Link href="/quiz" className="mt-6 flex min-h-12 items-center justify-center rounded-xl bg-teal-800 font-semibold text-white hover:bg-teal-900">{p ? t.edit : t.take}</Link>
-      <AccountActions cfg={cfg} labels={{ signOut: t.signOut, del: t.del, confirm: t.confirm, deleted: t.deleted }} />
+      <AccountActions cfg={cfg} labels={{ signOut: t.signOut, del: t.del, confirm: t.confirm, deleted: t.deleted, error: t.error }} />
     </div>
   );
 }
