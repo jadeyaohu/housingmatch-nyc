@@ -40,3 +40,7 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 !.env.example
+
+# Browser test output (curated synthetic screenshots live in docs/consultation/screenshots)
+/test-results/
+/playwright-report/
