@@ -17,7 +17,7 @@ export async function invite(booking: string, actor: string) {
 }
 export async function status(token: string) {
   const a = await command<Attempt>("authorize", null, tokenHash(token));
-  return { state: a.state, package: a.package_type, amount: a.amount, currency: a.currency, bookingStatus: a.booking_status, refundStatus: a.refund_status ?? null, expiresAt: a.expires_at };
+  return { attemptId: a.id, state: a.state, package: a.package_type, amount: a.amount, currency: a.currency, bookingStatus: a.booking_status, refundStatus: a.refund_status ?? null, expiresAt: a.expires_at };
 }
 export async function checkout(token: string) {
   const stripe = stripeClient();
@@ -34,12 +34,12 @@ export async function checkout(token: string) {
     payment_intent_data: { metadata: { booking_id: a.booking_id, attempt_id: a.id } },
     line_items: [{ quantity: 1, price_data: { currency: "usd", unit_amount: a.amount, product_data: { name: a.package_type === "standard" ? "Standard Consultation — 30 minutes" : "In-Depth Expert Review — 60 minutes" } } }],
     expires_at: Math.floor(Date.parse(a.checkout_started_at) / 1000) + 1800,
-    success_url: `${origin}/consultation/pay/result`, cancel_url: `${origin}/consultation/pay/result?outcome=cancelled`,
+    success_url: `${origin}/consultation/pay/result?attempt=${a.id}`, cancel_url: `${origin}/consultation/pay/result?attempt=${a.id}&outcome=cancelled`,
   }, { idempotencyKey: `consultation-checkout:${a.id}` });
   validateSession(session, a);
   if (session.status !== "open" || !session.url || new URL(session.url).origin !== "https://checkout.stripe.com") throw new Error("conflict");
   await command("attach", a.id, null, null, { session_id: session.id });
-  return { url: session.url, expiresAt: a.expires_at };
+  return { url: session.url, expiresAt: a.expires_at, attemptId: a.id };
 }
 export function validateSession(s: Stripe.Checkout.Session, a: Attempt) {
   price(a);

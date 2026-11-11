@@ -4,6 +4,6 @@ export const runtime = "nodejs";
 export async function POST(req: Request) {
   try {
     sameOrigin(req); const token = invitationToken(req); const result = await checkout(token);
-    return withCookie(response({ url: result.url }), token, result.expiresAt);
+    return withCookie(response({ url: result.url }), token, result.expiresAt, result.attemptId);
   } catch (error) { return failure(error); }
 }

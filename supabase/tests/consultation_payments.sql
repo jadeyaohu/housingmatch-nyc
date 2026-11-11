@@ -19,6 +19,9 @@ begin
   begin perform public.consultation_payment_command('invite',bid,repeat('2',64),operator_id);
   exception when others then if sqlerrm='conflict' then denied:=true; else raise; end if; end;
   if not denied then raise exception 'duplicate invitation permitted'; end if;
+  perform set_config('role','service_role',true);
+  a:=public.consultation_payment_command('authorize',null,repeat('1',64));
+  perform set_config('role','none',true);
   a:=public.consultation_payment_command('reserve',null,repeat('1',64));
   again:=public.consultation_payment_command('reserve',null,repeat('1',64));
   if a<>again or a->>'state'<>'creating' then raise exception 'unstable reservation'; end if;

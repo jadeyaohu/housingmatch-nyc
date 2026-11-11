@@ -35,3 +35,13 @@ describe("payment configuration and signatures", () => {
     expect(handleEvent).toHaveBeenCalledOnce();
   });
 });
+
+it("selects separate per-attempt cookies so concurrent tabs cannot overwrite attribution", async () => {
+  const { invitationToken } = await import("./http");
+  const a = "f053e2b1-65c1-46db-b0c9-aa49ae28d6c1", b = "da7606dc-51ef-4cb0-9918-18c8e20531aa";
+  const cookie = `consultation_payment_${a}=${"a".repeat(43)}; consultation_payment_${b}=${"b".repeat(43)}`;
+  const req = (id: string) => new Request("http://localhost:3000/api/consultation/payments/status", { headers: { cookie, "x-consultation-attempt": id } });
+  expect(invitationToken(req(a))).toBe("a".repeat(43)); expect(invitationToken(req(b))).toBe("b".repeat(43));
+  expect(() => invitationToken(req(""))).toThrow("forbidden");
+  expect(() => invitationToken(req("00000000-0000-4000-8000-000000000000"))).toThrow("forbidden");
+});
