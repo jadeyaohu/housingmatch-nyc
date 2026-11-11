@@ -1,210 +1,35 @@
-# DRAFT ONLY. Scheduled workflows run from DEFAULT branch, not ops/agent-handoff-queue.
-# Activation requires founder approval (main is connected to Vercel Production).
-# Draft: bounded API planner + one read-only Codex report. Muse must be independently scheduled.
-name: HousingMatch agent coordination (gated)
+# Free coordination — GitHub Actions checks only; Codex/Muse run on their own schedules.
+# IMPORTANT: Scheduled workflows run only on the default branch. DO NOT merge this
+# workflow to main without reviewing its possible Vercel Production redeploy.
+name: HousingMatch free agent queue monitor
 
 on:
   schedule:
-    - cron: "0,30 * * * *"
-      timezone: "America/New_York"
-    - cron: "10,40 * * * *"
-      timezone: "America/New_York"
+    # Every 30 minutes in UTC = every 30 minutes in New York (DST doesn't matter).
+    - cron: "*/30 * * * *"
   workflow_dispatch: {}
-
-concurrency:
-  group: housingmatch-agent-coordination
-  cancel-in-progress: false
 
 permissions:
   contents: read
 
+concurrency:
+  group: housingmatch-queue-monitor
+  cancel-in-progress: false
+
 jobs:
-  queue-check:
-    if: vars.AGENT_ORCHESTRATION_ENABLED == 'true'
+  queue-health:
     runs-on: ubuntu-latest
+    timeout-minutes: 3
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout agent queue only
+        uses: actions/checkout@v4
         with:
           ref: ops/agent-handoff-queue
           persist-credentials: false
-      - name: Show pending tasks (no secrets)
+      - name: Show pending Codex and Muse tasks
         run: python3 agents/scripts/queue_health.py
-
-  planner-readonly:
-    # Runs on the :00/:30 cycle, but only if a genuine new agent report exists.
-    if: vars.AGENT_ORCHESTRATION_ENABLED == 'true' && (github.event_name == 'workflow_dispatch' || github.event.schedule == '0,30 * * * *')
-    runs-on: ubuntu-latest
-    timeout-minutes: 15
-    permissions:
-      contents: read
-    outputs:
-      has_reports: ${{ steps.pick.outputs.has_reports }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ops/agent-handoff-queue
-          persist-credentials: false
-      - name: Select new agent reports
-        id: pick
-        run: python3 agents/scripts/select_planner_reports.py
-      - name: Propose bounded next assignments
-        if: steps.pick.outputs.has_reports == 'true'
-        uses: openai/codex-action@v1
-        with:
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          permission-profile: ":read-only"
-          prompt-file: planner-prompt.md
-          output-schema-file: agents/schemas/planner-output.schema.json
-          output-file: planner-output.json
-      - name: Save planner proposal for isolated publisher
-        if: steps.pick.outputs.has_reports == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: next-agent-tasks
-          path: planner-output.json
-          retention-days: 7
-
-  publish-planner:
-    needs: planner-readonly
-    if: needs.planner-readonly.result == 'success' && needs.planner-readonly.outputs.has_reports == 'true' && vars.AGENT_ORCHESTRATION_ENABLED == 'true'
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: next-agent-tasks
-      - uses: actions/checkout@v4
-        with:
-          ref: ops/agent-handoff-queue
-          persist-credentials: false
-          path: queue
-      - name: Validate output and write only allowlisted queue files
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const fs = require('fs');
-            const path = require('path');
-            const data = JSON.parse(fs.readFileSync('planner-output.json', 'utf8'));
-            const branch = 'ops/agent-handoff-queue';
-            const idPattern = /^HM-\d{8}-\d{4}-[CM]\d{2}$/;
-            if (!Array.isArray(data.reviewed_ids) || !Array.isArray(data.new_tasks)) throw Error('Bad planner output');
-            if (data.reviewed_ids.length > 6 || data.new_tasks.length > 2) throw Error('Excess tasks');
-            const toReview = fs.readdirSync('queue/agents/to-chatgpt')
-              .filter(x => x.endsWith('-result.md'))
-              .map(x => x.slice(0, -'-result.md'.length))
-              .filter(x => idPattern.test(x))
-              .filter(id => !fs.existsSync(`queue/agents/reviewed/${id}.md`))
-              .filter(id => fs.existsSync(`queue/agents/to-codex/${id}.md`) || fs.existsSync(`queue/agents/to-muse/${id}.md`))
-              .sort().slice(0, 6);
-            if (JSON.stringify([...data.reviewed_ids].sort()) !== JSON.stringify(toReview)) throw Error('Planner reviewed_ids mismatch');
-            const seenAgents = new Set();
-            const baseId = toReview[0];
-            if (!baseId) throw Error('No reviewed report');
-            const pending = agent => fs.readdirSync(`queue/agents/to-${agent}`)
-              .filter(x => /^HM-\d{8}-\d{4}-[CM]\d{2}\.md$/.test(x))
-              .some(x => !fs.existsSync(`queue/agents/to-chatgpt/${x.slice(0,-3)}-result.md`));
-            for (const t of data.new_tasks) {
-              if (!['codex','muse'].includes(t.agent) || seenAgents.has(t.agent) || pending(t.agent)) continue;
-              if (typeof t.title !== 'string' || typeof t.instructions !== 'string' || t.instructions.length > 5500 || !t.instructions.trim()) continue;
-              seenAgents.add(t.agent);
-              const id = baseId.slice(0,16) + (t.agent === 'codex' ? '-C02' : '-M02');
-              const target = `agents/to-${t.agent}/${id}.md`;
-              const instructions = `# ${id} — ${t.title.slice(0,100)}\n\n${t.instructions}\n\n## Non-negotiable safeguards\nDevelopment/Preview only. No secrets, real applicant data, production changes, merges, billing, purchases or unauthorized scraping. Return a unique result report to agents/to-chatgpt/ on the queue branch.\n`;
-              try {
-                await github.rest.repos.getContent({...context.repo, path:target, ref:branch});
-                core.info(`Task exists, skip ${target}`);
-              } catch(e) {
-                if (e.status !== 404) throw e;
-                await github.rest.repos.createOrUpdateFileContents({
-                  ...context.repo, path:target, branch,
-                  message:`agent-task: ${id}`,
-                  content:Buffer.from(instructions).toString('base64')
-                });
-              }
-            }
-            for (const id of toReview) {
-              const marker = `agents/reviewed/${id}.md`;
-              try {
-                await github.rest.repos.getContent({...context.repo, path:marker, ref:branch});
-              } catch(e) {
-                if (e.status !== 404) throw e;
-                await github.rest.repos.createOrUpdateFileContents({
-                  ...context.repo, path:marker, branch,
-                  message:`agent-reviewed: ${id}`,
-                  content:Buffer.from(`# Reviewed ${id}\nAutomated model proposal; founder/ChatGPT should review report evidence before any production release.\n`).toString('base64')
-                });
-              }
-            }
-
-  codex-readonly:
-    # Manual dispatch or ten minutes after each planned :00/:30 handoff.
-    if: vars.AGENT_ORCHESTRATION_ENABLED == 'true' && (github.event_name == 'workflow_dispatch' || github.event.schedule == '10,40 * * * *')
-    runs-on: ubuntu-latest
-    timeout-minutes: 20
-    permissions:
-      contents: read
-    outputs:
-      task_id: ${{ steps.pick.outputs.task_id }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          ref: ops/agent-handoff-queue
-          persist-credentials: false
-          fetch-depth: 0
-      - name: Pick one outstanding Codex task
-        id: pick
-        run: python3 agents/scripts/select_codex_task.py
-      - name: Run Codex read-only (API usage may incur charges)
-        if: steps.pick.outputs.task_id != ''
-        uses: openai/codex-action@v1
-        with:
-          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
-          permission-profile: ":read-only"
-          prompt-file: codex-prompt.md
-          output-file: codex-output.md
-      - name: Save result for isolated writer
-        if: steps.pick.outputs.task_id != ''
-        uses: actions/upload-artifact@v4
-        with:
-          name: codex-report-${{ steps.pick.outputs.task_id }}
-          path: codex-output.md
-          retention-days: 7
-
-  publish-codex-report:
-    needs: codex-readonly
-    if: needs.codex-readonly.result == 'success' && needs.codex-readonly.outputs.task_id != '' && vars.AGENT_ORCHESTRATION_ENABLED == 'true'
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    permissions:
-      contents: write
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: codex-report-${{ needs.codex-readonly.outputs.task_id }}
-      - name: Publish exactly one report to the queue branch
-        uses: actions/github-script@v7
-        env:
-          TASK_ID: ${{ needs.codex-readonly.outputs.task_id }}
-        with:
-          script: |
-            const fs = require('fs');
-            const id = process.env.TASK_ID;
-            if (!/^HM-\d{8}-\d{4}-C\d{2}$/.test(id)) throw new Error('Invalid task ID');
-            const path = `agents/to-chatgpt/${id}-result.md`;
-            const branch = 'ops/agent-handoff-queue';
-            const raw = fs.readFileSync('codex-output.md', 'utf8').slice(0, 16000);
-            if (!raw.trim()) throw new Error('Empty Codex report');
-            try {
-              await github.rest.repos.getContent({ ...context.repo, path, ref: branch });
-              core.info('Report already exists; not overwriting.');
-            } catch (e) {
-              if (e.status !== 404) throw e;
-              const body = `# ${id} — Codex automated audit\nstatus: review_required\n\n${raw}\n\n**Note:** AI report, not independently verified.\n`;
-              await github.rest.repos.createOrUpdateFileContents({
-                ...context.repo, path, branch,
-                message: `agent-report: ${id}`,
-                content: Buffer.from(body).toString('base64')
-              });
-            }
+      - name: Explain execution boundary
+        run: |
+          echo "This workflow is a FREE queue monitor only."
+          echo "Codex and Muse must independently poll their folders using their own schedulers."
+          echo "It does not call an AI API, create tasks, write reports, or deploy code."
