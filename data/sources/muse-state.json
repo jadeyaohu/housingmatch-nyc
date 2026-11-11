@@ -486,7 +486,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "PadSplit private room; 1 Bed, 0.5 Baths"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],null,null,null,null,null,1937]"
     },
     "muse-pronto-housing-livonia-commons-481-williams-ave-bro": {
@@ -581,7 +581,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "income table truncated on list page"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],60,1,3,36780,{\"1\":71280,\"2\":81420,\"3\":91620},1365.78]|[[\"2br\"],40,2,4,28934,{\"2\":54280,\"3\":61080,\"4\":67840},701.92]|[[\"2br\"],60,null,null,null,null,568.18]|[[\"studio\"],60,1,2,33609,{\"1\":71280,\"2\":81420},884.25]"
     },
     "muse-tf-cornerstone-595-dean-st-595-dean-st": {
@@ -590,7 +590,7 @@
         "listingType": "rerental",
         "dataSource": "muse",
         "sourceName": "TF Cornerstone",
-        "collectedAt": "2026-11-09T15:30:00.000Z",
+        "collectedAt": "2026-11-11T15:35:00.000Z",
         "externalId": null,
         "projectName": "595 Dean St",
         "borough": "Brooklyn",
@@ -742,8 +742,8 @@
         "applicationUrl": "https://tfc.com/about/affordable-re-rentals",
         "sourceUrl": "https://tfc.com/about/affordable-re-rentals",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; $20 credit check fee per adult · voucher holders exempt from minimum income; $20 credit check fee per adult · voucher holders exempt from minimum income; $20 credit check fee per adult · voucher holders exempt from minimum income; $20 credit check fee per adult · voucher holders exempt from minimum income; $20 credit check fee per adult · voucher holders exempt from minimum income; $20 credit check fee per adult · voucher holders exempt from minimum income; $20 credit check fee per adult · voucher holders exempt from minimum income; $20 credit check fee per adult"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],130,1,3,100774,{\"1\":154440,\"2\":176410,\"3\":198510},2831.22]|[[\"1br\"],130,1,3,101311,{\"1\":154440,\"2\":176410,\"3\":198510},2846.88]|[[\"2br\"],130,2,5,123237,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},3452.4]|[[\"studio\"],130,1,2,81806,{\"1\":154440,\"2\":176410},2290]|[[\"studio\"],130,1,2,83965,{\"1\":154440,\"2\":176410},2352.97]|[[\"studio\"],130,1,2,84162,{\"1\":154440,\"2\":176410},2358.7]|[[\"studio\"],130,1,2,85927.55,{\"1\":154440,\"2\":176410},2410.22]|[[\"studio\"],130,1,2,86385,{\"1\":154440,\"2\":176410},2423.55]"
@@ -790,7 +790,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "strict income requirements; pets allowed"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],null,null,null,35000,{\"2\":77760},2653]"
     },
     "muse-mns-88-leonard-st-unit-510-88-leonard-street-ne": {
@@ -836,7 +836,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "NO FEE; available 11/7"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\"],null,1,2,124920,{\"1\":178200,\"2\":203550},3123]"
     },
     "muse-mns-54-crown-st-unit-1221-54-crown-street-broo": {
@@ -879,7 +879,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "NO FEE; 2 months free on 14 month lease; net rent advertised; $20 application fee (page truncated)"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],null,null,null,null,null,5292]"
     },
     "muse-housing-partnership-540-waverly-540-waverly-ave-broo": {
@@ -926,7 +926,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "No fee to apply; no broker's fee; voucher holders exempt from minimum income"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],130,1,3,100320,{\"1\":154440,\"2\":176410,\"3\":198510},2800]"
     },
     "muse-mhany-stella-heights-hdfc-575-west-155th-stree": {
@@ -1069,7 +1069,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "voucher holders exempt from minimum income · voucher holders exempt from minimum income · voucher holders exempt from minimum income · voucher holders exempt from minimum income"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],30,1,3,27532,{\"1\":35640,\"2\":40710,\"3\":45810},695]|[[\"1br\"],40,1,3,36789,{\"1\":47530,\"2\":54280,\"3\":61080},965]|[[\"2br\"],50,2,5,55612,{\"2\":67850,\"3\":76350,\"4\":84800,\"5\":91600},1480]|[[\"studio\"],30,1,2,24720,{\"1\":35640,\"2\":40710},625]"
     },
     "muse-mhany-1921-cortelyou-road-1921-cortelyou-road-": {
@@ -1096,7 +1096,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "income table in downloadable application"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": ""
     },
     "muse-mhany-461-dean-street-461-dean-street-broo": {
@@ -1123,7 +1123,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "detail page returned 404"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": ""
     },
     "muse-iafford-183-covert-st-1026-unit-2f-183-covert-st-unit-2": {
@@ -1170,7 +1170,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "tenants responsible for electricity"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],130,1,3,82246,{\"1\":154440,\"2\":176410,\"3\":198510},2174.85]"
     },
     "muse-iafford-1420-stebbins-0126-unit-3a-1420-stebbins-ave-un": {
@@ -1238,7 +1238,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "tenants responsible for electricity · tenants responsible for electricity"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"3br\"],130,3,7,141154,{\"3\":198510,\"4\":220480,\"5\":238160,\"6\":255840,\"7\":273520},4061]|[[\"3br\"],130,3,7,141291,{\"3\":198510,\"4\":220480,\"5\":238160,\"6\":255840,\"7\":273520},4061]"
     },
     "muse-iafford-the-garrison-0326-unit-1a-the-garrison": {
@@ -1285,7 +1285,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "one month free early occupancy"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],130,1,3,125623,{\"1\":154440,\"2\":176410,\"3\":198510},3500]"
     },
     "muse-iafford-2250-clarendon-road-0626-unit-6d-2250-clarendon-road-": {
@@ -1380,7 +1380,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "tenants responsible for electricity"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],130,1,3,93492,{\"1\":154440,\"2\":176410,\"3\":198510},2452.84]"
     },
     "muse-iafford-2510-bedford-ave-apartments-0926-multiple-2510-bedford-ave": {
@@ -1446,7 +1446,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": null
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],130,1,3,95109,{\"1\":154440,\"2\":176410,\"3\":198510},2500]|[[\"2br\"],130,2,5,117360,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},3000]"
     },
     "muse-iafford-923-broadway-unit-4b-1026-923-broadway-unit-4b": {
@@ -1494,7 +1494,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": null
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],130,2,5,136765,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},3600]"
     },
     "muse-iafford-649-hart-st-unit-2b-0626-649-hart-st-unit-2b": {
@@ -1540,7 +1540,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": null
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\"],130,1,2,106011,{\"1\":154440,\"2\":176410},2950]"
     },
     "muse-iafford-2783-webb-ave-1125-unit-5a-2783-webb-ave-unit-5": {
@@ -1589,7 +1589,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "max incomes as printed (differ from other 130% 3BR)"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"3br\"],130,3,7,148697,{\"3\":189540,\"4\":210600,\"5\":227500,\"6\":244400,\"7\":261170},4061]"
     },
     "muse-iafford-17-11-hancock-st-apartments-multiple-17-11-hancock-st": {
@@ -1653,7 +1653,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": null
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],130,1,3,100800,{\"1\":154440,\"2\":176410,\"3\":198510},2750]|[[\"1br\"],130,1,3,102514,{\"1\":154440,\"2\":176410,\"3\":198510},2800]"
     },
     "muse-iafford-83-67-116th-st-unit-505-0826-83-67-116th-st-unit-": {
@@ -1701,7 +1701,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": null
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],130,2,5,96858,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},2402]"
     },
     "muse-hdc-selfhelp-kvii-117-27-15th-ave-coll": {
@@ -1746,7 +1746,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 1BR, 2BR; pets welcome"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\",\"2br\"],null,null,null,null,null,2470]"
     },
     "muse-hdc-tlk-manor-34-11-104th-st-coron": {
@@ -1789,7 +1789,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],null,null,null,null,null,2806]"
     },
     "muse-hdc-nehemiah-spring-creek-phase-4b1-310-stanley-ave-broo": {
@@ -1836,7 +1836,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: Studio, 1BR, 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\",\"1br\",\"2br\"],null,null,null,null,null,1923.67]"
     },
     "muse-hdc-atlantic-chestnut-phase-i-305-atlantic-ave-bro": {
@@ -1885,7 +1885,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: Studio, 1BR, 2BR, 3BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\",\"1br\",\"2br\",\"3br\"],null,null,null,null,null,1933]"
     },
     "muse-hdc-beach-21st-street-19-02-beach-21st-st-": {
@@ -1932,7 +1932,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: Studio, 1BR, 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\",\"1br\",\"2br\"],null,null,null,null,null,1995]"
     },
     "muse-hdc-willets-point-phase-1a-124-39-38th-ave-flus": {
@@ -1975,7 +1975,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],null,null,null,null,null,2470]"
     },
     "muse-hdc-nehemiah-spring-creek-phase-4c-1555-hendrix-st-broo": {
@@ -2024,7 +2024,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: Studio, 1BR, 2BR, 3BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\",\"1br\",\"2br\",\"3br\"],null,null,null,null,null,2111]"
     },
     "muse-hdc-river-crest-1566-grand-concourse": {
@@ -2067,7 +2067,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],null,null,null,null,null,2470]"
     },
     "muse-hdc-90-sands-90-sands-st-brooklyn": {
@@ -2116,7 +2116,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: Studio, 1BR, 2BR, 3BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\",\"1br\",\"2br\",\"3br\"],null,null,null,null,null,2470]"
     },
     "muse-hdc-nehemiah-spring-creek-phase-4b-2-320-stanley-ave-broo": {
@@ -2161,7 +2161,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 1BR, 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\",\"2br\"],null,null,null,null,null,2250.33]"
     },
     "muse-hdc-oceanhill-ii-1716-st-marks-ave-br": {
@@ -2206,7 +2206,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 1BR, 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\",\"2br\"],null,null,null,null,null,2470]"
     },
     "muse-hdc-oceanhill-i-1716-st-marks-ave-br": {
@@ -2249,7 +2249,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],null,null,null,null,null,2806]"
     },
     "muse-hdc-graham-1257-graham-ave-broo": {
@@ -2292,7 +2292,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],null,null,null,null,null,2806]"
     },
     "muse-hdc-creston-avenue-residence-2590-creston-ave-bro": {
@@ -2337,7 +2337,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 1BR, 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\",\"2br\"],null,null,null,null,null,2470]"
     },
     "muse-hdc-bronx-commons-442-e-152nd-st-bronx": {
@@ -2380,7 +2380,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],null,null,null,null,null,2470]"
     },
     "muse-hdc-1755-watson-avenue-1755-watson-ave-bron": {
@@ -2423,7 +2423,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],null,null,null,null,null,2806]"
     },
     "muse-hdc-one-flushing-133-37-41st-ave-flus": {
@@ -2470,7 +2470,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: Studio, 1BR, 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\",\"1br\",\"2br\"],null,null,null,null,null,1995]"
     },
     "muse-hdc-alvista-44-15-11th-st-long-i": {
@@ -2513,7 +2513,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],null,null,null,null,null,2470]"
     },
     "muse-hdc-apex-place-62-11-108th-st-fores": {
@@ -2558,7 +2558,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 1BR, 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\",\"2br\"],null,null,null,null,null,2206]"
     },
     "muse-hdc-one-flushing-senior-133-37-41st-ave-flus": {
@@ -2603,7 +2603,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: Studio"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\"],null,null,null,null,null,824]"
     },
     "muse-hdc-5241-center-blvd-5241-center-blvd-lon": {
@@ -2648,7 +2648,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 1BR, Studio"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\",\"studio\"],null,null,null,null,null,2786.01]"
     },
     "muse-hdc-35-commercial-st-35-commercial-st-bro": {
@@ -2691,7 +2691,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"2br\"],null,null,null,null,null,3113]"
     },
     "muse-hdc-riverwalk-park-460-main-st-roosevel": {
@@ -2734,7 +2734,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 3BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"3br\"],null,null,null,null,null,2980.01]"
     },
     "muse-hdc-coney-island-phase-i-2943-w-20th-st-brook": {
@@ -2777,7 +2777,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 3BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"3br\"],null,null,null,null,null,2470]"
     },
     "muse-hdc-the-carolina-1465-park-ave-new-yo": {
@@ -2822,7 +2822,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 1BR, 2BR"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\",\"2br\"],null,null,null,null,null,3357.67]"
     },
     "muse-hdc-bronx-point-phase-i-575-exterior-st-bron": {
@@ -2865,7 +2865,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: Studio"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\"],null,null,null,null,null,2100]"
     },
     "muse-hdc-5203-center-blvd-5203-center-blvd-lon": {
@@ -2912,7 +2912,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "unit types: 1BR, 2BR, Studio"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\",\"2br\",\"studio\"],null,null,null,null,null,2489.18]"
     },
     "muse-pronto-housing-eos-100-west-31st-st-new": {
@@ -2959,7 +2959,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "Vouchers accepted"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],40,1,3,28543,{\"1\":47520,\"2\":54280,\"3\":61080},724.5]"
     },
     "muse-pronto-housing-bergen-saratoga-331-saratoga-ave-bro": {
@@ -3006,7 +3006,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": null
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],50,1,3,30697,{\"1\":59400,\"2\":67850,\"3\":76350},764.37]"
     },
     "muse-pronto-housing-the-greenpoint-23-india-st-brooklyn": {
@@ -3052,7 +3052,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "Vouchers accepted; pets OK; parking; gym"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"studio\"],60,1,2,50021,{\"1\":71280,\"2\":81420},1021]"
     },
     "muse-pronto-housing-walkers-paradise-corona-queens-ny-11368": {
@@ -3095,7 +3095,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": null
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],null,null,null,null,null,4500]"
     },
     "muse-pronto-housing-waterside-plaza-10-waterside-plz-new": {
@@ -3104,7 +3104,7 @@
         "listingType": "rerental",
         "dataSource": "muse",
         "sourceName": "Pronto Housing",
-        "collectedAt": "2026-11-09T15:30:00.000Z",
+        "collectedAt": "2026-11-11T15:35:00.000Z",
         "externalId": null,
         "projectName": "Waterside Plaza",
         "borough": "Manhattan",
@@ -3192,8 +3192,8 @@
         "applicationUrl": "https://prontohousingrentals.com/listings",
         "sourceUrl": "https://prontohousingrentals.com/listings",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "Vouchers accepted; pets OK; parking; gym · Vouchers accepted; pets OK; parking; gym · Vouchers accepted; pets OK; parking; gym · Vouchers accepted; pets OK; parking; gym"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "vouchers accepted; pets OK; parking; gym · vouchers accepted; pets OK; parking; gym · vouchers accepted; pets OK; parking; gym · vouchers accepted; pets OK; parking; gym"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],130,1,3,94869,{\"1\":154440,\"2\":176410,\"3\":198510},2593]|[[\"1br\"],160,1,3,112046,{\"1\":190080,\"2\":217120,\"3\":244320},3094]|[[\"2br\"],160,2,5,134469,{\"2\":217120,\"3\":244320,\"4\":271360,\"5\":293120},3689]|[[\"studio\"],130,1,2,88458,{\"1\":154440,\"2\":176410},2428]"
@@ -3292,7 +3292,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "Parking · Parking · Parking · Parking"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],65,1,3,55131,{\"1\":77220,\"2\":88205,\"3\":99255},1608]|[[\"1br\"],80,1,3,58387,{\"1\":95040,\"2\":108560,\"3\":122160},1702.97]|[[\"studio\"],55,1,2,33706,{\"1\":65340,\"2\":74635},983.1]|[[\"studio\"],80,1,2,61885,{\"1\":95040,\"2\":108560},1805]"
     },
     "muse-tf-cornerstone-5203-center-blvd-5203-center-blvd": {
@@ -3467,7 +3467,7 @@
         "listingType": "rerental",
         "dataSource": "muse",
         "sourceName": "TF Cornerstone",
-        "collectedAt": "2026-11-09T15:30:00.000Z",
+        "collectedAt": "2026-11-11T15:35:00.000Z",
         "externalId": null,
         "projectName": "5241 Center Blvd",
         "borough": "Queens",
@@ -3535,8 +3535,8 @@
         "applicationUrl": "https://tfc.com/about/affordable-re-rentals",
         "sourceUrl": "https://tfc.com/about/affordable-re-rentals",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; $20 credit check fee per adult · voucher holders exempt from minimum income; $20 credit check fee per adult · voucher holders exempt from minimum income; $20 credit check fee per adult"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],165,1,3,119746,{\"1\":196020,\"2\":223905,\"3\":251955},3384.58]|[[\"studio\"],165,1,2,101249,{\"1\":196020,\"2\":223905},2857.08]|[[\"studio\"],165,1,2,98812,{\"1\":196020,\"2\":223905},2786.01]"
@@ -3547,7 +3547,7 @@
         "listingType": "rerental",
         "dataSource": "muse",
         "sourceName": "TF Cornerstone",
-        "collectedAt": "2026-11-09T15:30:00.000Z",
+        "collectedAt": "2026-11-11T15:35:00.000Z",
         "externalId": null,
         "projectName": "505 W 37th St",
         "borough": "Manhattan",
@@ -3599,8 +3599,8 @@
         "applicationUrl": "https://tfc.com/about/affordable-re-rentals",
         "sourceUrl": "https://tfc.com/about/affordable-re-rentals",
         "status": "open",
-        "lastVerifiedAt": "2026-11-09",
-        "eligibilityNotes": "voucher holders exempt from minimum income; $20 credit check fee per adult · voucher holders exempt from minimum income; $20 credit check fee per adult"
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies"
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],40,1,3,32635,{\"1\":47520,\"2\":54280,\"3\":61080},843.83]|[[\"studio\"],40,1,2,29257,{\"1\":47520,\"2\":54280},757.32]"
@@ -3685,7 +3685,7 @@
         "lastVerifiedAt": "2026-11-09",
         "eligibilityNotes": "voucher holders exempt from minimum income · voucher holders exempt from minimum income · voucher holders exempt from minimum income"
       },
-      "misses": 0,
+      "misses": 1,
       "bandsHash": "[[\"1br\"],130,1,3,87155,{\"1\":154440,\"2\":176410,\"3\":198510},2542]|[[\"2br\"],130,2,5,111909,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},3264]|[[\"studio\"],130,1,2,81258,{\"1\":154440,\"2\":176410},2370]"
     },
     "hc-7698": {
@@ -9114,6 +9114,2837 @@
       },
       "misses": 0,
       "bandsHash": "[[\"1br\"],null,1,2,33128,{\"1\":97350.12,\"2\":97350.12},828.2]|[[\"2br\"],null,2,4,42567.6,{\"2\":140796.36,\"3\":140796.36,\"4\":140796.36},1064.19]|[[\"3br\"],null,4,6,51793.2,{\"4\":151652.52,\"5\":151652.52,\"6\":151652.52},1294.83]"
+    },
+    "muse-hdc-selfhelp-kvii-137-39-45th-avenue-f": {
+      "listing": {
+        "id": "muse-hdc-selfhelp-kvii-137-39-45th-avenue-f",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "SELFHELP KVII",
+        "borough": "Queens",
+        "address": "137-39 45TH AVENUE, FLUSHING, NY 11355",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio",
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 40732,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54280
+            },
+            "monthlyRent": 1077,
+            "monthlyRentMax": null,
+            "unitCount": null
+          },
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 43612,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54320,
+              "3": 61080
+            },
+            "monthlyRent": 1146,
+            "monthlyRentMax": null,
+            "unitCount": null
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 61098,
+            "maxIncomeByHouseholdSize": {
+              "1": 71280,
+              "2": 81420
+            },
+            "monthlyRent": 1671,
+            "monthlyRentMax": null,
+            "unitCount": null
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 65418,
+            "maxIncomeByHouseholdSize": {
+              "1": 71280,
+              "2": 81420,
+              "3": 91620
+            },
+            "monthlyRent": 1792,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [
+          "senior_62plus"
+        ],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/sites/default/files/2026-11/Selfhelp%20KVII%20002271%20%20-%20Fill%20Vacancies%20%20Replenish%20Waitlist.pdf",
+        "sourceUrl": "https://www.nychdc.com/sites/default/files/2026-11/Selfhelp%20KVII%20002271%20%20-%20Fill%20Vacancies%20%20Replenish%20Waitlist.pdf",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "asset limit 67840; minimum income does not apply to Section 8 or other eligible rent subsidies; rent includes heat, hot water and gas; tenant pays electricity · asset limit 67840; minimum income does not apply to Section 8 or other eligible rent subsidies; rent includes heat, hot water and gas; tenant pays electricity · asset limit 101760; minimum income does not apply to Section 8 or other eligible rent subsidies; rent includes heat, hot water and gas; tenant pays electricity · asset limit 101760; minimum income does not apply to Section 8 or other eligible rent subsidies; rent includes heat, hot water and gas; tenant pays electricity"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],40,1,3,43612,{\"1\":47520,\"2\":54320,\"3\":61080},1146]|[[\"1br\"],60,1,3,65418,{\"1\":71280,\"2\":81420,\"3\":91620},1792]|[[\"studio\"],40,1,2,40732,{\"1\":47520,\"2\":54280},1077]|[[\"studio\"],60,1,2,61098,{\"1\":71280,\"2\":81420},1671]"
+    },
+    "muse-hdc-tlk-manor-917-westchester-aven": {
+      "listing": {
+        "id": "muse-hdc-tlk-manor-917-westchester-aven",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "TLK MANOR",
+        "borough": "Bronx",
+        "address": "917 WESTCHESTER AVENUE, MORRISANIA, NY 10459",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 1061,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: Studio; pet free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],null,null,null,null,null,1061]"
+    },
+    "muse-hdc-nehemiah-spring-creek-4b1-500-vandalia-ave-eas": {
+      "listing": {
+        "id": "muse-hdc-nehemiah-spring-creek-4b1-500-vandalia-ave-eas",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "Nehemiah Spring Creek 4B1",
+        "borough": "Brooklyn",
+        "address": "500 Vandalia Ave, East New York, NY 11239",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 2214.04,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 2BR; pet free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"2br\"],null,null,null,null,null,2214.04]"
+    },
+    "muse-hdc-atlantic-chestnut-phase-i-250-euclid-ave-ny-11": {
+      "listing": {
+        "id": "muse-hdc-atlantic-chestnut-phase-i-250-euclid-ave-ny-11",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "ATLANTIC CHESTNUT PHASE I",
+        "borough": "Brooklyn",
+        "address": "250 Euclid Ave, NY 11208",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 1485,
+            "monthlyRentMax": 2292,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR, Studio; smoke-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\",\"studio\"],null,null,null,null,null,1485]"
+    },
+    "muse-hdc-beach-green-dunes-iii-3-31-beach-35th-st-f": {
+      "listing": {
+        "id": "muse-hdc-beach-green-dunes-iii-3-31-beach-35th-st-f",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "Beach Green Dunes III",
+        "borough": "Queens",
+        "address": "3-31 Beach 35th St, Far Rockaway, NY 11691",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 2265,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: Studio; smoke-free building; outdoor parking extra charge"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],null,null,null,null,null,2265]"
+    },
+    "muse-hdc-willets-point-commons-126-43-39th-avenue-1": {
+      "listing": {
+        "id": "muse-hdc-willets-point-commons-126-43-39th-avenue-1",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "Willets Point Commons",
+        "borough": "Queens",
+        "address": "126-43 39TH AVENUE & 126-55 39TH AVENUE FLUSHING, NY 11368",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br",
+              "3br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 3377,
+            "monthlyRentMax": 3890,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 2BR, 3BR; smoke-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"2br\",\"3br\"],null,null,null,null,null,3377]"
+    },
+    "muse-hdc-nehemiah-spring-creek-4c-83-gateway-drive-eas": {
+      "listing": {
+        "id": "muse-hdc-nehemiah-spring-creek-4c-83-gateway-drive-eas",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "NEHEMIAH SPRING CREEK 4C",
+        "borough": "Brooklyn",
+        "address": "83 GATEWAY DRIVE, EAST NEW YORK, NY 11239",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 2322,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR; pet free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,null,null,null,null,2322]"
+    },
+    "muse-hdc-river-crest-apartments-1164-river-avenue-co": {
+      "listing": {
+        "id": "muse-hdc-river-crest-apartments-1164-river-avenue-co",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "River Crest Apartments",
+        "borough": "Bronx",
+        "address": "1164 RIVER AVENUE, CONCOURSE, BRONX, 10452",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 1614.52,
+            "monthlyRentMax": 2085.19,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, Studio; pet free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"studio\"],null,null,null,null,null,1614.52]"
+    },
+    "muse-hdc-90-sands-apartments-90-sands-street-dumb": {
+      "listing": {
+        "id": "muse-hdc-90-sands-apartments-90-sands-street-dumb",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "90 SANDS APARTMENTS",
+        "borough": "Brooklyn",
+        "address": "90 SANDS STREET, DUMBO, NY 11201",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 537,
+            "monthlyRentMax": 2132,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, Studio; pet friendly building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"studio\"],null,null,null,null,null,537]"
+    },
+    "muse-hdc-nehemiah-spring-creek-4b-2-1115-1117-1123-ashfo": {
+      "listing": {
+        "id": "muse-hdc-nehemiah-spring-creek-4b-2-1115-1117-1123-ashfo",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "NEHEMIAH SPRING CREEK 4B-2",
+        "borough": "Brooklyn",
+        "address": "1115, 1117 & 1123 ASHFORD STREET, *516 SCHROEDERS AVE, EAST NEW YORK, NY 11239",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 803,
+            "monthlyRentMax": 2774,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [
+          "senior_62plus"
+        ],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR; pet free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\"],null,null,null,null,null,803]"
+    },
+    "muse-hdc-oceanhill-ii-1740-1760-prospect-p": {
+      "listing": {
+        "id": "muse-hdc-oceanhill-ii-1740-1760-prospect-p",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "OCEANHILL II",
+        "borough": "Brooklyn",
+        "address": "1740 - 1760 PROSPECT PLACE & 396 SARATOGA AVENUE, BROWNSVILLE, NY 11233",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br",
+              "3br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 1482,
+            "monthlyRentMax": 2470,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR, 3BR; pet-free, smoke-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\",\"3br\"],null,null,null,null,null,1482]"
+    },
+    "muse-hdc-oceanhill-i-1743-1765-prospect-p": {
+      "listing": {
+        "id": "muse-hdc-oceanhill-i-1743-1765-prospect-p",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "OCEANHILL I",
+        "borough": "Brooklyn",
+        "address": "1743 - 1765 PROSPECT PLACE, BROWNSVILLE, NY 11233",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br",
+              "3br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 1482,
+            "monthlyRentMax": 2470,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR, 3BR; pet-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\",\"3br\"],null,null,null,null,null,1482]"
+    },
+    "muse-hdc-the-graham-255-e-138th-street-m": {
+      "listing": {
+        "id": "muse-hdc-the-graham-255-e-138th-street-m",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "THE GRAHAM",
+        "borough": "Bronx",
+        "address": "255 E 138TH STREET, MOTT HAVEN, 10451",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br",
+              "3br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 795,
+            "monthlyRentMax": 3352,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR, 3BR, Studio; pet friendly (weight limit), smoke-free building; parking extra charge"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\",\"3br\",\"studio\"],null,null,null,null,null,795]"
+    },
+    "muse-hdc-creston-burnside-2028-creston-avenue-": {
+      "listing": {
+        "id": "muse-hdc-creston-burnside-2028-creston-avenue-",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "CRESTON BURNSIDE",
+        "borough": "Bronx",
+        "address": "2028 CRESTON AVENUE, MOUNT HOPE, 10453",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br",
+              "3br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 795,
+            "monthlyRentMax": 3793,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR, 3BR, Studio; pet-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\",\"3br\",\"studio\"],null,null,null,null,null,795]"
+    },
+    "muse-hdc-bronx-commons-443-east-162nd-stree": {
+      "listing": {
+        "id": "muse-hdc-bronx-commons-443-east-162nd-stree",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "BRONX COMMONS",
+        "borough": "Bronx",
+        "address": "443 EAST 162ND STREET, Melrose Bronx NY 10027",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br",
+              "3br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 372,
+            "monthlyRentMax": 3760,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR, 3BR, Studio; no-pets building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\",\"3br\",\"studio\"],null,null,null,null,null,372]"
+    },
+    "muse-hdc-1755-watson-avenue-1115-commonwealth-av": {
+      "listing": {
+        "id": "muse-hdc-1755-watson-avenue-1115-commonwealth-av",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "1755 Watson Avenue",
+        "borough": "Bronx",
+        "address": "1115 Commonwealth Ave, 1111 Commonwealth Ave, 1120 Rosedale Ave, NY 10472",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "3br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br",
+              "3br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 795,
+            "monthlyRentMax": 3352,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR, 3BR, Studio; smoke-free and pet-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\",\"3br\",\"studio\"],null,null,null,null,null,795]"
+    },
+    "muse-hdc-one-flushing-133-45-41st-avenue-f": {
+      "listing": {
+        "id": "muse-hdc-one-flushing-133-45-41st-avenue-f",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "ONE FLUSHING",
+        "borough": "Queens",
+        "address": "133-45 41ST AVENUE, FLUSHING, NY 11355",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 1114,
+            "monthlyRentMax": 1259,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, Studio; smoke-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"studio\"],null,null,null,null,null,1114]"
+    },
+    "muse-hdc-alvista-towers-147-36-94th-avenue-j": {
+      "listing": {
+        "id": "muse-hdc-alvista-towers-147-36-94th-avenue-j",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "ALVISTA TOWERS",
+        "borough": "Queens",
+        "address": "147-36 94TH AVENUE, JAMAICA, NY 11435",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 1306,
+            "monthlyRentMax": 3475,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR, Studio; pet friendly building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\",\"studio\"],null,null,null,null,null,1306]"
+    },
+    "muse-hdc-apex-place-apartments-62-11-108th-street-1": {
+      "listing": {
+        "id": "muse-hdc-apex-place-apartments-62-11-108th-street-1",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "APEX PLACE APARTMENTS",
+        "borough": "Queens",
+        "address": "62-11 108th Street, 108-75 62nd DRIVE & 108-60 Horace Harding Expressway, FOREST HILLS, NY 11375",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 2206,
+            "monthlyRentMax": 2618,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR; pet friendly building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\"],null,null,null,null,null,2206]"
+    },
+    "muse-hdc-one-flushing-senior-133-45-41st-avenue-f": {
+      "listing": {
+        "id": "muse-hdc-one-flushing-senior-133-45-41st-avenue-f",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "ONE FLUSHING SENIOR",
+        "borough": "Queens",
+        "address": "133-45 41ST AVENUE, FLUSHING, NY, 11355",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 824,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [
+          "senior_62plus"
+        ],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: Studio; smoke-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],null,null,null,null,null,824]"
+    },
+    "muse-hdc-5241-center-blvd-apartments-5241-center-blvd-lon": {
+      "listing": {
+        "id": "muse-hdc-5241-center-blvd-apartments-5241-center-blvd-lon",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "5241 Center Blvd. Apartments",
+        "borough": "Queens",
+        "address": "5241 CENTER BLVD, LONG ISLAND CITY, HUNTER'S POINT SOUTH",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 2786.01,
+            "monthlyRentMax": 3384.58,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, Studio; pet friendly building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"studio\"],null,null,null,null,null,2786.01]"
+    },
+    "muse-hdc-35-commercial-street-35-commercial-street": {
+      "listing": {
+        "id": "muse-hdc-35-commercial-street-35-commercial-street",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "35 Commercial Street",
+        "borough": "Brooklyn",
+        "address": "35 COMMERCIAL STREET, GREENPOINT, NY 11222",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 3113,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 2BR; pet free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"2br\"],null,null,null,null,null,3113]"
+    },
+    "muse-hdc-riverwalk-park-460-main-street-roos": {
+      "listing": {
+        "id": "muse-hdc-riverwalk-park-460-main-street-roos",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "Riverwalk Park",
+        "borough": "Manhattan",
+        "address": "460 MAIN STREET, ROOSEVELT ISLAND, NEW YORK 10044",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 2980.01,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 3BR; smoke-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"3br\"],null,null,null,null,null,2980.01]"
+    },
+    "muse-hdc-coney-island-phase-i-2943-west-20th-stree": {
+      "listing": {
+        "id": "muse-hdc-coney-island-phase-i-2943-west-20th-stree",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "Coney Island Phase I",
+        "borough": "Brooklyn",
+        "address": "2943 West 20th Street & 2926 West 19th Street Coney Island NY 11224",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 2470,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 3BR; smoke-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"3br\"],null,null,null,null,null,2470]"
+    },
+    "muse-hdc-the-carolina-1465-park-avenue-eas": {
+      "listing": {
+        "id": "muse-hdc-the-carolina-1465-park-avenue-eas",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "The Carolina",
+        "borough": "Manhattan",
+        "address": "1465 Park Avenue East Harlem, NY 10029",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 3357.67,
+            "monthlyRentMax": 4110.47,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR; no pets"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\"],null,null,null,null,null,3357.67]"
+    },
+    "muse-hdc-bronx-point-phase-i-575-exterior-street-": {
+      "listing": {
+        "id": "muse-hdc-bronx-point-phase-i-575-exterior-street-",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "Bronx Point Phase I",
+        "borough": "Bronx",
+        "address": "575 Exterior Street Bronx NY 10451",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 2100,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: Studio; smoke-free building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],null,null,null,null,null,2100]"
+    },
+    "muse-hdc-5203-center-blvd-apartments-5203-center-blvd-lon": {
+      "listing": {
+        "id": "muse-hdc-5203-center-blvd-apartments-5203-center-blvd-lon",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "HDC",
+        "collectedAt": "2026-11-11T15:33:00.000Z",
+        "externalId": null,
+        "projectName": "5203 Center Blvd. Apartments",
+        "borough": "Queens",
+        "address": "5203 CENTER BLVD, LONG ISLAND CITY, HUNTER'S POINT SOUTH NY 11101",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br",
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br",
+              "2br",
+              "studio"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 2489.18,
+            "monthlyRentMax": 4052.02,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.nychdc.com/find-re-rentals",
+        "sourceUrl": "https://www.nychdc.com/find-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "unit types: 1BR, 2BR, Studio; pet friendly building"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\",\"2br\",\"studio\"],null,null,null,null,null,2489.18]"
+    },
+    "muse-pronto-housing-eos-425-w-31st-st-new-yo": {
+      "listing": {
+        "id": "muse-pronto-housing-eos-425-w-31st-st-new-yo",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "Pronto Housing",
+        "collectedAt": "2026-11-11T15:35:00.000Z",
+        "externalId": null,
+        "projectName": "EOS",
+        "borough": "Manhattan",
+        "address": "425 W 31st St, New York, NY 10001",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio",
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 34240,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54320
+            },
+            "monthlyRent": 980,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 70,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 58940,
+            "maxIncomeByHouseholdSize": {
+              "1": 83200,
+              "2": 95200
+            },
+            "monthlyRent": 1708,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 69400,
+            "maxIncomeByHouseholdSize": {
+              "1": 95040,
+              "2": 108560
+            },
+            "monthlyRent": 1958,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 35400,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54320,
+              "3": 61080
+            },
+            "monthlyRent": 1027.42,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": "2026-11-10",
+        "applicationUrl": "https://prontohousingrentals.com/listings",
+        "sourceUrl": "https://prontohousingrentals.com/listings",
+        "status": "closed",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "vouchers accepted; pets OK; parking; gym · vouchers accepted; pets OK; parking; gym · vouchers accepted; pets OK; parking; gym · vouchers accepted; pets OK; parking; gym"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],40,1,3,35400,{\"1\":47520,\"2\":54320,\"3\":61080},1027.42]|[[\"studio\"],40,1,2,34240,{\"1\":47520,\"2\":54320},980]|[[\"studio\"],70,1,2,58940,{\"1\":83200,\"2\":95200},1708]|[[\"studio\"],80,1,2,69400,{\"1\":95040,\"2\":108560},1958]"
+    },
+    "muse-pronto-housing-bergen-saratoga-1180-bergen-st-brook": {
+      "listing": {
+        "id": "muse-pronto-housing-bergen-saratoga-1180-bergen-st-brook",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "Pronto Housing",
+        "collectedAt": "2026-11-11T15:35:00.000Z",
+        "externalId": null,
+        "projectName": "Bergen Saratoga",
+        "borough": "Brooklyn",
+        "address": "1180 Bergen St, Brooklyn, NY 11216",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio",
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 38700,
+            "maxIncomeByHouseholdSize": {
+              "1": 59400,
+              "2": 67800
+            },
+            "monthlyRent": 1100,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 43200,
+            "maxIncomeByHouseholdSize": {
+              "1": 59400,
+              "2": 67800,
+              "3": 76300
+            },
+            "monthlyRent": 1180,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://prontohousingrentals.com/listings",
+        "sourceUrl": "https://prontohousingrentals.com/listings",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": null
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],50,1,3,43200,{\"1\":59400,\"2\":67800,\"3\":76300},1180]|[[\"studio\"],50,1,2,38700,{\"1\":59400,\"2\":67800},1100]"
+    },
+    "muse-pronto-housing-the-greenpoint-21-india-st-brooklyn": {
+      "listing": {
+        "id": "muse-pronto-housing-the-greenpoint-21-india-st-brooklyn",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "Pronto Housing",
+        "collectedAt": "2026-11-11T15:35:00.000Z",
+        "externalId": null,
+        "projectName": "The Greenpoint",
+        "borough": "Brooklyn",
+        "address": "21 India St, Brooklyn, NY 11222",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 100,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 93600,
+            "maxIncomeByHouseholdSize": {
+              "1": 118800,
+              "2": 135800,
+              "3": 152900
+            },
+            "monthlyRent": 2700,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://prontohousingrentals.com/listings",
+        "sourceUrl": "https://prontohousingrentals.com/listings",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": null
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],100,1,3,93600,{\"1\":118800,\"2\":135800,\"3\":152900},2700]"
+    },
+    "muse-pronto-housing-livonia-commons-481-williams-avenue-": {
+      "listing": {
+        "id": "muse-pronto-housing-livonia-commons-481-williams-avenue-",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "Pronto Housing",
+        "collectedAt": "2026-11-11T15:35:00.000Z",
+        "externalId": null,
+        "projectName": "Livonia Commons",
+        "borough": "Brooklyn",
+        "address": "481 Williams Avenue, Brooklyn, NY 11207",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 33609,
+            "maxIncomeByHouseholdSize": {
+              "1": 71280,
+              "2": 81420
+            },
+            "monthlyRent": 884.25,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 36780,
+            "maxIncomeByHouseholdSize": {
+              "1": 71280,
+              "2": 81420,
+              "3": 91620
+            },
+            "monthlyRent": 1365.78,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 4,
+            "minIncome": 28934,
+            "maxIncomeByHouseholdSize": {
+              "2": 54280,
+              "3": 61080,
+              "4": 67840
+            },
+            "monthlyRent": 701.92,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 921.14,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://prontohousingrentals.com/listings",
+        "sourceUrl": "https://prontohousingrentals.com/listings",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "income table not shown on page"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],60,1,3,36780,{\"1\":71280,\"2\":81420,\"3\":91620},1365.78]|[[\"2br\"],40,2,4,28934,{\"2\":54280,\"3\":61080,\"4\":67840},701.92]|[[\"2br\"],50,null,null,null,null,921.14]|[[\"studio\"],60,1,2,33609,{\"1\":71280,\"2\":81420},884.25]"
+    },
+    "muse-pronto-housing-eastchester-heights-3459-corsa-avenue-br": {
+      "listing": {
+        "id": "muse-pronto-housing-eastchester-heights-3459-corsa-avenue-br",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "Pronto Housing",
+        "collectedAt": "2026-11-11T15:35:00.000Z",
+        "externalId": null,
+        "projectName": "Eastchester Heights",
+        "borough": "Bronx",
+        "address": "3459 Corsa Avenue, Bronx, NY 10469",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio",
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 55,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 33706,
+            "maxIncomeByHouseholdSize": {
+              "1": 65340,
+              "2": 74635
+            },
+            "monthlyRent": 983.1,
+            "monthlyRentMax": 1039.32,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 61885,
+            "maxIncomeByHouseholdSize": {
+              "1": 95040,
+              "2": 108560
+            },
+            "monthlyRent": 1805,
+            "monthlyRentMax": null,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 65,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 55131,
+            "maxIncomeByHouseholdSize": {
+              "1": 77220,
+              "2": 88205,
+              "3": 99255
+            },
+            "monthlyRent": 1608,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 58387,
+            "maxIncomeByHouseholdSize": {
+              "1": 95040,
+              "2": 108560,
+              "3": 122160
+            },
+            "monthlyRent": 1702.97,
+            "monthlyRentMax": 2300,
+            "unitCount": 9
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://prontohousingrentals.com/listings",
+        "sourceUrl": "https://prontohousingrentals.com/listings",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "parking · parking · parking · parking"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],65,1,3,55131,{\"1\":77220,\"2\":88205,\"3\":99255},1608]|[[\"1br\"],80,1,3,58387,{\"1\":95040,\"2\":108560,\"3\":122160},1702.97]|[[\"studio\"],55,1,2,33706,{\"1\":65340,\"2\":74635},983.1]|[[\"studio\"],80,1,2,61885,{\"1\":95040,\"2\":108560},1805]"
+    },
+    "muse-mns-1730-harrison-ave-unit-4n-1730-harrison-ave-un": {
+      "listing": {
+        "id": "muse-mns-1730-harrison-ave-unit-4n-1730-harrison-ave-un",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "MNS",
+        "collectedAt": "2026-11-11T15:36:00.000Z",
+        "externalId": null,
+        "projectName": "1730 Harrison AVE, Unit 4N",
+        "borough": "Bronx",
+        "address": "1730 Harrison AVE, Unit 4N",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 2,
+            "minIncome": 35000,
+            "maxIncomeByHouseholdSize": {
+              "2": 77760
+            },
+            "monthlyRent": 2653,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.mns.com/details/240428/rental/morris+heights/bronx",
+        "sourceUrl": "https://www.mns.com/details/240428/rental/morris+heights/bronx",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "floor plan lists 1740 Harrison Avenue; affordable unit with strict income requirements"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],null,2,2,35000,{\"2\":77760},2653]"
+    },
+    "muse-mns-88-leonard-st-unit-510-88-leonard-st-unit-5": {
+      "listing": {
+        "id": "muse-mns-88-leonard-st-unit-510-88-leonard-st-unit-5",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "MNS",
+        "collectedAt": "2026-11-11T15:36:00.000Z",
+        "externalId": null,
+        "projectName": "88 Leonard ST, Unit 510",
+        "borough": "Manhattan",
+        "address": "88 Leonard ST, Unit 510",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 124920,
+            "maxIncomeByHouseholdSize": {
+              "1": 178200,
+              "2": 203550
+            },
+            "monthlyRent": 3123,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.mns.com/details/240766/rental/tribeca/manhattan",
+        "sourceUrl": "https://www.mns.com/details/240766/rental/tribeca/manhattan",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "no fee; rent stabilized leases"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],null,1,2,124920,{\"1\":178200,\"2\":203550},3123]"
+    },
+    "muse-mns-65-dupont-st-unit-202-65-dupont-st-unit-20": {
+      "listing": {
+        "id": "muse-mns-65-dupont-st-unit-202-65-dupont-st-unit-20",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "MNS",
+        "collectedAt": "2026-11-11T15:36:00.000Z",
+        "externalId": null,
+        "projectName": "65 Dupont ST, Unit 202",
+        "borough": "Brooklyn",
+        "address": "65 Dupont ST, Unit 202",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 122298,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410
+            },
+            "monthlyRent": 3160,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.mns.com/details/240777/rental/greenpoint/brooklyn",
+        "sourceUrl": "https://www.mns.com/details/240777/rental/greenpoint/brooklyn",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "net rent 3160, gross rent 3423; $20 application fee per leaseholder; middle income-affordable; application process up to two weeks"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],null,1,2,122298,{\"1\":154440,\"2\":176410},3160]"
+    },
+    "muse-mns-65-dupont-st-unit-524-65-dupont-st-unit-52": {
+      "listing": {
+        "id": "muse-mns-65-dupont-st-unit-524-65-dupont-st-unit-52",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "MNS",
+        "collectedAt": "2026-11-11T15:36:00.000Z",
+        "externalId": null,
+        "projectName": "65 Dupont ST, Unit 524",
+        "borough": "Brooklyn",
+        "address": "65 Dupont ST, Unit 524",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 117360,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410
+            },
+            "monthlyRent": 3423,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.mns.com/details/241054/rental/greenpoint/brooklyn",
+        "sourceUrl": "https://www.mns.com/details/241054/rental/greenpoint/brooklyn",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$20 application fee per leaseholder; middle income-affordable"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],null,1,2,117360,{\"1\":154440,\"2\":176410},3423]"
+    },
+    "muse-mns-65-dupont-st-unit-313-65-dupont-st-unit-31": {
+      "listing": {
+        "id": "muse-mns-65-dupont-st-unit-313-65-dupont-st-unit-31",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "MNS",
+        "collectedAt": "2026-11-11T15:36:00.000Z",
+        "externalId": null,
+        "projectName": "65 Dupont ST, Unit 313",
+        "borough": "Brooklyn",
+        "address": "65 Dupont ST, Unit 313",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 122298,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410
+            },
+            "monthlyRent": 3423,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.mns.com/details/241055/rental/greenpoint/brooklyn",
+        "sourceUrl": "https://www.mns.com/details/241055/rental/greenpoint/brooklyn",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "$20 application fee per leaseholder; middle income-affordable"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],null,1,2,122298,{\"1\":154440,\"2\":176410},3423]"
+    },
+    "muse-mns-54-crown-st-unit-1221-54-crown-st-unit-122": {
+      "listing": {
+        "id": "muse-mns-54-crown-st-unit-1221-54-crown-st-unit-122",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "MNS",
+        "collectedAt": "2026-11-11T15:36:00.000Z",
+        "externalId": null,
+        "projectName": "54 Crown ST, Unit 1221",
+        "borough": "Brooklyn",
+        "address": "54 Crown ST, Unit 1221",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": null,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": null,
+            "householdSizeMax": null,
+            "minIncome": null,
+            "maxIncomeByHouseholdSize": null,
+            "monthlyRent": 5292,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.mns.com/details/240257/rental/crown+heights/brooklyn",
+        "sourceUrl": "https://www.mns.com/details/240257/rental/crown+heights/brooklyn",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "no fee; net rent; 14-month lease, 2 months free; open house 11/11 10AM-7PM, 11/12 10AM-6PM"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"2br\"],null,null,null,null,null,5292]"
+    },
+    "muse-housing-partnership-540-waverly-540-waverly-avenue-b": {
+      "listing": {
+        "id": "muse-housing-partnership-540-waverly-540-waverly-avenue-b",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "Housing Partnership",
+        "collectedAt": "2026-11-11T15:39:00.000Z",
+        "externalId": null,
+        "projectName": "540 Waverly",
+        "borough": "Brooklyn",
+        "address": "540 Waverly Avenue, Brooklyn, NY 11205",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 1,
+            "minIncome": 55860,
+            "maxIncomeByHouseholdSize": {
+              "1": 96610
+            },
+            "monthlyRent": 1550,
+            "monthlyRentMax": null,
+            "unitCount": 0
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 59400,
+            "maxIncomeByHouseholdSize": {
+              "1": 96610,
+              "2": 110260,
+              "3": 124080
+            },
+            "monthlyRent": 1650,
+            "monthlyRentMax": null,
+            "unitCount": 0
+          },
+          {
+            "amiPercent": 80,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 66600,
+            "maxIncomeByHouseholdSize": {
+              "2": 110260,
+              "3": 124080,
+              "4": 137760,
+              "5": 148800
+            },
+            "monthlyRent": 1850,
+            "monthlyRentMax": null,
+            "unitCount": 0
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 1,
+            "minIncome": 84600,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440
+            },
+            "monthlyRent": 2350,
+            "monthlyRentMax": null,
+            "unitCount": 0
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 100320,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410,
+              "3": 198510
+            },
+            "monthlyRent": 2800,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 117000,
+            "maxIncomeByHouseholdSize": {
+              "2": 176410,
+              "3": 198510,
+              "4": 220480,
+              "5": 238160
+            },
+            "monthlyRent": 3250,
+            "monthlyRentMax": null,
+            "unitCount": 0
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.housingpartnership.com/services/current-vacancies/540-waverly",
+        "sourceUrl": "https://www.housingpartnership.com/services/current-vacancies/540-waverly",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "first come, first served; one unit per application; no duplicate applications; rent includes gas heat, hot water and cooking; tenant pays electricity · first come, first served; one unit per application; no duplicate applications; rent includes gas heat, hot water and cooking; tenant pays electricity · first come, first served; one unit per application; no duplicate applications; rent includes gas heat, hot water and cooking; tenant pays electricity · first come, first served; one unit per application; no duplicate applications; rent includes gas heat, hot water and cooking; tenant pays electricity · first come, first served; one unit per application; no duplicate applications; rent includes gas heat, hot water and cooking; tenant pays electricity · first come, first served; one unit per application; no duplicate applications; rent includes gas heat, hot water and cooking; tenant pays electricity"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],130,1,3,100320,{\"1\":154440,\"2\":176410,\"3\":198510},2800]|[[\"1br\"],80,1,3,59400,{\"1\":96610,\"2\":110260,\"3\":124080},1650]|[[\"2br\"],130,2,5,117000,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},3250]|[[\"2br\"],80,2,5,66600,{\"2\":110260,\"3\":124080,\"4\":137760,\"5\":148800},1850]|[[\"studio\"],130,1,1,84600,{\"1\":154440},2350]|[[\"studio\"],80,1,1,55860,{\"1\":96610},1550]"
+    },
+    "muse-mhany-pe2-700-manida-street-700-manida-street": {
+      "listing": {
+        "id": "muse-mhany-pe2-700-manida-street-700-manida-street",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "MHANY",
+        "collectedAt": "2026-11-11T15:41:00.000Z",
+        "externalId": null,
+        "projectName": "PE2-700 Manida Street",
+        "borough": "Bronx",
+        "address": "700 Manida Street",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 30,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 24720,
+            "maxIncomeByHouseholdSize": {
+              "1": 35640,
+              "2": 40710
+            },
+            "monthlyRent": 625,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 30,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 27532,
+            "maxIncomeByHouseholdSize": {
+              "1": 35640,
+              "2": 40710,
+              "3": 45810
+            },
+            "monthlyRent": 695,
+            "monthlyRentMax": null,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 36789,
+            "maxIncomeByHouseholdSize": {
+              "1": 47530,
+              "2": 54280,
+              "3": 61080
+            },
+            "monthlyRent": 965,
+            "monthlyRentMax": null,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 50,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 55612,
+            "maxIncomeByHouseholdSize": {
+              "2": 67850,
+              "3": 76350,
+              "4": 84800,
+              "5": 91600
+            },
+            "monthlyRent": 1480,
+            "monthlyRentMax": null,
+            "unitCount": 5
+          }
+        ],
+        "restrictions": [
+          "senior_62plus"
+        ],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.mutualhousingny.org/pe2--700-manida-street",
+        "sourceUrl": "https://www.mutualhousingny.org/pe2--700-manida-street",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "asset limit 50880; rent includes gas heat, hot water and cooking; tenant pays electricity · asset limit 50880; rent includes gas heat, hot water and cooking; tenant pays electricity · asset limit 67840; rent includes gas heat, hot water and cooking; tenant pays electricity · asset limit 84800; rent includes gas heat, hot water and cooking; tenant pays electricity"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],30,1,3,27532,{\"1\":35640,\"2\":40710,\"3\":45810},695]|[[\"1br\"],40,1,3,36789,{\"1\":47530,\"2\":54280,\"3\":61080},965]|[[\"2br\"],50,2,5,55612,{\"2\":67850,\"3\":76350,\"4\":84800,\"5\":91600},1480]|[[\"studio\"],30,1,2,24720,{\"1\":35640,\"2\":40710},625]"
+    },
+    "muse-mhany-1921-cortelyou-road-1921-cortelyou-road": {
+      "listing": {
+        "id": "muse-mhany-1921-cortelyou-road-1921-cortelyou-road",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "MHANY",
+        "collectedAt": "2026-11-11T15:41:00.000Z",
+        "externalId": null,
+        "projectName": "1921 Cortelyou Road",
+        "borough": "Brooklyn",
+        "address": "1921 Cortelyou Road",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 30,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 27635,
+            "maxIncomeByHouseholdSize": {
+              "1": 35640,
+              "2": 40710,
+              "3": 45810
+            },
+            "monthlyRent": 680,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 65383,
+            "maxIncomeByHouseholdSize": {
+              "2": 81420,
+              "3": 91620,
+              "4": 101760,
+              "5": 109920
+            },
+            "monthlyRent": 1740,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [
+          "senior_62plus"
+        ],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.mutualhousingny.org/1921-cortelyou-road",
+        "sourceUrl": "https://www.mutualhousingny.org/1921-cortelyou-road",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "asset limit 50880; rent includes gas heat, hot water; tenant pays electricity · asset limit 101760; rent includes gas heat, hot water; tenant pays electricity"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],30,1,3,27635,{\"1\":35640,\"2\":40710,\"3\":45810},680]|[[\"2br\"],60,2,5,65383,{\"2\":81420,\"3\":91620,\"4\":101760,\"5\":109920},1740]"
+    },
+    "muse-mhany-810-fulton-llc-475-clermont-avenue": {
+      "listing": {
+        "id": "muse-mhany-810-fulton-llc-475-clermont-avenue",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "MHANY",
+        "collectedAt": "2026-11-11T15:41:00.000Z",
+        "externalId": null,
+        "projectName": "810 Fulton LLC",
+        "borough": "Brooklyn",
+        "address": "475 Clermont Avenue",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio",
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 46526,
+            "maxIncomeByHouseholdSize": {
+              "1": 71280,
+              "2": 81420
+            },
+            "monthlyRent": 1261,
+            "monthlyRentMax": 1400,
+            "unitCount": 3
+          },
+          {
+            "amiPercent": 60,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 48926,
+            "maxIncomeByHouseholdSize": {
+              "1": 71280,
+              "2": 81420,
+              "3": 91620
+            },
+            "monthlyRent": 1319,
+            "monthlyRentMax": 1441,
+            "unitCount": 4
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 81258,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410
+            },
+            "monthlyRent": 2370,
+            "monthlyRentMax": 2520,
+            "unitCount": 4
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 87155,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410,
+              "3": 198510
+            },
+            "monthlyRent": 2542,
+            "monthlyRentMax": 2669,
+            "unitCount": 6
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 111909,
+            "maxIncomeByHouseholdSize": {
+              "2": 176410,
+              "3": 198510,
+              "4": 220480,
+              "5": 238160
+            },
+            "monthlyRent": 3264,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.mutualhousingny.org/810-fulton-475-clermont-avenue",
+        "sourceUrl": "https://www.mutualhousingny.org/810-fulton-475-clermont-avenue",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "asset limit 101920; rent includes gas heat and cooking; tenant pays electricity · asset limit 101920; rent includes gas heat and cooking; tenant pays electricity · asset limit 220480; rent includes gas heat and cooking; tenant pays electricity · asset limit 220480; rent includes gas heat and cooking; tenant pays electricity · asset limit 220480; rent includes gas heat and cooking; tenant pays electricity"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],130,1,3,87155,{\"1\":154440,\"2\":176410,\"3\":198510},2542]|[[\"1br\"],60,1,3,48926,{\"1\":71280,\"2\":81420,\"3\":91620},1319]|[[\"2br\"],130,2,5,111909,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},3264]|[[\"studio\"],130,1,2,81258,{\"1\":154440,\"2\":176410},2370]|[[\"studio\"],60,1,2,46526,{\"1\":71280,\"2\":81420},1261]"
+    },
+    "muse-mhany-461-dean-street": {
+      "listing": {
+        "id": "muse-mhany-461-dean-street",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "MHANY",
+        "collectedAt": "2026-11-11T15:41:00.000Z",
+        "externalId": null,
+        "projectName": "461 Dean Street",
+        "borough": "Brooklyn",
+        "address": null,
+        "housingProgram": "Re-rental",
+        "unitTypes": [],
+        "incomeBands": [],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://www.mutualhousingny.org/affordable-re-rental-units",
+        "sourceUrl": "https://www.mutualhousingny.org/affordable-re-rental-units",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "listed on source page; View Details link did not open; no details shown"
+      },
+      "misses": 0,
+      "bandsHash": ""
+    },
+    "muse-iafford-183-covert-street-unit-2f-1026-183-covert-street-un": {
+      "listing": {
+        "id": "muse-iafford-183-covert-street-unit-2f-1026-183-covert-street-un",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "iAfford",
+        "collectedAt": "2026-11-11T15:45:00.000Z",
+        "externalId": null,
+        "projectName": "183 Covert Street Unit 2F 1026",
+        "borough": "Brooklyn",
+        "address": "183 Covert Street Unit 2F 1026",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 82246,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410,
+              "3": 198510
+            },
+            "monthlyRent": 2174.85,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://iaffordny.com/re-rentals/2170103",
+        "sourceUrl": "https://iaffordny.com/re-rentals/2170103",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "possible $20 credit check fee per applicant 18+; tenant pays electricity"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],130,1,3,82246,{\"1\":154440,\"2\":176410,\"3\":198510},2174.85]"
+    },
+    "muse-iafford-1420-stebbins-avenue-apartments-0126-multiple-units-1420-stebbins-avenue": {
+      "listing": {
+        "id": "muse-iafford-1420-stebbins-avenue-apartments-0126-multiple-units-1420-stebbins-avenue",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "iAfford",
+        "collectedAt": "2026-11-11T15:45:00.000Z",
+        "externalId": null,
+        "projectName": "1420 Stebbins avenue apartments - 0126 Multiple Units",
+        "borough": "Bronx",
+        "address": "1420 Stebbins avenue apartments - 0126 Multiple Units",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 7,
+            "minIncome": 141291,
+            "maxIncomeByHouseholdSize": {
+              "3": 198510,
+              "4": 220480,
+              "5": 238160,
+              "6": 255840,
+              "7": 273520
+            },
+            "monthlyRent": 4061,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 7,
+            "minIncome": 141154,
+            "maxIncomeByHouseholdSize": {
+              "3": 198510,
+              "4": 220480,
+              "5": 238160,
+              "6": 255840,
+              "7": 273520
+            },
+            "monthlyRent": 4061,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://iaffordny.com/re-rentals/2278330",
+        "sourceUrl": "https://iaffordny.com/re-rentals/2278330",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "possible $20 credit check fee per applicant 18+; tenant pays electricity · possible $20 credit check fee per applicant 18+; tenant pays electricity"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"3br\"],130,3,7,141154,{\"3\":198510,\"4\":220480,\"5\":238160,\"6\":255840,\"7\":273520},4061]|[[\"3br\"],130,3,7,141291,{\"3\":198510,\"4\":220480,\"5\":238160,\"6\":255840,\"7\":273520},4061]"
+    },
+    "muse-iafford-the-garrison-om-units": {
+      "listing": {
+        "id": "muse-iafford-the-garrison-om-units",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "iAfford",
+        "collectedAt": "2026-11-11T15:45:00.000Z",
+        "externalId": null,
+        "projectName": "The Garrison - OM Units",
+        "borough": "Brooklyn",
+        "address": null,
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 125623,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410,
+              "3": 198510
+            },
+            "monthlyRent": 3500,
+            "monthlyRentMax": null,
+            "unitCount": 4
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://iaffordny.com/re-rentals/2350924",
+        "sourceUrl": "https://iaffordny.com/re-rentals/2350924",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "possible $20 credit check fee per applicant 18+; one month free with early move-in; contact Fradyj@iafford.nyc"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],130,1,3,125623,{\"1\":154440,\"2\":176410,\"3\":198510},3500]"
+    },
+    "muse-iafford-1032-dekalb-avenue-unit-1a-1026-1032-dekalb-ave-unit": {
+      "listing": {
+        "id": "muse-iafford-1032-dekalb-avenue-unit-1a-1026-1032-dekalb-ave-unit",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "iAfford",
+        "collectedAt": "2026-11-11T15:45:00.000Z",
+        "externalId": null,
+        "projectName": "1032 Dekalb Avenue Unit 1A 1026",
+        "borough": "Brooklyn",
+        "address": "1032 Dekalb Ave Unit 1A 1026",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 93492,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410,
+              "3": 198510
+            },
+            "monthlyRent": 2452.84,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://iaffordny.com/re-rentals/4133866",
+        "sourceUrl": "https://iaffordny.com/re-rentals/4133866",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "possible $20 credit check fee per applicant 18+; tenant pays electricity"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],130,1,3,93492,{\"1\":154440,\"2\":176410,\"3\":198510},2452.84]"
+    },
+    "muse-iafford-2510-bedford-avenue-apartments-0926-multiple-units-2510-bedford-avenue-": {
+      "listing": {
+        "id": "muse-iafford-2510-bedford-avenue-apartments-0926-multiple-units-2510-bedford-avenue-",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "iAfford",
+        "collectedAt": "2026-11-11T15:45:00.000Z",
+        "externalId": null,
+        "projectName": "2510 Bedford Avenue Apartments - 0926 Multiple Units",
+        "borough": "Brooklyn",
+        "address": "2510 Bedford Avenue Apartments - 0926 Multiple Units",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br",
+          "2br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 95109,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410,
+              "3": 198510
+            },
+            "monthlyRent": 2500,
+            "monthlyRentMax": null,
+            "unitCount": 2
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "2br"
+            ],
+            "householdSizeMin": 2,
+            "householdSizeMax": 5,
+            "minIncome": 117360,
+            "maxIncomeByHouseholdSize": {
+              "2": 176410,
+              "3": 198510,
+              "4": 220480,
+              "5": 238160
+            },
+            "monthlyRent": 3000,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://iaffordny.com/re-rentals/4394771",
+        "sourceUrl": "https://iaffordny.com/re-rentals/4394771",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "possible $20 credit check fee per applicant 18+; tenant pays electricity; list page says Brooklyn, detail page text says Bronx, Borough field N/A · possible $20 credit check fee per applicant 18+; tenant pays electricity; list page says Brooklyn, detail page text says Bronx, Borough field N/A"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],130,1,3,95109,{\"1\":154440,\"2\":176410,\"3\":198510},2500]|[[\"2br\"],130,2,5,117360,{\"2\":176410,\"3\":198510,\"4\":220480,\"5\":238160},3000]"
+    },
+    "muse-iafford-649-hart-street-unit-2b-0626-649-hart-street-unit": {
+      "listing": {
+        "id": "muse-iafford-649-hart-street-unit-2b-0626-649-hart-street-unit",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "iAfford",
+        "collectedAt": "2026-11-11T15:45:00.000Z",
+        "externalId": null,
+        "projectName": "649 Hart Street Unit 2B 0626",
+        "borough": "Brooklyn",
+        "address": "649 Hart Street Unit 2B 0626",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 106011,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410
+            },
+            "monthlyRent": 2950,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://iaffordny.com/re-rentals/4939481",
+        "sourceUrl": "https://iaffordny.com/re-rentals/4939481",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "possible $20 credit check fee per applicant 18+; tenant pays electricity"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"studio\"],130,1,2,106011,{\"1\":154440,\"2\":176410},2950]"
+    },
+    "muse-iafford-2783-webb-avenue-1125-unit-5a-2783-webb-avenue-112": {
+      "listing": {
+        "id": "muse-iafford-2783-webb-avenue-1125-unit-5a-2783-webb-avenue-112",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "iAfford",
+        "collectedAt": "2026-11-11T15:45:00.000Z",
+        "externalId": null,
+        "projectName": "2783 Webb Avenue - 1125 Unit 5A",
+        "borough": "Bronx",
+        "address": "2783 Webb Avenue - 1125 Unit 5A",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "3br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "3br"
+            ],
+            "householdSizeMin": 3,
+            "householdSizeMax": 7,
+            "minIncome": 148697,
+            "maxIncomeByHouseholdSize": {
+              "3": 189540,
+              "4": 210600,
+              "5": 227500,
+              "6": 244400,
+              "7": 261170
+            },
+            "monthlyRent": 4061,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://iaffordny.com/re-rentals/5491531",
+        "sourceUrl": "https://iaffordny.com/re-rentals/5491531",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "possible $20 credit check fee per applicant 18+; tenant pays electricity; max incomes as printed (differ from other 3BR listings)"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"3br\"],130,3,7,148697,{\"3\":189540,\"4\":210600,\"5\":227500,\"6\":244400,\"7\":261170},4061]"
+    },
+    "muse-iafford-17-11-hancock-street-apartments-multiple-units-17-11-hancock-street": {
+      "listing": {
+        "id": "muse-iafford-17-11-hancock-street-apartments-multiple-units-17-11-hancock-street",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "iAfford",
+        "collectedAt": "2026-11-11T15:45:00.000Z",
+        "externalId": null,
+        "projectName": "17-11 Hancock Street Apartments - Multiple Units",
+        "borough": "Queens",
+        "address": "17-11 Hancock Street Apartments - Multiple Units",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 100800,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410,
+              "3": 198510
+            },
+            "monthlyRent": 2750,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          },
+          {
+            "amiPercent": 130,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 102514,
+            "maxIncomeByHouseholdSize": {
+              "1": 154440,
+              "2": 176410,
+              "3": 198510
+            },
+            "monthlyRent": 2800,
+            "monthlyRentMax": null,
+            "unitCount": 1
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://iaffordny.com/re-rentals/6416173",
+        "sourceUrl": "https://iaffordny.com/re-rentals/6416173",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "possible $20 credit check fee per applicant 18+; tenant pays electricity · possible $20 credit check fee per applicant 18+; tenant pays electricity"
+      },
+      "misses": 0,
+      "bandsHash": "[[\"1br\"],130,1,3,100800,{\"1\":154440,\"2\":176410,\"3\":198510},2750]|[[\"1br\"],130,1,3,102514,{\"1\":154440,\"2\":176410,\"3\":198510},2800]"
     }
   },
   "pending": {
@@ -9265,6 +12096,87 @@
         "eligibilityNotes": "voucher holders exempt from minimum income"
       },
       "firstSeen": "2026-11-11T12:29:39.256Z"
+    },
+    "muse-tf-cornerstone-505-w-37th-st-505-w-37th-st": {
+      "bandsHash": "[[\"1br\"],40,1,3,27296,{\"1\":47520,\"2\":54280,\"3\":61080},688.11]|[[\"1br\"],40,1,3,32635,{\"1\":47520,\"2\":54280,\"3\":61080},843.83]|[[\"studio\"],40,1,2,29257,{\"1\":47520,\"2\":54280},757.32]",
+      "listing": {
+        "id": "muse-tf-cornerstone-505-w-37th-st-505-w-37th-st",
+        "listingType": "rerental",
+        "dataSource": "muse",
+        "sourceName": "TF Cornerstone",
+        "collectedAt": "2026-11-11T15:35:00.000Z",
+        "externalId": null,
+        "projectName": "505 W 37th St",
+        "borough": "Manhattan",
+        "address": "505 W 37th St",
+        "housingProgram": "Re-rental",
+        "unitTypes": [
+          "studio",
+          "1br"
+        ],
+        "incomeBands": [
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "studio"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 2,
+            "minIncome": 29257,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54280
+            },
+            "monthlyRent": 757.32,
+            "monthlyRentMax": null,
+            "unitCount": null
+          },
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 27296,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54280,
+              "3": 61080
+            },
+            "monthlyRent": 688.11,
+            "monthlyRentMax": null,
+            "unitCount": null
+          },
+          {
+            "amiPercent": 40,
+            "unitTypes": [
+              "1br"
+            ],
+            "householdSizeMin": 1,
+            "householdSizeMax": 3,
+            "minIncome": 32635,
+            "maxIncomeByHouseholdSize": {
+              "1": 47520,
+              "2": 54280,
+              "3": 61080
+            },
+            "monthlyRent": 843.83,
+            "monthlyRentMax": null,
+            "unitCount": null
+          }
+        ],
+        "restrictions": [],
+        "isRerental": true,
+        "applicationOpenDate": null,
+        "applicationDeadline": null,
+        "applicationUrl": "https://tfc.com/about/affordable-re-rentals",
+        "sourceUrl": "https://tfc.com/about/affordable-re-rentals",
+        "status": "open",
+        "lastVerifiedAt": "2026-11-11",
+        "eligibilityNotes": "no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies · no broker fee; no application fee; minimum income does not apply to Section 8 or other eligible rent subsidies; asset limit applies"
+      },
+      "firstSeen": "2026-11-11T15:54:48.845Z"
     }
   },
   "sources": {
@@ -9274,38 +12186,38 @@
       "lastRunSkipped": null
     },
     "HDC": {
-      "lastSuccess": "2026-11-09T15:45:16.038Z",
-      "lastRowCount": 27,
+      "lastSuccess": "2026-11-11T15:54:48.845Z",
+      "lastRowCount": 30,
       "lastRunSkipped": "2026-11-09T15:38:01.288Z"
     },
     "Pronto Housing": {
-      "lastSuccess": "2026-11-09T15:45:16.038Z",
-      "lastRowCount": 17,
+      "lastSuccess": "2026-11-11T15:54:48.845Z",
+      "lastRowCount": 19,
       "lastRunSkipped": null
     },
     "TF Cornerstone": {
-      "lastSuccess": "2026-11-09T15:45:16.038Z",
-      "lastRowCount": 22,
+      "lastSuccess": "2026-11-11T15:54:48.845Z",
+      "lastRowCount": 29,
       "lastRunSkipped": null
     },
     "MNS": {
-      "lastSuccess": "2026-11-09T15:45:16.038Z",
-      "lastRowCount": 3,
+      "lastSuccess": "2026-11-11T15:54:48.845Z",
+      "lastRowCount": 6,
       "lastRunSkipped": null
     },
     "Housing Partnership": {
-      "lastSuccess": "2026-11-09T15:45:16.038Z",
-      "lastRowCount": 1,
+      "lastSuccess": "2026-11-11T15:54:48.845Z",
+      "lastRowCount": 6,
       "lastRunSkipped": null
     },
     "MHANY": {
-      "lastSuccess": "2026-11-09T15:45:16.038Z",
-      "lastRowCount": 10,
+      "lastSuccess": "2026-11-11T15:54:48.845Z",
+      "lastRowCount": 15,
       "lastRunSkipped": null
     },
     "iAfford": {
-      "lastSuccess": "2026-11-09T15:45:16.038Z",
-      "lastRowCount": 15,
+      "lastSuccess": "2026-11-11T15:54:48.845Z",
+      "lastRowCount": 13,
       "lastRunSkipped": null
     },
     "HPD Mitchell-Lama": {

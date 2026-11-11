@@ -1,0 +1,209 @@
+[
+  {
+    "file": "muse-2026-11-11-1055-B.csv",
+    "ranAt": "2026-11-11T15:54:48.845Z",
+    "sources": [
+      {
+        "source": "HDC",
+        "rows": 30,
+        "listings": 27,
+        "accepted": 27,
+        "quarantined": 0,
+        "added": [
+          "muse-hdc-selfhelp-kvii-137-39-45th-avenue-f",
+          "muse-hdc-tlk-manor-917-westchester-aven",
+          "muse-hdc-nehemiah-spring-creek-4b1-500-vandalia-ave-eas",
+          "muse-hdc-atlantic-chestnut-phase-i-250-euclid-ave-ny-11",
+          "muse-hdc-beach-green-dunes-iii-3-31-beach-35th-st-f",
+          "muse-hdc-willets-point-commons-126-43-39th-avenue-1",
+          "muse-hdc-nehemiah-spring-creek-4c-83-gateway-drive-eas",
+          "muse-hdc-river-crest-apartments-1164-river-avenue-co",
+          "muse-hdc-90-sands-apartments-90-sands-street-dumb",
+          "muse-hdc-nehemiah-spring-creek-4b-2-1115-1117-1123-ashfo",
+          "muse-hdc-oceanhill-ii-1740-1760-prospect-p",
+          "muse-hdc-oceanhill-i-1743-1765-prospect-p",
+          "muse-hdc-the-graham-255-e-138th-street-m",
+          "muse-hdc-creston-burnside-2028-creston-avenue-",
+          "muse-hdc-bronx-commons-443-east-162nd-stree",
+          "muse-hdc-1755-watson-avenue-1115-commonwealth-av",
+          "muse-hdc-one-flushing-133-45-41st-avenue-f",
+          "muse-hdc-alvista-towers-147-36-94th-avenue-j",
+          "muse-hdc-apex-place-apartments-62-11-108th-street-1",
+          "muse-hdc-one-flushing-senior-133-45-41st-avenue-f",
+          "muse-hdc-5241-center-blvd-apartments-5241-center-blvd-lon",
+          "muse-hdc-35-commercial-street-35-commercial-street",
+          "muse-hdc-riverwalk-park-460-main-street-roos",
+          "muse-hdc-coney-island-phase-i-2943-west-20th-stree",
+          "muse-hdc-the-carolina-1465-park-avenue-eas",
+          "muse-hdc-bronx-point-phase-i-575-exterior-street-",
+          "muse-hdc-5203-center-blvd-apartments-5203-center-blvd-lon"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      },
+      {
+        "source": "Pronto Housing",
+        "rows": 19,
+        "listings": 6,
+        "accepted": 6,
+        "quarantined": 0,
+        "added": [
+          "muse-pronto-housing-eos-425-w-31st-st-new-yo",
+          "muse-pronto-housing-bergen-saratoga-1180-bergen-st-brook",
+          "muse-pronto-housing-the-greenpoint-21-india-st-brooklyn",
+          "muse-pronto-housing-livonia-commons-481-williams-avenue-",
+          "muse-pronto-housing-eastchester-heights-3459-corsa-avenue-br"
+        ],
+        "updated": [
+          "muse-pronto-housing-waterside-plaza-10-waterside-plz-new"
+        ],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      },
+      {
+        "source": "TF Cornerstone",
+        "rows": 29,
+        "listings": 5,
+        "accepted": 3,
+        "quarantined": 2,
+        "added": [],
+        "updated": [
+          "muse-tf-cornerstone-5241-center-blvd-5241-center-blvd",
+          "muse-tf-cornerstone-595-dean-st-595-dean-st"
+        ],
+        "changeAwaitingConfirmation": [
+          "muse-tf-cornerstone-505-w-37th-st-505-w-37th-st"
+        ],
+        "removed": [],
+        "status": "published"
+      },
+      {
+        "source": "MNS",
+        "rows": 6,
+        "listings": 6,
+        "accepted": 6,
+        "quarantined": 0,
+        "added": [
+          "muse-mns-1730-harrison-ave-unit-4n-1730-harrison-ave-un",
+          "muse-mns-88-leonard-st-unit-510-88-leonard-st-unit-5",
+          "muse-mns-65-dupont-st-unit-202-65-dupont-st-unit-20",
+          "muse-mns-65-dupont-st-unit-524-65-dupont-st-unit-52",
+          "muse-mns-65-dupont-st-unit-313-65-dupont-st-unit-31",
+          "muse-mns-54-crown-st-unit-1221-54-crown-st-unit-122"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      },
+      {
+        "source": "Housing Partnership",
+        "rows": 6,
+        "listings": 1,
+        "accepted": 1,
+        "quarantined": 0,
+        "added": [
+          "muse-housing-partnership-540-waverly-540-waverly-avenue-b"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      },
+      {
+        "source": "MHANY",
+        "rows": 15,
+        "listings": 5,
+        "accepted": 4,
+        "quarantined": 1,
+        "added": [
+          "muse-mhany-pe2-700-manida-street-700-manida-street",
+          "muse-mhany-1921-cortelyou-road-1921-cortelyou-road",
+          "muse-mhany-810-fulton-llc-475-clermont-avenue",
+          "muse-mhany-461-dean-street"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      },
+      {
+        "source": "iAfford",
+        "rows": 13,
+        "listings": 10,
+        "accepted": 8,
+        "quarantined": 2,
+        "added": [
+          "muse-iafford-183-covert-street-unit-2f-1026-183-covert-street-un",
+          "muse-iafford-1420-stebbins-avenue-apartments-0126-multiple-units-1420-stebbins-avenue",
+          "muse-iafford-the-garrison-om-units",
+          "muse-iafford-1032-dekalb-avenue-unit-1a-1026-1032-dekalb-ave-unit",
+          "muse-iafford-2510-bedford-avenue-apartments-0926-multiple-units-2510-bedford-avenue-",
+          "muse-iafford-649-hart-street-unit-2b-0626-649-hart-street-unit",
+          "muse-iafford-2783-webb-avenue-1125-unit-5a-2783-webb-avenue-112",
+          "muse-iafford-17-11-hancock-street-apartments-multiple-units-17-11-hancock-street"
+        ],
+        "updated": [],
+        "changeAwaitingConfirmation": [],
+        "removed": [],
+        "status": "published"
+      }
+    ],
+    "rejections": [
+      {
+        "listingId": "muse-tf-cornerstone-5203-center-blvd-5203-center-blvd",
+        "name": "5203 Center Blvd",
+        "source": "TF Cornerstone",
+        "sourceUrl": "https://tfc.com/about/affordable-re-rentals",
+        "problems": [
+          "row 9: income limits don't match 165% AMI (HPD 2026 table ≈ 1p 196020)",
+          "row 10: income limits don't match 165% AMI (HPD 2026 table ≈ 1p 196020)"
+        ]
+      },
+      {
+        "listingId": "muse-tf-cornerstone-455-w-37th-st-455-w-37th-st",
+        "name": "455 W 37th St",
+        "source": "TF Cornerstone",
+        "sourceUrl": "https://tfc.com/about/affordable-re-rentals",
+        "problems": [
+          "row 1: max_income_3 (51080) is lower than a smaller household's limit",
+          "row 1: max_income_3 51080 doesn't match 40% AMI pattern of the other sizes (expected ≈ 61080)"
+        ]
+      },
+      {
+        "listingId": "muse-mhany-stella-heights-hdfc-575-west-155th-stree",
+        "name": "Stella Heights HDFC",
+        "source": "MHANY",
+        "sourceUrl": "https://www.mutualhousingny.org/stella-heights-hdfc",
+        "problems": [
+          "row 1: unknown unit_type \"SRO\"",
+          "row 2: unknown unit_type \"SRO\"",
+          "row 3: unknown unit_type \"SRO\""
+        ]
+      },
+      {
+        "listingId": "muse-iafford-2250-clarendon-road-0626-unit-6d-2250-clarendon-road-",
+        "name": "2250 Clarendon Road - 0626 Unit 6D",
+        "source": "iAfford",
+        "sourceUrl": "https://iaffordny.com/re-rentals/4076564",
+        "problems": [
+          "borough \"\" not recognized"
+        ]
+      },
+      {
+        "listingId": "muse-iafford-1515-park-place-apartments-0326-unit-802-1515-park-place-apar",
+        "name": "1515 Park Place Apartments - 0326 Unit 802",
+        "source": "iAfford",
+        "sourceUrl": "https://iaffordny.com/re-rentals/8283660",
+        "problems": [
+          "row 1: max_income_2 154440 doesn't match 130% AMI pattern of the other sizes (expected ≈ 158831)",
+          "row 1: max_income_3 176410 doesn't match 130% AMI pattern of the other sizes (expected ≈ 178729)",
+          "row 1: max_income_5 220480 doesn't match 130% AMI pattern of the other sizes (expected ≈ 214428)"
+        ]
+      }
+    ]
+  }
+]
