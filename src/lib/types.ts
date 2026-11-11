@@ -47,6 +47,26 @@ export interface IncomeBand {
 export type ListingType = "lottery" | "rerental" | "waitlist";
 export type DataSource = "opendata" | "muse" | "manual";
 
+/**
+ * Lottery preference set-asides (Open Data). Percent of units reached first for applicants
+ * who qualify. These change the order applications are reviewed in; they are not eligibility.
+ */
+export interface ListingPreferences {
+  /** Three-digit community district code, e.g. "203" (Bronx CD 3), when there is exactly one. */
+  communityDistrict: string | null;
+  /**
+   * Every district the preference covers. Lotteries spanning several buildings can cover several
+   * (e.g. Bronx CB 02, 05, 07). Taken from the lottery row, else from its buildings.
+   */
+  communityDistricts?: string[];
+  communityPct: number;
+  nychaPct: number;
+  municipalVetPct: number;
+  /** Units set aside (not a priority order) for households needing accessible units. */
+  mobilityPct?: number;
+  visionHearingPct?: number;
+}
+
 export interface Listing {
   id: string;
   /** Defaults to "lottery" when absent. */
@@ -75,6 +95,7 @@ export interface Listing {
   eligibilityNotes: string | null;
   /** True for demo rows that are not real listings. */
   isSample?: boolean;
+  preferences?: ListingPreferences | null;
 }
 
 export interface Household {
@@ -109,4 +130,9 @@ export interface MatchResult {
   outcomes: RuleOutcome[];
   /** Income bands the household appears to fit. */
   qualifyingBands: IncomeBand[];
+  /**
+   * Data-completeness facts for this result (Issue #5). Descriptive only — never affects status.
+   * Optional so older payloads remain valid.
+   */
+  quality?: import("./matching/quality").ResultQuality;
 }
