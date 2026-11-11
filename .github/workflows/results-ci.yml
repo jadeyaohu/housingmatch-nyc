@@ -34,6 +34,16 @@ jobs:
       - run: npm run test:e2e:results -- --workers=2
       - run: npm run test:e2e:consultation -- --workers=2
       - run: npm run test:e2e:beta -- --workers=2
+      - name: Record evidence candidate SHA
+        if: always()
+        run: |
+          mkdir -p release-evidence
+          git rev-parse HEAD > release-evidence/candidate-sha.txt
       - if: always()
         uses: actions/upload-artifact@v4
-        with: {name: beta-synthetic-browser-evidence, path: test-results, retention-days: 7}
+        with:
+          name: beta-synthetic-browser-evidence
+          path: |
+            test-results
+            release-evidence
+          retention-days: 7

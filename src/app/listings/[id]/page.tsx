@@ -1,3 +1,4 @@
+import { safeProviderURL } from "@/lib/directory/search";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -247,8 +248,8 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
       </p>
 
       <div className="mt-4 flex flex-col gap-3 sm:flex-row">
-        {(l.applicationUrl || l.sourceUrl) && (
-          <a href={(l.applicationUrl ?? l.sourceUrl)!} target="_blank" rel="noopener noreferrer" data-testid="detail-official" className="flex min-h-12 flex-1 items-center justify-center rounded-xl bg-teal-800 px-4 text-center font-semibold text-white hover:bg-teal-900">
+        {safeProviderURL(l.applicationUrl ?? l.sourceUrl) && (
+          <a href={safeProviderURL(l.applicationUrl ?? l.sourceUrl) ?? undefined} target="_blank" rel="noopener noreferrer" data-testid="detail-official" className="flex min-h-12 flex-1 items-center justify-center rounded-xl bg-teal-800 px-4 text-center font-semibold text-white hover:bg-teal-900">
             {isHc ? t.officialHc : t.official} ↗<span className="sr-only"> {d.opensNewTab}</span>
           </a>
         )}

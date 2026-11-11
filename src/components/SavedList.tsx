@@ -1,4 +1,5 @@
 "use client";
+import { safeProviderURL } from "@/lib/directory/search";
 import { useState } from "react";
 import type { AuthConfig } from "@/lib/supabase/config";
 import type { Lang } from "@/lib/i18n";
@@ -53,7 +54,7 @@ export function SavedList({ cfg, items, lang }: { cfg: AuthConfig; items: SavedI
               </p>
               <div className="mt-2 flex flex-wrap items-center justify-between gap-3">
                 {i.url ? (
-                  <a href={i.url} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-teal-800 underline underline-offset-4">{t.open}</a>
+                  <a href={safeProviderURL(i.url) ?? undefined} target="_blank" rel="noopener noreferrer" className="text-sm font-semibold text-teal-800 underline underline-offset-4">{t.open}</a>
                 ) : <span />}
                 <SaveButton cfg={cfg} listingId={i.id} initial lang={lang} onChange={(s) => !s && setRemoved((r) => new Set(r).add(i.id))} />
               </div>

@@ -1,4 +1,5 @@
 "use client";
+import { safeProviderURL } from "@/lib/directory/search";
 import Link from "next/link";
 import { useState } from "react";
 import type { Listing, MatchResult, MatchStatus } from "@/lib/types";
@@ -199,9 +200,9 @@ export function MatchResults({
         )}
         {(listing.applicationUrl || action) && (
           <div className="mt-3 flex flex-wrap items-center justify-between gap-3">
-        {listing.applicationUrl && (
+        {safeProviderURL(listing.applicationUrl) && (
           <a
-            href={listing.applicationUrl}
+            href={safeProviderURL(listing.applicationUrl) ?? undefined}
             target="_blank"
             rel="noopener noreferrer"
             onClick={() => onOfficialLinkClick?.(listing.id)}

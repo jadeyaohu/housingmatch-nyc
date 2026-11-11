@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { syntheticListings } from "../testing/listings";
-import { directoryListings, safeProviderURL } from "./search";
+import { directoryListings, directoryParams, safeProviderURL } from "./search";
 const today="2026-11-11", fixtures=syntheticListings(today);
 describe("directory",()=>{
   it("searches without mixing secondary records or counting closed offers",()=>{
@@ -9,6 +9,9 @@ describe("directory",()=>{
     expect(directoryListings(fixtures,{q:"皇后区"},today).map(l=>l.id)).toEqual(["demo-range"]);
     expect(directoryListings(fixtures,{type:"rerental"},today).map(l=>l.id)).toEqual(["demo-rerental"]);
     expect(directoryListings(fixtures.map(l=>({...l,status:"closed"})),{},today)).toHaveLength(0);
+  });
+  it("normalizes duplicate query parameters without throwing",()=>{
+    expect(directoryParams({q:["a","b"],unit:["1br","2br"]})).toMatchObject({q:undefined,unit:undefined});
   });
   it("rejects unsafe provider links and embedded credentials",()=>{
     for(const v of ["javascript:alert(1)","http://example.test","https://user:secret@example.test",null])expect(safeProviderURL(v)).toBeNull();
