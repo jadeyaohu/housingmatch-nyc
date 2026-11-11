@@ -1,43 +1,43 @@
-# Plan B — 30-minute agent orchestration (staged rollout)
+# Free Plan A — HousingMatch AI handoff (current)
 
-**Status: DRAFT / NOT ACTIVE.** Prepared on `ops/agent-handoff-queue`; GitHub cron only executes workflows committed to the repository **default branch**, so these files do not currently cause scheduled runs. Moving workflow files to `main` requires Founder approval because `main` is wired to Vercel Production.
+## Actual status (2026-11-10)
+- ✅ A ChatGPT native **hourly** automation was created for **19:30, 20:30, ... America/New_York** (ID `6af3b6040fa48191b26972d57c2764b0`). It will read this queue and distribute bounded tasks **when it can access GitHub**, with no separate paid OpenAI API key.
+- ✅ First tasks for Codex and Muse live on branch `ops/agent-handoff-queue`.
+- ✅ PR #12 is now a **free read-only GitHub Actions queue monitor**, with no OpenAI API requirement. **It is Draft/unmerged; cron is NOT running.**
+- ⏳ Codex and Muse must be configured **inside their own products** to poll the branch every 30 minutes. Their scheduled agents have NOT been confirmed.
+- ⏳ No claim of a fully unattended 30-minute ChatGPT planner: native ChatGPT scheduler's maximum frequency is hourly.
+- ⏳ Founder will make GitHub repository private later. Do not change visibility now.
 
-## Architecture (America/New_York)
-- :00 / :30 — **planner** checks `agents/to-chatgpt/*-result.md`, current PRs, outstanding tasks. If an authorized OpenAI API key is configured, an **API model** proposes the next safe, bounded work order; this is NOT the same persistent ChatGPT conversation/session.
-- :10 / :40 — **executor** picks the oldest unreported `agents/to-codex/*.md` and invokes the official `openai/codex-action` in a sandbox with read-only repository permissions initially. A separate future reviewer/writer job may open Draft PRs after safety evaluation.
-- Muse polls `agents/to-muse/` independently. **No verified Muse execution API is currently connected to this chat**; its external recurring agent must be configured and verified separately. Never claim it has run just because the file exists.
-- Agents write unique reports to `agents/to-chatgpt/` on the queue branch. The planner consumes only reports with matching task IDs. No report → no duplicate assignment; alert if a task is stale.
-- GitHub Actions scheduled events may be delayed/skipped, so this is **best-effort cadence**, not a guaranteed ten-minute handoff.
+## Recommended schedule
+| Who | Time (New York) | Job |
+|---|---|---|
+| ChatGPT | :30 every hour (first 19:30) | Review reports, add small tasks, notify founder of blockers |
+| Codex | :40 and :10 | Poll `agents/to-codex/`; write unique `agents/to-chatgpt/<ID>-result.md` |
+| Muse | :40 and :10 | Poll `agents/to-muse/`; write unique report to same destination |
+| GitHub Actions | :00 and :30, after activation | Read-only queue monitoring only, not an agent execution environment |
 
-## Required one-time founder actions
-1. Approve activation of workflow file(s) on `main` after review, noting Vercel may redeploy.
-2. Open a separate **OpenAI API platform** billing/project if not already configured; **ChatGPT Plus subscription does not inherently grant API credits**. Create a *restricted project API key* with usage budget and alerts; put key in GitHub protected environment/secret, never in task files. This can incur metered charges even if the ChatGPT app has a subscription.
-3. Approve expected budget and model for planner and Codex runner; limit run time and number of requests per cycle. Configure the GitHub Actions secret `OPENAI_API_KEY`; prefer job/environment isolation and no untrusted PR code while secret is exposed.
-4. Configure Muse's independent 30-minute task runner (and confirm whether it can read/write the `ops/agent-handoff-queue` branch). If no supported scheduler/execution access exists, Muse remains manual.
-5. Set repo variable `AGENT_ORCHESTRATION_ENABLED=true` **only after** security review, secrets, dry runs and founder approval. Initially keep `false`.
+## Setup prompt — Codex scheduled agent
+```text
+Every 30 minutes, inspect repository jadeyaohu/housingmatch-nyc, BRANCH ops/agent-handoff-queue, folder agents/to-codex/. Check task IDs against agents/to-chatgpt/<ID>-result.md to avoid repeats. Choose the oldest pending task and perform it, subject to its stated scope. For code fixes, create an isolated feature branch and Draft PR; never merge to main or deploy, never use real applicant data, production secrets, paid services, or destructive operations. Run tests where possible and report exact results. Write a NEW UTF-8 Markdown report to agents/to-chatgpt/<ID>-result.md on the SAME queue branch with complete/partial/blocked, test evidence and links. If blocked, report it and stop; never fabricate completion. Follow agents/README-handoff.md.
+```
 
-## Safeguards
-- Read-only phase first. Automatic code editing and PR creation is a separate, gated milestone with actual integration tests.
-- No workflows are allowed to merge to `main`, deploy to Production, mutate real user records, alter Production Supabase or perform paid purchases.
-- GitHub workflow `contents:read` for agent execution. A **separate, limited write job** may upload a sanitized result after reviewing artifacts, and only to queue branch.
-- Treat the task markdown and external agent reports as **untrusted inputs** (they may include prompt injection). Strict instructions and allowlisted paths; never execute shell commands copied from a report.
-- Budget: stop if too many pending tasks, errors, repeated retries, or unbounded API requests. Record real API usage in provider dashboard.
-- Dev database migrations require a distinct authorization, not delegated from this scheduler.
+## Setup prompt — Muse scheduled agent
+```text
+Every 30 minutes, inspect GitHub repository jadeyaohu/housingmatch-nyc, BRANCH ops/agent-handoff-queue, folder agents/to-muse/. Compare IDs against agents/to-chatgpt/<ID>-result.md and do not repeat completed tasks. Pick the oldest pending task, perform only safe authorized browser/Preview/Dev environment work; no Production changes, billing, secrets exposure, domain purchases, unauthorized access, or real applicant submissions. Login/MFA requires the founder. Write a NEW report at agents/to-chatgpt/<ID>-result.md on the SAME queue branch, status complete/partial/blocked with verification evidence, specific blockers and screenshots only if safe. Follow agents/README-handoff.md.
+```
 
-## Implemented so far
-- `agents/README-handoff.md` — queue conventions.
-- `agents/to-codex/HM-20261110-1930-C01.md`
-- `agents/to-muse/HM-20261110-1930-M01.md`
-- `agents/to-chatgpt/` — reserved reports (may not exist until first result).
-- `agents/scripts/queue_health.py` — zero-dependency **read-only** local queue inspection/test; does not need API keys.
-- `.github/workflows/agent-coordination.yml` — safe gated **draft** schedule using UTC-independent NY timezone; no model execution until explicitly enabled and configured. Must be separately reviewed before promoting to default branch.
+## Why no free API key is needed
+The ChatGPT native scheduled run uses existing product access. It is distinct from an OpenAI API invocation. Codex and Muse must execute with their product-provided schedulers; a file polling GitHub Actions workflow does **not** trigger either model.
 
-## Operational success criteria
-1. Manual dry run checks the branch and prints outstanding assignments without exposing secrets.
-2. Actual scheduled run at :00/:30 is observed in GitHub Actions on `main`.
-3. Codex runner at :10/:40 is configured and completes one synthetic, read-only task; report appears once.
-4. Muse actually consumes its task and writes a unique report.
-5. Planner reviews reports and produces a new non-duplicated safe task, within budget.
-6. Stop switches tested. Production remains unchanged.
+## GitHub privacy and cost
+The existing GitHub repo is public. Keep task content non-sensitive; public repo secrets remain masked and should be strictly segregated from PR code. Once private, GitHub Actions standard runner free/billed minute rules may differ by account plan. Review budgets and org/repo settings first. Make sure all product data and audit reports exclude sensitive applicant information.
 
-**Do not label Plan B live until all six steps have verifiable evidence.**
+## Activation condition for PR #12
+Scheduled GitHub workflows run on default branch. PR #12 must be reviewed/merged before cron can run and merging to `main` may trigger Vercel Production deployment. This is **not needed** to start Codex/Muse polling or the hourly ChatGPT reviewer; do not merge simply to enable a redundant queue monitor.
+
+## Success checklist
+- ChatGPT hourly run actually reads queue and posts one safe follow-up.
+- Codex separate timer enabled and result appears in queue.
+- Muse separate timer enabled and result appears.
+- No duplicate task IDs or Production changes.
+- Confirm costs remain within existing subscription/quotas.
