@@ -9,7 +9,7 @@ for(const lang of["en","zh"]as const){
     const bottom=page.getByTestId('bottom-navigation');if(mobile){await expect(bottom).toBeVisible();await expect(bottom.getByRole('link')).toHaveCount(4);await expect(page.getByRole('navigation',{name:lang==='en'?'Desktop navigation':'桌面导航'})).toBeHidden();}else await expect(bottom).toBeHidden();
     if(['/','/consultation/book?package=expert','/chat','/account','/analytics'].includes(route))await page.screenshot({path:info.outputPath(`${lang}-${route.split('?')[0].replaceAll('/','_')||'home'}-${info.project.name}.png`),fullPage:!mobile});
    }
-   const menu=page.getByRole('button',{name:lang==='en'?'Open menu':'打开菜单'});await menu.click();const drawer=page.getByRole('dialog');await expect(drawer).toBeVisible();await expect(drawer.getByRole('link',{name:lang==='en'?'Application tracker':'申请跟踪',exact:true})).toBeVisible();
+   const menu=page.getByRole('button',{name:lang==='en'?'Open menu':'打开菜单'});await menu.click();const drawer=page.getByRole('dialog',{name:lang==='en'?'All features':'全部功能'});await expect(drawer).toBeVisible();await expect(drawer.getByRole('link',{name:lang==='en'?'Application tracker':'申请跟踪',exact:true})).toBeVisible();
    await page.keyboard.press('Tab');expect(await page.evaluate(()=>document.querySelector('dialog')?.contains(document.activeElement))).toBe(true);await page.keyboard.press('Escape');await expect(drawer).toBeHidden();await expect(menu).toBeFocused();
    if((page.viewportSize()?.width??0)>=390){await menu.click();await page.mouse.click(1,100);await expect(drawer).toBeHidden();}
    await menu.click();await drawer.getByRole('link',{name:lang==='en'?'Consultation':'预约一对一咨询',exact:true}).click();await expect(page).toHaveURL(/\/consultation$/);await expect(drawer).toBeHidden();
