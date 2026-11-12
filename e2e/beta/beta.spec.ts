@@ -23,7 +23,7 @@ for(const lang of ["en","zh"] as const){
    await page.goto("/consultation/book");await expect(page.locator('input[name=name]')).toBeDisabled();
    await page.goto("/consultation/pay");await expect(page).toHaveURL(/\/consultation$/);
    await page.goto("/chat");await expect(page.getByRole("textbox")).toBeDisabled();
-   await page.goto("/pricing");await expect(page.getByRole("button",{name:lang==="en"?"Choose TEST plan — Basic":"选择 TEST 测试方案 — 基础",exact:true})).toBeDisabled();
+   await page.goto("/pricing");await expect(page.getByRole("button",{name:lang==="en"?"Coming Soon — Basic":"即将推出 — 基础",exact:true})).toBeDisabled();
    await page.goto("/quiz");await expect(page.getByTestId("quiz")).toBeVisible();
   });
  });
