@@ -1,4 +1,5 @@
 import { consultationCopy } from "@/lib/consultation/content";
+import{approvedPhotos,HERO_PHOTO_ID}from"@/lib/photos/model";
 import{ListingMedia}from"@/components/ListingMedia";
 import Link from "next/link";
 import { dict } from "@/lib/i18n";
@@ -29,7 +30,7 @@ export default async function Home() {
           </Link>
           <p className="mt-3 text-sm text-teal-100">{t.heroCtaNote}</p>
         </div>
-        <div className="relative self-center overflow-hidden rounded-2xl shadow-xl"><ListingMedia lang={lang} photo={(await import("@/lib/photos/manifest.json")).default.find(p=>p.id==="kips-bay-towers") as import("@/lib/photos/model").HousingPhoto}/></div>
+        <div className="relative self-center overflow-hidden rounded-2xl shadow-xl"><ListingMedia lang={lang} photo={approvedPhotos("home").find(p=>p.id===HERO_PHOTO_ID)} layout="hero"/></div>
       </section>
 
 

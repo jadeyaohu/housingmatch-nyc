@@ -1,5 +1,7 @@
 # Contemporary Preview and persistent synthetic journeys
 
+> Historical checkpoint for63f6fab. The latest founder-approved source swap is [APPROVED_PHOTO_SWAP.md](APPROVED_PHOTO_SWAP.md); do not treat this earlier32-photo pool as the latest approved set.
+
 Current founder request supersedes the historic-photo/reset-warning solution. Source: Muse Issue18 comment6834467154 at95ce601. Exact final SHA/CI/Preview links are on PR19.
 
 ## Implemented

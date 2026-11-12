@@ -1,5 +1,7 @@
 # Feature-first protected Preview — final HousingMatch navigation
 
+> Current photography source: [APPROVED_PHOTO_SWAP.md](APPROVED_PHOTO_SWAP.md), founder brief6837301662. It supersedes the interim32-image Commons pool. Eight approved sources are wired; actual source downloads/pixels are blocked, not verified by synthetic screenshot tests.
+
 **Current source and provider actions:** [CONTEMPORARY_BETA.md](CONTEMPORARY_BETA.md) supersedes the historical-photo and safe reload persistence implementation described in earlier checkpoints.
 
 Latest source: founder PR #19 comments #6810548854 and **#6810981544**, plus the direct implementation request. Final four tabs are **Explore / Match / Ask AI / My** (房源 / 匹配 / AI助手 / 我的). Earlier five-tab and Homey-inspired mappings are superseded. Codex is sole code writer; Muse performs independent UX/QA. No production deployment/merge/migration/live charge or applicant email authorized.
