@@ -14,6 +14,7 @@ jobs:
     env:
       NEXT_TELEMETRY_DISABLED: '1'
       BETA_FIXTURES: synthetic
+      NEXT_PUBLIC_GTM_EVENTS_ENABLED: 'true' # Synthetic consent/event contract tests only; default production config stays OFF.
     steps:
       - uses: actions/checkout@v4
         with:
@@ -35,6 +36,7 @@ jobs:
       - run: npm run test:e2e:results -- --workers=2
       - run: npm run test:e2e:consultation -- --workers=2
       - run: npm run test:e2e:beta -- --workers=2
+      - run: npm run test:e2e:v3 -- --workers=2
       - name: Record evidence candidate SHA
         if: always()
         run: |

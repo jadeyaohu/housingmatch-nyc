@@ -1,5 +1,7 @@
 # Issue #18: conditional Beta candidate
 
+> **Superseded in part by Pricing v3:** the consultation intake/payment paths described below are historical and now retired (410); Chinese consultation reuses the existing Google Form. See [PRICING_V3.md](PRICING_V3.md) for current chatbot, subscription, consent, setup and acceptance gates. Old SHA/test counts are not current acceptance.
+
 **Target: November 14, 2026, 8:00 PM America/New_York — conditional. Current monetized decision: NO-GO.**
 
 This is one development integration branch, not a Production release or authorization to publish policies. Existing PRs remain open/unmerged. No Crosswalk dependency. Official Housing Connect applications are free; optional educational consultation never improves selection odds or guarantees eligibility/placement. Qualified NY review of the specific paid offer and founder approval remain mandatory before any real-money use.

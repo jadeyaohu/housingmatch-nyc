@@ -13,7 +13,8 @@
     "test:e2e:consultation": "playwright test -c playwright.consultation.config.ts",
     "test:e2e:results": "playwright test -c playwright.results.config.ts",
     "test:e2e:beta": "playwright test -c playwright.beta.config.ts",
-    "test:db:beta": "bash scripts/test-beta-db.sh"
+    "test:db:beta": "bash scripts/test-beta-db.sh",
+    "test:e2e:v3": "playwright test -c playwright.v3.config.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

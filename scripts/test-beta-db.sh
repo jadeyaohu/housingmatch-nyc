@@ -19,5 +19,26 @@ create table auth.users(id uuid primary key);
 create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
 SQL
 for file in supabase/migrations/*.sql; do "${psql[@]}" < "$file"; done
-for file in supabase/tests/consultation.sql supabase/tests/consultation_payments.sql supabase/tests/beta_owner_rls.sql; do "${psql[@]}" < "$file"; done
+for file in supabase/tests/consultation.sql supabase/tests/consultation_payments.sql supabase/tests/beta_owner_rls.sql supabase/tests/chat_subscriptions.sql; do "${psql[@]}" < "$file"; done
+# Independent connections race the same free account; exactly one reservation may succeed.
+"${psql[@]}" -c "insert into auth.users values('be700000-0000-4000-8000-000000000099')" >/dev/null
+race_dir=$(mktemp -d /tmp/hm-quota-race.XXXXXX)
+pids=()
+for n in {1..8}; do
+  (if "${psql[@]}" -c "set role service_role; select public.beta_service_command('reserve','be700000-0000-4000-8000-000000000099',jsonb_build_object('request_id',gen_random_uuid()))" >"$race_dir/$n.log" 2>&1; then touch "$race_dir/$n.ok"; fi) &
+  pids+=("$!")
+done
+for pid in "${pids[@]}"; do wait "$pid"; done
+[[ $(find "$race_dir" -name '*.ok' | wc -l) -eq 1 ]]
+[[ $(grep -l 'ERROR:  busy' "$race_dir"/*.log | wc -l) -eq 7 ]]
+"${psql[@]}" <<'SQL'
+do $$ declare rid uuid; x jsonb; begin
+ select id into strict rid from public.chat_reservations where user_id='be700000-0000-4000-8000-000000000099' and state='pending';
+ x:=public.beta_service_command('finish','be700000-0000-4000-8000-000000000099',jsonb_build_object('request_id',rid,'success',true));
+ assert (x->>'used')::int=1;
+ begin perform public.beta_service_command('reserve','be700000-0000-4000-8000-000000000099',jsonb_build_object('request_id',gen_random_uuid())); raise exception 'race quota bypass'; exception when others then if sqlerrm<>'quota' then raise; end if; end;
+end $$;
+SQL
+rm -r "$race_dir"
+printf '%s\n' 'PASS: concurrent free quota (8 connections), Pricing v3 state machine.'
 printf '%s\n' 'PASS: migrations, booking/payment assertions, owner-scoped saves/profile deletion (synthetic local DB).'

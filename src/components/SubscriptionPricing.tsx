@@ -1,0 +1,56 @@
+"use client";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import type { Lang } from "@/lib/i18n";
+import { PLANS, type Plan } from "@/lib/subscriptions/model";
+import { pricingCopy } from "@/lib/subscriptions/content";
+import { trackEvent } from "@/lib/analytics/events";
+export function SubscriptionPricing({ lang, enabled }: { lang: Lang; enabled: boolean }) {
+  const t = pricingCopy[lang];
+  const [consent, setConsent] = useState(false), [busy, setBusy] = useState(false), [message, setMessage] = useState("");
+  const [status, setStatus] = useState<{plan: Plan; used: number; limit: number; alert_opt_in: boolean} | null>(null);
+  const [alert, setAlert] = useState(false);
+  useEffect(() => {
+    let stopped = false;
+    const controller = new AbortController();
+    const refresh = () => fetch("/api/subscriptions/status", { credentials: "same-origin", referrerPolicy: "no-referrer", signal: controller.signal }).then(r=>r.ok?r.json():null).then(s=>{if (!stopped) { setStatus(s); setAlert(s?.alert_opt_in === true); }}).catch(()=>{});
+    void refresh();
+    const returned = new URLSearchParams(window.location.search).has("checkout");
+    if (returned) setMessage(t.returned);
+    let attempts = 0;
+    const timer = returned ? setInterval(() => { if (++attempts <= 12) void refresh(); }, 5000) : null;
+    return () => { stopped = true; controller.abort(); if (timer) clearInterval(timer); };
+  }, [t.returned]);
+  async function action(kind: "checkout" | "cancel" | "alerts", plan?: Plan) {
+    if (busy) return;
+    setBusy(true); setMessage("");
+    try {
+      const r = await fetch(`/api/subscriptions/${kind}`, { method:"POST", credentials:"same-origin", referrerPolicy:"no-referrer", headers:{"Content-Type":"application/json"}, body:JSON.stringify(kind === "checkout" ? {plan,consent} : kind === "alerts" ? {enabled:alert} : {}) });
+      const data = await r.json();
+      if (!r.ok) { setMessage(r.status === 409 ? t.busy : r.status === 401 ? (lang === "zh" ? "请先登录免费账号。" : "Please sign in to your free account first.") : t.error); return; }
+      if (kind === "checkout") {
+        const url = new URL(data.url);
+        if (url.origin !== "https://checkout.stripe.com") throw new Error("invalid_url");
+        trackEvent({ event:"checkout_initiated", language:lang, plan });
+        window.location.assign(url.href);
+      } else setMessage(kind === "cancel" ? t.cancelDone : t.alertSaved);
+    } catch { setMessage(t.error); } finally { setBusy(false); }
+  }
+  return <div>
+    <header className="mx-auto max-w-3xl text-center"><p className="text-xs font-bold uppercase tracking-widest text-teal-800">Pricing v3 · TEST Beta</p><h1 className="mt-3 text-4xl font-bold sm:text-5xl">{t.title}</h1><p className="mt-5 text-lg text-stone-600">{t.intro}</p></header>
+    <div className="mt-9 grid gap-5 md:grid-cols-3">{(Object.keys(PLANS) as Plan[]).map(plan=><section key={plan} className={`flex flex-col rounded-3xl border bg-white p-6 ${plan === "smart" ? "border-teal-800 shadow-sm" : "border-stone-200"}`}>
+      <h2 className="text-xl font-semibold">{t.names[plan]}</h2><p className="my-5"><span className="text-4xl font-bold">${(PLANS[plan].cents/100).toFixed(plan === "free" ? 0 : 2)}</span><span className="ml-1 text-stone-600">{plan !== "free" && t.month}</span></p>
+      <p className="font-semibold text-teal-900">{PLANS[plan].messages} {t.perDay}</p>
+      <ul className="my-5 flex-1 space-y-3 text-sm leading-relaxed text-stone-600"><li>{t.freeFeature}</li>{plan !== "free" && <li>{t.alerts}</li>}{plan === "smart" && <li>{t.smart}</li>}</ul>
+      {plan === "free" ? <Link href="/chat" className="min-h-12 rounded-xl border border-teal-800 p-3 text-center font-semibold text-teal-800">{t.start}</Link> : <button onClick={()=>action("checkout",plan)} disabled={!enabled || !consent || busy || (!!status && status.plan !== "free")} className="min-h-12 rounded-xl bg-teal-800 p-3 font-semibold text-white disabled:opacity-50">{busy ? t.pending : t.cta}<span className="sr-only"> — {t.names[plan]}</span></button>}
+    </section>)}</div>
+    <div className="mx-auto mt-7 max-w-3xl space-y-5 text-sm leading-relaxed">
+      {!enabled && <p role="status" className="rounded-xl bg-amber-50 p-4 text-amber-950">{t.disabled}</p>}
+      <label className="flex items-start gap-3"><input type="checkbox" checked={consent} onChange={e=>setConsent(e.target.checked)} className="mt-1 size-4 shrink-0"/><span>{t.consent} <Link href="/pricing/terms" className="text-teal-800 underline">{t.terms}</Link> · <Link href="/privacy" className="text-teal-800 underline">{lang === "zh" ? "隐私草案" : "Draft privacy notice"}</Link></span></label>
+      <p>{t.reset}</p><p>{t.footer}</p>
+      {status && <section className="rounded-2xl border p-5"><p>{t.status}: {t.names[status.plan]} · {status.used}/{status.limit}</p>{status.plan !== "free" && <><p className="mt-2 text-xs">{lang === "zh" ? "测试版暂不支持周期中途切换或按比例补差；更换方案需取消并等待当前周期结束。" : "TEST plan changes/proration are not supported yet. Cancel renewal and wait until the current period ends before choosing another plan."}</p><button onClick={()=>action("cancel")} disabled={!enabled || busy} className="mt-3 min-h-11 text-teal-800 underline">{t.cancel}</button><label className="mt-4 flex items-center gap-3"><input type="checkbox" checked={alert} onChange={e=>setAlert(e.target.checked)}/>{t.alerts}</label><button onClick={()=>action("alerts")} disabled={busy} className="mt-2 min-h-11 text-teal-800 underline">{t.alertOpt}</button></>}</section>}
+      {message && <p role="status" className="rounded-xl bg-teal-50 p-4">{message}</p>}
+      <div className="flex flex-wrap gap-5 text-teal-800 underline"><Link href="/quiz">{lang === "zh" ? "免费资格问卷" : "Free eligibility Quiz"}</Link><Link href="/signup?next=%2Fpricing">{lang === "zh" ? "免费登录" : "Free sign-in"}</Link>{lang === "zh" && <Link href="/consultation">可选中文住房教育咨询</Link>}</div>
+    </div>
+  </div>;
+}

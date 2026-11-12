@@ -1,4 +1,5 @@
 "use client";
+import { trackEvent } from "@/lib/analytics/events";
 import { useEffect, useMemo, useState } from "react";
 import { BOROUGHS, UNIT_TYPES, type Borough, type UnitType } from "@/lib/types";
 import { boroughLabel, unitLabel, type Lang } from "@/lib/i18n";
@@ -267,6 +268,7 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
       });
       if (!res.ok) throw new Error();
       const d = await res.json();
+      trackEvent({ event: "ami_quiz_complete", language: lang });
       setRows(d.results);
       setRerentals(d.rerentals ?? []);
       setStep(TOTAL);

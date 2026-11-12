@@ -1,4 +1,4 @@
-import { consultationCopy } from "@/lib/consultation/content";
+import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
@@ -34,7 +34,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               {authConfig() && (
                 <Link href={user ? "/account" : "/signup"} className="hidden text-stone-600 hover:text-stone-900 sm:inline">{user ? t.navAccount : t.navSignIn}</Link>
               )}
-              <Link href="/consultation" className="text-teal-800">{consultationCopy[lang].nav}</Link>
+              <Link href="/chat" className="text-teal-800">{lang === "zh" ? "住房问答" : "Ask housing"}</Link>
+              <Link href="/pricing" className="text-teal-800">{lang === "zh" ? "方案" : "Plans"}</Link>
+              {lang === "zh" && <Link href="/consultation" className="text-teal-800">中文咨询</Link>}
               <LangToggle lang={lang} />
             </div>
           </nav>
@@ -43,7 +45,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <main className="mx-auto max-w-6xl px-5 py-10">{children}</main>
         <footer className="border-t border-stone-200 bg-white">
           <p className="mx-auto max-w-6xl px-5 py-6 text-xs leading-relaxed text-stone-500">{t.footer} <Link href="/privacy" className="underline underline-offset-2">{t.privacyNav}</Link></p>
-        </footer>
+        <AnalyticsConsent lang={lang}/></footer>
       </body>
     </html>
   );

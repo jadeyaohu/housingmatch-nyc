@@ -1,4 +1,5 @@
 "use client";
+import { trackEvent } from "@/lib/analytics/events";
 import { useState } from "react";
 import { browserClient } from "@/lib/supabase/browser";
 import type { AuthConfig } from "@/lib/supabase/config";
@@ -28,6 +29,7 @@ export function SaveButton({ cfg, listingId, initial, lang, onChange }: { cfg: A
     const { error } = await q;
     setBusy(false);
     if (error && !(error.code === "23505")) return setErr(true); // 23505 = already saved
+    if (!saved && !error) trackEvent({ event: "listing_saved", language: lang });
     setSaved(!saved);
     onChange?.(!saved);
   }

@@ -1,2 +1,2 @@
-import { ConsultationPolicy } from "@/components/ConsultationPolicy";
-export default function Page() { return <ConsultationPolicy kind="terms" />; }
+import { redirect } from "next/navigation";
+export default function Page() { redirect("/consultation"); }
