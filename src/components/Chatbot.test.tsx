@@ -1,0 +1,6 @@
+// @vitest-environment jsdom
+import{it,expect,vi,afterEach}from'vitest';import{render,screen,fireEvent,cleanup}from'@testing-library/react';
+const ctx=vi.hoisted(()=>({signedIn:true}));vi.mock('./preview/PreviewProvider',()=>({PreviewNotice:()=>null,usePreview:()=>({state:{signedIn:ctx.signedIn,plan:'free',day:'',used:0},update:vi.fn(),record:vi.fn()})}));
+import{Chatbot}from'./Chatbot';afterEach(()=>{cleanup();ctx.signedIn=true;});
+it('requires a demo account before any question can be entered or consumed',()=>{ctx.signedIn=false;render(<Chatbot lang="en" enabled demo/>);expect((screen.getByRole('textbox')as HTMLTextAreaElement).disabled).toBe(true);expect((screen.getByRole('button',{name:'Send question'})as HTMLButtonElement).disabled).toBe(true);});
+it('renders an existing error in the current language after locale switching',()=>{const{rerender}=render(<Chatbot lang="en" enabled demo/>);fireEvent.click(screen.getByRole('button',{name:'Simulate provider error (no demo quota charge)'}));expect(screen.getByRole('alert').textContent).toContain("couldn't complete");rerender(<Chatbot lang="zh" enabled demo/>);expect(screen.getByRole('alert').textContent).toContain('本次请求未能完成');expect(screen.getByRole('alert').textContent).not.toContain("couldn't");});

@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/manhattan/kips-bay/kips-bay-towers.jpg",
+  "thumb": "/photos/ny/manhattan/kips-bay/kips-bay-towers_thumb.jpg",
+  "title": "Kips Bay Towers",
+  "description": "I.M. Pei's cast-in-place concrete Kips Bay Towers complex.",
+  "author": "Ajay Suresh",
+  "license": "CC BY 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Kips_Bay_Towers_(55314217360).jpg",
+  "upstreamGuide": "priv/seed_data/manhattan/kips-bay.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/manhattan/kips-bay/kips-bay-towers.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "e775f0591d9234532f68d2427d1e933e181b52d29e34ed4eb2404633d3d633ac"
+}

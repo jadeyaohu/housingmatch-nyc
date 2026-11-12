@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/fort-greene/williamsburgh-savings-bank-tower-fort-greene.jpg",
+  "thumb": "/photos/ny/brooklyn/fort-greene/williamsburgh-savings-bank-tower-fort-greene_thumb.jpg",
+  "title": "The Williamsburgh Savings Bank Tower",
+  "description": "The clock tower at 1 Hanson Place seen from the crossing below, its setbacks rising above the surrounding streets.",
+  "author": "Tdorante10",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Atlantic_Terminal_td_(2019-03-30)_003_-_Williamsburgh_Savings_Bank_Tower.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/fort-greene.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/fort-greene/williamsburgh-savings-bank-tower-fort-greene.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "7a9402a305ed00e29daeb433e81bb024b24faf7137c1b6a530b546f33e8e1800"
+}

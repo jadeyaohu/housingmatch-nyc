@@ -52,7 +52,7 @@ export function MatchResults({
   const likelyN = inPrefs("LIKELY_MATCH");
   const reviewN = inPrefs("NEEDS_REVIEW");
   const hiddenN = rows.length - likelyN - reviewN;
-  const section = (s: MatchStatus) => shown.filter((r) => r.result.status === s);
+  const section = (s: MatchStatus) => shown.filter((r) => r.result.status === s).sort((a,b)=>Number(a.lifestyle?.budget==="no")-Number(b.lifestyle?.budget==="no"));
   const fill = (tpl: string, v: Record<string, string | number>) => tpl.replace(/\{(\w+)\}/g, (_, k) => String(v[k] ?? ""));
   const linkLabel = (l: Listing) => {
     if (isHousingConnect(l) || !l.sourceName) return t.officialLink; // Housing Connect page with the income chart
@@ -79,7 +79,7 @@ export function MatchResults({
     return (
       <li key={listing.id} data-testid={`result-${listing.id}`} className="rounded-2xl border border-stone-200 bg-white p-5">
         <div className="flex flex-wrap items-center gap-2">
-          <StatusBadge status={result.status} label={result.status==="LIKELY_MATCH"&&lifestyle?.budget==="no"?(lang==="zh"?"收入初步匹配 · 超出租金预算":"Income looks like a fit · over budget"):t[result.status]} />
+          {result.status==="LIKELY_MATCH"&&lifestyle?.budget==="no"?<span className="rounded-full bg-amber-50 px-2 py-1 text-xs font-medium text-amber-950">{lang==="zh"?"收入初步匹配，但租金超预算 · 并非全面符合":"Income match, rent over budget · not a full fit"}</span>:<StatusBadge status={result.status} label={t[result.status]} />}
           {availability && availability !== "verified_open" ? <AvailabilityBadge value={availability} lang={lang} date={collected} /> : null}
           {availability === "verified_open" && listing.listingType && listing.listingType !== "lottery" ? <AvailabilityBadge value={availability} lang={lang} date={collected} /> : null}
           {closing && (

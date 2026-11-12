@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/bronx/throgs-neck/peninsula-aerial-throgs-neck.jpg",
+  "thumb": "/photos/ny/bronx/throgs-neck/peninsula-aerial-throgs-neck_thumb.jpg",
+  "title": "The Throgs Neck peninsula from the air",
+  "description": "An aerial view down the length of the Throgs Neck peninsula, photographed through an aircraft window. The Throgs Neck Bridge crosses the water in the lower half of the frame, the star-shaped walls of Fort Schuyler sit on the point beyond it alongside the playing fields and buildings of the SUNY Maritime College campus, and marinas, small-boat basins and low-rise housing fill the shore.",
+  "author": "D. Benjamin Miller",
+  "license": "CC0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Throggs_Neck.jpg",
+  "upstreamGuide": "priv/seed_data/bronx/throgs-neck.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/bronx/throgs-neck/peninsula-aerial-throgs-neck.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "6e4bae680f64531052189b77b00f8f2f95781390785ca7bc708dc4fbf0f99cbd"
+}

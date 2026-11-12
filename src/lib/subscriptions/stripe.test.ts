@@ -1,14 +1,17 @@
 import {afterEach,beforeEach,describe,it,expect,vi} from "vitest";
 import type Stripe from "stripe";
 vi.mock("server-only",()=>({}));
-const m=vi.hoisted(()=>({command:vi.fn(),create:vi.fn(),sessionGet:vi.fn(),list:vi.fn(),customer:vi.fn(),retrieve:vi.fn(),update:vi.fn()}));
+const m=vi.hoisted(()=>({command:vi.fn(),create:vi.fn(),sessionGet:vi.fn(),list:vi.fn(),customer:vi.fn(),retrieve:vi.fn(),update:vi.fn(),payments:vi.fn(),charge:vi.fn(),intent:vi.fn()}));
 vi.mock("./db",()=>({betaCommand:m.command}));
-vi.mock("./config",()=>({subscriptionConfig:()=>({origin:"http://localhost:3000"}),subscriptionStripe:()=>({customers:{create:m.customer},checkout:{sessions:{create:m.create,retrieve:m.sessionGet,list:m.list}},subscriptions:{retrieve:m.retrieve,update:m.update}})}));
-import {createSubscriptionCheckout,subscriptionEntitlement,syncSubscriptionEvent,cancelSubscription} from "./stripe";
-const sub=()=>({id:"sub_fixture",customer:"cus_fixture",livemode:false,status:"active",cancel_at_period_end:false,latest_invoice:{status:"paid",amount_paid:499},items:{data:[{quantity:1,current_period_end:Math.floor(Date.now()/1000)+86400,price:{unit_amount:499,currency:"usd",recurring:{interval:"month",interval_count:1}}}]}}) as unknown as Stripe.Subscription;
+vi.mock("./config",()=>({subscriptionConfig:()=>({origin:"http://localhost:3000"}),subscriptionStripe:()=>({customers:{create:m.customer},checkout:{sessions:{create:m.create,retrieve:m.sessionGet,list:m.list}},subscriptions:{retrieve:m.retrieve,update:m.update},invoicePayments:{list:m.payments},charges:{retrieve:m.charge},paymentIntents:{retrieve:m.intent}})}));
+import {currentInvoiceUnrefunded,createSubscriptionCheckout,subscriptionEntitlement,syncSubscriptionEvent,cancelSubscription} from "./stripe";
+const sub=()=>({id:"sub_fixture",customer:"cus_fixture",livemode:false,status:"active",cancel_at_period_end:false,latest_invoice:{id:"in_fixture",status:"paid",amount_paid:499},items:{data:[{quantity:1,current_period_end:Math.floor(Date.now()/1000)+86400,price:{unit_amount:499,currency:"usd",recurring:{interval:"month",interval_count:1}}}]}}) as unknown as Stripe.Subscription;
 const event=(type="customer.subscription.updated")=>({id:"evt_fixture",type,livemode:false,data:{object:sub()}}) as Stripe.Event;
 beforeEach(()=>{
   vi.resetAllMocks();m.command.mockImplementation((action)=>Promise.resolve(action==="checkout_info"?{}:action==="checkout_begin"?{attempt:"attempt",customer:null}:action==="customer_user"?{user_id:"user"}:action==="webhook_begin"?{token:"lease"}:{}));
+  m.payments.mockResolvedValue({data:[{invoice:'in_fixture',status:'paid',payment:{type:'payment_intent',payment_intent:'pi_fixture'}}],has_more:false});
+  m.charge.mockResolvedValue({id:'ch_fixture',customer:'cus_fixture',livemode:false,currency:'usd',paid:true,captured:true,refunded:false,amount_refunded:0});
+  m.intent.mockImplementation(async()=>({livemode:false,status:'succeeded',latest_charge:await m.charge()}));
   m.customer.mockResolvedValue({id:"cus_fixture"});m.create.mockResolvedValue({id:"cs_fixture",url:"https://checkout.stripe.com/fixture",livemode:false});m.retrieve.mockResolvedValue(sub());m.list.mockResolvedValue({data:[{id:"cs_fixture",livemode:false}]});
 });
 afterEach(()=>vi.unstubAllEnvs());
@@ -67,4 +70,24 @@ it('uses a verified configured catalog Price and refuses an invalid one before r
  const config=await import('./config');vi.spyOn(config,'subscriptionStripe').mockReturnValue({customers:{create:m.customer},checkout:{sessions:{create:m.create,retrieve:m.sessionGet,list:m.list}},subscriptions:{retrieve:m.retrieve,update:m.update},prices:{retrieve:get}}as never);
  await createSubscriptionCheckout('user','basic');expect(m.create.mock.calls[0][0].line_items).toEqual([{price:'price_configured',quantity:1}]);
  m.command.mockClear();get.mockResolvedValue({...price,unit_amount:1});await expect(createSubscriptionCheckout('user','basic')).rejects.toThrow('unavailable');expect(m.command).not.toHaveBeenCalled();vi.restoreAllMocks();
+});
+
+it('revokes refunded TEST periods and prevents a delayed paid event from re-granting them',async()=>{
+ const original=m.command.getMockImplementation()!;m.command.mockImplementation((action,...args)=>action==='cancel_info'?Promise.resolve({subscription:'sub_fixture',customer:'cus_fixture'}):original(action,...args));
+ m.charge.mockResolvedValue({id:'ch_fixture',customer:'cus_fixture',livemode:false,currency:'usd',paid:true,captured:true,refunded:true,amount_refunded:499});
+ await syncSubscriptionEvent({id:'evt_refund',type:'charge.refunded',livemode:false,data:{object:{customer:'cus_fixture'}}}as Stripe.Event);
+ expect(m.command.mock.calls.find(c=>c[0]==='webhook_finish')?.[2]).toMatchObject({plan:'free',valid_until:null});
+ m.command.mockClear();await syncSubscriptionEvent({id:'evt_delayed_invoice',type:'invoice.paid',livemode:false,data:{object:{customer:'cus_fixture',parent:{subscription_details:{subscription:'sub_fixture'}}}}}as Stripe.Event);expect(m.command.mock.calls.find(c=>c[0]==='webhook_finish')?.[2]).toMatchObject({plan:'free'});
+});
+it('fails closed for partial refunds, unsupported invoice payments and provider-read errors',async()=>{
+ m.charge.mockResolvedValue({customer:'cus_fixture',livemode:false,currency:'usd',paid:true,captured:true,refunded:false,amount_refunded:1});
+ const {subscriptionStripe}=await import('./config');expect(await currentInvoiceUnrefunded(subscriptionStripe(),sub())).toBe(false);
+ m.payments.mockResolvedValue({data:[],has_more:false});expect(await currentInvoiceUnrefunded(subscriptionStripe(),sub())).toBe(false);
+ m.payments.mockRejectedValue(new Error('network'));await expect(syncSubscriptionEvent(event())).rejects.toThrow('network');expect(m.command.mock.calls.at(-1)?.[0]).toBe('webhook_abort');
+});
+
+it('restores paid access only from an authoritative unrefunded renewal, not the old refunded invoice',async()=>{
+ const renewed=sub();(renewed.latest_invoice as Stripe.Invoice).id='in_renewal';m.retrieve.mockResolvedValue(renewed);
+ m.payments.mockResolvedValue({data:[{invoice:'in_renewal',status:'paid',payment:{type:'payment_intent',payment_intent:'pi_new'}}],has_more:false});
+ await syncSubscriptionEvent(event());expect(m.command.mock.calls.find(c=>c[0]==='webhook_finish')?.[2]).toMatchObject({plan:'basic'});
 });

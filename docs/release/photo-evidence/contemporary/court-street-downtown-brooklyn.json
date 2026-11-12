@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/downtown-brooklyn/court-street-downtown-brooklyn.jpg",
+  "thumb": "/photos/ny/brooklyn/downtown-brooklyn/court-street-downtown-brooklyn_thumb.jpg",
+  "title": "Court Street from Borough Hall",
+  "description": "Early-twentieth-century office buildings along Court Street in Downtown Brooklyn, seen from outside Brooklyn Borough Hall.",
+  "author": "Ad Meskens",
+  "license": "CC BY-SA 3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Brooklyn_Court_St_from_Borough_Hall.JPG",
+  "upstreamGuide": "priv/seed_data/brooklyn/downtown-brooklyn.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/downtown-brooklyn/court-street-downtown-brooklyn.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "1b1927f2b76be0ce07c6497ecf87ad0e7ef39ad8e7e97963c440acc514f5c847"
+}

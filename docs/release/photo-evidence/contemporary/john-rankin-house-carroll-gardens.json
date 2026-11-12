@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/carroll-gardens/john-rankin-house-carroll-gardens.jpg",
+  "thumb": "/photos/ny/brooklyn/carroll-gardens/john-rankin-house-carroll-gardens_thumb.jpg",
+  "title": "John Rankin House on Clinton Street",
+  "description": "The three-storey red brick front of the John Rankin House, with its columned entrance porch and shuttered ground-floor windows.",
+  "author": "Beyond My Ken",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:John_Rankin_House_440_Clinton_Street_Brooklyn.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/carroll-gardens.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/carroll-gardens/john-rankin-house-carroll-gardens.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "9ee7318bbe9b8eb9f57a31501ee4b200ba992ff45883c5bdba992f01e3a3f11d"
+}

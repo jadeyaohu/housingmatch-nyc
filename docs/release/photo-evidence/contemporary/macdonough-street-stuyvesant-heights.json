@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/stuyvesant-heights/macdonough-street-stuyvesant-heights.jpg",
+  "thumb": "/photos/ny/brooklyn/stuyvesant-heights/macdonough-street-stuyvesant-heights_thumb.jpg",
+  "title": "Rowhouses on MacDonough Street",
+  "description": "A row of high-basement brownstone houses with stoops and ironwork on MacDonough Street, Stuyvesant Heights.",
+  "author": "Vaguynny",
+  "license": "CC BY-SA 3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:MacDonoughStreetSH.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/stuyvesant-heights.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/stuyvesant-heights/macdonough-street-stuyvesant-heights.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "afa3b89ebd3607c408fe8b82725021b75e1ad823b083e9c7f757da4bd1acfae4"
+}

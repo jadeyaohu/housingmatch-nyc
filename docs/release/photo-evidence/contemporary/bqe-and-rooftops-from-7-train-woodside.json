@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/queens/woodside/bqe-and-rooftops-from-7-train-woodside.jpg",
+  "thumb": "/photos/ny/queens/woodside/bqe-and-rooftops-from-7-train-woodside_thumb.jpg",
+  "title": "Woodside rooftops and the Brooklyn-Queens Expressway from the 7 train",
+  "description": "Elevated tracks run out of the frame at the left past a platform edge banded in yellow, its steel railings and conduit lines following the curve. To the right the Brooklyn-Queens Expressway sits in a cut behind a concrete wall, with cars and a yellow taxi on the lanes. Beyond the highway stand low brick and frame houses and small apartment blocks among trees still holding autumn color, and the Manhattan skyline shows faintly on the horizon under a clear blue sky.",
+  "author": "The All-Nite Images from NY, NY, USA",
+  "license": "CC BY-SA 2.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Woodside_and_BQE_from_7_train.jpg",
+  "upstreamGuide": "priv/seed_data/queens/woodside.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/queens/woodside/bqe-and-rooftops-from-7-train-woodside.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "0219c2b82004f0c0a16a0c9e940235397b6cc6a920d5cda2bf60ebb79a3ca684"
+}

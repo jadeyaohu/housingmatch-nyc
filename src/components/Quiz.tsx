@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePreview } from "./preview/PreviewProvider";
 import { DemoSaveButton } from "./preview/DemoSaveButton";
 import { trackEvent } from "@/lib/analytics/events";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
 import { BOROUGHS, UNIT_TYPES, type Borough, type UnitType } from "@/lib/types";
 import { boroughLabel, unitLabel, type Lang } from "@/lib/i18n";
 import { MatchResults, type Row } from "./MatchResults";
@@ -184,6 +184,8 @@ export function Quiz({ lang, auth, signedIn, profile, demo=false }: { lang: Lang
   const preview=usePreview();
   const [a, setA] = useState<Answers>(EMPTY);
   const [step, setStep] = useState(0);
+  const questionHeading=useRef<HTMLHeadingElement>(null),previousStep=useRef(0);
+  useEffect(()=>{if(previousStep.current!==step){questionHeading.current?.scrollIntoView({block:"start"});previousStep.current=step;}},[step]);
   const [rows, setRows] = useState<R[] | null>(null);
   const [rerentals, setRerentals] = useState<R[]>([]);
   const [loading, setLoading] = useState(false);
@@ -429,7 +431,7 @@ export function Quiz({ lang, auth, signedIn, profile, demo=false }: { lang: Lang
         </div>
       </div>
 
-      <h1 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{q.title}</h1>
+      <h1 ref={questionHeading} className="scroll-mt-24 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{q.title}</h1>
       <p className="mt-2 text-stone-600">{q.help}</p>
 
       <div className="mt-6 space-y-3">
@@ -516,7 +518,7 @@ export function Quiz({ lang, auth, signedIn, profile, demo=false }: { lang: Lang
 
       {error && <p className="mt-4 rounded-lg bg-red-50 p-3 text-sm text-red-800">{t.error}</p>}
 
-      <div className="sticky bottom-0 mt-8 flex gap-3 bg-stone-50/95 py-4 backdrop-blur">
+      <div data-testid="quiz-actions" className="relative mt-8 flex gap-3 bg-stone-50/95 py-4 backdrop-blur">
         {optional && step !== 6 && (
           <button type="button" onClick={() => setStep(step + 1)} className="min-h-14 flex-1 rounded-2xl border-2 border-stone-300 font-semibold text-stone-700">
             {t.skip}

@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/vinegar-hill/vinegar-hill-historic-district-vinegar-hill.jpg",
+  "thumb": "/photos/ny/brooklyn/vinegar-hill/vinegar-hill-historic-district-vinegar-hill_thumb.jpg",
+  "title": "A Belgian-block street in the historic district",
+  "description": "Belgian-block paving and nineteenth-century rowhouses on a shaded street in the Vinegar Hill Historic District.",
+  "author": "Clyde Charles Brown",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Vinegar_Hill_Historic_District,_Brooklyn,_New_York,_US.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/vinegar-hill.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/vinegar-hill/vinegar-hill-historic-district-vinegar-hill.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "e056a4f064b79d0de5c3c24b5d821077564785b508dc95ec9321e4eb7856f3c9"
+}

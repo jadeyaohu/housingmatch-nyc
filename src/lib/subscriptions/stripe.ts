@@ -50,27 +50,46 @@ export function eventSubscription(event: Stripe.Event) {
   if (event.type === "checkout.session.completed") return id((event.data.object as Stripe.Checkout.Session).subscription);
   if (event.type.startsWith("invoice.")) return id((event.data.object as Stripe.Invoice).parent?.subscription_details?.subscription);
 }
+/** Re-read current invoice payments on every event; a later invoice event cannot re-grant a refunded period. */
+export async function currentInvoiceUnrefunded(stripe:Stripe,sub:Stripe.Subscription){
+ const invoice=typeof sub.latest_invoice==='object'?sub.latest_invoice:null;if(!invoice?.id)return false;
+ const payments=await stripe.invoicePayments.list({invoice:invoice.id,status:'paid',limit:100});
+ if(payments.has_more||!payments.data.length)return false;
+ for(const p of payments.data){
+  if(id(p.invoice)!==invoice.id||p.status!=='paid')return false;
+  let charge:Stripe.Charge|null=null;
+  if(p.payment.type==='charge'&&p.payment.charge){const value=p.payment.charge;charge=typeof value==='string'?await stripe.charges.retrieve(value):value;}
+  else if(p.payment.type==='payment_intent'&&p.payment.payment_intent){const value=p.payment.payment_intent;const intent=await stripe.paymentIntents.retrieve(typeof value==='string'?value:value.id,{expand:['latest_charge']});if(intent.livemode||intent.status!=='succeeded')return false;const c=intent.latest_charge;charge=typeof c==='string'?await stripe.charges.retrieve(c):c;}
+  if(!charge||charge.livemode||id(charge.customer)!==id(sub.customer)||charge.currency!=='usd'||!charge.paid||!charge.captured||charge.refunded||charge.amount_refunded>0)return false;
+ }
+ return true;
+}
 export async function syncSubscriptionEvent(event: Stripe.Event) {
   if (event.livemode) throw new Error("forbidden");
-  const supported = ["customer.subscription.created", "customer.subscription.updated", "customer.subscription.deleted", "checkout.session.completed", "invoice.paid", "invoice.payment_failed"];
+  const supported = ["customer.subscription.created", "customer.subscription.updated", "customer.subscription.deleted", "checkout.session.completed", "invoice.paid", "invoice.payment_failed", "charge.refunded", "refund.created", "refund.updated", "refund.failed"];
   if (!supported.includes(event.type)) return;
-  const subId = eventSubscription(event);
-  const customer = id((event.data.object as { customer?: string | { id: string } | null }).customer);
-  if (!customer || !subId) return;
+  const stripe = subscriptionStripe();
+  let subId = eventSubscription(event);
+  let customer = id((event.data.object as { customer?: string | { id: string } | null }).customer);
+  if(event.type.startsWith('refund.')){const refund=event.data.object as Stripe.Refund;const chargeId=id(refund.charge);if(!chargeId)return;const charge=await stripe.charges.retrieve(chargeId);if(charge.livemode)throw new Error('forbidden');customer=id(charge.customer);}
+  if (!customer) return;
   const { user_id: user } = await betaCommand<{ user_id: string | null }>("customer_user", null, { customer });
   if (!user) return; // Foreign products/customers do not grant access.
+  if(event.type==='charge.refunded'||event.type.startsWith('refund.')){const current=await betaCommand<{subscription:string|null;customer:string|null}>('cancel_info',user);if(current.customer!==customer)throw new Error('forbidden');subId=current.subscription??undefined;}
+  if(!subId)return;
   const claim = await betaCommand<{ duplicate?: boolean; token?: string }>("webhook_begin", user, { event: event.id });
   if (claim.duplicate) return;
   try {
     // Serialize first, then retrieve authoritative current state: delayed events never replay old entitlements.
-    const stripe = subscriptionStripe();
     const sub = await stripe.subscriptions.retrieve(subId, { expand: ["latest_invoice"] });
     if (id(sub.customer) !== customer || sub.livemode) throw new Error("forbidden");
     const sessions = await stripe.checkout.sessions.list({ subscription: subId, limit: 1 });
     const session = sessions.data[0];
     if (session?.livemode) throw new Error("forbidden");
+    const entitlement=subscriptionEntitlement(sub);
+    if(entitlement.plan!=="free"&&!await currentInvoiceUnrefunded(stripe,sub)){entitlement.plan="free";entitlement.valid_until=null;}
     await betaCommand("webhook_finish", user, { token: claim.token, event: event.id, subscription: subId,
-      session: session?.id ?? null, ...subscriptionEntitlement(sub), cancel_at_period_end: sub.cancel_at_period_end });
+      session: session?.id ?? null, ...entitlement, cancel_at_period_end: sub.cancel_at_period_end });
   } catch (error) {
     await betaCommand("webhook_abort", user, { token: claim.token });
     throw error;

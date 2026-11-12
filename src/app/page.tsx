@@ -1,4 +1,5 @@
 import { consultationCopy } from "@/lib/consultation/content";
+import{ListingMedia}from"@/components/ListingMedia";
 import Link from "next/link";
 import { dict } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
@@ -13,7 +14,7 @@ export default async function Home() {
   ];
   return (
     <>
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-teal-900 via-teal-800 to-emerald-700 px-6 py-14 text-white sm:px-12 sm:py-20">
+      <section className="relative grid gap-8 overflow-hidden rounded-3xl lg:grid-cols-2 bg-gradient-to-br from-teal-900 via-teal-800 to-emerald-700 px-6 py-14 text-white sm:px-12 sm:py-20">
         <div aria-hidden className="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10" />
         <div aria-hidden className="absolute -bottom-32 right-24 h-80 w-80 rounded-full bg-emerald-400/20" />
         <div className="relative max-w-2xl">
@@ -28,7 +29,9 @@ export default async function Home() {
           </Link>
           <p className="mt-3 text-sm text-teal-100">{t.heroCtaNote}</p>
         </div>
+        <div className="relative self-center overflow-hidden rounded-2xl shadow-xl"><ListingMedia lang={lang} photo={(await import("@/lib/photos/manifest.json")).default.find(p=>p.id==="kips-bay-towers") as import("@/lib/photos/model").HousingPhoto}/></div>
       </section>
+
 
       <section className="mt-12 grid gap-4 sm:grid-cols-3">
         {steps.map(([h, d], i) => (

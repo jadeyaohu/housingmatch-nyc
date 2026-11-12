@@ -1,5 +1,7 @@
 # QA follow-up and nonproduction provider acceptance
 
+> **Current implementation:** [CONTEMPORARY_BETA.md](CONTEMPORARY_BETA.md) supersedes earlier historic-photo, nonpersistent-demo and refund-deferred notes below. This file retains prior architecture/setup evidence.
+
 Approved founder instructions: PR19 comments6830605522,6830623816,6831910562; Muse findings Issue18 comment6828587427. No Production, live payment or automatic merge authorization. Exact final SHA/CI/Preview evidence is on PR19.
 
 ## Muse findings addressed

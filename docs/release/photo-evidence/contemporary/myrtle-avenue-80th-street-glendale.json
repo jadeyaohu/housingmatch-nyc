@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/queens/glendale/myrtle-avenue-80th-street-glendale.jpg",
+  "thumb": "/photos/ny/queens/glendale/myrtle-avenue-80th-street-glendale_thumb.jpg",
+  "title": "Myrtle Avenue at 80th Street",
+  "description": "Green street signs reading Myrtle Av and 80 St hang over the intersection on a bright day. A three-storey brick corner building carries a hair salon and a dermatology office at sidewalk level, with apartment windows and iron balconies above, and a row of low storefronts under awnings recedes along the avenue.",
+  "author": "DoomDan515",
+  "license": "CC BY-SA 3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:MyrtleAveGdale.jpg",
+  "upstreamGuide": "priv/seed_data/queens/glendale.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/queens/glendale/myrtle-avenue-80th-street-glendale.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "f92ccb2c3cbf94ea089647e4c442e99d01ffb222e8042cf555473b3ff0b4fa50"
+}

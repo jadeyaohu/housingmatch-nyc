@@ -24,7 +24,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <body className="pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0 min-h-screen bg-stone-50 text-stone-900 antialiased">
         <PreviewProvider enabled={previewDemoEnabled()} lang={lang}>
         <AppNavigation lang={lang} signedIn={!!user}/>
-        {previewDemoEnabled()&&<aside data-testid="demo-reset-warning" className="border-b border-amber-300 bg-amber-100 px-5 py-3 text-center text-sm font-bold text-amber-950">{lang==="zh"?"演示提醒：刷新、重新打开或直接输入网址会清空演示账号、收藏、方案和额度。请使用本站菜单继续体验；不会保存真实客户资料。":"DEMO RESET NOTICE: Reloading, reopening or typing a URL clears the demo account, saves, plan and quota. Use the site menus to continue; no real customer data is stored."}</aside>}
+        {previewDemoEnabled()&&<aside data-testid="demo-reset-warning" className="border-b border-amber-300 bg-amber-100 px-5 py-3 text-center text-sm font-bold text-amber-950">{lang==="zh"?"演示模式：虚构账号、收藏、方案和额度在此浏览器保存最多七天，刷新可继续。退出可清除；不是正式账号，请勿输入真实客户资料。":"PREVIEW DEMO: Synthetic account, saves, plan and quota survive reload in this browser for up to seven days. Sign out to clear. This is not a real account; do not enter customer data."}</aside>}
         {process.env.BETA_FIXTURES === "synthetic" && <p role="status" className="bg-amber-50 px-5 py-2 text-center text-sm text-amber-950">{lang === "zh" ? "虚构开发数据，非真实住房信息" : "Synthetic development data — not real housing offers"}</p>}
         <main className="mx-auto max-w-6xl px-5 py-10 pb-32 md:pb-10">{children}</main>
         <footer className="border-t border-stone-200 bg-white">
