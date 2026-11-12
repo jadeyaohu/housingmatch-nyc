@@ -19,7 +19,7 @@ create table auth.users(id uuid primary key);
 create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
 SQL
 for file in supabase/migrations/*.sql; do "${psql[@]}" < "$file"; done
-for file in supabase/tests/consultation.sql supabase/tests/consultation_payments.sql supabase/tests/beta_owner_rls.sql supabase/tests/chat_subscriptions.sql supabase/tests/native_consultation.sql; do "${psql[@]}" < "$file"; done
+for file in supabase/tests/consultation.sql supabase/tests/consultation_payments.sql supabase/tests/beta_owner_rls.sql supabase/tests/chat_subscriptions.sql supabase/tests/native_consultation.sql supabase/tests/owned_tracking.sql; do "${psql[@]}" < "$file"; done
 # Independent connections race the same free account; exactly one reservation may succeed.
 "${psql[@]}" -c "insert into auth.users values('be700000-0000-4000-8000-000000000099')" >/dev/null
 race_dir=$(mktemp -d /tmp/hm-quota-race.XXXXXX)

@@ -1,5 +1,7 @@
 # Issue #18: conditional Beta candidate
 
+> **Latest Preview visibility/navigation:** [PREVIEW_FEATURES.md](PREVIEW_FEATURES.md) describes current isolated demos, four tabs and live/demo/blocked status. Earlier gated-only screenshots are historical.
+
 > **Current increments:** see [PRICING_V3.md](PRICING_V3.md) for chat/subscriptions/analytics and [NATIVE_CONSULTATION.md](NATIVE_CONSULTATION.md) for the latest restored native EN/中文 consultation workflow. Legacy Stripe consultation charges remain retired; native request intake is restored. Earlier SHA/test counts are historical.
 
 **Target: November 14, 2026, 8:00 PM America/New_York — conditional. Current monetized decision: NO-GO.**

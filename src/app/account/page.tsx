@@ -1,3 +1,5 @@
+import { previewDemoEnabled } from "@/lib/preview/config";
+import { PreviewAccount } from "@/components/preview/PreviewAccount";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getLang } from "@/lib/lang";
@@ -18,7 +20,8 @@ const C = {
 
 export default async function Account() {
   const cfg = authConfig();
-  if (!cfg) redirect("/");
+  if (!cfg && previewDemoEnabled()) return <PreviewAccount lang={await getLang()}/>;
+  if (!cfg) redirect("/signup?next=/account");
   const user = await currentUser();
   if (!user) redirect("/signup?next=/account");
   const lang = await getLang();
@@ -52,6 +55,7 @@ export default async function Account() {
       ) : (
         <p className="mt-2 text-sm text-stone-600">{t.none}</p>
       )}
+      <nav className="mt-5 flex flex-wrap gap-4 text-sm text-teal-800 underline"><Link href="/applications">{lang==="zh"?"申请跟踪":"Application tracker"}</Link><Link href="/notifications">{lang==="zh"?"邮件提醒":"Email alerts"}</Link><Link href="/pricing">{lang==="zh"?"订阅方案":"Plans"}</Link><Link href="/consultation">{lang==="zh"?"咨询请求":"Consultation requests"}</Link></nav>
       <SavedList cfg={cfg} items={saved} lang={lang} />
       <Link href="/quiz" className="mt-6 flex min-h-12 items-center justify-center rounded-xl bg-teal-800 font-semibold text-white hover:bg-teal-900">{p ? t.edit : t.take}</Link>
       <AccountActions cfg={cfg} labels={{ signOut: t.signOut, del: t.del, confirm: t.confirm, deleted: t.deleted, error: t.error }} />

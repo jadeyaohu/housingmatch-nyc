@@ -1,12 +1,14 @@
 "use client";
+import { usePreview, PreviewNotice } from "./preview/PreviewProvider";
 import Link from "next/link";
 import { useRef, useState } from "react";
 import type { Lang } from "@/lib/i18n";
 import { consultationCopy } from "@/lib/consultation/content";
-import { BookingInput, PACKAGES, PRIVACY_VERSION, TERMS_VERSION, type Package } from "@/lib/consultation/model";
+import { appointmentUTC, BookingInput, PACKAGES, PRIVACY_VERSION, TERMS_VERSION, type Package } from "@/lib/consultation/model";
 
-export function ConsultationBooking({ lang, initialPackage, enabled }: { lang: Lang; initialPackage: Package; enabled: boolean }) {
+export function ConsultationBooking({ lang, initialPackage, enabled, demo=false }: { lang: Lang; initialPackage: Package; enabled: boolean; demo?: boolean }) {
   const t = consultationCopy[lang];
+  const preview=usePreview();
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<"invalid" | "error" | "limited" | "unavailable" | null>(null);
   const [verified, setVerified] = useState(false);
@@ -28,6 +30,12 @@ export function ConsultationBooking({ lang, initialPackage, enabled }: { lang: L
     if (attempt.current?.body !== body) attempt.current = { body, id: crypto.randomUUID() };
     const parsed = BookingInput.safeParse({ ...fields, submissionKey: attempt.current.id });
     if (!parsed.success) { setError("invalid"); return; }
+    if(demo){
+      if(!appointmentUTC(parsed.data.preferredLocal,parsed.data.timezone)){setError("invalid");return;}
+      const id=crypto.randomUUID();
+      preview.update(s=>({...s,requests:[...s.requests,{id,package:parsed.data.package,language:parsed.data.language,state:"awaiting_payment" as const}].slice(-5)}));
+      setReference(id);setVerified(false);return;
+    }
     busy.current = true;
     setPending(true);
     setError(null);
@@ -47,8 +55,9 @@ export function ConsultationBooking({ lang, initialPackage, enabled }: { lang: L
     finally { busy.current = false; setPending(false); }
   }
   const field = "mt-2 block w-full rounded-xl border border-stone-300 bg-white px-3 py-3 text-base disabled:bg-stone-100";
-  if (reference) return <section role="status" className="rounded-3xl border border-teal-200 bg-teal-50 p-6 sm:p-8"><h1 className="text-3xl font-bold">{t.success}</h1><p className="mt-4 leading-relaxed">{verified ? t.verifiedBody : t.successBody}</p><p className="mt-5 break-all text-sm">{t.reference}: {reference}</p><Link href="/quiz" className="mt-6 inline-block font-semibold text-teal-800 underline">{t.free}</Link></section>;
+  if (reference) return <><>{demo&&<PreviewNotice lang={lang}/>}</><section role="status" className="rounded-3xl border border-teal-200 bg-teal-50 p-6 sm:p-8"><h1 className="text-3xl font-bold">{t.success}</h1><p className="mt-4 leading-relaxed">{demo ? (lang==="zh"?"演示申请仅保存在会话内存中，未保存真实请求或发送邮件。状态：等待付款。请在「我的」查看演示邮件并模拟测试付款核实。":"DEMO request exists only in session memory. No real request was saved or email sent. Status: Awaiting Payment. Open My to view demo messages and simulate TEST verification.") : verified ? t.verifiedBody : t.successBody}</p><p className="mt-5 break-all text-sm">{demo?"DEMO Request ID":t.reference}: {reference}</p><Link href="/quiz" className="mt-6 inline-block font-semibold text-teal-800 underline">{t.free}</Link>{demo&&<Link href="/account" className="ml-5 min-h-11 text-teal-800 underline">{lang === "zh" ? "查看演示邮件与模拟付款核实" : "View demo inbox & simulated verification"}</Link>}</section></>;
   return <>
+    {demo && <PreviewNotice lang={lang}/>}
     <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{t.bookTitle}</h1>
     <p className="mt-3 text-stone-600">{t.bookIntro}</p>
     <p className="mt-5 rounded-xl bg-teal-50 p-4 text-sm leading-relaxed text-teal-950">{t.noCharge}</p>
@@ -58,8 +67,8 @@ export function ConsultationBooking({ lang, initialPackage, enabled }: { lang: L
         <legend className="sr-only">{t.booking}</legend>
         <label className="block font-medium">{t.package}<select name="package" defaultValue={initialPackage} className={field} required>{(["standard", "expert"] as const).map((key) => <option key={key} value={key}>{t[key]} — ${PACKAGES[key].priceCents / 100} / {PACKAGES[key].minutes} {t.minutes}</option>)}</select></label>
         <div className="grid gap-5 sm:grid-cols-2">
-          <label className="block font-medium">{t.name}<input name="name" autoComplete="name" required maxLength={100} className={field} /></label>
-          <label className="block font-medium">{t.email}<input name="email" type="email" autoComplete="email" required maxLength={254} className={field} /></label>
+          <label className="block font-medium">{t.name}<input name="name" defaultValue={demo?"Demo Visitor":undefined} readOnly={demo} autoComplete="name" required maxLength={100} className={field} /></label>
+          <label className="block font-medium">{t.email}<input name="email" defaultValue={demo?"demo@example.test":undefined} readOnly={demo} type="email" autoComplete="email" required maxLength={254} className={field} /></label>
         </div>
         <label className="block font-medium">{t.language}<select name="language" defaultValue={lang} className={field} required><option value="en">English</option><option value="zh">简体中文</option></select></label>
         <div className="grid gap-5 sm:grid-cols-2">

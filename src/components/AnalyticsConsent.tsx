@@ -1,4 +1,6 @@
 "use client";
+import Link from "next/link";
+import { usePreview } from "./preview/PreviewProvider";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import type { Lang } from "@/lib/i18n";
@@ -6,6 +8,7 @@ import { CONSENT_KEY, consented, trackEvent } from "@/lib/analytics/events";
 export function AnalyticsConsent({ lang }: { lang: Lang }) {
   const [choice, setChoice] = useState<boolean | null>(null);
   const path = usePathname();
+  const preview=usePreview();
   useEffect(() => { setChoice(consented()); }, []);
   useEffect(() => {
     if (choice !== true) return;
@@ -21,7 +24,7 @@ export function AnalyticsConsent({ lang }: { lang: Lang }) {
       }).catch(() => {});
     return () => controller.abort();
   }, [choice, path, lang]);
-  if (process.env.NEXT_PUBLIC_GTM_EVENTS_ENABLED !== "true") return null;
+  if (process.env.NEXT_PUBLIC_GTM_EVENTS_ENABLED !== "true") return <aside className="mx-auto max-w-6xl px-5 pb-5 text-xs"><p>{lang==="zh"?"实际产品统计已关闭，不收集事件。":"Real product analytics is OFF; no events are collected."}</p>{preview.enabled&&<Link href="/analytics" className="mt-2 inline-flex min-h-11 items-center text-teal-800 underline">{lang==="zh"?"查看独立的合成 GTM 仪表盘":"View isolated synthetic GTM Dashboard"}</Link>}</aside>;
   function choose(value: boolean) {
     try { localStorage.setItem(CONSENT_KEY, value ? "yes" : "no"); setChoice(value); }
     catch { setChoice(false); }

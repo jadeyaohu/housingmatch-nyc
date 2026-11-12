@@ -1,4 +1,6 @@
 "use client";
+import { usePreview, PreviewNotice } from "./preview/PreviewProvider";
+import { PLANS, nyDay } from "@/lib/subscriptions/model";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import type { Lang } from "@/lib/i18n";
@@ -6,8 +8,9 @@ import { chatCopy } from "@/lib/chat/content";
 import { chatInput } from "@/lib/subscriptions/model";
 import { trackEvent } from "@/lib/analytics/events";
 type Usage = { used: number; limit: number; plan: "free" | "basic" | "smart" };
-export function Chatbot({ lang, enabled }: { lang: Lang; enabled: boolean }) {
+export function Chatbot({ lang, enabled, demo=false }: { lang: Lang; enabled: boolean; demo?: boolean }) {
   const t = chatCopy[lang];
+  const preview = usePreview();
   const [question, setQuestion] = useState("");
   const [consent, setConsent] = useState(false);
   const [pending, setPending] = useState(false);
@@ -15,12 +18,21 @@ export function Chatbot({ lang, enabled }: { lang: Lang; enabled: boolean }) {
   const [error, setError] = useState("");
   const [messages, setMessages] = useState<{ question: string; answer: string; source: "faq" | "gemini" }[]>([]);
   useEffect(() => {
+    if (demo) {setUsage({plan:preview.state.plan,used:preview.state.day===nyDay(new Date())?preview.state.used:0,limit:PLANS[preview.state.plan].messages});return;}
     if (enabled) void fetch("/api/subscriptions/status", { credentials: "same-origin", referrerPolicy: "no-referrer" }).then(r => r.ok ? r.json() : null).then(setUsage).catch(() => {});
-  }, [enabled]);
+  }, [enabled,demo,preview.state.plan,preview.state.used,preview.state.day]);
   async function submit(e: React.FormEvent) {
     e.preventDefault(); if (pending || !consent) return;
     const input = chatInput.safeParse({ question, requestId: crypto.randomUUID(), consent });
     if (!input.success) { setError(t.invalid); return; }
+    if(demo){
+      if(!preview.state.signedIn){setError(t.login);return;}
+      const day=nyDay(new Date()),used=preview.state.day===day?preview.state.used:0;
+      if(used>=PLANS[preview.state.plan].messages){setError(t.quota);return;}
+      const answer=lang==="zh"?"DEMO FAQ：Housing Connect 官方申请免费。请核对官方收入表、截止时间及申请要求。本回答是本地合成示例，不是 Gemini 实时回答。":"DEMO FAQ: official Housing Connect applications are free. Check the official income chart, deadline and requirements. This is a local synthetic example, not a live Gemini response.";
+      preview.update(s=>({...s,day,used:used+1}));preview.record("chatbot_message",lang);
+      setMessages(old=>[...old.slice(-14),{question:input.data.question,answer,source:"faq"}]);setQuestion("");return;
+    }
     setPending(true); setError("");
     try {
       const res = await fetch("/api/chat", { method: "POST", credentials: "same-origin", referrerPolicy: "no-referrer", headers: { "Content-Type": "application/json" }, body: JSON.stringify(input.data) });
@@ -32,6 +44,7 @@ export function Chatbot({ lang, enabled }: { lang: Lang; enabled: boolean }) {
     } catch { setError(t.error); } finally { setPending(false); }
   }
   return <div className="mx-auto max-w-3xl">
+    {demo && <PreviewNotice lang={lang}/>}
     <h1 className="text-3xl font-bold sm:text-5xl">{t.title}</h1><p className="mt-4 text-stone-600">{t.sub}</p>
     <aside className="my-6 rounded-2xl bg-amber-50 p-5 text-sm leading-relaxed text-amber-950">{t.notice}</aside>
     {!enabled && <p role="status" className="my-5 rounded-xl border p-4">{t.unavailable}</p>}
@@ -43,6 +56,7 @@ export function Chatbot({ lang, enabled }: { lang: Lang; enabled: boolean }) {
       <button disabled={!enabled || !consent || pending} className="min-h-12 rounded-xl bg-teal-800 px-6 font-semibold text-white disabled:opacity-50">{pending ? t.pending : t.send}</button>
       {error && <p role="alert" className="rounded-xl bg-amber-50 p-4 text-amber-950">{error}</p>}
     </form>
+    {demo && <button type="button" onClick={()=>setError(t.error)} className="mt-4 min-h-11 text-teal-800 underline">{lang === "zh" ? "模拟服务错误（不扣演示额度）" : "Simulate provider error (no demo quota charge)"}</button>}
     <div className="mt-6 flex flex-wrap gap-5 text-teal-800 underline"><Link href="/pricing">{t.pricing}</Link><Link href="/signup?next=%2Fchat">{t.login}</Link><Link href="/consultation">{lang === "zh" ? "预约一对一咨询" : "Book a Consultation"}</Link></div>
     <p className="mt-6 text-xs leading-relaxed text-stone-500">{t.demo}</p>
   </div>;

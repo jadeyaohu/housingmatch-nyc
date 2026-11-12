@@ -1,3 +1,4 @@
+import { previewDemoEnabled } from "@/lib/preview/config";
 import { getLang } from "@/lib/lang";
 import { Quiz } from "@/components/Quiz";
 import { authConfig } from "@/lib/supabase/config";
@@ -21,5 +22,5 @@ export default async function QuizPage() {
         nycha: data.nycha_resident ?? false, municipalVet: data.municipal_or_veteran ?? false,
       };
   }
-  return <Quiz lang={lang} auth={cfg} signedIn={!!user} profile={profile} />;
+  return <Quiz lang={lang} auth={cfg} signedIn={!!user} profile={profile} demo={previewDemoEnabled()} />;
 }

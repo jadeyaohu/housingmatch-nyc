@@ -1,4 +1,7 @@
 "use client";
+import Link from "next/link";
+import { usePreview } from "./preview/PreviewProvider";
+import { DemoSaveButton } from "./preview/DemoSaveButton";
 import { trackEvent } from "@/lib/analytics/events";
 import { useEffect, useMemo, useState } from "react";
 import { BOROUGHS, UNIT_TYPES, type Borough, type UnitType } from "@/lib/types";
@@ -176,8 +179,9 @@ function Choice({ on, onClick, children, testid }: { on: boolean; onClick: () =>
   );
 }
 
-export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: AuthConfig | null; signedIn: boolean; profile: Partial<Answers> | null }) {
+export function Quiz({ lang, auth, signedIn, profile, demo=false }: { lang: Lang; auth: AuthConfig | null; signedIn: boolean; profile: Partial<Answers> | null; demo?: boolean }) {
   const t = C[lang];
+  const preview=usePreview();
   const [a, setA] = useState<Answers>(EMPTY);
   const [step, setStep] = useState(0);
   const [rows, setRows] = useState<R[] | null>(null);
@@ -193,7 +197,7 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
   const saveAction =
     signedIn && auth && savedIds
       ? (l: { id: string }) => <SaveButton key={l.id} cfg={auth} listingId={l.id} initial={savedIds.has(l.id)} lang={lang} />
-      : undefined;
+      : demo ? (l: {id:string}) => <DemoSaveButton id={l.id} lang={lang}/> : undefined;
 
   const [ready, setReady] = useState(false);
   useEffect(() => {
@@ -269,10 +273,11 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
       if (!res.ok) throw new Error();
       const d = await res.json();
       trackEvent({ event: "ami_quiz_complete", language: lang });
+      if(demo)preview.record("ami_quiz_complete",lang);
       setRows(d.results);
       setRerentals(d.rerentals ?? []);
       setStep(TOTAL);
-      if (signedIn) setFull(true);
+      if (signedIn || (demo && preview.state.signedIn)) setFull(true);
     } catch {
       setError(true);
     } finally {
@@ -342,7 +347,7 @@ export function Quiz({ lang, auth, signedIn, profile }: { lang: Lang; auth: Auth
                 </a>
               ) : (
                 <>
-                  <p data-testid="auth-soon" className="mt-3 text-sm text-stone-600">{t.authSoon}</p>
+                  {demo ? <Link href="/signup" className="mt-3 inline-flex min-h-11 items-center text-teal-800 underline">{lang==="zh"?"试用演示账号与收藏":"Try a demo account & saved listings"}</Link> : <p data-testid="auth-soon" className="mt-3 text-sm text-stone-600">{t.authSoon}</p>}
                   <button type="button" onClick={() => setFull(true)} className="mt-3 flex min-h-12 w-full items-center justify-center rounded-xl bg-teal-800 px-5 font-semibold text-white hover:bg-teal-900">
                     {t.viewNow}
                   </button>

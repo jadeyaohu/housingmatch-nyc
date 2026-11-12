@@ -51,7 +51,7 @@ test("GTM remains silent without consent; events exclude URL/query/content; visi
   expect(JSON.stringify(original)).not.toContain("synthetic-sensitive");expect(Object.keys(original[0]).sort()).toEqual(["event","language","schema_version","visit_id"]);
   const tab=await context.newPage();await tab.goto("/");await expect.poll(()=>tab.evaluate(()=> (window as Window & {dataLayer?:unknown[]}).dataLayer?.length??0)).toBeGreaterThanOrEqual(1);
   const next=await tab.evaluate(()=> (window as unknown as {dataLayer:Record<string,unknown>[]}).dataLayer[0].visit_id);expect(next).not.toBe(original[0].visit_id);await tab.close();
-  await page.getByRole("button",{name:"Decline / withdraw consent"}).click();const before=await page.evaluate(()=> (window as unknown as {dataLayer:unknown[]}).dataLayer.length);await page.getByRole("link",{name:"Plans",exact:true}).click();expect(await page.evaluate(()=> (window as unknown as {dataLayer:unknown[]}).dataLayer.length)).toBe(before);
+  await page.getByRole("button",{name:"Decline / withdraw consent"}).click();const before=await page.evaluate(()=> (window as unknown as {dataLayer:unknown[]}).dataLayer.length);if((page.viewportSize()?.width??0)<768){await page.getByRole("button",{name:"Open menu"}).click();await page.getByRole("dialog").getByRole("link",{name:"Plans",exact:true}).click();}else{await page.getByRole("link",{name:"Plans",exact:true}).click();}expect(await page.evaluate(()=> (window as unknown as {dataLayer:unknown[]}).dataLayer.length)).toBe(before);
 });
 
 test("provider answer markup is displayed as literal text",async({page})=>{

@@ -1,3 +1,7 @@
+import { listingSaveState } from "@/lib/saved/server";
+import { SaveButton } from "@/components/SaveButton";
+import { DemoSaveButton } from "@/components/preview/DemoSaveButton";
+import { previewDemoEnabled } from "@/lib/preview/config";
 import { safeProviderURL } from "@/lib/directory/search";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -153,6 +157,7 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
   const l = await find((await params).id);
   if (!l) notFound();
   const lang = await getLang();
+  const saved=await listingSaveState();
   const t = C[lang];
   const d = dict[lang];
   const today = todayNY();
@@ -170,7 +175,7 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
         <span className="rounded-full bg-stone-100 px-2 py-0.5 text-stone-700">{d[`type_${l.listingType ?? "lottery"}`]}</span>
         <AvailabilityBadge value={av} lang={lang} date={checked} />
       </div>
-      <h1 className="mt-2 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{l.projectName}</h1>
+      <h1 className="mt-2 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{l.projectName}</h1>{saved?<SaveButton cfg={saved.cfg} listingId={l.id} initial={saved.ids.has(l.id)} lang={lang}/>:previewDemoEnabled()&&<DemoSaveButton id={l.id} lang={lang}/>}
       <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
         <dt className="text-stone-500">{t.where}</dt>
         <dd className="text-stone-900">{[l.borough ? boroughLabel[lang][l.borough] : null, l.address].filter(Boolean).join(" · ") || d.notListed}</dd>

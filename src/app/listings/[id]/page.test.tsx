@@ -4,6 +4,7 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { Listing } from "@/lib/types";
 import { F3 } from "@/lib/matching/fixtures/hn5";
 
+vi.mock("server-only", () => ({}));
 const data = vi.hoisted(() => ({ listings: [] as Listing[], lang: "en" as "en" | "zh" }));
 vi.mock("@/lib/data/listings", () => ({ getListings: async () => data.listings, todayNY: () => "2026-11-10" }));
 vi.mock("@/lib/lang", () => ({ getLang: async () => data.lang }));

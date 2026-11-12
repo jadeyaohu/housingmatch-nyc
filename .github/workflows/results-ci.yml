@@ -37,6 +37,7 @@ jobs:
       - run: npm run test:e2e:consultation -- --workers=2
       - run: npm run test:e2e:beta -- --workers=2
       - run: npm run test:e2e:v3 -- --workers=2
+      - run: npm run test:e2e:preview -- --workers=2
       - name: Record evidence candidate SHA
         if: always()
         run: |
