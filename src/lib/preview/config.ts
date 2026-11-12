@@ -1,6 +1,7 @@
 import "server-only";
-// Founder-authorized synthetic journeys, NEVER enabled in Production or used as a real-provider fallback.
+// Synthetic journeys are local developer/test fixtures, never a hosted fallback.
 export function previewDemoEnabled() {
-  if(process.env.VERCEL_ENV==="production" || process.env.NEXT_PUBLIC_VERCEL_ENV==="production")return false;
-  return process.env.VERCEL_ENV==="preview" || process.env.BETA_PREVIEW_DEMO==="true";
+  if (process.env.VERCEL_ENV || process.env.NEXT_PUBLIC_VERCEL_ENV) return false;
+  return process.env.BETA_PREVIEW_DEMO === "true" &&
+    (process.env.NODE_ENV === "development" || process.env.BETA_FIXTURES === "synthetic");
 }

@@ -29,7 +29,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <main className="mx-auto max-w-6xl px-5 py-10 pb-32 md:pb-10">{children}</main>
         <footer className="border-t border-stone-200 bg-white">
           <p className="mx-auto max-w-6xl px-5 py-6 text-xs leading-relaxed text-stone-500">{t.footer} <Link href="/privacy" className="underline underline-offset-2">{t.privacyNav}</Link></p>
-        <AnalyticsConsent lang={lang}/>{previewDemoEnabled()&&<p className="mx-auto max-w-6xl px-5 pb-5 text-xs text-stone-500" data-testid="preview-build">PREVIEW · {process.env.VERCEL_GIT_COMMIT_SHA?.slice(0,12)??"local-synthetic"} · <Link href="/help" className="underline">{lang==="zh"?"功能状态":"Feature status"}</Link></p>}</footer></PreviewProvider>
+        <AnalyticsConsent lang={lang}/>{(previewDemoEnabled() || process.env.VERCEL_ENV === "preview")&&<p className="mx-auto max-w-6xl px-5 pb-5 text-xs text-stone-500" data-testid="preview-build">PREVIEW · {process.env.VERCEL_GIT_COMMIT_SHA?.slice(0,12)??"local-synthetic"} · <Link href="/help" className="underline">{lang==="zh"?"功能状态":"Feature status"}</Link></p>}</footer></PreviewProvider>
       </body>
     </html>
   );

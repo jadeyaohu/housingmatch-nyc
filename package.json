@@ -15,7 +15,8 @@
     "test:e2e:beta": "playwright test -c playwright.beta.config.ts",
     "test:db:beta": "bash scripts/test-beta-db.sh",
     "test:e2e:v3": "playwright test -c playwright.v3.config.ts",
-    "test:e2e:preview": "playwright test -c playwright.preview.config.ts"
+    "test:e2e:preview": "playwright test -c playwright.preview.config.ts",
+    "test:e2e:public-beta": "playwright test -c playwright.public-beta.config.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

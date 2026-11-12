@@ -1,10 +1,13 @@
+import { bookingConfigured } from "@/lib/consultation/config";
+import { previewDemoEnabled } from "@/lib/preview/config";
 import Link from "next/link";
 import { getLang } from "@/lib/lang";
 import { consultationCopy } from "@/lib/consultation/content";
 import { PACKAGES } from "@/lib/consultation/model";
 
 export default async function ConsultationPage() {
-  const t = consultationCopy[await getLang()];
+  const lang = await getLang(), t = consultationCopy[lang];
+  const available = bookingConfigured() || previewDemoEnabled();
   return <div className="mx-auto max-w-5xl">
     <header className="max-w-3xl">
       <p className="text-xs font-bold tracking-widest text-teal-800">{t.eyebrow}</p>
@@ -18,7 +21,7 @@ export default async function ConsultationPage() {
         <p className="mt-5 flex flex-wrap items-baseline gap-2"><span className="text-5xl font-bold tracking-tight">${PACKAGES[key].priceCents / 100}</span><span className="text-stone-600">/ {PACKAGES[key].minutes} {t.minutes}</span></p>
         <p className="mt-2 text-sm text-stone-500">{t.oneTime}</p>
         <ul className="my-7 flex-1 space-y-4 text-sm leading-relaxed text-stone-700">{t.features[key].map((feature) => <li key={feature} className="flex gap-3"><span aria-hidden="true" className="font-bold text-teal-700">✓</span><span>{feature}</span></li>)}</ul>
-        <Link href={`/consultation/book?package=${key}`} className="rounded-xl bg-teal-800 px-5 py-3 text-center font-semibold text-white hover:bg-teal-900">{t.booking}<span className="sr-only"> — {t[key]}</span></Link>
+        {available ? <Link href={`/consultation/book?package=${key}`} className="rounded-xl bg-teal-800 px-5 py-3 text-center font-semibold text-white hover:bg-teal-900">{t.booking}<span className="sr-only"> — {t[key]}</span></Link> : <p role="status" className="rounded-xl bg-stone-100 p-4 text-center font-semibold">{lang === "zh" ? "即将推出 · 暂不接受请求或付款" : "Coming Soon · Requests and payments unavailable"}</p>}
       </section>)}
     </div>
     <aside className="mt-7 rounded-2xl bg-teal-50 p-5 text-sm leading-relaxed text-teal-950"><p className="font-semibold">{t.noCharge}</p><p className="mt-3">{t.disclosure}</p></aside>

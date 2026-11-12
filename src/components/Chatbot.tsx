@@ -50,7 +50,7 @@ export function Chatbot({ lang, enabled, demo=false }: { lang: Lang; enabled: bo
   }
   return <div className="mx-auto max-w-3xl">
     {demo && <PreviewNotice lang={lang}/>}
-    <h1 className="text-3xl font-bold sm:text-5xl">{t.title}</h1><p className="mt-4 text-stone-600">{demo?(zh?"本地 FAQ 演示，不会调用 Gemini。免费房源、AMI 工具与问卷始终开放。":"Local FAQ demo: no Gemini call. Free search, AMI tools and Quiz remain available."):t.sub}</p>
+    <h1 className="text-3xl font-bold sm:text-5xl">{t.title}</h1><p className="mt-4 text-stone-600">{demo?(zh?"本地 FAQ 演示，不会调用 Gemini。免费房源、AMI 工具与问卷始终开放。":"Local FAQ demo: no Gemini call. Free search, AMI tools and Quiz remain available."):enabled?t.sub:(zh?"AI 助手即将推出。当前可免费搜索房源并使用 AMI 问卷。":"AI guidance is coming soon. Free housing search and the AMI Quiz are available now.")}</p>
     <aside className="my-6 rounded-2xl bg-amber-50 p-5 text-sm leading-relaxed text-amber-950">{t.notice}</aside>
     {!enabled && <p role="status" className="my-5 rounded-xl border p-4">{t.unavailable}</p>}
     {usage && <p className="mb-4 font-semibold">{t.usage}: {usage.used}/{usage.limit} · {t.reset}</p>}
@@ -63,6 +63,6 @@ export function Chatbot({ lang, enabled, demo=false }: { lang: Lang; enabled: bo
     </form>
     {demo && <button disabled={!preview.state.signedIn} type="button" onClick={()=>setError("error")} className="mt-4 min-h-11 text-teal-800 underline">{lang === "zh" ? "模拟服务错误（不扣演示额度）" : "Simulate provider error (no demo quota charge)"}</button>}
     <div className="mt-6 flex flex-wrap gap-5 text-teal-800 underline"><Link href="/pricing">{t.pricing}</Link>{!(demo?preview.state.signedIn:!!usage)&&<Link href={demo?"/signup?mode=demo&next=%2Fchat":"/signup?next=%2Fchat"}>{t.login}</Link>}<Link href="/consultation">{lang === "zh" ? "预约一对一咨询" : "Book a Consultation"}</Link></div>
-    <p className="mt-6 text-xs leading-relaxed text-stone-500">{demo?(zh?"对话仅保留在此页面，刷新即清除。本地演示不发送或保留外部聊天记录；演示额度不是服务端真实权益。":"Conversation clears on reload. This local demo sends nothing to an external provider; demo quotas are not real server entitlements."):t.demo}</p>
+    {enabled && <p className="mt-6 text-xs leading-relaxed text-stone-500">{demo?(zh?"对话仅保留在此页面，刷新即清除。本地演示不发送或保留外部聊天记录；演示额度不是服务端真实权益。":"Conversation clears on reload. This local demo sends nothing to an external provider; demo quotas are not real server entitlements."):t.demo}</p>}
   </div>;
 }
