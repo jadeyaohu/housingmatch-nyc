@@ -176,7 +176,7 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
         <span className="rounded-full bg-stone-100 px-2 py-0.5 text-stone-700">{d[`type_${l.listingType ?? "lottery"}`]}</span>
         <AvailabilityBadge value={av} lang={lang} date={checked} />
       </div>
-      <ListingGallery lang={lang}/>
+      <ListingGallery lang={lang} listingId={l.id}/>
       <h1 className="mt-2 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{l.projectName}</h1>{saved?<SaveButton cfg={saved.cfg} listingId={l.id} initial={saved.ids.has(l.id)} lang={lang}/>:previewDemoEnabled()&&<DemoSaveButton id={l.id} lang={lang}/>}
       <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
         <dt className="text-stone-500">{t.where}</dt>

@@ -59,3 +59,12 @@ describe("TEST subscriptions, mocked SDK transport",()=>{
     m.command.mockResolvedValue({subscription:"sub_fixture",customer:"cus_fixture"});await cancelSubscription("user");expect(m.update).toHaveBeenCalledWith("sub_fixture",{cancel_at_period_end:true},{idempotencyKey:"beta-cancel-sub_fixture"});expect(m.command).toHaveBeenCalledTimes(1);
   });
 });
+it('uses a verified configured catalog Price and refuses an invalid one before reserving checkout',async()=>{
+ vi.stubEnv('SUBSCRIPTIONS_STRIPE_BASIC_PRICE_ID','price_configured');
+ const metadata={housingmatch_catalog:'housingmatch-pricing-v3-test',housingmatch_plan:'basic'};
+ const price={active:true,livemode:false,type:'recurring',currency:'usd',unit_amount:499,recurring:{interval:'month',interval_count:1},metadata,product:{active:true,livemode:false,metadata}};
+ const get=vi.fn().mockResolvedValue(price);
+ const config=await import('./config');vi.spyOn(config,'subscriptionStripe').mockReturnValue({customers:{create:m.customer},checkout:{sessions:{create:m.create,retrieve:m.sessionGet,list:m.list}},subscriptions:{retrieve:m.retrieve,update:m.update},prices:{retrieve:get}}as never);
+ await createSubscriptionCheckout('user','basic');expect(m.create.mock.calls[0][0].line_items).toEqual([{price:'price_configured',quantity:1}]);
+ m.command.mockClear();get.mockResolvedValue({...price,unit_amount:1});await expect(createSubscriptionCheckout('user','basic')).rejects.toThrow('unavailable');expect(m.command).not.toHaveBeenCalled();vi.restoreAllMocks();
+});

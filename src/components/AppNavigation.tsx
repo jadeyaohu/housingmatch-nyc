@@ -32,7 +32,7 @@ export function AppNavigation({lang,signedIn}:{lang:Lang;signedIn:boolean}){
    </div>
   </dialog>
   <nav aria-label={lang==="zh"?"主导航":"Primary navigation"} data-testid="bottom-navigation" className={`fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-stone-200 bg-white/95 px-2 pt-1 pb-[max(env(safe-area-inset-bottom),0.4rem)] backdrop-blur md:hidden ${keyboard?"invisible pointer-events-none":""}`}>
-   {tabs.map(t=><Link key={t.href} href={t.href} aria-current={active(t.href)?"page":undefined} className="flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-xl text-[11px] text-stone-600 aria-[current=page]:bg-teal-50 aria-[current=page]:font-bold aria-[current=page]:text-teal-900"><svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-5"><path d={t.path}/></svg>{lang==="zh"?t.zh:t.en}</Link>)}
+   {tabs.map(t=><Link key={t.href} href={t.href} aria-current={active(t.href)?"page":undefined} className="flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-xl text-[11px] text-stone-600 aria-[current=page]:bg-teal-50 aria-[current=page]:font-bold aria-[current=page]:text-teal-900"><svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-5 shrink-0"><path d={t.path}/></svg><span className="block whitespace-nowrap px-1 py-0.5 text-xs leading-5">{lang==="zh"?t.zh:t.en}</span></Link>)}
   </nav>
  </>;
 }

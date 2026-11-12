@@ -5,3 +5,4 @@ describe('recommendation selection',()=>{
  it('retains income fit as a separate dimension, ranks affordable peers first, and never mutates response rows',()=>{const high=row('above-budget');high.lifestyle!.budget='no';const low=row('within-budget');const data=[high,low];expect(recommendationRows(data).map(x=>x.listing.id)).toEqual(['within-budget','above-budget']);expect(data[0]).toBe(high);expect(high.result.status).toBe('LIKELY_MATCH');});
  it('uses fixed synthetic profiles without collecting real personal inputs',()=>{expect(DEMO_PROFILES.family).toEqual({size:3,annualIncome:60000,rentMax:1800});});
 });
+it('has a total stable order even when response order and project names tie',()=>{const a=row('a'),b=row('b'),c=row('c');for(const r of[a,b,c])r.listing.projectName='Identical name';expect(recommendationRows([c,a,b]).map(r=>r.listing.id)).toEqual(['a','b','c']);expect(recommendationRows([b,c,a]).map(r=>r.listing.id)).toEqual(['a','b','c']);});

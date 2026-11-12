@@ -2,10 +2,10 @@ import { expect,test } from "@playwright/test";
 for(const lang of ["en","zh"] as const){
  test.describe(lang,()=>{
   test.beforeEach(async({context})=>{await context.addCookies([{name:"lang",value:lang,url:"http://localhost:3230"}]);});
-  test("directory has labeled neutral media, safe links, filters and separate secondary inventory",async({page},info)=>{
+  test("directory has labeled licensed representative photos, safe links, filters and separate secondary inventory",async({page},info)=>{
    await page.goto("/listings");
    const cards=page.getByTestId("directory-card");await expect(cards).toHaveCount(2);
-   await expect(cards.first().locator("figcaption")).toContainText(lang==="en"?"not a property photo":"非房源照片");
+   await expect(cards.first().locator("figcaption")).toContainText(lang==="en"?"not this building":"非该楼盘实拍");
    await expect(cards.first().getByRole("link").last()).toHaveAttribute("href","https://housingconnect.nyc.gov/PublicWeb/");
    expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
    await page.screenshot({path:info.outputPath(`directory-${lang}-${info.project.name}.png`),fullPage:true});

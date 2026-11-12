@@ -2,6 +2,7 @@ import "server-only";
 import type Stripe from "stripe";
 import { PLANS, type Plan } from "./model";
 import { subscriptionStripe, subscriptionConfig } from "./config";
+import { validCatalogPrice } from "./catalog";
 import { betaCommand } from "./db";
 
 export function subscriptionEntitlement(sub: Stripe.Subscription): { plan: Plan; valid_until: string | null } {
@@ -17,6 +18,8 @@ export function subscriptionEntitlement(sub: Stripe.Subscription): { plan: Plan;
 export async function createSubscriptionCheckout(user: string, plan: "basic" | "smart") {
   const stripe = subscriptionStripe();
   const { origin } = subscriptionConfig();
+  const configuredPrice=process.env[plan==="basic"?"SUBSCRIPTIONS_STRIPE_BASIC_PRICE_ID":"SUBSCRIPTIONS_STRIPE_SMART_PRICE_ID"];
+  if(configuredPrice&&(!/^price_[A-Za-z0-9]+$/.test(configuredPrice)||!validCatalogPrice(await stripe.prices.retrieve(configuredPrice,{expand:["product"]}),plan)))throw new Error("unavailable");
   const previous = await betaCommand<{ attempt: string | null; session: string | null }>("checkout_info", user);
   if (previous.attempt) {
     if (!previous.session) throw new Error("busy"); // Ambiguous creation requires reconciliation, never a second purchase.
@@ -33,7 +36,7 @@ export async function createSubscriptionCheckout(user: string, plan: "basic" | "
   const customer = row.customer ?? (await stripe.customers.create({ metadata: { housingmatch_user: user } }, { idempotencyKey: `beta-customer-${user}` })).id;
   await betaCommand("customer_attach", user, { attempt: row.attempt, customer });
   const session = await stripe.checkout.sessions.create({ mode: "subscription", customer,
-    line_items: [{ price_data: { currency: "usd", unit_amount: PLANS[plan].cents, recurring: { interval: "month" }, product_data: { name: `HousingMatch ${plan} — TEST` } }, quantity: 1 }],
+    line_items: configuredPrice ? [{price:configuredPrice,quantity:1}] : [{ price_data: { currency: "usd", unit_amount: PLANS[plan].cents, recurring: { interval: "month" }, product_data: { name: `HousingMatch ${plan} — TEST` } }, quantity: 1 }],
     subscription_data: { metadata: { housingmatch_plan: plan } },
     success_url: `${origin}/pricing?checkout=returned`, cancel_url: `${origin}/pricing?checkout=cancelled`,
   }, { idempotencyKey: `beta-checkout-${row.attempt}` });

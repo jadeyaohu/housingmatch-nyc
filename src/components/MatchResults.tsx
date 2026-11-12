@@ -48,6 +48,7 @@ export function MatchResults({
 
   const shown = rows.filter((r) => showUnlikely || (r.result.status !== "UNLIKELY_MATCH" && r.result.matchesPreferences));
   const inPrefs = (s: MatchStatus) => rows.filter((r) => r.result.matchesPreferences && r.result.status === s).length;
+  const overBudget=rows.some(r=>r.result.status==="LIKELY_MATCH"&&r.lifestyle?.budget==="no");
   const likelyN = inPrefs("LIKELY_MATCH");
   const reviewN = inPrefs("NEEDS_REVIEW");
   const hiddenN = rows.length - likelyN - reviewN;
@@ -259,11 +260,11 @@ export function MatchResults({
         ) : null}
       </div>
       <p data-testid="result-counts" className="mb-3 text-sm text-stone-700">
-        {fill(t.counts, { likely: likelyN, review: reviewN, hidden: hiddenN })}
+        {overBudget?(lang==="zh"?`${likelyN} 个收入初步匹配（租金预算另列） · ${reviewN} 个需核对 · ${hiddenN} 个未显示`:`${likelyN} preliminary income matches (rent budget separate) · ${reviewN} need review · ${hiddenN} hidden`):fill(t.counts, { likely: likelyN, review: reviewN, hidden: hiddenN })}
       </p>
       <p className="mb-6 rounded-lg bg-stone-100 px-4 py-2.5 text-sm text-stone-700">{t.disclaimerShort}</p>
       {shown.length === 0 && <p className="text-stone-500">{t.noResults}</p>}
-      {block("LIKELY_MATCH", t.sectionLikely, t.sectionLikelyNote)}
+      {block("LIKELY_MATCH", overBudget?(lang==="zh"?"收入初步匹配 · 不表示租金符合预算":"Preliminary income matches · rent may exceed budget"):t.sectionLikely, t.sectionLikelyNote)}
       {block("NEEDS_REVIEW", t.sectionReview, secondary ? t.sectionReviewNoteRr : t.sectionReviewNote)}
       {block("UNLIKELY_MATCH", t.UNLIKELY_MATCH, null)}
     </>

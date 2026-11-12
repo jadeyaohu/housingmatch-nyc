@@ -24,7 +24,7 @@ export function AnalyticsConsent({ lang }: { lang: Lang }) {
       }).catch(() => {});
     return () => controller.abort();
   }, [choice, path, lang]);
-  if (process.env.NEXT_PUBLIC_GTM_EVENTS_ENABLED !== "true") return <aside className="mx-auto max-w-6xl px-5 pb-5 text-xs"><p>{lang==="zh"?"实际产品统计已关闭，不收集事件。":"Real product analytics is OFF; no events are collected."}</p><button onClick={()=>choose(false)} className="min-h-11 underline">{lang==="zh"?"拒绝 / 撤回同意":"Decline / withdraw consent"}</button>{preview.enabled&&<Link href="/analytics" className="mt-2 inline-flex min-h-11 items-center text-teal-800 underline">{lang==="zh"?"查看独立的合成 GTM 仪表盘":"View isolated synthetic GTM Dashboard"}</Link>}</aside>;
+  if (process.env.NEXT_PUBLIC_GTM_EVENTS_ENABLED !== "true") return <aside className="mx-auto max-w-6xl px-5 pb-5 text-xs"><p>{lang==="zh"?"实际产品统计已关闭，不收集事件。":"Real product analytics is OFF; no events are collected."}</p><button onClick={()=>choose(false)} className="min-h-11 underline">{lang==="zh"?"拒绝 / 撤回同意":"Decline / withdraw consent"}</button>{preview.enabled&&<Link href="/analytics" className="mt-2 flex w-fit min-h-11 items-center text-teal-800 underline">{lang==="zh"?"查看独立的合成 GTM 仪表盘":"View isolated synthetic GTM Dashboard"}</Link>}</aside>;
   function choose(value: boolean) {
     if(!value && preview.enabled) preview.update(s=>({...s,analytics:false,events:[]}));
     try { localStorage.setItem(CONSENT_KEY, value ? "yes" : "no"); setChoice(value); }

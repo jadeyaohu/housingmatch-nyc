@@ -325,7 +325,7 @@ export function Quiz({ lang, auth, signedIn, profile, demo=false }: { lang: Lang
             <h1 className="text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{t.previewTitle}</h1>
             <div className="mt-6 grid gap-3 sm:grid-cols-3">
               {[
-                ["likely", counts.likely, t.pLikely, t.pLikelyD, "bg-teal-50 text-teal-950"],
+                ["likely", counts.likely, (rows.some(r=>r.result.status==="LIKELY_MATCH"&&r.lifestyle?.budget==="no")?(lang==="zh"?"收入初步匹配（预算另核）":"Preliminary income matches (budget separate)"):t.pLikely), t.pLikelyD, "bg-teal-50 text-teal-950"],
                 ["review", counts.review, t.pReview, t.pReviewD, "bg-amber-50 text-amber-950"],
                 ["open", counts.open, t.pOpen, t.pOpenD, "bg-stone-50 text-stone-900"],
               ].map(([k, n, label, desc, cls]) => (

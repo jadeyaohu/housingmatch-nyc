@@ -1,13 +1,7 @@
-import type { Lang } from "@/lib/i18n";
-/** Original neutral graphic. No third-party property image or license is inferred. */
-export function ListingMedia({ lang }: { lang: Lang }) {
-  return <figure className="relative overflow-hidden bg-gradient-to-br from-teal-50 to-stone-100">
-    <svg viewBox="0 0 400 220" className="aspect-[20/11] w-full" aria-hidden="true" focusable="false">
-      <circle cx="325" cy="45" r="24" fill="#e4c88b" opacity=".65" />
-      <path d="M0 188H400V220H0Z" fill="#ccdad1"/><path d="M50 185V62L126 37V185Z" fill="#b9ccc2"/><path d="M136 185V87L219 66V185Z" fill="#7faaa0"/><path d="M229 185V43L326 72V185Z" fill="#40786e"/>
-      {[75,100,153,183,248,278,308].map((x,i) => <g key={x} fill="#f5f6e9" opacity=".8">{[96,122,148].map(y=><rect key={y} x={x} y={y+(i<2?-10:0)} width="10" height="13" rx="1"/>)}</g>)}
-      <path d="M0 190H400" stroke="#678c7b" strokeWidth="3"/><path d="M33 190V159M357 190V159" stroke="#40786e" strokeWidth="6"/><circle cx="33" cy="149" r="20" fill="#91b7a5"/><circle cx="357" cy="149" r="20" fill="#91b7a5"/>
-    </svg>
-    <figcaption className="absolute bottom-3 left-3 right-3 rounded-lg bg-white/90 px-3 py-2 text-xs leading-relaxed text-stone-700">{lang === "zh" ? "中性示意图，非房源照片 · 照片授权待核实" : "Neutral illustration, not a property photo · photo rights unverified"}</figcaption>
-  </figure>;
+"use client";
+import Image from 'next/image';import{useState}from'react';import type{Lang}from'@/lib/i18n';import{listingPhotos,type HousingPhoto}from'@/lib/photos/model';import{ListingIllustration}from'./ListingIllustration';
+export function ListingMedia({lang,listingId,photo,contain=false}:{lang:Lang;listingId?:string;photo?:HousingPhoto;contain?:boolean}){
+ const selected=photo??listingPhotos(listingId)[0];const[failed,setFailed]=useState<string|null>(null),[loaded,setLoaded]=useState<string|null>(null);const zh=lang==='zh';
+ if(!selected||selected.photo_status==='pending_permission'||(selected.photo_status==='verified_property'&&selected.propertyId!==listingId)||failed===selected.src)return <ListingIllustration lang={lang}/>;
+ return <figure data-photo-status={selected.photo_status} className="bg-stone-100"><div className="relative aspect-[20/11] overflow-hidden">{loaded!==selected.src&&<span className="absolute inset-0 animate-pulse bg-stone-200" aria-hidden/>}<Image src={selected.src} alt={zh?'纽约第五大道建筑历史照片（1911），非当前房源实拍':`Historic Fifth Avenue NYC buildings (1911), not this listing's building: ${selected.title}`} fill sizes="(max-width: 767px) 100vw, (max-width: 1200px) 50vw, 800px" className={contain?'object-contain':'object-cover'} onLoad={()=>setLoaded(selected.src)} onError={()=>setFailed(selected.src)}/></div><figcaption className="bg-amber-50 px-3 py-2 text-xs leading-5 text-amber-950">{zh?'示意照片，非该楼盘实拍 · 历史照片 1911':'Representative photo — not this building · historic 1911'}</figcaption></figure>;
 }

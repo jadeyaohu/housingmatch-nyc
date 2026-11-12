@@ -10,5 +10,5 @@ export type MatchProfile={size:number;annualIncome:number;rentMax:number|null;bo
 /** Only primary opportunities; income eligibility and budget fit remain distinct facts. */
 export function recommendationRows(rows:Row[],limit=3){
  return rows.filter(r=>!isSecondary(r.listing)&&r.availability!=="confirmed_closed"&&r.result.status!=="UNLIKELY_MATCH")
- .sort((a,b)=>Number(b.result.status==="LIKELY_MATCH")-Number(a.result.status==="LIKELY_MATCH")||Number(a.lifestyle?.budget==="no")-Number(b.lifestyle?.budget==="no")||a.listing.projectName.localeCompare(b.listing.projectName)).slice(0,limit);
+ .sort((a,b)=>Number(b.result.status==="LIKELY_MATCH")-Number(a.result.status==="LIKELY_MATCH")||Number(a.lifestyle?.budget==="no")-Number(b.lifestyle?.budget==="no")||a.listing.projectName.localeCompare(b.listing.projectName,"en")||a.listing.id.localeCompare(b.listing.id,"en")).slice(0,limit);
 }
