@@ -6,3 +6,5 @@ describe('recommendation selection',()=>{
  it('uses fixed synthetic profiles without collecting real personal inputs',()=>{expect(DEMO_PROFILES.family).toEqual({size:3,annualIncome:60000,rentMax:1800});});
 });
 it('has a total stable order even when response order and project names tie',()=>{const a=row('a'),b=row('b'),c=row('c');for(const r of[a,b,c])r.listing.projectName='Identical name';expect(recommendationRows([c,a,b]).map(r=>r.listing.id)).toEqual(['a','b','c']);expect(recommendationRows([b,c,a]).map(r=>r.listing.id)).toEqual(['a','b','c']);});
+
+it('does not spend the recommendation limit on rows the result UI will hide for household preferences',()=>{const outside=row('a-outside'),inside=row('z-inside');outside.result.matchesPreferences=false;inside.result.matchesPreferences=true;expect(recommendationRows([outside,inside],1).map(r=>r.listing.id)).toEqual(['z-inside']);});
