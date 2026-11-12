@@ -14,7 +14,7 @@ The protected real implementations remain in place and are preferred when approv
 
 | Module | Preview experience | Actual backend status |
 |---|---|---|
-| Explore / listing details / search | File catalog, filters, official links, original labeled representative illustrations | Local file handlers tested; current source/photo rights still require independent verification. No unlicensed property photos imported. |
+| Explore / listing details / search | File catalog, filters, official links, original labeled representative illustrations and keyboard-accessible enlargement gallery | Local file handlers tested; current source/photo rights still require independent verification. No unlicensed property photos imported. |
 | Match / AMI Quiz | Existing free quiz, complete preliminary results and explanations; demo saves available | Real matching handler with synthetic fixture tests. No guaranteed eligibility or odds claims. |
 | Signup / login / My | Isolated synthetic account; `/login` and `/register` resolve to signup; no dead-end redirect to Quiz | Real Supabase Auth remains gated/configured separately, not falsely registered by demo. |
 | Saved listings | In-memory save/unsave from directory, detail and quiz; My Saved list | Existing owner-scoped database saves retained and surfaced for verified real users. Demo favorites disappear on refresh. |
