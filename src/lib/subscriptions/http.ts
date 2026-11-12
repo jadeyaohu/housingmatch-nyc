@@ -6,7 +6,7 @@ import { readBody } from "@/lib/payments/http";
 export const reply = (data: object, status = 200) => NextResponse.json(data, { status, headers: { "Cache-Control": "no-store", "Referrer-Policy": "no-referrer", "X-Content-Type-Options": "nosniff", ...(status === 429 ? { "Retry-After": "60" } : {}) } });
 export function fail(error: unknown) {
   const code = error instanceof Error ? error.message : "unavailable";
-  const status = ({ unauthenticated: 401, forbidden: 403, invalid_input: 400, quota: 429, rate_limited: 429, busy: 409, duplicate: 409 } as Record<string, number>)[code] ?? 503;
+  const status = ({ unauthenticated: 401, forbidden: 403, invalid_input: 400, conflict: 409, not_found: 404, quota: 429, rate_limited: 429, busy: 409, duplicate: 409 } as Record<string, number>)[code] ?? 503;
   return reply({ error: status === 503 ? "unavailable" : code }, status);
 }
 export async function requireUser(req?: Request) {

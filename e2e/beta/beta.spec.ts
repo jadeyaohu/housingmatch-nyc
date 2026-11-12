@@ -19,8 +19,8 @@ for(const lang of ["en","zh"] as const){
    await page.route("http://127.0.0.1:54321/auth/v1/otp**",r=>r.fulfill({json:{}}));
    await page.locator('input[type=email]').fill("synthetic@example.test");await send.click();await expect(page.getByTestId("signup-sent")).toBeVisible();
   });
-  test("retired intake, default-OFF chat and subscriptions preserve the free quiz",async({page})=>{
-   await page.goto("/consultation/book");await expect(page).toHaveURL(/\/consultation$/);await expect(page.locator('form')).toHaveCount(0);
+  test("native intake default OFF, chat and subscriptions preserve the free quiz",async({page})=>{
+   await page.goto("/consultation/book");await expect(page.locator('input[name=name]')).toBeDisabled();
    await page.goto("/consultation/pay");await expect(page).toHaveURL(/\/consultation$/);
    await page.goto("/chat");await expect(page.getByRole("textbox")).toBeDisabled();
    await page.goto("/pricing");await expect(page.getByRole("button",{name:lang==="en"?"Choose TEST plan — Basic":"选择 TEST 测试方案 — 基础",exact:true})).toBeDisabled();

@@ -50,7 +50,7 @@ export function SubscriptionPricing({ lang, enabled }: { lang: Lang; enabled: bo
       <p>{t.reset}</p><p>{t.footer}</p>
       {status && <section className="rounded-2xl border p-5"><p>{t.status}: {t.names[status.plan]} · {status.used}/{status.limit}</p>{status.plan !== "free" && <><p className="mt-2 text-xs">{lang === "zh" ? "测试版暂不支持周期中途切换或按比例补差；更换方案需取消并等待当前周期结束。" : "TEST plan changes/proration are not supported yet. Cancel renewal and wait until the current period ends before choosing another plan."}</p><button onClick={()=>action("cancel")} disabled={!enabled || busy} className="mt-3 min-h-11 text-teal-800 underline">{t.cancel}</button><label className="mt-4 flex items-center gap-3"><input type="checkbox" checked={alert} onChange={e=>setAlert(e.target.checked)}/>{t.alerts}</label><button onClick={()=>action("alerts")} disabled={busy} className="mt-2 min-h-11 text-teal-800 underline">{t.alertOpt}</button></>}</section>}
       {message && <p role="status" className="rounded-xl bg-teal-50 p-4">{message}</p>}
-      <div className="flex flex-wrap gap-5 text-teal-800 underline"><Link href="/quiz">{lang === "zh" ? "免费资格问卷" : "Free eligibility Quiz"}</Link><Link href="/signup?next=%2Fpricing">{lang === "zh" ? "免费登录" : "Free sign-in"}</Link>{lang === "zh" && <Link href="/consultation">可选中文住房教育咨询</Link>}</div>
+      <div className="flex flex-wrap gap-5 text-teal-800 underline"><Link href="/quiz">{lang === "zh" ? "免费资格问卷" : "Free eligibility Quiz"}</Link><Link href="/signup?next=%2Fpricing">{lang === "zh" ? "免费登录" : "Free sign-in"}</Link><Link href="/consultation">{lang === "zh" ? "预约一对一咨询" : "Book a Consultation"}</Link></div>
     </div>
   </div>;
 }

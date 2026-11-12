@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-export const TERMS_VERSION = "consultation-2026-11-11-draft-1";
-export const PRIVACY_VERSION = "privacy-2026-11-11-draft-1";
+export const TERMS_VERSION = "consultation-2026-11-12-native-draft-2";
+export const PRIVACY_VERSION = "privacy-2026-11-12-native-draft-2";
 export const PACKAGES = {
   standard: { priceCents: 5900, minutes: 30 },
   expert: { priceCents: 9900, minutes: 60 },
@@ -20,7 +20,7 @@ export function canTransitionPayment(from: PaymentStatus, to: PaymentStatus): bo
 
 const clean = (max: number) => z.string().trim().min(1).max(max).refine((s) => !/[\u0000-\u001f\u007f]/.test(s));
 export const BookingInput = z.strictObject({
-  requestId: z.uuid(),
+  submissionKey: z.uuid(),
   package: z.enum(["standard", "expert"]),
   name: clean(100),
   email: z.email().max(254),

@@ -19,7 +19,7 @@ create table auth.users(id uuid primary key);
 create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid $$;
 SQL
 for file in supabase/migrations/*.sql; do "${psql[@]}" < "$file"; done
-for file in supabase/tests/consultation.sql supabase/tests/consultation_payments.sql supabase/tests/beta_owner_rls.sql supabase/tests/chat_subscriptions.sql; do "${psql[@]}" < "$file"; done
+for file in supabase/tests/consultation.sql supabase/tests/consultation_payments.sql supabase/tests/beta_owner_rls.sql supabase/tests/chat_subscriptions.sql supabase/tests/native_consultation.sql; do "${psql[@]}" < "$file"; done
 # Independent connections race the same free account; exactly one reservation may succeed.
 "${psql[@]}" -c "insert into auth.users values('be700000-0000-4000-8000-000000000099')" >/dev/null
 race_dir=$(mktemp -d /tmp/hm-quota-race.XXXXXX)
@@ -40,5 +40,23 @@ do $$ declare rid uuid; x jsonb; begin
 end $$;
 SQL
 rm -r "$race_dir"
+# Race independent email workers against one synthetic acknowledgment.
+"${psql[@]}" <<'SQL'
+select public.native_consultation_command('request','ca700000-0000-4000-8000-000000000099',null,jsonb_build_object(
+ 'package','standard','name','Synthetic','email','race@example.test','language','en','preferredLocal',(now()+interval '10 days')::timestamp,
+ 'timezone','UTC','preferredUTC',now()+interval '10 days','topic','','termsVersion','consultation-2026-11-12-native-draft-2',
+ 'privacyVersion','privacy-2026-11-12-native-draft-2','termsAccepted',true,'privacyAccepted',true,'fingerprint',repeat('d',64)));
+SQL
+mail_race_dir=$(mktemp -d /tmp/hm-mail-race.XXXXXX)
+pids=()
+for n in {1..8}; do
+  "${psql[@]}" -qAt -c "set role service_role; select (public.native_consultation_command('claim_email')->>'id') is not null" >"$mail_race_dir/$n.log" &
+  pids+=("$!")
+done
+for pid in "${pids[@]}"; do wait "$pid"; done
+[[ $(grep -lx t "$mail_race_dir"/*.log | wc -l) -eq 1 ]]
+[[ $(grep -lx f "$mail_race_dir"/*.log | wc -l) -eq 7 ]]
+rm -r "$mail_race_dir"
+printf '%s\n' 'PASS: concurrent email workers (8 connections), exactly one acknowledgment lease.'
 printf '%s\n' 'PASS: concurrent free quota (8 connections), Pricing v3 state machine.'
 printf '%s\n' 'PASS: migrations, booking/payment assertions, owner-scoped saves/profile deletion (synthetic local DB).'

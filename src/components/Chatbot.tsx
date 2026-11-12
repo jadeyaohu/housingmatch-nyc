@@ -43,7 +43,7 @@ export function Chatbot({ lang, enabled }: { lang: Lang; enabled: boolean }) {
       <button disabled={!enabled || !consent || pending} className="min-h-12 rounded-xl bg-teal-800 px-6 font-semibold text-white disabled:opacity-50">{pending ? t.pending : t.send}</button>
       {error && <p role="alert" className="rounded-xl bg-amber-50 p-4 text-amber-950">{error}</p>}
     </form>
-    <div className="mt-6 flex flex-wrap gap-5 text-teal-800 underline"><Link href="/pricing">{t.pricing}</Link><Link href="/signup?next=%2Fchat">{t.login}</Link>{lang === "zh" && <Link href="/consultation">可选中文住房教育咨询</Link>}</div>
+    <div className="mt-6 flex flex-wrap gap-5 text-teal-800 underline"><Link href="/pricing">{t.pricing}</Link><Link href="/signup?next=%2Fchat">{t.login}</Link><Link href="/consultation">{lang === "zh" ? "预约一对一咨询" : "Book a Consultation"}</Link></div>
     <p className="mt-6 text-xs leading-relaxed text-stone-500">{t.demo}</p>
   </div>;
 }

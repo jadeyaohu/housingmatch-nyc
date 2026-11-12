@@ -36,7 +36,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               )}
               <Link href="/chat" className="text-teal-800">{lang === "zh" ? "住房问答" : "Ask housing"}</Link>
               <Link href="/pricing" className="text-teal-800">{lang === "zh" ? "方案" : "Plans"}</Link>
-              {lang === "zh" && <Link href="/consultation" className="text-teal-800">中文咨询</Link>}
+              <Link href="/consultation" className="text-teal-800">{lang === "zh" ? "咨询" : "Consultation"}</Link>
               <LangToggle lang={lang} />
             </div>
           </nav>

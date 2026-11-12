@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { appointmentUTC, BookingInput, canTransitionBooking, canTransitionPayment, PACKAGES, PRIVACY_VERSION, TERMS_VERSION } from "./model";
 import { consultationCopy } from "./content";
 
-const input = { requestId: "f053e2b1-65c1-46db-b0c9-aa49ae28d6c1", package: "standard", name: "Example Person", email: "synthetic@example.test", language: "en", preferredLocal: "2030-06-01T14:30", timezone: "America/New_York", topic: "General preparation", termsAccepted: true, privacyAccepted: true, termsVersion: TERMS_VERSION, privacyVersion: PRIVACY_VERSION };
+const input = { submissionKey: "f053e2b1-65c1-46db-b0c9-aa49ae28d6c1", package: "standard", name: "Example Person", email: "synthetic@example.test", language: "en", preferredLocal: "2030-06-01T14:30", timezone: "America/New_York", topic: "General preparation", termsAccepted: true, privacyAccepted: true, termsVersion: TERMS_VERSION, privacyVersion: PRIVACY_VERSION };
 describe("consultation contract", () => {
   it("has one-time authoritative prices and durations", () => {
     expect(PACKAGES).toEqual({ standard: { priceCents: 5900, minutes: 30 }, expert: { priceCents: 9900, minutes: 60 } });

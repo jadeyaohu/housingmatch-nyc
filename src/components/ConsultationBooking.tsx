@@ -9,6 +9,7 @@ export function ConsultationBooking({ lang, initialPackage, enabled }: { lang: L
   const t = consultationCopy[lang];
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<"invalid" | "error" | "limited" | "unavailable" | null>(null);
+  const [verified, setVerified] = useState(false);
   const [reference, setReference] = useState<string | null>(null);
   const busy = useRef(false);
   const attempt = useRef<{ body: string; id: string } | null>(null);
@@ -25,7 +26,7 @@ export function ConsultationBooking({ lang, initialPackage, enabled }: { lang: L
     };
     const body = JSON.stringify(fields);
     if (attempt.current?.body !== body) attempt.current = { body, id: crypto.randomUUID() };
-    const parsed = BookingInput.safeParse({ ...fields, requestId: attempt.current.id });
+    const parsed = BookingInput.safeParse({ ...fields, submissionKey: attempt.current.id });
     if (!parsed.success) { setError("invalid"); return; }
     busy.current = true;
     setPending(true);
@@ -37,15 +38,16 @@ export function ConsultationBooking({ lang, initialPackage, enabled }: { lang: L
       });
       if (response.ok) {
         const result = await response.json();
-        if (result.status !== "requested" || result.id !== parsed.data.requestId || result.paymentStatus !== "not_started") throw new Error("unexpected_response");
+        if (!["awaiting_payment","payment_verified","scheduling_invited"].includes(result.status) || !/^[0-9a-f-]{36}$/.test(result.id) || !["pending","paid"].includes(result.paymentStatus)) throw new Error("unexpected_response");
         setReference(result.id);
+        setVerified(result.status !== "awaiting_payment");
         formElement.reset();
       } else setError(response.status === 400 ? "invalid" : response.status === 429 ? "limited" : "error");
     } catch { setError("error"); }
     finally { busy.current = false; setPending(false); }
   }
   const field = "mt-2 block w-full rounded-xl border border-stone-300 bg-white px-3 py-3 text-base disabled:bg-stone-100";
-  if (reference) return <section role="status" className="rounded-3xl border border-teal-200 bg-teal-50 p-6 sm:p-8"><h1 className="text-3xl font-bold">{t.success}</h1><p className="mt-4 leading-relaxed">{t.successBody}</p><p className="mt-5 break-all text-sm">{t.reference}: {reference}</p><Link href="/quiz" className="mt-6 inline-block font-semibold text-teal-800 underline">{t.free}</Link></section>;
+  if (reference) return <section role="status" className="rounded-3xl border border-teal-200 bg-teal-50 p-6 sm:p-8"><h1 className="text-3xl font-bold">{t.success}</h1><p className="mt-4 leading-relaxed">{verified ? t.verifiedBody : t.successBody}</p><p className="mt-5 break-all text-sm">{t.reference}: {reference}</p><Link href="/quiz" className="mt-6 inline-block font-semibold text-teal-800 underline">{t.free}</Link></section>;
   return <>
     <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{t.bookTitle}</h1>
     <p className="mt-3 text-stone-600">{t.bookIntro}</p>
