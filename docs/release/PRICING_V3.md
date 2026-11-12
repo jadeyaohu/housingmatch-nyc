@@ -1,6 +1,6 @@
 # Pricing v3 incremental Beta — draft, no release approval
 
-> **Latest founder correction:** native EN/中文 consultation cards/form are restored; the external Google Form and retired native-intake statements below are historical, not current behavior. [NATIVE_CONSULTATION.md](NATIVE_CONSULTATION.md) is authoritative for consultation, acknowledgment, manual TEST verification and scheduling. Chat/subscription/analytics behavior below is preserved.
+> **Latest founder correction:** native EN/中文 consultation cards/form are restored; the external Google Form and retired native-intake statements below are historical, not current behavior. [NATIVE_CONSULTATION.md](NATIVE_CONSULTATION.md) is authoritative for consultation, acknowledgment, manual TEST verification and scheduling. For the current functional Preview, recommendations, digest and analytics schema v2, see [PREVIEW_FEATURES.md](PREVIEW_FEATURES.md). Earlier external-Form architecture notes below are historical and must not be implemented.
 
 Approved scope: PR #19 comment https://github.com/jadeyaohu/housingmatch-nyc/pull/19#issuecomment-6809967303, followed by the founder's implementation request. Preserve earlier integration; Codex is the sole code writer. Crosswalk unavailable; GitHub authoritative fallback. Muse owns independent UI/QA, not implementation. Nov 14, 2026 8 PM America/New_York remains conditional. **Monetized Beta: NO-GO.**
 

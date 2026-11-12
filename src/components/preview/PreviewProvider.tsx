@@ -1,17 +1,20 @@
 "use client";
-import {createContext,useContext,useState,useEffect,type ReactNode} from "react";
+import {createContext,useContext,useState,useEffect,useRef,type ReactNode} from "react";
 import {usePathname}from"next/navigation";
+import type{DemoProfile}from"@/lib/recommendations/model";
+import{documentChannel}from"@/lib/analytics/acquisition";
+import type{FunnelEvent}from"@/lib/analytics/funnel";
 import type{Plan}from"@/lib/subscriptions/model";
 export type DemoApplication={id:string;listingId:string;title:string;stage:"unknown"|"awaiting"|"submitted"|"lottery_closed"|"log_number_received"|"under_review"|"selected"|"not_selected";date:string};
 export type DemoRequest={id:string;package:"standard"|"expert";language:"en"|"zh";state:"awaiting_payment"|"scheduling_invited"};
-export type DemoEvent={event:string;language:"en"|"zh";plan:Plan;at:string};
-type State={signedIn:boolean;plan:Plan;saved:string[];applications:DemoApplication[];requests:DemoRequest[];alerts:boolean;alertFrequency:"daily"|"weekly";day:string;used:number;analytics:boolean;events:DemoEvent[]};
-const initial:State={signedIn:false,plan:"free",saved:[],applications:[],requests:[],alerts:false,alertFrequency:"weekly",day:"",used:0,analytics:false,events:[]};
+export type DemoEvent=FunnelEvent;
+type State={signedIn:boolean;profile:DemoProfile;plan:Plan;saved:string[];applications:DemoApplication[];requests:DemoRequest[];alerts:boolean;alertFrequency:"daily"|"weekly";day:string;used:number;analytics:boolean;events:DemoEvent[]};
+const initial:State={signedIn:false,profile:"family",plan:"free",saved:[],applications:[],requests:[],alerts:false,alertFrequency:"weekly",day:"",used:0,analytics:false,events:[]};
 const Context=createContext<{enabled:boolean;state:State;update:(fn:(old:State)=>State)=>void;record:(event:string,language:"en"|"zh")=>void}|null>(null);
 export function PreviewProvider({enabled,children,lang="en"}:{enabled:boolean;children:ReactNode;lang?:"en"|"zh"}){
- const[state,setState]=useState(initial);const path=usePathname();
- useEffect(()=>{if(!enabled)return;const event=path==="/"?"landing_visit":path==="/pricing"?"subscription_page_view":null;if(event)setState(s=>!s.analytics?s:{...s,events:[...s.events.slice(-199),{event,language:lang,plan:s.plan,at:new Date().toISOString()}]});},[path,enabled,lang]);
- function record(event:string,language:"en"|"zh"){setState(s=>!s.analytics?s:{...s,events:[...s.events.slice(-199),{event,language,plan:s.plan,at:new Date().toISOString()}]});}
+ const[state,setState]=useState(initial);const path=usePathname();const visit=useRef<string|null>(null);
+ useEffect(()=>{if(!enabled)return;const event=path==="/"?"landing_visit":path==="/pricing"?"subscription_page_view":null;if(event)setState(s=>!s.analytics?s:{...s,events:[...s.events.slice(-199),{event,language:lang,plan:s.plan,at:new Date().toISOString(),channel:documentChannel(),visit:visit.current??(visit.current=crypto.randomUUID()),origin:"session"}]});},[path,enabled,lang]);
+ function record(event:string,language:"en"|"zh"){setState(s=>!s.analytics?s:{...s,events:[...s.events.slice(-199),{event,language,plan:s.plan,at:new Date().toISOString(),channel:documentChannel(),visit:visit.current??(visit.current=crypto.randomUUID()),origin:"session"}]});}
  return <Context.Provider value={{enabled,state,update:setState,record}}>{children}</Context.Provider>;
 }
 export function usePreview(){const ctx=useContext(Context);return ctx??{enabled:false,state:initial,update:()=>{},record:()=>{}};}

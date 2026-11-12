@@ -1,5 +1,6 @@
 "use client";
 import { usePreview, PreviewNotice } from "./preview/PreviewProvider";
+import { demoFaqAnswer } from "@/lib/chat/demo-faq";
 import { PLANS, nyDay } from "@/lib/subscriptions/model";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -29,7 +30,8 @@ export function Chatbot({ lang, enabled, demo=false }: { lang: Lang; enabled: bo
       if(!preview.state.signedIn){setError(t.login);return;}
       const day=nyDay(new Date()),used=preview.state.day===day?preview.state.used:0;
       if(used>=PLANS[preview.state.plan].messages){setError(t.quota);return;}
-      const answer=lang==="zh"?"DEMO FAQ：Housing Connect 官方申请免费。请核对官方收入表、截止时间及申请要求。本回答是本地合成示例，不是 Gemini 实时回答。":"DEMO FAQ: official Housing Connect applications are free. Check the official income chart, deadline and requirements. This is a local synthetic example, not a live Gemini response.";
+      const answer=demoFaqAnswer(input.data.question,lang);
+      setError("");
       preview.update(s=>({...s,day,used:used+1}));preview.record("chatbot_message",lang);
       setMessages(old=>[...old.slice(-14),{question:input.data.question,answer,source:"faq"}]);setQuestion("");return;
     }

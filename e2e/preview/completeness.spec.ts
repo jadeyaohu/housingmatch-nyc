@@ -1,0 +1,20 @@
+import{test,expect}from'@playwright/test';
+for(const lang of['en','zh']as const){
+ test(`${lang}: recommendations, contextual FAQ, personalized digest and acquisition funnel`,async({page,context},info)=>{
+  await context.addCookies([{name:'lang',value:lang,url:'http://localhost:3260'}]);
+  async function go(href:string,title:string){await page.getByRole('button',{name:lang==='en'?'Open menu':'打开菜单',exact:true}).click();await page.getByRole('dialog').locator(`a[href="${href}"]`).first().click();await page.waitForURL(`**${href}`);await expect(page.locator('main h1').first()).toContainText(title);}
+  await page.goto('/signup');await page.getByRole('button',{name:lang==='en'?'Create / sign in to demo account':'创建 / 登录演示账号',exact:true}).click();
+  const recommendations=page.getByTestId('recommendations');await expect(recommendations.getByTestId('result-demo-exact')).toBeVisible();
+  const preset=page.getByRole('combobox',{name:lang==='en'?'Synthetic household profile':'虚构家庭资料',exact:true});
+  let response=page.waitForResponse(r=>r.url().endsWith('/api/match')&&r.request().postDataJSON().size===1);await preset.selectOption('single');await response;await expect(recommendations).toHaveAttribute('aria-busy','false');await expect(recommendations.getByTestId('result-demo-exact')).toHaveCount(0);
+  response=page.waitForResponse(r=>r.url().endsWith('/api/match')&&r.request().postDataJSON().size===3);await preset.selectOption('family');await response;await expect(recommendations.getByTestId('result-demo-exact')).toBeVisible();
+  await page.screenshot({path:info.outputPath(`recommendations-${lang}-${info.project.name}.png`),fullPage:true});
+  await go('/chat',lang==='en'?'Housing questions':'住房问题');await page.getByRole('checkbox').check();await page.getByRole('textbox').fill(lang==='en'?'What is AMI?':'AMI 收入是什么意思？');await page.getByRole('button',{name:lang==='en'?'Send question':'发送问题',exact:true}).click();await expect(page.locator('article')).toContainText(lang==='en'?'Area Median Income':'地区收入中位数');
+  await go('/pricing',lang==='en'?'Guidance that fits':'选择适合');await page.getByRole('checkbox').first().check();await page.getByRole('button',{name:lang==='en'?'Choose DEMO plan — Smart':'选择演示方案 — 智能',exact:true}).click();await page.getByRole('button',{name:lang==='en'?'Confirm simulated subscription':'确认模拟订阅'}).click();await expect(page.getByText(lang==='en'?'Demo entitlement activated.':'演示权益已开通。')).toBeVisible();
+  await go('/notifications',lang==='en'?'Email listing alerts':'邮件房源提醒');await page.getByRole('checkbox').check();await page.getByRole('button',{name:lang==='en'?'Preview simulated digest':'预览模拟提醒邮件'}).click();await expect(page.getByTestId('digest-recommendations')).toContainText('DEMO Cedar Court');await expect(page.getByTestId('digest-recommendations').getByText('DEMO Secondary Home')).toHaveCount(0);await page.screenshot({path:info.outputPath(`personalized-digest-${lang}-${info.project.name}.png`),fullPage:true});
+  await go('/analytics','GTM');await page.getByRole('button',{name:lang==='en'?'Load labeled sample data':'加载标注的示例数据'}).click();await expect(page.getByRole('checkbox')).not.toBeChecked();await expect(page.getByText('50.0%',{exact:true})).toBeVisible();
+  await page.getByRole('combobox',{name:lang==='en'?'Acquisition channel':'获客渠道',exact:true}).selectOption('email');await page.getByRole('combobox',{name:lang==='en'?'Language':'语言',exact:true}).selectOption('zh');
+  const download=page.waitForEvent('download');await page.getByRole('button',{name:lang==='en'?'Export synthetic aggregate CSV':'导出合成聚合 CSV'}).click();const file=await download;expect(file.suggestedFilename()).toBe('housingmatch-demo-aggregate.csv');const stream=await file.createReadStream();let csv='';for await(const chunk of stream!)csv+=chunk.toString();expect(csv).toContain('observed_visits');expect(csv).not.toMatch(/sample-visit|@|https:/);
+  await page.screenshot({path:info.outputPath(`acquisition-dashboard-${lang}-${info.project.name}.png`),fullPage:true});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+ });
+}

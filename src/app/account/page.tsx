@@ -1,5 +1,6 @@
 import { previewDemoEnabled } from "@/lib/preview/config";
 import { PreviewAccount } from "@/components/preview/PreviewAccount";
+import { Recommendations } from "@/components/Recommendations";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getLang } from "@/lib/lang";
@@ -56,6 +57,7 @@ export default async function Account() {
         <p className="mt-2 text-sm text-stone-600">{t.none}</p>
       )}
       <nav className="mt-5 flex flex-wrap gap-4 text-sm text-teal-800 underline"><Link href="/applications">{lang==="zh"?"申请跟踪":"Application tracker"}</Link><Link href="/notifications">{lang==="zh"?"邮件提醒":"Email alerts"}</Link><Link href="/pricing">{lang==="zh"?"订阅方案":"Plans"}</Link><Link href="/consultation">{lang==="zh"?"咨询请求":"Consultation requests"}</Link></nav>
+      {p&&<Recommendations lang={lang} profile={{size:p.household_size,annualIncome:Number(p.annual_income),rentMax:p.rent_max,boroughs:p.boroughs??[],bedrooms:p.bedrooms??[],hasVoucher:p.voucher==="yes"}}/>}
       <SavedList cfg={cfg} items={saved} lang={lang} />
       <Link href="/quiz" className="mt-6 flex min-h-12 items-center justify-center rounded-xl bg-teal-800 font-semibold text-white hover:bg-teal-900">{p ? t.edit : t.take}</Link>
       <AccountActions cfg={cfg} labels={{ signOut: t.signOut, del: t.del, confirm: t.confirm, deleted: t.deleted, error: t.error }} />

@@ -78,7 +78,7 @@ export function MatchResults({
     return (
       <li key={listing.id} data-testid={`result-${listing.id}`} className="rounded-2xl border border-stone-200 bg-white p-5">
         <div className="flex flex-wrap items-center gap-2">
-          <StatusBadge status={result.status} label={t[result.status]} />
+          <StatusBadge status={result.status} label={result.status==="LIKELY_MATCH"&&lifestyle?.budget==="no"?(lang==="zh"?"收入初步匹配 · 超出租金预算":"Income looks like a fit · over budget"):t[result.status]} />
           {availability && availability !== "verified_open" ? <AvailabilityBadge value={availability} lang={lang} date={collected} /> : null}
           {availability === "verified_open" && listing.listingType && listing.listingType !== "lottery" ? <AvailabilityBadge value={availability} lang={lang} date={collected} /> : null}
           {closing && (

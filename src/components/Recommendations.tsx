@@ -1,0 +1,13 @@
+"use client";
+import{useEffect,useState}from"react";import Link from"next/link";
+import type{Lang}from"@/lib/i18n";import{MatchResults,type Row}from"./MatchResults";
+import{recommendationRows,type MatchProfile}from"@/lib/recommendations/model";import{DemoSaveButton}from"./preview/DemoSaveButton";
+export function useRecommendations(profile:MatchProfile){
+ const[rows,setRows]=useState<Row[]>([]),[pending,setPending]=useState(true),[error,setError]=useState(false),[retry,setRetry]=useState(0);
+ const serialized=JSON.stringify(profile);
+ useEffect(()=>{const controller=new AbortController();setPending(true);setError(false);void fetch('/api/match',{method:'POST',credentials:'same-origin',referrerPolicy:'no-referrer',cache:'no-store',headers:{'Content-Type':'application/json'},body:serialized,signal:controller.signal}).then(async r=>{if(!r.ok)throw Error('unavailable');const d=await r.json();if(!Array.isArray(d.results))throw Error('invalid_response');if(!controller.signal.aborted)setRows(recommendationRows(d.results));}).catch(()=>{if(!controller.signal.aborted)setError(true);}).finally(()=>{if(!controller.signal.aborted)setPending(false);});return()=>controller.abort();},[serialized,retry]);
+ return{rows,pending,error,reload:()=>setRetry(x=>x+1)};
+}
+export function Recommendations({lang,profile,demo=false}:{lang:Lang;profile:MatchProfile;demo?:boolean}){
+ const{rows,pending,error,reload}=useRecommendations(profile),zh=lang==='zh';return <section className="mt-8" data-testid="recommendations" aria-busy={pending}><h2 className="text-2xl font-bold">{zh?'个性化住房建议':'Personalized housing recommendations'}</h2><p className="mt-3 text-sm text-stone-600">{demo?'DEMO · ':''}{zh?'使用现有匹配引擎计算，仅展示主要抽签机会。收入匹配与租金预算是不同维度；缺少规则时须核实，不保证资格。':'Computed by the existing matcher; primary lotteries only. Income fit and rent budget are separate considerations. Missing rules require confirmation; eligibility is never guaranteed.'}</p>{pending&&<p role="status" className="mt-4">{zh?'正在计算建议…':'Calculating recommendations…'}</p>}{error&&<p role="alert" className="mt-4">{zh?'暂时无法计算。':'Unable to calculate right now.'} <button onClick={reload} className="min-h-11 underline">{zh?'重试':'Retry'}</button></p>}{!pending&&!error&&!rows.length&&<p className="mt-4">{zh?'此资料下没有足够证据的主要建议。可使用完整问卷并核对官方规则。':'No primary recommendation with sufficient evidence for this profile. Use the full Quiz and verify official rules.'}</p>}{!pending&&!error&&rows.length>0&&<MatchResults rows={rows} lang={lang} action={demo?(l)=><DemoSaveButton id={l.id} lang={lang}/>:undefined}/>}<Link href="/quiz" className="mt-5 inline-flex min-h-11 items-center text-teal-800 underline">{zh?'免费完整问卷与所有结果':'Free complete Quiz & all results'}</Link></section>;
+}

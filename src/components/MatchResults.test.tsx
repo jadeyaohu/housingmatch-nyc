@@ -205,3 +205,5 @@ describe("long lists", () => {
     expect(screen.queryByTestId("more-NEEDS_REVIEW")).toBeNull();
   });
 });
+
+describe('income fit versus budget clarity',()=>{it.each(['en','zh']as const)('%s distinguishes a likely income fit that exceeds budget',lang=>{const row=rowsFor().find(r=>r.result.status==='LIKELY_MATCH')!;row.lifestyle={borough:null,size:null,budget:'no',rentFrom:1574};render(<MatchResults rows={[row]} lang={lang}/>);expect(within(card(row.listing.id)).getByText(lang==='en'?'Income looks like a fit · over budget':'收入初步匹配 · 超出租金预算')).toBeTruthy();expect(row.result.status).toBe('LIKELY_MATCH');});});

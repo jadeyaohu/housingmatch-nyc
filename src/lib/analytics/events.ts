@@ -1,7 +1,9 @@
+import { CHANNELS, documentChannel } from "./acquisition";
 import { z } from "zod";
 export const eventSchema = z.object({
   event: z.enum(["landing_visit", "ami_quiz_complete", "account_registration", "listing_saved", "chatbot_message", "subscription_page_view", "checkout_initiated", "subscription_activated"]),
   language: z.enum(["en", "zh"]),
+  channel: z.enum(CHANNELS).optional(),
   plan: z.enum(["free", "basic", "smart"]).optional(),
 }).strict();
 export type GtmEvent = z.infer<typeof eventSchema>;
@@ -18,5 +20,5 @@ export function trackEvent(input: GtmEvent) {
   visit ??= crypto.randomUUID();
   const target = window as Window & { dataLayer?: object[] };
   target.dataLayer ??= [];
-  target.dataLayer.push({ ...result.data, schema_version: 1, visit_id: visit });
+  target.dataLayer.push({ ...result.data, channel: documentChannel(), schema_version: 2, visit_id: visit });
 }

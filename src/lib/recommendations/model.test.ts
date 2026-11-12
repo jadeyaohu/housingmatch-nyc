@@ -1,0 +1,7 @@
+import{describe,it,expect}from'vitest';import{syntheticListings}from'@/lib/testing/listings';import{recommendationRows,DEMO_PROFILES}from'./model';import type{Row}from'@/components/MatchResults';
+const listing=syntheticListings('2026-11-12')[0];const row=(id:string,status:Row['result']['status']='LIKELY_MATCH'):Row=>({listing:{...listing,id,projectName:id},result:{status,outcomes:[],reasons:[]}as unknown as Row['result'],availability:'verified_open',lifestyle:{borough:null,size:null,budget:'yes',rentFrom:1000}});
+describe('recommendation selection',()=>{
+ it('never mixes secondary opportunities or confirmed closed/unlikely rows into primary recommendations',()=>{const r=row('secondary');r.listing={...r.listing,listingType:'rerental',isRerental:true};const closed=row('closed');closed.availability='confirmed_closed';expect(recommendationRows([r,closed,row('unlikely','UNLIKELY_MATCH'),row('review','NEEDS_REVIEW')]).map(x=>x.listing.id)).toEqual(['review']);});
+ it('retains income fit as a separate dimension, ranks affordable peers first, and never mutates response rows',()=>{const high=row('above-budget');high.lifestyle!.budget='no';const low=row('within-budget');const data=[high,low];expect(recommendationRows(data).map(x=>x.listing.id)).toEqual(['within-budget','above-budget']);expect(data[0]).toBe(high);expect(high.result.status).toBe('LIKELY_MATCH');});
+ it('uses fixed synthetic profiles without collecting real personal inputs',()=>{expect(DEMO_PROFILES.family).toEqual({size:3,annualIncome:60000,rentMax:1800});});
+});
