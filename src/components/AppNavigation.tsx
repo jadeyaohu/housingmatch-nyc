@@ -5,13 +5,13 @@ import {useEffect,useRef,useState}from"react";
 import {LangToggle}from"./LangToggle";
 import {usePreview}from"./preview/PreviewProvider";
 import type{Lang}from"@/lib/i18n";
-const tabs=[{href:"/listings",en:"Explore",zh:"房源",path:"M3 21V8l9-5 9 5v13M8 21v-6h8v6M8 9h1m6 0h1m-8 3h1m6 0h1"},{href:"/quiz",en:"Match",zh:"匹配",path:"M4 4h16v16H4zM8 8h8M8 12h3m-3 4h8"},{href:"/chat",en:"Ask AI",zh:"AI助手",path:"M4 4h16v12H9l-5 4zM8 9h1m3 0h1m3 0h1"},{href:"/account",en:"My",zh:"我的",path:"M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M4 21a8 8 0 0 1 16 0"}];
+const tabs=[{href:"/listings",en:"Explore",zh:"房源",path:"M3 21V8l9-5 9 5v13M8 21v-6h8v6"},{href:"/account",en:"Profile",zh:"我的",path:"M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M4 21a8 8 0 0 1 16 0"},{href:"/applications",en:"Applications",zh:"申请",path:"M4 4h16v16H4zM8 8h8M8 12h8m-8 4h5"},{href:"/help",en:"Support",zh:"帮助",path:"M12 17h.01M9 8a3 3 0 0 1 6 0c0 2-3 2-3 5M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20"}];
 export function AppNavigation({lang,signedIn}:{lang:Lang;signedIn:boolean}){
  const path=usePathname(),dialog=useRef<HTMLDialogElement>(null),button=useRef<HTMLButtonElement>(null);
  const[open,setOpen]=useState(false),[keyboard,setKeyboard]=useState(false);const preview=usePreview();
  const authed=signedIn||(preview.enabled&&preview.state.signedIn);
- const links=[...tabs.map(t=>({href:t.href,label:lang==="zh"?t.zh:t.en})),{href:"/saved",label:lang==="zh"?"我的收藏":"My Saved"},{href:"/applications",label:lang==="zh"?"申请跟踪":"Application tracker"},{href:"/notifications",label:lang==="zh"?"邮件提醒":"Email alerts"},{href:"/prepare",label:lang==="zh"?"准备材料":"Get documents ready"},{href:"/pricing",label:lang==="zh"?"订阅方案":"Plans"},{href:"/consultation",label:lang==="zh"?"预约一对一咨询":"Consultation"},{href:"/analytics",label:lang==="zh"?"GTM 仪表盘":"GTM Dashboard"},{href:"/help",label:lang==="zh"?"关于与帮助":"About / help"},{href:"/privacy",label:lang==="zh"?"隐私说明":"Privacy"}];
- const active=(href:string)=>href==="/account"?["/account","/signup","/login","/register","/saved","/applications","/notifications","/pricing","/consultation","/analytics","/help","/prepare"].some(p=>path===p||path.startsWith(p+"/")):href==="/listings"?(path==="/"||path.startsWith("/listings")):href==="/quiz"?(path==="/match"||path.startsWith("/quiz")):path.startsWith(href);
+ const links=[...tabs.map(t=>({href:t.href,label:lang==="zh"?t.zh:t.en})),{href:"/saved",label:lang==="zh"?"我的收藏":"My Saved"},{href:"/quiz",label:lang==="zh"?"AMI 问卷":"AMI Quiz"},{href:"/chat",label:lang==="zh"?"AI 助手":"Ask AI"},{href:"/notifications",label:lang==="zh"?"邮件提醒":"Email alerts"},{href:"/prepare",label:lang==="zh"?"准备材料":"Get documents ready"},{href:"/pricing",label:lang==="zh"?"订阅方案":"Plans"},{href:"/consultation",label:lang==="zh"?"预约一对一咨询":"Consultation"},{href:"/privacy",label:lang==="zh"?"隐私说明":"Privacy"}];
+ const active=(href:string)=>href==="/account"?["/account","/signup","/login","/register","/saved","/notifications","/pricing","/consultation","/prepare"].some(p=>path===p||path.startsWith(p+"/")):href==="/listings"?(path==="/"||path.startsWith("/listings")||path==="/quiz"||path==="/match"):path===href||path.startsWith(href+"/");
  function close(){dialog.current?.close();setOpen(false);button.current?.focus();}
  useEffect(()=>{if(!open)return;const previous=document.body.style.overflow;document.body.style.overflow="hidden";return()=>{document.body.style.overflow=previous;};},[open]);
  useEffect(()=>{dialog.current?.close();},[path]);
@@ -32,7 +32,7 @@ export function AppNavigation({lang,signedIn}:{lang:Lang;signedIn:boolean}){
    </div>
   </dialog>
   <nav aria-label={lang==="zh"?"主导航":"Primary navigation"} data-testid="bottom-navigation" className={`fixed inset-x-0 bottom-0 z-40 grid grid-cols-4 border-t border-stone-200 bg-white/95 px-2 pt-1 pb-[max(env(safe-area-inset-bottom),0.4rem)] backdrop-blur md:hidden ${keyboard?"invisible pointer-events-none":""}`}>
-   {tabs.map(t=><Link key={t.href} href={t.href} aria-current={active(t.href)?"page":undefined} className="flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-xl text-[11px] text-stone-600 aria-[current=page]:bg-teal-50 aria-[current=page]:font-bold aria-[current=page]:text-teal-900"><svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-5 shrink-0"><path d={t.path}/></svg><span className="block whitespace-nowrap px-1 py-0.5 text-xs leading-5">{lang==="zh"?t.zh:t.en}</span></Link>)}
+   {tabs.map(t=><Link key={t.href} href={t.href} aria-current={active(t.href)?"page":undefined} className="flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-xl text-[11px] text-stone-600 aria-[current=page]:bg-teal-50 aria-[current=page]:font-bold aria-[current=page]:text-teal-900"><svg aria-hidden viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" className="size-5 shrink-0"><path d={t.path}/></svg><span className="block whitespace-nowrap px-1 py-0.5 text-[10px] min-[390px]:text-xs leading-5">{lang==="zh"?t.zh:t.en}</span></Link>)}
   </nav>
  </>;
 }

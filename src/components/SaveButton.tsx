@@ -18,8 +18,10 @@ export function SaveButton({ cfg, listingId, initial, lang, onChange }: { cfg: A
   const [err, setErr] = useState(false);
 
   async function toggle() {
+    if (busy) return;
     setBusy(true);
     setErr(false);
+    try {
     const sb = browserClient(cfg);
     const { data } = await sb.auth.getUser();
     if (!data.user) return setBusy(false), setErr(true);
@@ -32,6 +34,7 @@ export function SaveButton({ cfg, listingId, initial, lang, onChange }: { cfg: A
     if (!saved && !error) trackEvent({ event: "listing_saved", language: lang });
     setSaved(!saved);
     onChange?.(!saved);
+    } catch { setErr(true); } finally { setBusy(false); }
   }
 
   return (

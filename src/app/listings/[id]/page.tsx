@@ -2,6 +2,7 @@ import { ListingGallery } from "@/components/ListingGallery";
 import { listingSaveState } from "@/lib/saved/server";
 import { SaveButton } from "@/components/SaveButton";
 import { DemoSaveButton } from "@/components/preview/DemoSaveButton";
+import { SignInToSave } from "@/components/SignInToSave";
 import { previewDemoEnabled } from "@/lib/preview/config";
 import { safeProviderURL } from "@/lib/directory/search";
 import Link from "next/link";
@@ -177,7 +178,7 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
         <AvailabilityBadge value={av} lang={lang} date={checked} />
       </div>
       <ListingGallery lang={lang} listingId={l.id}/>
-      <h1 className="mt-2 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{l.projectName}</h1>{saved?<SaveButton cfg={saved.cfg} listingId={l.id} initial={saved.ids.has(l.id)} lang={lang}/>:previewDemoEnabled()&&<DemoSaveButton id={l.id} lang={lang}/>}
+      <h1 className="mt-2 text-2xl font-bold tracking-tight text-stone-900 sm:text-3xl">{l.projectName}</h1>{saved?<SaveButton cfg={saved.cfg} listingId={l.id} initial={saved.ids.has(l.id)} lang={lang}/>:previewDemoEnabled()?<DemoSaveButton id={l.id} lang={lang}/>:<SignInToSave listingId={l.id} lang={lang}/>}
       <dl className="mt-4 grid grid-cols-[auto_1fr] gap-x-4 gap-y-1 text-sm">
         <dt className="text-stone-500">{t.where}</dt>
         <dd className="text-stone-900">{[l.borough ? boroughLabel[lang][l.borough] : null, l.address].filter(Boolean).join(" · ") || d.notListed}</dd>

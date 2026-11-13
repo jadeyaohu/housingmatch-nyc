@@ -1,3 +1,4 @@
+import { SignInToSave } from "./SignInToSave";
 import { DemoSaveButton } from "./preview/DemoSaveButton";
 import Link from "next/link";
 import type { Listing } from "@/lib/types";
@@ -18,7 +19,7 @@ export function ListingCard({ listing: l, lang, today, demo=false, saveControl }
     <div className="flex flex-1 flex-col p-5">
       <div className="flex flex-wrap items-center gap-2 text-xs"><AvailabilityBadge value={av} lang={lang} date={date}/><span className="rounded-full bg-stone-100 px-2 py-1">{t[`type_${type}`]}</span>{l.isSample && <span className="rounded-full bg-amber-50 px-2 py-1 text-amber-900">{t.sample}</span>}</div>
       <h2 className="mt-4 text-xl font-semibold leading-snug"><Link href={`/listings/${encodeURIComponent(l.id)}`} className="hover:text-teal-800 hover:underline">{l.projectName}</Link></h2>
-      {saveControl ?? (demo && <DemoSaveButton id={l.id} lang={lang}/>)}
+      {saveControl ?? (demo ? <DemoSaveButton id={l.id} lang={lang}/> : <SignInToSave listingId={l.id} lang={lang}/>)}
       <p className="mt-2 text-sm text-stone-600">{l.borough ? boroughLabel[lang][l.borough] : t.notListed}{l.address ? ` · ${l.address}` : ""}</p>
       <dl className="mt-4 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-2 text-sm">
         <dt className="text-stone-500">{t.rent}</dt><dd className="font-semibold">{rents.length ? `$${Math.min(...rents).toLocaleString("en-US")}` : t.notListed}</dd>

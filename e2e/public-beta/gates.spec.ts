@@ -2,11 +2,15 @@ import { test, expect } from "@playwright/test";
 for (const lang of ["en", "zh"] as const) {
   test(`${lang}: hosted customer journeys cannot activate synthetic successes`, async ({ page, context }, info) => {
     await context.addCookies([{ name: "lang", value: lang, url: "http://localhost:3270" }]);
+    await page.goto("/");
+    const tabs = page.getByTestId("bottom-navigation");
+    expect(await tabs.locator("a").evaluateAll(rows => rows.map(a => a.getAttribute("href")))).toEqual(["/listings", "/account", "/applications", "/help"]);
+    await expect(page.locator('a[href="/analytics"]')).toHaveCount(0);
     const writes: string[] = [], statusReads: string[] = [];
     page.on("request", r => { if (r.method() === "POST" && /\/api\/(chat|consultation|subscriptions)/.test(r.url())) writes.push(r.url()); });
     page.on("request", r => { if (new URL(r.url()).pathname === "/api/subscriptions/status") statusReads.push(r.url()); });
     await page.goto("/signup?mode=demo&next=%2Fpricing%3Fplan%3Dsmart");
-    await expect(page.locator("main")).toContainText("登录服务尚未配置");
+    await expect(page.locator("main")).toContainText(lang === "zh" ? "登录服务尚未配置" : "Sign-in setup pending");
     await expect(page.locator("main button")).toHaveCount(0);
     for (const route of ["/", "/listings", "/quiz", "/pricing", "/chat", "/consultation", "/consultation/book", "/analytics", "/help"]) {
       await page.goto(route);

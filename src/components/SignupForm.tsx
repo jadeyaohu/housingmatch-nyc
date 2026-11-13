@@ -1,4 +1,5 @@
 "use client";
+import { PasswordAuth } from "./PasswordAuth";
 import Link from "next/link";
 import { useState } from "react";
 import { browserClient } from "@/lib/supabase/browser";
@@ -8,7 +9,7 @@ import type { Lang } from "@/lib/i18n";
 const C = {
   en: {
     title: "Create your free account",
-    sub: "We'll email you a sign-in link — no password needed. Free, no credit card.",
+    sub: "Use an email sign-in link or email and password. Free, no credit card.",
     email: "Email address",
     send: "Email me a sign-in link",
     sending: "Sending…",
@@ -24,7 +25,7 @@ const C = {
   },
   zh: {
     title: "免费注册账号",
-    sub: "我们会把登录链接发到你的邮箱，不需要设置密码。免费，不需要信用卡。",
+    sub: "可使用邮箱登录链接，或邮箱与密码。账号免费，不需要信用卡。",
     email: "电子邮箱",
     send: "把登录链接发到我的邮箱",
     sending: "发送中…",
@@ -42,6 +43,7 @@ const C = {
 
 export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; lang: Lang; next: string; linkError: boolean }) {
   const t = C[lang];
+  const [passwordMode, setPasswordMode] = useState(false);
   const [accepted, setAccepted] = useState(false);
   const [email, setEmail] = useState("");
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
@@ -71,6 +73,8 @@ export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; la
       <p className="mt-2 text-stone-600">{cfg.google || !cfg.email ? t.subGoogle : t.sub}</p>
       <label className="mt-5 flex items-start gap-3 text-sm leading-relaxed"><input data-testid="account-consent" type="checkbox" checked={accepted} onChange={e=>setAccepted(e.target.checked)} className="mt-1 size-4 shrink-0"/><span>{lang === "zh" ? "我已阅读隐私草案，同意使用邮箱处理免费登录请求。" : "I have read the draft privacy notice and consent to using my email for free sign-in."} <Link href="/privacy" target="_blank" rel="noopener noreferrer" className="text-teal-800 underline">{lang === "zh" ? "隐私草案" : "Draft privacy notice"}</Link></span></label>
       {linkError && state === "idle" && <p className="mt-4 rounded-lg bg-amber-50 p-3 text-sm text-amber-900">{t.linkError}</p>}
+      {cfg.email && <div className="mt-5 flex flex-wrap gap-3"><button type="button" aria-pressed={!passwordMode} onClick={()=>setPasswordMode(false)} className="min-h-11 rounded-lg border px-3">{lang === "zh" ? "邮箱链接" : "Email link"}</button><button type="button" aria-pressed={passwordMode} onClick={()=>setPasswordMode(true)} className="min-h-11 rounded-lg border px-3">{lang === "zh" ? "邮箱与密码" : "Email & password"}</button></div>}
+      {passwordMode ? <PasswordAuth cfg={cfg} lang={lang} next={next} accepted={accepted}/> : <>
       {state === "sent" ? (
         <p data-testid="signup-sent" className="mt-6 rounded-xl bg-teal-50 p-4 text-teal-950">{t.sent}</p>
       ) : (
@@ -117,6 +121,7 @@ export function SignupForm({ cfg, lang, next, linkError }: { cfg: AuthConfig; la
         )}
         </>
       )}
+      </>}
       <p className="mt-6 text-xs leading-relaxed text-stone-500">{t.privacy}</p>
     </div>
   );

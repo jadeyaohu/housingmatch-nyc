@@ -1,7 +1,7 @@
 /** Fixed approved sources only. Never accept a client URL or forward browser credentials. */
-export async function downloadApprovedPhoto(download:string,fetcher:typeof fetch=fetch){
+export async function downloadApprovedPhoto(download:string,fetcher:typeof fetch=fetch,allowedHosts:readonly string[]=['images.pexels.com','unsplash.com','images.unsplash.com']){
  let url=new URL(download);const signal=AbortSignal.timeout(15000);
- const valid=(u:URL)=>u.protocol==='https:'&&!u.username&&!u.password&&!u.hash&&['images.pexels.com','unsplash.com','images.unsplash.com'].includes(u.hostname)&&(!u.port||u.port==='443');
+ const valid=(u:URL)=>u.protocol==='https:'&&!u.username&&!u.password&&!u.hash&&allowedHosts.includes(u.hostname)&&(!u.port||u.port==='443');
  if(!valid(url))throw Error('invalid_photo_origin');
  for(let redirects=0;redirects<4;redirects++){
   const response=await fetcher(url,{method:'GET',redirect:'manual',credentials:'omit',referrerPolicy:'no-referrer',signal,cache:'no-store',headers:{Accept:'image/jpeg,image/png,image/webp'}});

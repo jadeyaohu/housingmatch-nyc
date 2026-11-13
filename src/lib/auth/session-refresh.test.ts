@@ -1,0 +1,10 @@
+import { it, expect, vi, afterEach } from "vitest";
+import { NextRequest } from "next/server";
+const state = vi.hoisted(() => ({ enabled: false, fail: false }));
+vi.mock("@/lib/supabase/config", () => ({ authConfig: () => state.enabled ? { url: "http://localhost:54321", key: "synthetic" } : null }));
+vi.mock("@supabase/ssr", () => ({ createServerClient: (_url: string, _key: string, opts: {cookies:{setAll:(rows:unknown[])=>void}}) => ({ auth: { getUser: async () => { if (state.fail) throw Error("offline"); opts.cookies.setAll([{ name: "sb-synthetic-auth-token", value: "refreshed", options: { httpOnly: true, path: "/", sameSite: "lax" } }]); return { data: { user: null } }; } } }) }));
+import { middleware } from "../../../middleware";
+afterEach(() => { state.enabled = false; state.fail = false; });
+it("passes through unconfigured auth without manufacturing cookies", async () => { const res = await middleware(new NextRequest("https://example.test/account")); expect(res.cookies.getAll()).toHaveLength(0); });
+it("propagates refreshed cookies to both the downstream request and browser", async () => { state.enabled = true; const req = new NextRequest("https://example.test/account"); const res = await middleware(req); expect(req.cookies.get("sb-synthetic-auth-token")?.value).toBe("refreshed"); expect(res.cookies.get("sb-synthetic-auth-token")?.httpOnly).toBe(true); });
+it("does not fabricate auth after provider failure", async () => { state.enabled = true; state.fail = true; const res = await middleware(new NextRequest("https://example.test/account")); expect(res.cookies.getAll()).toHaveLength(0); });

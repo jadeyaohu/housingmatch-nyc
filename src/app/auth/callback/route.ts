@@ -8,10 +8,12 @@ export async function GET(req: Request) {
   const code = url.searchParams.get("code");
   const next = url.searchParams.get("next") ?? "/quiz";
   const safeNext = authReturnPath(next);
+  try {
   const sb = await serverClient();
   if (sb && code) {
     const { error } = await sb.auth.exchangeCodeForSession(code);
     if (!error) return NextResponse.redirect(new URL(safeNext, url.origin));
   }
+  } catch { /* Expired codes and network failures return to sign-in without tokens in the error URL. */ }
   return NextResponse.redirect(new URL("/signup?error=link", url.origin));
 }

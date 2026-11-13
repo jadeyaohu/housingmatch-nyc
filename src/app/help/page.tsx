@@ -15,11 +15,10 @@ export default async function Page() {
     ["/consultation", zh ? "一对一咨询" : "Consultation", bookingConfigured() ? (zh ? "仅获批测试收件人可提交测试请求；不确认预约、不收取真实付款" : "Approved TEST recipients only; requests do not confirm appointments or charge real payments") : pending],
     ["/applications", zh ? "申请跟踪" : "Application tracking", zh ? "登录后保存个人手动记录，不代表官方申请状态" : "Sign in to save personal manual records; these are not official application statuses"],
     ["/notifications", zh ? "房源提醒" : "Listing alerts", zh ? "发送尚未启用；登录后可保存偏好" : "Delivery unavailable; sign in to save preferences"],
-    ["/analytics", zh ? "创始人仪表盘" : "Founder Dashboard", pending],
   ];
   if (demo) modules.forEach(row => { if (!["/listings", "/quiz", "/signup"].includes(row[0])) row[2] = zh ? "本地演示 · 虚构操作，真实服务待连接" : "LOCAL DEMO · synthetic, no real provider operations"; });
   return <section><h1 className="text-3xl font-bold">{zh ? "关于、帮助与功能状态" : "About, help & feature status"}</h1>
-    <p className="mt-4">{zh ? "官方住房申请免费，不保证中签或资格。未开放的服务不会模拟注册、付款或解答成功。" : "Official housing applications are free; no outcome or eligibility is guaranteed. Unavailable services do not simulate successful registration, payment or answers."}</p>
+    <div className="mt-5 rounded-2xl bg-teal-50 p-5"><h2 className="font-semibold">{zh ? "如何申请？" : "How do I apply?"}</h2><p className="mt-3">{zh ? "在房源详情中核对官方要求、截止日期和申请链接。NYC Housing Connect 官方申请免费；本站初步匹配不保证资格或中签。请勿发送社安号或个人证件。" : "Check the official requirements, deadline and application link on each listing. Official NYC Housing Connect applications are free. Preliminary matches do not guarantee eligibility or selection. Do not send SSNs or identity documents."}</p><Link href="/quiz" className="mt-3 inline-block underline">{zh ? "免费 AMI 与资格问卷" : "Free AMI & eligibility Quiz"}</Link></div><p className="mt-4">{zh ? "官方住房申请免费，不保证中签或资格。未开放的服务不会模拟注册、付款或解答成功。" : "Official housing applications are free; no outcome or eligibility is guaranteed. Unavailable services do not simulate successful registration, payment or answers."}</p>
     <div className="mt-6 grid gap-4 sm:grid-cols-2">{modules.map(([href, title, status]) => <article key={href} className="rounded-2xl border bg-white p-5"><Link href={href} className="font-semibold text-teal-900 underline">{title}</Link><p className="mt-2 text-sm">{status}</p></article>)}</div>
     <Link href="/privacy" className="mt-6 inline-block text-teal-800 underline">{zh ? "隐私说明（草案）" : "Privacy notice (draft)"}</Link>
   </section>;

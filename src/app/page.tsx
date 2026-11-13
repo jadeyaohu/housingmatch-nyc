@@ -1,7 +1,7 @@
 import { bookingConfigured } from "@/lib/consultation/config";
 import { previewDemoEnabled } from "@/lib/preview/config";
 import { consultationCopy } from "@/lib/consultation/content";
-import{approvedPhotos,HERO_PHOTO_ID}from"@/lib/photos/model";
+import{approvedPhotos,HERO_PHOTO_ID,listingPhotos}from"@/lib/photos/model";
 import{ListingMedia}from"@/components/ListingMedia";
 import Link from "next/link";
 import { dict } from "@/lib/i18n";
@@ -9,6 +9,8 @@ import { getLang } from "@/lib/lang";
 
 export default async function Home() {
   const lang = await getLang();
+  const actual = (await import("@/lib/photos/property")).propertyPhotos()[0];
+  const heroPhoto = actual ? listingPhotos(`hc-${actual.lotteryId}`)[0] : process.env.BETA_FIXTURES === "synthetic" && !process.env.VERCEL_ENV ? approvedPhotos("home").find(p=>p.id===HERO_PHOTO_ID) : undefined;
   const t = dict[lang];
   const consultationAvailable = bookingConfigured() || previewDemoEnabled();
   const steps = [
@@ -33,7 +35,7 @@ export default async function Home() {
           </Link>
           <p className="mt-3 text-sm text-teal-100">{t.heroCtaNote}</p>
         </div>
-        <div className="relative self-center overflow-hidden rounded-2xl shadow-xl"><ListingMedia lang={lang} photo={approvedPhotos("home").find(p=>p.id===HERO_PHOTO_ID)} layout="hero"/></div>
+        <div className="relative self-center overflow-hidden rounded-2xl shadow-xl"><ListingMedia lang={lang} listingId={heroPhoto?.propertyId ?? undefined} photo={heroPhoto} layout="hero"/></div>
       </section>
 
 
