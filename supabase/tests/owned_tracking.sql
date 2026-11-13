@@ -1,0 +1,24 @@
+begin;
+insert into auth.users values('ab700000-0000-4000-8000-000000000001'),('ab700000-0000-4000-8000-000000000002');
+set local role authenticated;
+select set_config('request.jwt.claim.sub','ab700000-0000-4000-8000-000000000001',true);
+insert into public.application_tracker(id,user_id,title,stage,date) values('ab700000-0000-4000-8000-000000000099',auth.uid(),'Synthetic','submitted','2026-11-12');
+insert into public.notification_preferences(user_id,enabled) values(auth.uid(),true);
+insert into public.notification_preferences(user_id,enabled) values(auth.uid(),false) on conflict(user_id) do update set user_id=excluded.user_id,enabled=excluded.enabled;
+do $$begin begin update public.notification_preferences set consent_updated_at='2000-01-01';raise exception 'forged consent time';exception when insufficient_privilege then null;end;end $$;
+select set_config('request.jwt.claim.sub','ab700000-0000-4000-8000-000000000002',true);
+do $$begin
+ assert(select count(*)=0 from public.application_tracker);
+ assert(select count(*)=0 from public.notification_preferences);
+ begin insert into public.application_tracker(user_id,title,stage,date) values('ab700000-0000-4000-8000-000000000001','Forged','selected','2026-11-12');raise exception 'owner bypass';exception when insufficient_privilege then null;end;
+ update public.application_tracker set stage='selected' where id='ab700000-0000-4000-8000-000000000099';
+ assert not found;
+ delete from public.notification_preferences where user_id='ab700000-0000-4000-8000-000000000001';assert not found;
+end $$;
+select set_config('request.jwt.claim.sub','ab700000-0000-4000-8000-000000000001',true);
+update public.application_tracker set stage='under_review' where id='ab700000-0000-4000-8000-000000000099';
+do $$begin assert(select stage='under_review' from public.application_tracker limit 1);end $$;
+delete from public.application_tracker where user_id=auth.uid();delete from public.notification_preferences where user_id=auth.uid();
+set local role anon;
+do $$begin begin perform * from public.application_tracker;raise exception 'anon read';exception when insufficient_privilege then null;end;end $$;
+rollback;

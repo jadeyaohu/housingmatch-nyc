@@ -123,13 +123,34 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
     const end = parseDate(r["Lottery End Date"]);
     const total = int(r["Unit Count"]);
 
+    const cd = (r["Community Board"] ?? "").trim();
+    const isCd = (x: string) => /^[1-5]\d\d$/.test(x) && Number(x.slice(1)) <= 18;
+    // The lottery row often says "Multiple" or is blank; its buildings carry the real districts
+    // (checked against Housing Connect in Muse T008: 7626 → Brooklyn CB 08; 7625 → Bronx CB 02/05/07).
+    const districts = isCd(cd) ? [cd] : [...new Set(buildings.map((b) => (b["Community Board"] ?? "").trim()).filter(isCd))].sort();
+    const preferences = {
+      communityDistrict: districts.length === 1 ? districts[0] : null,
+      communityDistricts: districts,
+      communityPct: int(r["Lottery Community Board Percentage"]),
+      nychaPct: int(r["Lottery NYCHA Percentage"]),
+      municipalVetPct: int(r["Lottery Municipal Employee/Military Veteran Percentage"]),
+      mobilityPct: int(r["Lottery Mobility Percentage"]),
+      visionHearingPct: int(r["Lottery Vision/Hearing Percentage"]),
+    };
+    // Housing Connect also runs lotteries that only build a waiting list for future vacancies
+    // ("… - Waiting List"). They are secondary listings, never part of the lease-up match count.
+    const isWaitlist = /wait(ing)?[\s-]*list/i.test(r["Lottery Name"] ?? "");
+
     out.push({
       id: `hc-${lotteryId}`,
+      dataSource: "opendata",
+      sourceName: "NYC Open Data",
+      ...(isWaitlist ? { listingType: "waitlist" as const } : {}),
       externalId: lotteryId,
       projectName: r["Lottery Name"].replace(/\s+/g, " "),
       borough,
       address,
-      housingProgram: r["Development Type"] === "Owner" ? "Homeownership" : r["Development Type"] || null,
+      housingProgram: isWaitlist ? "Waiting list" : r["Development Type"] === "Owner" ? "Homeownership" : r["Development Type"] || null,
       unitTypes,
       incomeBands,
       restrictions,
@@ -140,6 +161,7 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
       sourceUrl: OPEN_DATA.lotteriesPage,
       status: statusFromDates(start, end, today),
       lastVerifiedAt: null,
+      preferences: preferences.communityPct || preferences.nychaPct || preferences.municipalVetPct || preferences.mobilityPct || preferences.visionHearingPct ? preferences : null,
       eligibilityNotes:
         [total ? `${total} units` : null, prefs.length ? `Preferences: ${prefs.join(", ")}` : null, r["Lottery Status"] ? `Open Data status: ${r["Lottery Status"]}` : null]
           .filter(Boolean)
@@ -147,4 +169,22 @@ export function fromOpenData(lotteryRows: RawRow[], buildingRows: RawRow[], toda
     });
   }
   return out;
+}
+
+/**
+ * ZIP code → community districts seen at that ZIP in the Open Data buildings and lotteries files.
+ * A ZIP can span several districts, and coverage is only where lottery buildings exist, so this
+ * is a hint, never proof of residence.
+ */
+export function zipDistricts(lotteryRows: RawRow[], buildingRows: RawRow[]): Record<string, string[]> {
+  const m = new Map<string, Set<string>>();
+  for (const raw of [...buildingRows, ...lotteryRows]) {
+    const r = cleanKeys(raw);
+    const zip = (r["Postcode"] ?? "").trim();
+    const cd = (r["Community Board"] ?? "").trim();
+    if (!/^\d{5}$/.test(zip) || !/^[1-5]\d\d$/.test(cd) || Number(cd.slice(1)) > 18) continue;
+    if (!m.has(zip)) m.set(zip, new Set());
+    m.get(zip)!.add(cd);
+  }
+  return Object.fromEntries([...m].sort(([a], [b]) => a.localeCompare(b)).map(([z, s]) => [z, [...s].sort()]));
 }

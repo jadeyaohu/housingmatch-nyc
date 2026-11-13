@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/columbia-street-waterfront-district/columbia-street-waterfront-district-streetscape.jpg",
+  "thumb": "/photos/ny/brooklyn/columbia-street-waterfront-district/columbia-street-waterfront-district-streetscape_thumb.jpg",
+  "title": "Columbia Street in evening light",
+  "description": "A wide street with a bike lane, parked cars and a row of low brick and painted houses catching low evening sun.",
+  "author": "The lorax",
+  "license": "CC0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Columbia_Street_Waterfront_District.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/columbia-street-waterfront-district.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/columbia-street-waterfront-district/columbia-street-waterfront-district-streetscape.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "6a1ad4f5f5ba5f98f6bb1627835ccb6355087d45c50a1760ec0a5e39e2b05ac8"
+}

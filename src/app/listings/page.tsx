@@ -1,84 +1,35 @@
+import { previewDemoEnabled } from "@/lib/preview/config";
+import { listingSaveState } from "@/lib/saved/server";
+import { SaveButton } from "@/components/SaveButton";
+import Form from "next/form";
+import Link from "next/link";
 import { BOROUGHS, UNIT_TYPES } from "@/lib/types";
 import { boroughLabel, dict, unitLabel } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
 import { getListings, todayNY } from "@/lib/data/listings";
-import { lifecycle } from "@/lib/import/normalize";
-
-type SP = Promise<Record<string, string | undefined>>;
-
+import { directoryListings, directoryParams } from "@/lib/directory/search";
+import { parseUnitTypes } from "@/lib/import/normalize";
+import { ListingCard } from "@/components/ListingCard";
+type SP = Promise<Record<string, string | string[] | undefined>>;
 export default async function ListingsPage({ searchParams }: { searchParams: SP }) {
-  const sp = await searchParams;
-  const lang = await getLang();
-  const t = dict[lang];
-  const today = todayNY();
-  const all = await getListings();
-
-  const listings = all
-    .map((l) => ({ l, lc: lifecycle(l, today) }))
-    .filter(({ l, lc }) => (!sp.borough || l.borough === sp.borough) && (!sp.unit || l.unitTypes.includes(sp.unit as never)) && (!sp.status || lc === sp.status) && (!sp.type || (l.listingType ?? "lottery") === sp.type))
-    .sort((a, b) => (a.l.applicationDeadline ?? "9999").localeCompare(b.l.applicationDeadline ?? "9999"));
-
-  const select = "rounded-lg border border-stone-300 bg-white px-3 py-2 text-sm";
-  const lcStyle: Record<string, string> = {
-    new: "bg-teal-50 text-teal-900",
-    open: "bg-teal-50 text-teal-900",
-    closing_soon: "bg-amber-50 text-amber-900",
-    upcoming: "bg-sky-50 text-sky-900",
-    closed: "bg-stone-100 text-stone-600",
-    unknown: "bg-stone-100 text-stone-600",
-  };
-
-  return (
-    <>
-      <h1 className="text-3xl font-bold tracking-tight">{t.navListings}</h1>
-      <form className="mt-6 flex flex-wrap items-end gap-3" aria-label={t.filters}>
-        <select name="borough" defaultValue={sp.borough ?? ""} className={select} aria-label={t.boroughs}>
-          <option value="">{t.boroughs}: {t.any}</option>
-          {BOROUGHS.map((b) => <option key={b} value={b}>{boroughLabel[lang][b]}</option>)}
-        </select>
-        <select name="unit" defaultValue={sp.unit ?? ""} className={select} aria-label={t.bedrooms}>
-          <option value="">{t.bedrooms}: {t.any}</option>
-          {UNIT_TYPES.map((u) => <option key={u} value={u}>{unitLabel[lang][u]}</option>)}
-        </select>
-        <select name="status" defaultValue={sp.status ?? ""} className={select} aria-label={t.status}>
-          <option value="">{t.status}: {t.any}</option>
-          {(["new", "open", "closing_soon", "upcoming"] as const).map((s) => <option key={s} value={s}>{t[`lc_${s}`]}</option>)}
-        </select>
-        <select name="type" defaultValue={sp.type ?? ""} className={select} aria-label={t.type}>
-          <option value="">{t.type}: {t.any}</option>
-          {(["lottery", "rerental", "waitlist"] as const).map((x) => <option key={x} value={x}>{t[`type_${x}`]}</option>)}
-        </select>
-        <button className="rounded-lg bg-teal-800 px-4 py-2 text-sm font-semibold text-white hover:bg-teal-900">{t.apply_filters}</button>
-      </form>
-
-      {listings.length === 0 && <p className="mt-8 text-stone-500">{t.noResults}</p>}
-      <ul className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {listings.map(({ l, lc }) => {
-          const rents = l.incomeBands.map((b) => b.monthlyRent).filter((r): r is number => r != null);
-          return (
-            <li key={l.id} className="flex flex-col rounded-2xl border border-stone-200 bg-white p-5">
-              <div className="flex flex-wrap gap-1.5 text-xs">
-                <span className={`rounded-full px-2 py-0.5 font-medium ${lcStyle[lc]}`}>{t[`lc_${lc}`]}</span>
-                {l.listingType && l.listingType !== "lottery" && <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-indigo-800">{t[`type_${l.listingType}`]}</span>}
-                {l.isSample && <span className="rounded-full bg-violet-50 px-2 py-0.5 text-violet-800">{t.sample}</span>}
-              </div>
-              <h2 className="mt-2 font-semibold leading-snug">{l.projectName}</h2>
-              <dl className="mt-3 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-sm text-stone-600">
-                <dt className="text-stone-500">{t.borough}</dt><dd>{l.borough ? boroughLabel[lang][l.borough] : "—"}</dd>
-                <dt className="text-stone-500">{t.units}</dt><dd>{l.unitTypes.map((u) => unitLabel[lang][u]).join(", ") || "—"}</dd>
-                <dt className="text-stone-500">{t.rent}</dt><dd>{rents.length ? `$${Math.min(...rents).toLocaleString()}` : "—"}</dd>
-                <dt className="text-stone-500">{t.deadline}</dt><dd>{l.applicationDeadline ?? "—"}</dd>
-                <dt className="text-stone-500">{t.source}</dt><dd>{l.sourceName ?? "—"}{l.lastVerifiedAt ? ` · ${t.checked} ${l.lastVerifiedAt}` : ""}</dd>
-              </dl>
-              {l.applicationUrl && (
-                <a href={l.applicationUrl} target="_blank" rel="noopener noreferrer" className="mt-auto pt-4 text-sm font-semibold text-teal-800 underline underline-offset-4">
-                  {t.apply} ↗
-                </a>
-              )}
-            </li>
-          );
-        })}
-      </ul>
-    </>
-  );
+  const sp = directoryParams(await searchParams), lang = await getLang(), t = dict[lang], today = todayNY();
+  const saved=await listingSaveState();
+  const listings = directoryListings(await getListings(),sp,today);
+  const secondary = sp.type === "rerental" || sp.type === "waitlist";
+  const select = "min-h-11 w-full min-w-0 rounded-xl border border-stone-300 bg-white px-3 py-2 text-sm";
+  return <>
+    <header className="max-w-3xl"><p className="text-xs font-bold tracking-widest text-teal-800">{lang === "zh" ? "免费住房搜索" : "FREE HOUSING DISCOVERY"}</p><h1 className="mt-3 text-4xl font-bold tracking-tight">{t.navListings}</h1><p className="mt-4 leading-relaxed text-stone-600">{lang === "zh" ? "浏览房源，核对家庭收入要求，并通过官方渠道免费申请。" : "Explore opportunities, check household income requirements and apply free through official providers."}</p></header>
+    <Link href="/quiz" className="mt-5 inline-flex min-h-12 items-center rounded-xl bg-teal-800 px-5 font-semibold text-white">{lang === "zh" ? "免费 AMI 与资格匹配" : "Free AMI & eligibility match"}</Link>
+    <Form action="/listings" className="mt-7 grid grid-cols-2 gap-3 rounded-2xl border border-stone-200 bg-white p-4 sm:grid-cols-2 lg:grid-cols-6" aria-label={t.filters}>
+      <label className="col-span-2 text-xs font-medium">{lang === "zh" ? "搜索名称、地址或区" : "Search name, address or borough"}<input name="q" type="search" maxLength={120} defaultValue={(sp.q??"").slice(0,120)} className={`${select} mt-1`}/></label>
+      <label className="text-xs font-medium">{t.borough}<select name="borough" defaultValue={sp.borough??""} className={`${select} mt-1`}><option value="">{t.any}</option>{BOROUGHS.map(b=><option key={b} value={b}>{boroughLabel[lang][b]}</option>)}</select></label>
+      <label className="text-xs font-medium">{t.units}<select name="unit" defaultValue={sp.unit ? parseUnitTypes(sp.unit)[0]??"" : ""} className={`${select} mt-1`}><option value="">{t.any}</option>{UNIT_TYPES.map(u=><option key={u} value={u}>{unitLabel[lang][u]}</option>)}</select></label>
+      <label className="text-xs font-medium">{t.type}<select name="type" defaultValue={secondary?sp.type:"lottery"} className={`${select} mt-1`}>{(["lottery","rerental","waitlist"] as const).map(type=><option key={type} value={type}>{t[`type_${type}`]}</option>)}</select></label>
+      <button className="mt-auto min-h-11 rounded-xl bg-teal-800 px-4 py-2 font-semibold text-white">{t.apply_filters}</button>
+    </Form>
+    {secondary ? <aside data-testid="rerental-banner" className="mt-6 rounded-xl border border-dashed border-indigo-300 bg-indigo-50 p-4 text-sm"><p className="font-semibold">{t.rr_heading}</p><ul className="mt-2 space-y-1">{[t.rr_note1,t.rr_note2,t.rr_note3].map(n=><li key={n}>{n}</li>)}</ul></aside> : <p className="mt-5 text-sm text-stone-600">{t.browseLotteriesOnly} <Link href="/listings?type=rerental" className="text-teal-800 underline">{t.browseRerentals}</Link></p>}
+    <p data-testid="listing-count" className="mt-5 text-sm font-medium">{t.showingCount.replace("{n}",String(listings.length))}</p>
+    {!listings.length && <p className="mt-8">{t.noResults}</p>}
+    <ul className="mt-5 grid items-stretch gap-6 md:grid-cols-2 xl:grid-cols-3">{listings.map(l=><ListingCard key={l.id} listing={l} lang={lang} today={today} demo={previewDemoEnabled()} saveControl={saved?<SaveButton cfg={saved.cfg} listingId={l.id} initial={saved.ids.has(l.id)} lang={lang}/>:undefined}/>)}</ul>
+  </>;
 }

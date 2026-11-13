@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/bronx/concourse/grand-concourse-at-165th-street-hero-concourse.jpg",
+  "thumb": "/photos/ny/bronx/concourse/grand-concourse-at-165th-street-hero-concourse_thumb.jpg",
+  "title": "The Grand Concourse looking south at 165th Street",
+  "description": "A very wide roadway under a flat grey sky, seen from the middle of the street. A narrow concrete island runs away from the camera down the centre, paved with metal subway grating and carrying a single ornamental lamppost with scrolled ironwork and two lanterns on curved arms. To the left of the island a broad asphalt carriageway with a double yellow line runs south; to the right, a planted median of low shrubs and bare earth separates it from a second roadway with cars parked along the kerb. Apartment blocks line both sides, mostly five to eight storeys in pale buff and red brick, with a taller white tower with balconies at the far left and a broad light-coloured slab building in the distance. The trees along the kerbs are leafless, traffic lights and a Speed Limit 30 sign stand at the crossing ahead, and a few cars and a bus are stopped in the middle distance.",
+  "author": "Jim.henderson",
+  "license": "Public domain",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Grand_Conc_165_jeh.JPG",
+  "upstreamGuide": "priv/seed_data/bronx/concourse.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/bronx/concourse/grand-concourse-at-165th-street-hero-concourse.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "ef7038ead015510fa4826917e97f52e4d275ac68df1a39488c0f963b5b52f424"
+}

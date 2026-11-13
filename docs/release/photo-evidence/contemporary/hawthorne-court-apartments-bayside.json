@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/queens/bayside/hawthorne-court-apartments-bayside.jpg",
+  "thumb": "/photos/ny/queens/bayside/hawthorne-court-apartments-bayside_thumb.jpg",
+  "title": "Hawthorne Court Apartments",
+  "description": "Brick and stucco buildings with dark red half-timbering and window trim, under steep slate roofs with gables and dormers. A stone arch under a peaked slate hood frames the entrance, a lantern hangs beside it, and a lawn with clipped hedges and an iron-railed walk runs along the front.",
+  "author": "DanTD",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Hawthorne_Court_Apartments;_Bayside,_Queens-1.jpg",
+  "upstreamGuide": "priv/seed_data/queens/bayside.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/queens/bayside/hawthorne-court-apartments-bayside.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "45f2284fee473b4f18384d0761a4e3fc2ab09c0d3bf5e2af0ed535d229face8b"
+}

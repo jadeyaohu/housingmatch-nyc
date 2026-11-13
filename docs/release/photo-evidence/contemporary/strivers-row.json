@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/manhattan/harlem/strivers-row.jpg",
+  "thumb": "/photos/ny/manhattan/harlem/strivers-row_thumb.jpg",
+  "title": "Strivers' Row",
+  "description": "Stanford White rowhouses on West 139th Street in the St. Nicholas Historic District.",
+  "author": "Alberto-g-rovi",
+  "license": "CC BY 3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Strivers%27_Row-2023_01.jpg",
+  "upstreamGuide": "priv/seed_data/manhattan/harlem.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/manhattan/harlem/strivers-row.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "77c239101f3f3ce285f61a74630dda928fc5fe9f8ffec99443596c1cbd877462"
+}

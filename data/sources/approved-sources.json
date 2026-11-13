@@ -1,0 +1,14 @@
+{
+  "_doc": "Beta integration: no historical collector approval is treated as current independent source/license verification. All Muse sources remain pending; explicit Open Data/manual policy is unchanged. Propose approvals only after evidence review and founder release approval.",
+  "approved": {},
+  "pending": {
+    "Housing Connect": "Historical report retained in source PR; requires current Issue #18 source/link/availability review before publication approval.",
+    "MNS": "Historical report retained in source PR; requires current Issue #18 source/link/availability review before publication approval.",
+    "Housing Partnership": "Historical report retained in source PR; requires current Issue #18 source/link/availability review before publication approval.",
+    "iAfford": "Historical report retained in source PR; requires current Issue #18 source/link/availability review before publication approval.",
+    "MHANY": "Historical report retained in source PR; requires current Issue #18 source/link/availability review before publication approval.",
+    "Pronto Housing": "Historical report retained in source PR; requires current Issue #18 source/link/availability review before publication approval.",
+    "HDC": "Historical report retained in source PR; requires current Issue #18 source/link/availability review before publication approval.",
+    "TF Cornerstone": "Historical report retained in source PR; requires current Issue #18 source/link/availability review before publication approval."
+  }
+}

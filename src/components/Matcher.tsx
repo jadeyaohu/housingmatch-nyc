@@ -1,10 +1,9 @@
 "use client";
 import { useState } from "react";
-import { BOROUGHS, UNIT_TYPES, type Borough, type Listing, type MatchResult, type UnitType } from "@/lib/types";
+import { BOROUGHS, UNIT_TYPES, type Borough, type UnitType } from "@/lib/types";
 import { boroughLabel, dict, unitLabel, type Lang } from "@/lib/i18n";
-import { StatusBadge } from "./StatusBadge";
-
-type Row = { listing: Listing; result: MatchResult };
+import { MatchResults, type Row } from "./MatchResults";
+import { RerentalSection } from "./RerentalSection";
 
 function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -31,9 +30,9 @@ export function Matcher({ lang }: { lang: Lang }) {
   const [senior, setSenior] = useState(false);
   const [disability, setDisability] = useState(false);
   const [rows, setRows] = useState<Row[] | null>(null);
+  const [rerentals, setRerentals] = useState<Row[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const [showUnlikely, setShowUnlikely] = useState(false);
 
   const toggle = <T,>(arr: T[], v: T, set: (x: T[]) => void) => set(arr.includes(v) ? arr.filter((x) => x !== v) : [...arr, v]);
 
@@ -57,7 +56,9 @@ export function Matcher({ lang }: { lang: Lang }) {
         }),
       });
       if (!res.ok) throw new Error();
-      setRows((await res.json()).results);
+      const data = await res.json();
+      setRows(data.results);
+      setRerentals(data.rerentals ?? []);
     } catch {
       setError(true);
     } finally {
@@ -65,8 +66,6 @@ export function Matcher({ lang }: { lang: Lang }) {
     }
   }
 
-  const visible = rows?.filter((r) => showUnlikely || (r.result.status !== "UNLIKELY_MATCH" && r.result.matchesPreferences)) ?? [];
-  const hidden = (rows?.length ?? 0) - visible.length;
 
   return (
     <div className="grid gap-10 lg:grid-cols-[400px_1fr]">
@@ -138,65 +137,8 @@ export function Matcher({ lang }: { lang: Lang }) {
 
       <section aria-live="polite">
         {error && <p className="rounded-lg bg-red-50 p-4 text-sm text-red-800">{t.error}</p>}
-        {rows && (
-          <>
-            <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2">
-              <h2 className="text-xl font-semibold text-stone-900">{t.results}</h2>
-              {hidden > 0 || showUnlikely ? (
-                <label className="flex items-center gap-2 text-sm text-stone-600">
-                  <input type="checkbox" checked={showUnlikely} onChange={(e) => setShowUnlikely(e.target.checked)} className="accent-teal-800" />
-                  {t.showUnlikely} ({hidden || ""})
-                </label>
-              ) : null}
-            </div>
-            <p className="mb-4 rounded-lg bg-stone-100 px-4 py-2.5 text-sm text-stone-700">{t.disclaimerShort}</p>
-            {visible.length === 0 && <p className="text-stone-500">{t.noResults}</p>}
-            <ul className="space-y-4">
-              {visible.map(({ listing, result }) => (
-                <li key={listing.id} className="rounded-2xl border border-stone-200 bg-white p-5">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <StatusBadge status={result.status} label={t[result.status]} />
-                    {!result.matchesPreferences && <span className="text-xs text-stone-500">{t.outsidePrefs}</span>}
-                    {listing.listingType && listing.listingType !== "lottery" && (
-                      <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-800">{t[`type_${listing.listingType}`]}</span>
-                    )}
-                    {listing.isSample && <span className="rounded bg-violet-50 px-1.5 py-0.5 text-xs text-violet-800">{t.sample}</span>}
-                  </div>
-                  <h3 className="mt-2 text-lg font-semibold text-stone-900">{listing.projectName}</h3>
-                  <p className="text-sm text-stone-600">
-                    {listing.borough ? boroughLabel[lang][listing.borough] : "—"}
-                    {listing.unitTypes.length > 0 && " · " + listing.unitTypes.map((u) => unitLabel[lang][u]).join(", ")}
-                    {listing.applicationDeadline && ` · ${t.deadline}: ${listing.applicationDeadline}`}
-                  </p>
-                  <details className="mt-3 text-sm">
-                    <summary className="cursor-pointer font-medium text-teal-800">{t.why}</summary>
-                    <ul className="mt-2 space-y-1.5">
-                      {result.outcomes.map((o) => (
-                        <li key={o.rule} className="flex gap-2 text-stone-700">
-                          <span aria-hidden className={o.result === "pass" ? "text-teal-700" : o.result === "fail" ? "text-stone-400" : "text-amber-600"}>
-                            {o.result === "pass" ? "✓" : o.result === "fail" ? "✕" : "?"}
-                          </span>
-                          {o.reason[lang]}
-                        </li>
-                      ))}
-                    </ul>
-                  </details>
-                  {listing.sourceName && (
-                    <p className="mt-3 text-xs text-stone-500">
-                      {listing.dataSource === "muse" ? t.autoCollected : t.source}: {listing.sourceName}
-                      {listing.lastVerifiedAt && ` · ${t.checked} ${listing.lastVerifiedAt}`}
-                    </p>
-                  )}
-                  {listing.applicationUrl && (
-                    <a href={listing.applicationUrl} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold text-teal-800 underline underline-offset-4">
-                      {t.apply} ↗
-                    </a>
-                  )}
-                </li>
-              ))}
-            </ul>
-          </>
-        )}
+        {rows && <MatchResults rows={rows} lang={lang} />}
+        {rows && <RerentalSection rows={rerentals} lang={lang} />}
       </section>
     </div>
   );

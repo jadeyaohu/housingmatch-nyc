@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/dumbo/manhattan-bridge-washington-street-dumbo.jpg",
+  "thumb": "/photos/ny/brooklyn/dumbo/manhattan-bridge-washington-street-dumbo_thumb.jpg",
+  "title": "The Manhattan Bridge from Washington Street",
+  "description": "A tower of the Manhattan Bridge seen down Washington Street, framed by Dumbo's brick warehouse blocks.",
+  "author": "Christian David",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Manhattan_Bridge_and_Empire_State_Building_from_Washington_Street,_Dumbo,_Brooklyn,_New_York.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/dumbo.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/dumbo/manhattan-bridge-washington-street-dumbo.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "917cae21bc6c8601dd389dab5c755f026d22640dec4bcf1c741ae3cc0d503f40"
+}

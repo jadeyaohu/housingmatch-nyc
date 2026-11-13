@@ -50,6 +50,42 @@ const hh = (o: Partial<Household> = {}): Household => ({
 });
 
 describe("matchListing", () => {
+  it("does not treat a missing published minimum as a zero-dollar minimum", () => {
+    const result = matchListing(hh(), listing({ incomeBands: [band({ minIncome: null })] }), config);
+    expect(result.status).toBe("NEEDS_REVIEW");
+    expect(result.outcomes.find((o) => o.rule === "income")?.result).toBe("unknown");
+  });
+
+  it("requires income and household-size requirements to be known on the same fitting band", () => {
+    const result = matchListing(hh(), listing({ incomeBands: [
+      band({ maxIncomeByHouseholdSize: { "2": 50000 } }),
+      band({ householdSizeMin: null, householdSizeMax: null, maxIncomeByHouseholdSize: { "2": 100000 } }),
+    ] }), config);
+    expect(result.outcomes.find((o) => o.rule === "household_size")?.result).toBe("pass");
+    expect(result.outcomes.find((o) => o.rule === "income")?.result).toBe("unknown");
+    expect(result.status).toBe("NEEDS_REVIEW");
+  });
+
+  it("a complete published fit is not downgraded merely because another band is estimated", () => {
+    const result = matchListing(hh(), listing({ unitTypes: ["1br", "2br"], incomeBands: [band({ unitTypes: ["1br"] }), band({ unitTypes: ["2br"], amiPercent: 80, maxIncomeByHouseholdSize: null })] }), config);
+    expect(result.status).toBe("LIKELY_MATCH");
+    expect(result.quality?.fits).toEqual([{ unitTypes: ["1br"], amiPercent: null }]);
+  });
+
+  it("does not call a requested bedroom size a preference match based on a different exact qualifying unit", () => {
+    const result = matchListing(hh({ bedrooms: ["2br"] }), listing({ unitTypes: ["1br", "2br"], incomeBands: [
+      band({ unitTypes: ["1br"] }), band({ unitTypes: ["2br"], minIncome: 70000 }),
+    ] }), config);
+    expect(result.status).toBe("LIKELY_MATCH"); // Still eligible for the 1BR row, not the requested 2BR.
+    expect(result.matchesPreferences).toBe(false);
+  });
+
+  it("keeps an unpaired whole-building income row uncertain when several unit sizes are listed", () => {
+    const result = matchListing(hh(), listing({ unitTypes: ["1br", "2br"], incomeBands: [band({ unitTypes: [] })] }), config);
+    expect(result.status).toBe("NEEDS_REVIEW");
+    expect(result.quality?.fits).toEqual([]);
+  });
+
   it("LIKELY_MATCH when income within an explicit published band", () => {
     const r = matchListing(hh(), listing(), config);
     expect(r.status).toBe("LIKELY_MATCH");

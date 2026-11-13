@@ -5,6 +5,7 @@
 // else LIKELY_MATCH. Results are preliminary and never an official determination.
 
 import { amiMaxIncome } from "../ami";
+import { assessQuality, hasPublishedRequirements, STATUS_ORDER, TIER_ORDER } from "./quality";
 import type {
   Household,
   IncomeBand,
@@ -150,7 +151,7 @@ const incomeRule: Rule = {
     }
 
     let fits = false;
-    let fitsEstimated = false;
+    let fitsPublished = false;
     let unknown = false;
     let belowMinWithVoucher = false;
     let belowCategory = false;
@@ -179,12 +180,23 @@ const incomeRule: Rule = {
         }
       }
       fits = true;
-      if (estimated) fitsEstimated = true;
+      // All requirements must be known on the SAME fitting row. A different row's
+      // household-size pass cannot complete this row, and a missing minimum is not zero.
+      if (!estimated && hasPublishedRequirements(band, household.size, listing.unitTypes)) fitsPublished = true;
       ctx.qualifyingBands.push(band);
     }
 
-    if (fits && !fitsEstimated) {
+    if (fitsPublished) {
       return { rule: "income", result: "pass", reason: { en: "Your income falls within a published income band.", zh: "您的收入在公布的收入范围内。" } };
+    }
+    if (fits && ctx.qualifyingBands.some((b) => b.maxIncomeByHouseholdSize?.[String(household.size)] != null)) {
+      return {
+        rule: "income", result: "unknown",
+        reason: {
+          en: "A potentially fitting income row is missing its published minimum income, household-size limits, or unit-size pairing. Confirm the complete requirements on the official listing.",
+          zh: "可能符合的收入档缺少已公布的最低收入、家庭人数限制或户型对应关系，请在官方页面核实完整要求。",
+        },
+      };
     }
     if (fits) {
       const cats = [...new Set(ctx.qualifyingBands.map((b) => b.amiCategory).filter(Boolean))];
@@ -193,8 +205,8 @@ const incomeRule: Rule = {
         rule: "income",
         result: "unknown",
         reason: {
-          en: `Your income appears to fit${catNote.en}, but this is estimated from the HPD AMI table — confirm against the listing's own income chart.`,
-          zh: `根据 HPD 的 AMI 表估算您的收入可能符合${catNote.zh}，请以项目官方收入表为准。`,
+          en: `Estimated only from a general HPD income category${catNote.en}, not this lottery's own income chart. Whether you qualify for a specific unit or household size is unknown — check the official listing.`,
+          zh: `仅根据 HPD 的一般收入类别估算${catNote.zh}，并非该项目自己的收入表。您是否符合某个户型或家庭人数的要求尚不确定，请查看官方页面。`,
         },
       };
     }
@@ -203,8 +215,8 @@ const incomeRule: Rule = {
         rule: "income",
         result: "unknown",
         reason: {
-          en: "Your income is below these units' AMI range, so you may not meet the minimum income — check the listing's income chart.",
-          zh: "您的收入低于这些单位的 AMI 范围，可能达不到最低收入要求，请查看项目收入表。",
+          en: "Our data lists only a broad income category for these units, and your income is below its estimated range. Whether you meet this lottery's minimum income is unknown — check the official income chart.",
+          zh: "我们的数据仅有这些单位的大致收入类别，您的收入低于该类别的估算范围。是否达到该项目的最低收入要求尚不确定，请查看官方收入表。",
         },
       };
     }
@@ -239,6 +251,26 @@ const incomeRule: Rule = {
   },
 };
 
+/**
+ * Neutral, PO-approved sentences for restriction codes we can't evaluate from the household form
+ * (Issue #5 / PR #6). They never assert exclusive housing and never expose the raw code.
+ * Copy-only: these codes always evaluate to `ok: null` (unknown), exactly as before.
+ */
+const OTHER_RESTRICTION_COPY: Record<string, { en: string; zh: string }> = {
+  veteran: {
+    en: "This lottery may have veteran-related preferences or eligibility rules; check the official listing.",
+    zh: "该项目涉及退伍军人相关优先权或资格规定，请查看官方要求。",
+  },
+  student: {
+    en: "This lottery may have student-related eligibility rules; check the official listing.",
+    zh: "该项目涉及学生身份相关规定，请查看官方要求。",
+  },
+};
+const UNKNOWN_RESTRICTION_COPY = {
+  en: "This lottery may have other special eligibility rules; check the official listing.",
+  zh: "该项目可能存在其他特殊申请规定，请查看官方要求。",
+};
+
 const restrictionRule: Rule = {
   name: "restrictions",
   evaluate: ({ household, listing }) => {
@@ -246,24 +278,39 @@ const restrictionRule: Rule = {
     if (r.length === 0) {
       return { rule: "restrictions", result: "pass", reason: { en: "No special household restrictions.", zh: "无特殊家庭限制。" } };
     }
-    const checks: Array<{ ok: boolean | null; en: string; zh: string }> = r.map((x) => {
+    // `label` = codes we can describe inside the existing sentence template; `other` = codes that
+    // get their own neutral sentence. `ok` is computed exactly as before (other codes → null).
+    const checks: Array<{ ok: boolean | null; label: { en: string; zh: string } | null; other: { en: string; zh: string } | null }> = r.map((x) => {
       switch (x) {
         case "senior_62plus":
-          return { ok: household.hasMember62Plus, en: "senior housing (62+)", zh: "老人住房（62 岁以上）" };
+          return { ok: household.hasMember62Plus, label: { en: "senior housing (62+)", zh: "老人住房（62 岁以上）" }, other: null };
         case "senior_55plus":
-          return { ok: household.hasMember55Plus ?? household.hasMember62Plus, en: "55+ housing", zh: "55 岁以上住房" };
+          return { ok: household.hasMember55Plus ?? household.hasMember62Plus, label: { en: "55+ housing", zh: "55 岁以上住房" }, other: null };
         case "disability":
-          return { ok: household.hasDisability, en: "housing for people with disabilities", zh: "残障人士住房" };
+          return { ok: household.hasDisability, label: { en: "housing for people with disabilities", zh: "残障人士住房" }, other: null };
         default:
-          return { ok: null, en: x, zh: x };
+          return { ok: null, label: null, other: OTHER_RESTRICTION_COPY[x] ?? UNKNOWN_RESTRICTION_COPY };
       }
     });
-    const label = { en: checks.map((c) => c.en).join(", "), zh: checks.map((c) => c.zh).join("、") };
+    const labelled = checks.filter((c) => c.label);
+    const label = { en: labelled.map((c) => c.label!.en).join(", "), zh: labelled.map((c) => c.label!.zh).join("、") };
+    // De-duplicate sentences (e.g. two different unrecognised codes share the generic sentence).
+    const others = [...new Map(checks.filter((c) => c.other).map((c) => [c.other!.en, c.other!])).values()];
+    const join = (lead: { en: string; zh: string } | null) => ({
+      en: [lead?.en, ...others.map((o) => o.en)].filter(Boolean).join(" "),
+      zh: [lead?.zh, ...others.map((o) => o.zh)].filter(Boolean).join(""),
+    });
+
     if (checks.some((c) => c.ok === false)) {
-      return { rule: "restrictions", result: "fail", reason: { en: `This is ${label.en}.`, zh: `该项目为${label.zh}。` } };
+      return { rule: "restrictions", result: "fail", reason: join(labelled.length ? { en: `This is ${label.en}.`, zh: `该项目为${label.zh}。` } : null) };
     }
     if (checks.some((c) => c.ok === null)) {
-      return { rule: "restrictions", result: "unknown", reason: { en: `This is ${label.en} — confirm you qualify.`, zh: `该项目为${label.zh}，请确认是否符合。` } };
+      const unknownLabelled = labelled.some((c) => c.ok === null);
+      return {
+        rule: "restrictions",
+        result: "unknown",
+        reason: join(unknownLabelled ? { en: `This is ${label.en} — confirm you qualify.`, zh: `该项目为${label.zh}，请确认是否符合。` } : null),
+      };
     }
     return { rule: "restrictions", result: "pass", reason: { en: `You meet the ${label.en} requirement.`, zh: `您符合${label.zh}的要求。` } };
   },
@@ -279,34 +326,43 @@ function combine(outcomes: RuleOutcome[]): MatchStatus {
   return "LIKELY_MATCH";
 }
 
-function matchesPreferences(h: Household, l: Listing): boolean {
+function matchesPreferences(h: Household, l: Listing, qualifyingBands: IncomeBand[]): boolean {
   const boroughOk = h.boroughs.length === 0 || (l.borough != null && h.boroughs.includes(l.borough));
-  const bedroomOk = h.bedrooms.length === 0 || l.unitTypes.length === 0 || l.unitTypes.some((u) => h.bedrooms.includes(u));
+  const exactUnits = qualifyingBands.filter((b) => hasPublishedRequirements(b, h.size, l.unitTypes)).flatMap((b) => b.unitTypes);
+  // Inventory elsewhere in the building cannot satisfy a bedroom preference when the
+  // published qualifying rows identify the actual fitting unit sizes.
+  const units = exactUnits.length ? exactUnits : l.unitTypes;
+  const bedroomOk = h.bedrooms.length === 0 || units.length === 0 || units.some((u) => h.bedrooms.includes(u));
   return boroughOk && bedroomOk;
 }
 
 export function matchListing(household: Household, listing: Listing, config: MatchConfig): MatchResult {
   const ctx: RuleContext = { household, listing, config, qualifyingBands: [] };
   const outcomes = RULES.filter((r) => !config.disabledRules?.includes(r.name)).map((r) => r.evaluate(ctx));
+  const status = combine(outcomes);
   return {
     listingId: listing.id,
-    status: combine(outcomes),
-    matchesPreferences: matchesPreferences(household, listing),
+    status,
+    matchesPreferences: matchesPreferences(household, listing, ctx.qualifyingBands),
     outcomes,
     qualifyingBands: ctx.qualifyingBands,
+    quality: assessQuality(listing, household, { status, outcomes, qualifyingBands: ctx.qualifyingBands }, config.today),
   };
 }
 
-const ORDER: Record<MatchStatus, number> = { LIKELY_MATCH: 0, NEEDS_REVIEW: 1, UNLIKELY_MATCH: 2 };
-
-/** Match against many listings; preference-matching results first, then by status and deadline. */
+/**
+ * Match against many listings. Order: preference match first (unchanged), then status
+ * (LIKELY → NEEDS_REVIEW → UNLIKELY), then data tier (Issue #5: published limits before
+ * category-only), then more qualifying bands, then soonest deadline. Never changes any status.
+ */
 export function matchAll(household: Household, listings: Listing[], config: MatchConfig): Array<{ listing: Listing; result: MatchResult }> {
   return listings
     .map((listing) => ({ listing, result: matchListing(household, listing, config) }))
     .sort(
       (a, b) =>
         Number(b.result.matchesPreferences) - Number(a.result.matchesPreferences) ||
-        ORDER[a.result.status] - ORDER[b.result.status] ||
+        STATUS_ORDER[a.result.status] - STATUS_ORDER[b.result.status] ||
+        TIER_ORDER[a.result.quality!.tier] - TIER_ORDER[b.result.quality!.tier] ||
         b.result.qualifyingBands.length - a.result.qualifyingBands.length ||
         (a.listing.applicationDeadline ?? "9999").localeCompare(b.listing.applicationDeadline ?? "9999"),
     );

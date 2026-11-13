@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/manhattan/upper-east-side/park-avenue.jpg",
+  "thumb": "/photos/ny/manhattan/upper-east-side/park-avenue_thumb.jpg",
+  "title": "Park Avenue Architecture",
+  "description": "A prewar apartment building at Park Avenue and 84th Street.",
+  "author": "Deansfa",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:1000_Park_Avenue,_corner_of_84th_Street,_Carnegie_Hill,_Upper_East_Side,_Manhattan,_New_York.jpg",
+  "upstreamGuide": "priv/seed_data/manhattan/upper-east-side.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/manhattan/upper-east-side/park-avenue.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "5d1ff4dc14f1b78ee00082119d06a1e05222dfe1a5f82aef55276ff43f1b8307"
+}

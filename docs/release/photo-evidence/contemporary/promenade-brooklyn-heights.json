@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/brooklyn-heights/promenade-brooklyn-heights.jpg",
+  "thumb": "/photos/ny/brooklyn/brooklyn-heights/promenade-brooklyn-heights_thumb.jpg",
+  "title": "The Promenade above the expressway",
+  "description": "Benches and railing along the Brooklyn Heights Promenade, with the harbor and Lower Manhattan's skyline beyond.",
+  "author": "Acroterion",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Brooklyn_Heights_Promenade_NY1.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/brooklyn-heights.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/brooklyn-heights/promenade-brooklyn-heights.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "70d779fe074eaa3dde63091cf6008ba807cf4ba309e057fd539824cc3b5fb26e"
+}

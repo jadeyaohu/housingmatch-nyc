@@ -1,0 +1,28 @@
+import { test, expect } from "@playwright/test";
+for (const lang of ["en", "zh"] as const) test(`${lang}: password verification, reset and failures use real SDK transport (intercepted test responses)`, async ({ page, context }, info) => {
+  const zh = lang === "zh";
+  await context.addCookies([{ name: "lang", value: lang, url: "http://localhost:3230" }]);
+  let registrations = 0, recoveries = 0;
+  await page.route("http://127.0.0.1:54321/auth/v1/signup**", async route => { registrations++; expect(route.request().postDataJSON()).toMatchObject({ email: "synthetic@example.test", password: "synthetic-long-password" }); await route.fulfill({ json: { user: { id: "11111111-1111-4111-8111-111111111111", email: "synthetic@example.test", identities: [] }, session: null } }); });
+  await page.route("http://127.0.0.1:54321/auth/v1/recover**", async route => { recoveries++; await route.fulfill({ json: {} }); });
+  await page.route("http://127.0.0.1:54321/auth/v1/token**", route => route.fulfill({ status: 400, json: { error_code: "invalid_credentials", msg: "Invalid login credentials" } }));
+  await page.goto("/signup?next=%2Faccount");
+  await page.getByRole("button", { name: zh ? "邮箱与密码" : "Email & password", exact: true }).click();
+  const panel = page.getByTestId("password-auth");
+  await panel.getByRole("button", { name: zh ? "注册" : "Register", exact: true }).click();
+  await panel.getByLabel(zh ? "电子邮箱" : "Email address", { exact: true }).fill("synthetic@example.test");
+  await panel.getByLabel(zh ? "密码" : "Password", { exact: true }).fill("synthetic-long-password");
+  await expect(panel.getByRole("button", { name: zh ? "注册并验证邮箱" : "Register & verify email" })).toBeDisabled();
+  await page.getByTestId("account-consent").check();
+  await panel.getByRole("button", { name: zh ? "注册并验证邮箱" : "Register & verify email" }).click();
+  await expect(panel.getByRole("status")).toContainText(zh ? "验证前不会登录" : "not signed in until verified"); expect(registrations).toBe(1);
+  await panel.getByRole("button", { name: zh ? "忘记密码" : "Forgot password" }).click();
+  await panel.getByRole("button", { name: zh ? "发送重置邮件" : "Send reset email" }).click();
+  await expect(panel.getByRole("status")).toContainText(zh ? "请查收" : "check your inbox"); expect(recoveries).toBe(1);
+  await panel.getByRole("button", { name: zh ? "登录" : "Log in", exact: true }).click();
+  await panel.getByLabel(zh ? "密码" : "Password", { exact: true }).fill("invalid-synthetic-password");
+  await panel.getByRole("button", { name: zh ? "使用密码登录" : "Log in with password" }).click();
+  await expect(panel.getByRole("status")).toContainText(zh ? "无法完成" : "Could not complete");
+  await page.screenshot({ path: info.outputPath(`password-${lang}.png`), fullPage: true });
+  expect(await page.evaluate(() => JSON.stringify(localStorage))).not.toContain("synthetic-long-password");
+});

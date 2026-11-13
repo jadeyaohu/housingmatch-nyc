@@ -9,29 +9,51 @@
     "lint": "eslint",
     "test": "vitest run",
     "import": "tsx scripts/import-listings.ts",
-    "ingest:muse": "tsx scripts/ingest-muse.ts"
+    "ingest:muse": "tsx scripts/ingest-muse.ts",
+    "test:e2e:consultation": "playwright test -c playwright.consultation.config.ts",
+    "test:e2e:results": "playwright test -c playwright.results.config.ts",
+    "test:e2e:beta": "playwright test -c playwright.beta.config.ts",
+    "test:db:beta": "bash scripts/test-beta-db.sh",
+    "test:e2e:v3": "playwright test -c playwright.v3.config.ts",
+    "test:e2e:preview": "playwright test -c playwright.preview.config.ts",
+    "test:e2e:public-beta": "playwright test -c playwright.public-beta.config.ts"
   },
   "dependencies": {
+    "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.119.0",
     "next": "15.5.29",
     "papaparse": "^5.7.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "server-only": "^0.0.1",
+    "stripe": "^23.1.0",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
+    "@playwright/test": "^1.65.0",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/dom": "^10.4.2",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.8",
     "@types/node": "^20",
     "@types/papaparse": "^5.5.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.5.29",
+    "jsdom": "^31.0.0",
     "tailwindcss": "^4",
     "tsx": "^4.23.15",
     "typescript": "^5",
-    "vitest": "^3.2.7"
+    "vitest": "^4.1.12"
+  },
+  "overrides": {
+    "postcss": "^8.5.32",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
+    "@typescript-eslint/parser": "^8.0.0",
+    "@typescript-eslint/typescript-estree": {
+      "minimatch": "^11.0.1"
+    }
   }
 }
