@@ -1,6 +1,6 @@
 import { z } from "zod";
 import catalog from "./property-assets.json";
-export const sourceHosts = ["housingconnect.nyc.gov", "www.settlenyc.com", "settlenyc.com"];
+export const sourceHosts = ["housingconnect.nyc.gov", "a806-housingconnectapi.nyc.gov", "www.settlenyc.com", "settlenyc.com"];
 const publicSource = z.url().refine(value => { const u = new URL(value); return u.protocol === "https:" && sourceHosts.includes(u.hostname) && !u.username && !u.password && !u.search && !u.hash && (!u.port || u.port === "443"); });
 export const propertyPhoto = z.object({
   id: z.string().regex(/^[a-z0-9_-]{1,100}$/), lotteryId: z.string().regex(/^\d+$/),
