@@ -17,3 +17,19 @@ it("accepts the Housing Connect CDN as an image source while preserving existing
   const input = { id: "hc-7726-main", ...identity, imageUrl: "https://a806-housingconnectapi.nyc.gov/MailTemplates/photos/38859098.png", credit: "NYC Housing Connect", permissionReference: "Founder-asserted verbal authorization: HPD phone call + Settle NYC developer conversation, 2026-11-14; no written document on file.", identityReviewedAt: "2026-11-14T00:00:00Z" };
   expect(propertyPhoto.omit({ src: true, width: true, height: true, sha256: true }).safeParse(input).success).toBe(true);
 });
+
+import { isPropertyPhotoReleased } from "./property";
+import release from "./property-release.json";
+describe("property photo publication gate", () => {
+  const granted = { ...release, usageRightsRelease: { reference: "Synthetic release evidence for test only", reviewedAt: "2026-01-01T00:00:00Z" } };
+  it("keeps all 30 reviewed candidates pending rights release", () => {
+    expect(release.visuallyApprovedListingIds).toHaveLength(30);
+    for (const id of release.visuallyApprovedListingIds) expect(isPropertyPhotoReleased(id)).toBe(false);
+  });
+  it("requires both visual approval and dated rights release evidence", () => {
+    expect(isPropertyPhotoReleased("hc-7599", granted)).toBe(true);
+    for (const id of ["hc-7625", "hc-7338", "hc-7659", "unknown"]) expect(isPropertyPhotoReleased(id, granted)).toBe(false);
+    expect(isPropertyPhotoReleased("hc-7599", { ...granted, usageRightsRelease: { reference: " ", reviewedAt: "2026-01-01T00:00:00Z" } })).toBe(false);
+    expect(isPropertyPhotoReleased("hc-7599", { ...granted, usageRightsRelease: { reference: "test", reviewedAt: "2999-01-01T00:00:00Z" } })).toBe(false);
+  });
+});

@@ -1,5 +1,6 @@
 import { z } from "zod";
 import catalog from "./property-assets.json";
+import release from "./property-release.json";
 export const sourceHosts = ["housingconnect.nyc.gov", "a806-housingconnectapi.nyc.gov", "www.settlenyc.com", "settlenyc.com"];
 const publicSource = z.url().refine(value => { const u = new URL(value); return u.protocol === "https:" && sourceHosts.includes(u.hostname) && !u.username && !u.password && !u.search && !u.hash && (!u.port || u.port === "443"); });
 export const propertyPhoto = z.object({
@@ -11,8 +12,19 @@ export const propertyPhoto = z.object({
   width: z.number().int().min(400).max(2400), height: z.number().int().min(300).max(2400), sha256: z.string().regex(/^[a-f0-9]{64}$/),
 }).strict();
 export type PropertyPhoto = z.infer<typeof propertyPhoto>;
+const photoRelease = z.object({
+  visuallyApprovedListingIds: z.array(z.string().regex(/^hc-\d+$/)),
+  usageRightsRelease: z.object({ reference: z.string().trim().min(1), reviewedAt: z.iso.datetime() }).nullable(),
+});
+/** Local pixels and founder-asserted metadata alone do not open the release gate. */
+export function isPropertyPhotoReleased(listingId: string, candidate: unknown = release) {
+  const gate = photoRelease.safeParse(candidate);
+  return gate.success && gate.data.visuallyApprovedListingIds.includes(listingId)
+    && gate.data.usageRightsRelease !== null
+    && Date.parse(gate.data.usageRightsRelease.reviewedAt) <= Date.now();
+}
 export function propertyPhotos(listingId?: string) {
-  return z.array(propertyPhoto).max(200).parse(catalog).filter(p => !listingId || listingId === `hc-${p.lotteryId}`);
+  return z.array(propertyPhoto).max(200).parse(catalog).filter(p => isPropertyPhotoReleased(`hc-${p.lotteryId}`) && (!listingId || listingId === `hc-${p.lotteryId}`));
 }
 const normalize = (text: string) => text.normalize("NFKC").toLowerCase().replace(/[^\p{L}\p{N}]/gu, "");
 export function matchesProperty(photo: Pick<PropertyPhoto, "lotteryId" | "propertyName" | "address" | "source">, listing: { id: string; projectName: string; address?: string | null }) {
