@@ -15,6 +15,9 @@ for(const lang of['en','zh']as const){test(`${lang}: Muse navigation, account re
  await go('/saved');await expect(page.getByTestId('directory-card')).toHaveCount(1);await expect(page.getByTestId('directory-card')).toContainText(zh?'租金起':'Rent');
  await page.reload();await expect(page.getByTestId('demo-reset-warning')).toBeVisible();await expect(page.locator('[data-testid^="demo-save-"]')).toHaveCount(1);
  await go('/help');if(zh){await expect(page.locator('main')).not.toContainText('file catalog');await expect(page.locator('main')).toContainText('待连接');}
- await page.route('**/_next/image?**',route=>route.abort());await go('/listings');await expect(page.getByTestId('directory-card').first()).toContainText(zh?'中性示意图':'Neutral illustration');
+ await page.route('**/_next/image?**',route=>route.abort());await go('/listings');
+ const fallbackCaption = page.getByTestId('directory-card').first().locator('figcaption');
+ await expect(fallbackCaption).toBeVisible();
+ await expect(fallbackCaption).toHaveText(zh ? '建筑示意图 — 非实际房源照片' : 'Illustrative image — not an actual property photo');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });}
