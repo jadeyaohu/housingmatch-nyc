@@ -29,7 +29,12 @@
     "hc-7667",
     "hc-7670",
     "hc-7728",
-    "hc-7718"
+    "hc-7718",
+    "hc-7338",
+    "hc-7625"
   ],
-  "usageRightsRelease": null
+  "usageRightsRelease": {
+    "reference": "Founder-asserted verbal authorization: HPD phone call + Settle NYC developer conversation, 2026-11-14; no written document on file.",
+    "reviewedAt": "2026-11-16T01:18:25Z"
+  }
 }
