@@ -4,7 +4,7 @@ for (const lang of ["en", "zh"] as const) {
     await context.addCookies([{ name: "lang", value: lang, url: "http://localhost:3270" }]);
     await page.goto("/");
     const tabs = page.getByTestId("bottom-navigation");
-    expect(await tabs.locator("a").evaluateAll(rows => rows.map(a => a.getAttribute("href")))).toEqual(["/listings", "/account", "/applications", "/help"]);
+    expect(await tabs.locator("a").evaluateAll(rows => rows.map(a => a.getAttribute("href")))).toEqual(["/listings", "/quiz", "/chat", "/account"]);
     await expect(page.locator('a[href="/analytics"]')).toHaveCount(0);
     const writes: string[] = [], statusReads: string[] = [];
     page.on("request", r => { if (r.method() === "POST" && /\/api\/(chat|consultation|subscriptions)/.test(r.url())) writes.push(r.url()); });
