@@ -44,7 +44,7 @@ export interface IncomeBand {
   unitCount: number | null;
 }
 
-export type ListingType = "lottery" | "rerental" | "waitlist";
+export type ListingType = "lottery" | "rerental" | "waitlist" | "buy";
 export type DataSource = "opendata" | "muse" | "manual";
 
 /**
