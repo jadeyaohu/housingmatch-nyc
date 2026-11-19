@@ -11,7 +11,7 @@ import type { Metadata } from "next";
 import { boroughLabel, dict, unitLabel } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
 import { getListings, todayNY } from "@/lib/data/listings";
-import { availabilityOf } from "@/lib/availability";
+import { availabilityOf, listingTypeOf } from "@/lib/availability";
 import { AvailabilityBadge } from "@/components/AvailabilityBadge";
 import { amiMaxIncome, AMI_TABLE_YEAR } from "@/lib/ami";
 import { districtsLabel } from "@/lib/priority";
@@ -39,6 +39,8 @@ const C = {
     maxIncomeEstimate: "General HPD reference maximum (estimate)",
     incomplete: "Project-specific income requirements are incomplete in our record. Do not treat general AMI references as this lottery's eligibility table; confirm the official chart.",
     rent: "Rent / month",
+    salePrice: "Sale price",
+    salePriceInDetails: "See details",
     count: "Units",
     est: "estimate",
     estNote: "\"estimate\" = the general HPD {y} income limit for that AMI level, not this lottery's own chart. The official chart can be different.",
@@ -81,6 +83,8 @@ const C = {
     maxIncomeEstimate: "HPD 一般参考上限（估算）",
     incomplete: "记录中的项目具体收入要求不完整。请勿把一般 AMI 参考值当作该项目的资格表，请核实官方收入表。",
     rent: "月租",
+    salePrice: "售价",
+    salePriceInDetails: "见详情",
     count: "套数",
     est: "估算",
     estNote: "“估算”= HPD {y} 年对应 AMI 等级的一般收入上限，不是这个抽签自己的收入表。官方收入表可能不同。",
@@ -164,6 +168,7 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
   const d = dict[lang];
   const today = todayNY();
   const av = availabilityOf(l, today);
+  const type = listingTypeOf(l);
   const isHc = l.dataSource !== "muse" || l.sourceName === "Housing Connect";
   const anyEstimate = l.incomeBands.some((b) => !(b.maxIncomeByHouseholdSize && Object.keys(b.maxIncomeByHouseholdSize).length) && b.amiPercent != null);
   const p = l.preferences;
@@ -208,8 +213,8 @@ export default async function ListingDetail({ params }: { params: Promise<{ id: 
                     <dd>{b.minIncome != null ? `$${money(b.minIncome)}` : d.notListed}</dd>
                     <dt className="text-stone-500">{b.maxIncomeByHouseholdSize && Object.keys(b.maxIncomeByHouseholdSize).length ? t.maxIncome : b.amiPercent != null ? t.maxIncomeEstimate : t.maxIncome}</dt>
                     <dd>{incomeCell(b, t)}</dd>
-                    <dt className="text-stone-500">{t.rent}</dt>
-                    <dd>{b.monthlyRent != null ? `$${money(b.monthlyRent)}${b.monthlyRentMax ? `–$${money(b.monthlyRentMax)}` : ""}` : d.notListed}</dd>
+                    <dt className="text-stone-500">{type === "buy" ? t.salePrice : t.rent}</dt>
+                    <dd>{type === "buy" ? t.salePriceInDetails : (b.monthlyRent != null ? `$${money(b.monthlyRent)}${b.monthlyRentMax ? `–$${money(b.monthlyRentMax)}` : ""}` : d.notListed)}</dd>
                     {b.unitCount != null && (<><dt className="text-stone-500">{t.count}</dt><dd>{b.unitCount}</dd></>)}
                   </dl>
                   {incompleteRequirements(b, l) && (
