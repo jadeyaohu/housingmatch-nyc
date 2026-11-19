@@ -7,7 +7,7 @@ export function directoryParams(input: Record<string,string|string[]|undefined>)
 }
 export function directoryListings(all: Listing[], sp: Record<string, string | undefined>, today: string) {
   const unit = sp.unit ? parseUnitTypes(sp.unit)[0] : undefined;
-  const type = ["rerental", "waitlist"].includes(sp.type ?? "") ? sp.type : "lottery";
+  const type = ["rerental", "waitlist", "buy"].includes(sp.type ?? "") ? sp.type : "lottery";
   const q = (sp.q ?? "").trim().slice(0,120).toLocaleLowerCase();
   return all.filter(l => listingTypeOf(l) === type && availabilityOf(l,today) !== "confirmed_closed" &&
     (!sp.borough || l.borough === sp.borough) && (!unit || l.unitTypes.includes(unit)) &&
