@@ -22,7 +22,7 @@ export function ListingCard({ listing: l, lang, today, demo=false, saveControl }
       {saveControl ?? (demo ? <DemoSaveButton id={l.id} lang={lang}/> : <SignInToSave listingId={l.id} lang={lang}/>)}
       <p className="mt-2 text-sm text-stone-600">{l.borough ? boroughLabel[lang][l.borough] : t.notListed}{l.address ? ` · ${l.address}` : ""}</p>
       <dl className="mt-4 grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 gap-y-2 text-sm">
-        <dt className="text-stone-500">{t.rent}</dt><dd className="font-semibold">{rents.length ? `$${Math.min(...rents).toLocaleString("en-US")}` : t.notListed}</dd>
+        <dt className="text-stone-500">{type === "buy" ? t.salePrice : t.rent}</dt><dd className="font-semibold">{type === "buy" ? t.salePriceInDetails : (rents.length ? `$${Math.min(...rents).toLocaleString("en-US")}` : t.notListed)}</dd>
         <dt className="text-stone-500">AMI</dt><dd>{amis.length?`${Math.min(...amis)===Math.max(...amis)?Math.max(...amis):`${Math.min(...amis)}–${Math.max(...amis)}`}% · ${lang==="zh"?"须核对官方收入表":"verify official income chart"}`:t.notListed}</dd>
         <dt className="text-stone-500">{t.units}</dt><dd>{l.unitTypes.map(u=>unitLabel[lang][u]).join(", ") || t.notListed}</dd>
         <dt className="text-stone-500">{t.deadline}</dt><dd>{l.applicationDeadline ?? (type === "lottery" ? t.notListed : t.rolling)}</dd>
