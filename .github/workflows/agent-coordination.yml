@@ -1,0 +1,35 @@
+# Free coordination — GitHub Actions checks only; Codex/Muse run on their own schedules.
+# IMPORTANT: Scheduled workflows run only on the default branch. DO NOT merge this
+# workflow to main without reviewing its possible Vercel Production redeploy.
+name: HousingMatch free agent queue monitor
+
+on:
+  schedule:
+    # Every 30 minutes in UTC = every 30 minutes in New York (DST doesn't matter).
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+concurrency:
+  group: housingmatch-queue-monitor
+  cancel-in-progress: false
+
+jobs:
+  queue-health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Checkout agent queue only
+        uses: actions/checkout@v4
+        with:
+          ref: ops/agent-handoff-queue
+          persist-credentials: false
+      - name: Show pending Codex and Muse tasks
+        run: python3 agents/scripts/queue_health.py
+      - name: Explain execution boundary
+        run: |
+          echo "This workflow is a FREE queue monitor only."
+          echo "Codex and Muse must independently poll their folders using their own schedulers."
+          echo "It does not call an AI API, create tasks, write reports, or deploy code."
