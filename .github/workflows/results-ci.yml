@@ -1,0 +1,53 @@
+# Issue #5 Phase A checks: lint, typecheck, unit/component tests, build, Chromium results e2e.
+# Read-only: no secrets, no deploy, no data writes. Separate file from PR #3's ci.yml so the two
+# PRs never conflict; consolidate after #3/#4 are integrated.
+name: Results CI
+on:
+  pull_request:
+  workflow_dispatch: {}
+permissions:
+  contents: read
+concurrency:
+  group: results-ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npx tsc --noEmit
+      - name: Unit + component tests
+        run: npm test
+      - name: Build
+        run: npm run build
+      - name: Secret-name scan of client bundle
+        run: |
+          if grep -rlE "SUPABASE_SERVICE_ROLE_KEY|RATE_LIMIT_HMAC_SECRET|UPSTASH_REDIS_REST_TOKEN" .next/static; then
+            echo "::error::server-only identifiers found in client bundle"; exit 1
+          fi
+  results-e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: 22, cache: npm }
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: Playwright results (Chromium desktop + mobile, /api/match intercepted with synthetic fixtures)
+        run: npx playwright test -c playwright.results.config.ts
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with: { name: results-screenshots, path: test-results, retention-days: 7 }
