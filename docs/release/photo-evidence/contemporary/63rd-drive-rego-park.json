@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/queens/rego-park/63rd-drive-rego-park.jpg",
+  "thumb": "/photos/ny/queens/rego-park/63rd-drive-rego-park_thumb.jpg",
+  "title": "63rd Drive at Booth Street",
+  "description": "A view along 63rd Drive at Booth Street under a sunset sky streaked pink and grey. Awnings line both kerbs: on the left a fruit and vegetable stand with produce stacked in tiers beneath a yellow canopy and small flags on poles above it, on the right a green awning lettered Queens Bazaar over a shuttered storefront. Cars are parked at an angle along the right kerb, traffic signals hang from mast arms over the crosswalk, overhead wires cross the sky, and brick apartment buildings close the view ahead.",
+  "author": "Leo Chiou",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Rego_park_63rd_drive-1.jpg",
+  "upstreamGuide": "priv/seed_data/queens/rego-park.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/queens/rego-park/63rd-drive-rego-park.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "f8d68e114208efd76f7c805a12b7fd4dd92f5a35f6315696e11a2b0e4862079b"
+}

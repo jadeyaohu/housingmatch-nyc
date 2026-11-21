@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/clinton-hill/clinton-hill-historic-district-clinton-hill.jpg",
+  "thumb": "/photos/ny/brooklyn/clinton-hill/clinton-hill-historic-district-clinton-hill_thumb.jpg",
+  "title": "A mansion in the Clinton Hill Historic District",
+  "description": "A large brick mansion set back behind an iron fence, within the Clinton Hill Historic District.",
+  "author": "Michelb101",
+  "license": "CC BY-SA 3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Clinton_Hill_Historic_District.JPG",
+  "upstreamGuide": "priv/seed_data/brooklyn/clinton-hill.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/clinton-hill/clinton-hill-historic-district-clinton-hill.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "acb0f9ea8cdf1f07ca139729e435853b50ced6b14619a6a3f14a7e5b0258c175"
+}

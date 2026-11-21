@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/queens/sunnyside/phipps-garden-apartments-sunnyside.jpg",
+  "thumb": "/photos/ny/queens/sunnyside/phipps-garden-apartments-sunnyside_thumb.jpg",
+  "title": "Phipps Garden Apartments from 39th Avenue",
+  "description": "A long brick apartment block with green-painted window frames, patterned brickwork panels and a stepped roofline. Raised lettering above the recessed central doorway reads PHIPPS GARDEN APARTMENTS. Bare plane trees, traffic signals and a 39 AV street sign stand at the curb under an overcast winter sky.",
+  "author": "Jim.henderson",
+  "license": "CC0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Phipps_Garden_Apartments_5101_39_Ave_jeh.jpg",
+  "upstreamGuide": "priv/seed_data/queens/sunnyside.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/queens/sunnyside/phipps-garden-apartments-sunnyside.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "f31697c1f8f0c0ba68eb167f04de37cb670ee478651dec9fac1518f97226f33c"
+}

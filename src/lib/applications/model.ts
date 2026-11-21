@@ -1,0 +1,3 @@
+import{z}from"zod";
+export const applicationInput=z.object({title:z.string().trim().min(1).max(100),stage:z.enum(["unknown","awaiting","submitted","lottery_closed","log_number_received","under_review","selected","not_selected"]),date:z.iso.date(),sourceUrl:z.union([z.literal(""),z.url().max(1000).refine(s=>{const u=new URL(s);return u.protocol==="https:"&&!u.username&&!u.password;})])}).strict();
+export const notificationInput=z.object({enabled:z.boolean(),frequency:z.enum(["daily","weekly"]),boroughs:z.array(z.enum(["Manhattan","Brooklyn","Queens","Bronx","Staten Island"])).max(5)}).strict();

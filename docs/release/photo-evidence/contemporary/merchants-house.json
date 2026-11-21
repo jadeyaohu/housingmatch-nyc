@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/manhattan/noho/merchants-house.jpg",
+  "thumb": "/photos/ny/manhattan/noho/merchants-house_thumb.jpg",
+  "title": "Merchant's House Museum",
+  "description": "The exterior of the 1832 rowhouse at 29 East 4th Street.",
+  "author": "Ajay Suresh from New York, NY, USA",
+  "license": "CC BY 2.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Merchant%27s_House_Museum_(48072654706).jpg",
+  "upstreamGuide": "priv/seed_data/manhattan/noho.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/manhattan/noho/merchants-house.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "e8270c1fc56b0c88e93fceebab112db1786fa1ba5a4f996b3eee9ede223e83c5"
+}

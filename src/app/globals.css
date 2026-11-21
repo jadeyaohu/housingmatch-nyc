@@ -3,3 +3,11 @@
 body {
   font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans SC", sans-serif;
 }
+
+@media (max-width: 767px) {
+  html { scroll-padding-bottom: calc(7rem + env(safe-area-inset-bottom)); }
+  main :is(button, input, textarea, select, a) { scroll-margin-bottom: calc(7rem + env(safe-area-inset-bottom)); }
+}
+
+html { scroll-padding-top: 6rem; }
+main :is(button,input,textarea,select,a) { scroll-margin-top: 6rem; }

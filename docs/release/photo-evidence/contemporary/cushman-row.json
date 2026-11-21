@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/manhattan/chelsea/cushman-row.jpg",
+  "thumb": "/photos/ny/manhattan/chelsea/cushman-row_thumb.jpg",
+  "title": "Cushman Row",
+  "description": "The 1840s Greek Revival rowhouses of Cushman Row on West 20th Street, near the site of Clement Clarke Moore's donated seminary land.",
+  "author": "Beyond My Ken",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Cushman_Row_West_20th.jpg",
+  "upstreamGuide": "priv/seed_data/manhattan/chelsea.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/manhattan/chelsea/cushman-row.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "ca744b6dbaa33af3ea2765725fd10e51236b36d8c26156fac03579e740e8d64b"
+}

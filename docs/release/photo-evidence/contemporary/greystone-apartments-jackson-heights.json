@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/queens/jackson-heights/greystone-apartments-jackson-heights.jpg",
+  "thumb": "/photos/ny/queens/jackson-heights/greystone-apartments-jackson-heights_thumb.jpg",
+  "title": "The Greystone Apartments, 35-55 80th Street",
+  "description": "A grey brick facade seen from below, with a limestone entrance surround whose pointed arch carries the number 35-55 above dark glazed double doors. Black lanterns are bracketed to the stone on either side of the opening, small diamond carvings run along the cornice above it, and the windows overhead are set in pale stone frames. Clipped shrubs and a paved walk fill the planted strip in front, with tree branches overhanging at the left.",
+  "author": "Kosboot",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:35-55_80_St,_Queens,_NY.jpg",
+  "upstreamGuide": "priv/seed_data/queens/jackson-heights.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/queens/jackson-heights/greystone-apartments-jackson-heights.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "fa8d6405b9b1ee9c8ff58ffb459cd5baa6dcd174dab72fa04ea47026ebc06da4"
+}

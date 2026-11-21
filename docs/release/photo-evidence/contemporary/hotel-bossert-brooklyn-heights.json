@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/brooklyn-heights/hotel-bossert-brooklyn-heights.jpg",
+  "thumb": "/photos/ny/brooklyn/brooklyn-heights/hotel-bossert-brooklyn-heights_thumb.jpg",
+  "title": "The Bossert, opened in 1909",
+  "description": "The Bossert, one of the Brooklyn Heights hotels built in the early twentieth century, photographed from the corner in winter.",
+  "author": "Jim.henderson",
+  "license": "CC0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Hotel_Bossert_Hicks_Montague_jeh.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/brooklyn-heights.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/brooklyn-heights/hotel-bossert-brooklyn-heights.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "4720579ff36b2565040f34a338d560227f7df865727f0432678e1e3ebd1c2de2"
+}

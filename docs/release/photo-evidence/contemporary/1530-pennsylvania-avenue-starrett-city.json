@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/starrett-city/1530-pennsylvania-avenue-starrett-city.jpg",
+  "thumb": "/photos/ny/brooklyn/starrett-city/1530-pennsylvania-avenue-starrett-city_thumb.jpg",
+  "title": "1530 Pennsylvania Avenue",
+  "description": "A long brick apartment tower rises above a wide avenue and parked cars under a summer sky.",
+  "author": "Tdorante10",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Pennsylvania_Av_Hornell_Loop_td_(2018-08-15)_01_-_1530_Pennsylvania_Avenue.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/starrett-city.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/starrett-city/1530-pennsylvania-avenue-starrett-city.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "f2ca3406cbb31b7db51fe6953f17e977d09cac5ab65a3a6b7524b3fa73e9d5d3"
+}

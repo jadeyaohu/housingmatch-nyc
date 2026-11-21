@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/queens/sunnyside/sunnyside-gardens-historic-district-sunnyside.jpg",
+  "thumb": "/photos/ny/queens/sunnyside/sunnyside-gardens-historic-district-sunnyside_thumb.jpg",
+  "title": "Row houses in the Sunnyside Gardens Historic District",
+  "description": "An attached row of dark brick houses under steeply pitched slate roofs, the end unit gabled and set with dormer and attic windows. Trimmed hedges and low plantings screen the ground-floor bays from the sidewalk, mature plane trees shade the roadway, and cars are parked along both curbs.",
+  "author": "POLozito",
+  "license": "CC BY-SA 3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Sunnyside_Gardens_Historic_District.JPG",
+  "upstreamGuide": "priv/seed_data/queens/sunnyside.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/queens/sunnyside/sunnyside-gardens-historic-district-sunnyside.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "a2407cc1805689c5a1b4c0c50efde2e62bd0a04396b333774973998406f933f0"
+}

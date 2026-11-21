@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/bronx/belmont/arthur-avenue-belmont.jpg",
+  "thumb": "/photos/ny/bronx/belmont/arthur-avenue-belmont_thumb.jpg",
+  "title": "Arthur Avenue in Belmont",
+  "description": "A view along Arthur Avenue between East 184th and East 186th Streets, lined with low-rise brick buildings, awnings over the storefronts, street trees and cars parked along both kerbs.",
+  "author": "Leonard J. DeFrancisci",
+  "license": "CC BY-SA 3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Arthur_Avenue_between_184th_and_186th_Street_in_the_Bronx,_New_York_City_001.jpg",
+  "upstreamGuide": "priv/seed_data/bronx/belmont.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/bronx/belmont/arthur-avenue-belmont.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "65924ab9579debe09d652fefe0cebe67a1f1e8c1866cf1840a199e983c84028a"
+}

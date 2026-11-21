@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/queens/jackson-heights/residential-street-jackson-heights.jpg",
+  "thumb": "/photos/ny/queens/jackson-heights/residential-street-jackson-heights_thumb.jpg",
+  "title": "A residential blockfront in Jackson Heights",
+  "description": "Brick apartment buildings of five and six storeys run the length of one side of a residential street, their projecting corner bays throwing the wall in and out and a black fire escape zigzagging down the near facade. Round-arched windows and a small oval window mark the ground floor, an iron fence and low shrubs edge the sidewalk, and cars are parked at both curbs beneath young trees coming into leaf.",
+  "author": "Jleon at English Wikipedia",
+  "license": "CC BY 2.5",
+  "source_url": "https://commons.wikimedia.org/wiki/File:NYC_Jackson_Heights_3.jpg",
+  "upstreamGuide": "priv/seed_data/queens/jackson-heights.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/queens/jackson-heights/residential-street-jackson-heights.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "5d0291f7acf2697a8bcaae32b89ff87e1bad464e1543922ee07c0853cdcdd742"
+}
