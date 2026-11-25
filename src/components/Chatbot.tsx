@@ -8,7 +8,7 @@ import type { Lang } from "@/lib/i18n";
 import { chatCopy } from "@/lib/chat/content";
 import { chatInput } from "@/lib/subscriptions/model";
 import { trackEvent } from "@/lib/analytics/events";
-type Usage = { used: number; limit: number; plan: "free" | "basic" | "smart" };
+type Usage = { used: number; limit: number | null; plan: "free" | "basic" | "smart" };
 export function Chatbot({ lang, enabled, demo=false }: { lang: Lang; enabled: boolean; demo?: boolean }) {
   const t = chatCopy[lang];
   const zh=lang==="zh";
@@ -36,7 +36,7 @@ export function Chatbot({ lang, enabled, demo=false }: { lang: Lang; enabled: bo
     if(demo){
       if(!preview.state.signedIn){setError("login");return;}
       const day=nyDay(new Date()),used=preview.state.day===day?preview.state.used:0;
-      if(used>=PLANS[preview.state.plan].messages){setError("quota");return;}
+      const demoLimit=PLANS[preview.state.plan].messages; if(demoLimit!==null&&used>=demoLimit){setError("quota");return;}
       const answer=demoFaqAnswer(input.data.question,lang);
       setError("");
       preview.update(s=>({...s,day,used:used+1}));preview.record("chatbot_message",lang);
@@ -59,7 +59,7 @@ export function Chatbot({ lang, enabled, demo=false }: { lang: Lang; enabled: bo
     {demo && <PreviewNotice lang={lang}/>}
     <h1 className="text-xl font-bold sm:text-2xl">{t.title}</h1><p className="mt-1 text-sm text-stone-600">{demo?(zh?"本地 FAQ 演示，不会调用 Gemini。免费房源、AMI 工具与问卷始终开放。":"Local FAQ demo: no Gemini call. Free search, AMI tools and Quiz remain available."):enabled?t.sub:(zh?"AI 助手即将推出。当前可免费搜索房源并使用 AMI 问卷。":"AI guidance is coming soon. Free housing search and the AMI Quiz are available now.")}</p>
     <aside className="my-4 rounded-xl bg-amber-50 px-4 py-3 text-xs leading-relaxed text-amber-950">{t.notice}</aside>
-    {usage && <p className="mb-3 text-sm font-semibold">{t.usage}: {usage.used}/{usage.limit} · {t.reset}</p>}
+    {usage && <p className="mb-3 text-sm font-semibold">{t.usage}: {usage.limit===null?`${usage.used} · ${t.unlimited}`:`${usage.used}/${usage.limit}`} · {t.reset}</p>}
     {!enabled && <p role="status" className="my-5 rounded-xl border p-4">{t.unavailable}</p>}
     {enabled && <div className="overflow-hidden rounded-2xl border bg-white shadow-sm">
       <div ref={scrollRef} aria-live="polite" aria-busy={pending} className="h-[52vh] space-y-4 overflow-y-auto bg-stone-50 p-4 sm:h-[60vh] sm:p-5">
