@@ -1,9 +1,12 @@
 import { z } from "zod";
 
+// Internal plan keys stay basic/smart (Stripe TEST catalog + DB); display names are Lite/Standard.
+// messages: null means unlimited daily chatbot messages. Pro ($19.99) is display-only until its
+// features ship, so it is not a purchasable plan here.
 export const PLANS = {
-  free: { cents: 0, messages: 1 },
+  free: { cents: 0, messages: 5 },
   basic: { cents: 499, messages: 5 },
-  smart: { cents: 999, messages: 15 },
+  smart: { cents: 999, messages: null },
 } as const;
 export type Plan = keyof typeof PLANS;
 export const paidPlan = z.enum(["basic", "smart"]);
