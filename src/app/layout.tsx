@@ -1,9 +1,14 @@
+import { AnalyticsConsent } from "@/components/AnalyticsConsent";
 import type { Metadata } from "next";
 import Link from "next/link";
 import "./globals.css";
 import { dict } from "@/lib/i18n";
 import { getLang } from "@/lib/lang";
-import { LangToggle } from "@/components/LangToggle";
+import { AppNavigation } from "@/components/AppNavigation";
+import { PreviewProvider } from "@/components/preview/PreviewProvider";
+import { previewDemoEnabled } from "@/lib/preview/config";
+import { authConfig } from "@/lib/supabase/config";
+import { currentUser } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
   title: "HousingMatch NYC",
@@ -13,26 +18,18 @@ export const metadata: Metadata = {
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const lang = await getLang();
   const t = dict[lang];
+  const user = authConfig() ? await currentUser() : null;
   return (
     <html lang={lang === "zh" ? "zh-Hans" : "en"}>
-      <body className="min-h-screen bg-stone-50 text-stone-900 antialiased">
-        <header className="border-b border-stone-200 bg-white/80 backdrop-blur">
-          <nav className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 sm:px-5">
-            <Link href="/" className="flex items-center gap-2 whitespace-nowrap font-semibold tracking-tight">
-              <span className="grid h-7 w-7 place-items-center rounded-md bg-teal-800 text-sm text-white">H</span>
-              <span>HousingMatch<span className="hidden sm:inline"> NYC</span></span>
-            </Link>
-            <div className="flex items-center gap-3 whitespace-nowrap text-sm sm:gap-5">
-              <Link href="/" className="hidden text-stone-600 hover:text-stone-900 sm:inline">{t.navMatch}</Link>
-              <Link href="/listings" className="text-stone-600 hover:text-stone-900">{t.navListings}</Link>
-              <LangToggle lang={lang} />
-            </div>
-          </nav>
-        </header>
-        <main className="mx-auto max-w-6xl px-5 py-10">{children}</main>
+      <body className="pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-0 min-h-screen bg-stone-50 text-stone-900 antialiased">
+        <PreviewProvider enabled={previewDemoEnabled()} lang={lang}>
+        <AppNavigation lang={lang} signedIn={!!user}/>
+        {previewDemoEnabled()&&<aside data-testid="demo-reset-warning" className="border-b border-amber-300 bg-amber-100 px-5 py-3 text-center text-sm font-bold text-amber-950">{lang==="zh"?"演示模式：虚构账号、收藏、方案和额度在此浏览器保存最多七天，刷新可继续。退出可清除；不是正式账号，请勿输入真实客户资料。":"PREVIEW DEMO: Synthetic account, saves, plan and quota survive reload in this browser for up to seven days. Sign out to clear. This is not a real account; do not enter customer data."}</aside>}
+        {process.env.BETA_FIXTURES === "synthetic" && <p role="status" className="bg-amber-50 px-5 py-2 text-center text-sm text-amber-950">{lang === "zh" ? "虚构开发数据，非真实住房信息" : "Synthetic development data — not real housing offers"}</p>}
+        <main className="mx-auto max-w-6xl px-5 py-10 pb-32 md:pb-10">{children}</main>
         <footer className="border-t border-stone-200 bg-white">
-          <p className="mx-auto max-w-6xl px-5 py-6 text-xs leading-relaxed text-stone-500">{t.footer}</p>
-        </footer>
+          <p className="mx-auto max-w-6xl px-5 py-6 text-xs leading-relaxed text-stone-500">{t.footer} <Link href="/privacy" className="underline underline-offset-2">{t.privacyNav}</Link></p>
+        <AnalyticsConsent lang={lang}/>{(previewDemoEnabled() || process.env.VERCEL_ENV === "preview")&&<p className="mx-auto max-w-6xl px-5 pb-5 text-xs text-stone-500" data-testid="preview-build">PREVIEW · {process.env.VERCEL_GIT_COMMIT_SHA?.slice(0,12)??"local-synthetic"} · <Link href="/help" className="underline">{lang==="zh"?"功能状态":"Feature status"}</Link></p>}</footer></PreviewProvider>
       </body>
     </html>
   );

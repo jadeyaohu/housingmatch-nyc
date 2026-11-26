@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/manhattan/soho/prince-street-cast-iron.jpg",
+  "thumb": "/photos/ny/manhattan/soho/prince-street-cast-iron_thumb.jpg",
+  "title": "96-104 Prince Street",
+  "description": "A row of cast-iron buildings on Prince Street between Mercer and Greene Streets.",
+  "author": "Beyond My Ken",
+  "license": "CC BY-SA 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:96-104_Prince_Street.jpg",
+  "upstreamGuide": "priv/seed_data/manhattan/soho.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/manhattan/soho/prince-street-cast-iron.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "23072941fbb869fa3e621a4310a3a0c2aec6e86113ea81060f0356e1d01e90ae"
+}

@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/ditmas-park/ditmas-park-historic-district-ditmas-park.jpg",
+  "thumb": "/photos/ny/brooklyn/ditmas-park/ditmas-park-historic-district-ditmas-park_thumb.jpg",
+  "title": "A street in the Ditmas Park Historic District",
+  "description": "Freestanding houses set behind lawns and porches along a tree-lined street, with a flowering tree in the foreground.",
+  "author": "Fuzheado",
+  "license": "CC BY-SA 3.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Ditmas_Park_Historic_District.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/ditmas-park.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/ditmas-park/ditmas-park-historic-district-ditmas-park.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "b9bc5002620ccdd3ded297844ea4c3560a92cc8656b0e803c8403084a36eb629"
+}

@@ -1,0 +1,54 @@
+name: Beta candidate CI
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: beta-ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  candidate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      BETA_FIXTURES: synthetic
+      NEXT_PUBLIC_GTM_EVENTS_ENABLED: 'true' # Synthetic consent/event contract tests only; default production config stays OFF.
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          persist-credentials: false
+      - name: Record exact candidate SHA
+        run: git rev-parse HEAD
+      - uses: actions/setup-node@v4
+        with: {node-version: 24, cache: npm}
+      - run: npm ci
+      - run: npm audit --audit-level=moderate
+      - run: npm run lint
+      - run: npm test
+      - run: npm run test:db:beta
+      - run: npm run build
+      - name: Server-only identifiers must not reach browser bundles
+        run: python3 scripts/check-client-bundle.py
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e:results -- --workers=2
+      - run: npm run test:e2e:consultation -- --workers=2
+      - run: npm run test:e2e:beta -- --workers=2
+      - run: npm run test:e2e:v3 -- --workers=2
+      - run: npm run test:e2e:preview -- --workers=2
+      - run: npm run test:e2e:public-beta -- --workers=2
+      - name: Record evidence candidate SHA
+        if: always()
+        run: |
+          mkdir -p release-evidence
+          git rev-parse HEAD > release-evidence/candidate-sha.txt
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: beta-synthetic-browser-evidence
+          path: |
+            test-results
+            release-evidence
+          retention-days: 7

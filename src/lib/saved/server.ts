@@ -1,0 +1,2 @@
+import"server-only";import{authConfig}from"@/lib/supabase/config";import{currentUser,serverClient}from"@/lib/supabase/server";
+export async function listingSaveState(){const cfg=authConfig();if(!cfg)return null;const user=await currentUser();if(!user)return null;const db=await serverClient();const{data}=await db!.from("saved_listings").select("listing_id").eq("user_id",user.id);return{cfg,ids:new Set((data??[]).map((r:{listing_id:string})=>r.listing_id))};}

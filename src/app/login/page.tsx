@@ -1,0 +1,2 @@
+import{redirect}from"next/navigation";import{authReturnPath}from"@/lib/auth/redirect";
+export default async function Page({searchParams}:{searchParams:Promise<Record<string,string|string[]|undefined>>}){const sp=await searchParams;const params=new URLSearchParams();if(typeof sp.next==='string')params.set('next',authReturnPath(sp.next));if(sp.mode==='demo')params.set('mode','demo');redirect(`/signup${params.size?'?'+params.toString():''}`);}

@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/brooklyn/prospect-lefferts-gardens/tudor-row-house-prospect-lefferts-gardens.jpg",
+  "thumb": "/photos/ny/brooklyn/prospect-lefferts-gardens/tudor-row-house-prospect-lefferts-gardens_thumb.jpg",
+  "title": "A Tudor row house in Prospect Lefferts Gardens",
+  "description": "A brick end-of-row house with a tiled gable, half-timbering and an ivy-covered flank wall, on a Prospect Lefferts Gardens street.",
+  "author": "Gswaggy23",
+  "license": "CC BY 4.0",
+  "source_url": "https://commons.wikimedia.org/wiki/File:Tudor_row_house_in_Prospect_Lefferts_Gardens.jpg",
+  "upstreamGuide": "priv/seed_data/brooklyn/prospect-lefferts-gardens.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/brooklyn/prospect-lefferts-gardens/tudor-row-house-prospect-lefferts-gardens.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "00579c333f2191efffcc9fd0cedd898fcfc5bd84a10e45cd99777807670702ef"
+}

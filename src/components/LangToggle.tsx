@@ -15,7 +15,7 @@ export function LangToggle({ lang }: { lang: Lang }) {
           key={l}
           onClick={() => set(l)}
           aria-pressed={lang === l}
-          className={`rounded-full px-2.5 py-1 transition sm:px-3 ${lang === l ? "bg-teal-800 text-white" : "text-stone-600 hover:text-stone-900"}`}
+          className={`min-h-11 min-w-11 rounded-full px-2.5 py-1 transition sm:px-3 ${lang === l ? "bg-teal-800 text-white" : "text-stone-600 hover:text-stone-900"}`}
         >
           {l === "en" ? "EN" : "中文"}
         </button>

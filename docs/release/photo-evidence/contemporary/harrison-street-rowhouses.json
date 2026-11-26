@@ -1,0 +1,13 @@
+{
+  "src": "/photos/ny/manhattan/tribeca/harrison-street-rowhouses.jpg",
+  "thumb": "/photos/ny/manhattan/tribeca/harrison-street-rowhouses_thumb.jpg",
+  "title": "Federal-era row houses, 25-29 Harrison Street",
+  "description": "The landmarked Federal-era townhouses on Harrison Street.",
+  "author": "Jim.henderson",
+  "license": "Public domain",
+  "source_url": "https://commons.wikimedia.org/wiki/File:25-29_Harrison_jeh.JPG",
+  "upstreamGuide": "priv/seed_data/manhattan/tribeca.json",
+  "download": "https://raw.githubusercontent.com/joestein/ethos/44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc/priv/photos/ny/manhattan/tribeca/harrison-street-rowhouses.jpg",
+  "upstreamCommit": "44d0d8c08a026a0f2c38d990acb84ba1b2f51ecc",
+  "downloadSha256": "9105d440d599d7f88fadb3cb3ab5d7e9b5964ee6138e80fae6644e74ffd81a00"
+}
